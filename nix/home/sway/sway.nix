@@ -71,13 +71,18 @@
 				}
 			];
 
-			keybindings = pkgs.lib.mkOptionDefault {
+			keybindings = let
+				notif = program: notifcmd: "exec sh -c '${program} && ${pkgs.libnotify}/bin/notify-send ${notifcmd}'";
+				light = args: notif "${pkgs.light}/bin/light ${args}" "-a light -h int:value:$(${pkgs.light}/bin/light) Brightness";
+
+			in
+			pkgs.lib.mkOptionDefault {
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
 				"Mod4+w" = "exec ${pkgs.librewolf}/bin/librewolf";
 				"Mod4+d" = "exec ${swayConfig.menu}";
 				"Mod4+backspace" = "exec ${swayConfig.terminal} --class 'sysmenu' -e -sh -c 'sysmenu | xargs -r swaymsg exec --'";
-				F11 = "exec ${pkgs.light}/bin/light -U 1";
-				F12 = "exec ${pkgs.light}/bin/light -A 1";
+				F11 = light "-U 1";
+				F12 = light "-A 1";
 				XF86AudioMute = "exec ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ toggle";
 				XF86AudioLowerVolume = "exec ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_SINK@ 5%-";
 				XF86AudioRaiseVolume = "exec ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_SINK@ 5%+";
