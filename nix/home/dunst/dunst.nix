@@ -6,6 +6,7 @@
 		settings = let
 			bg = "#4c566a";
 			fg = "#eceff4";
+			hl = "#a3be8c";
 		in {
 			global = {
 				monitor = 0;
@@ -35,7 +36,7 @@
 				font = config.gtk.font.name;
 				line_height = 0;
 				markup = "full";
-				format = ''<b>%a</b>\n%s\n%b\n%p'';
+				format = ''<b>%a\n%s</b>\n%b\n%p'';
 				alignment = "center";
 				vertical_alignment = "center";
 				show_age_threshold = 11;
@@ -64,18 +65,21 @@
 			urgency_low = {
 				background = bg;
 				foreground = fg;
+				highlight = hl;
 				timeout = 10;
 			};
 
 			urgency_normal = {
 				background = bg;
 				foreground = fg;
+				highlight = hl;
 				timeout = 10;
 			};
 
 			urgency_critical = {
 				background = bg;
 				foreground = fg;
+				highlight = hl;
 				frame_color = "#bf616a";
 				timeout = 0;
 			};
