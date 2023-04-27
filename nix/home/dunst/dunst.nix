@@ -36,7 +36,7 @@
 				font = config.gtk.font.name;
 				line_height = 0;
 				markup = "full";
-				format = ''<b>%a\n%s</b>\n%b\n%p'';
+				format = ''<b>%s</b>\n%b\n%p'';
 				alignment = "center";
 				vertical_alignment = "center";
 				show_age_threshold = 11;
@@ -82,6 +82,18 @@
 				highlight = hl;
 				frame_color = "#bf616a";
 				timeout = 0;
+			};
+
+			brightness = {
+				summary = "Brightness";
+				set_stack_tag = "synchronous";
+				timeout = 3;
+			};
+
+			volume = {
+				summary = "Volume";
+				set_stack_tag = "synchronous";
+				timeout = 3;
 			};
 		};
 	};
