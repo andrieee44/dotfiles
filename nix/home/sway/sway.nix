@@ -73,8 +73,20 @@
 
 			keybindings = let
 				notif = program: notifcmd: "exec sh -c '${program} && ${pkgs.libnotify}/bin/notify-send ${notifcmd}'";
-				light = args: notif "${pkgs.light}/bin/light ${args}" "-a light -h int:value:$(${pkgs.light}/bin/light) Brightness";
-
+				light = args: notif "${pkgs.light}/bin/light ${args}" "-h int:value:\"$(${pkgs.light}/bin/light)\" Brightness";
+				wpctl = let
+					script = pkgs.writeScriptBin "wpctlNotifArgs" ''
+						${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_SINK@ | ${pkgs.busybox}/bin/awk '{
+							print $2 * 100
+							if ($3 == "[MUTED]") {
+								print "Volume " $3
+							} else {
+								print "Volume "
+							}
+						}'
+					'';
+				in
+				args: notif "${pkgs.wireplumber}/bin/wpctl ${args}" "-h int:value:$(${script}/bin/wpctlNotifArgs)";
 			in
 			pkgs.lib.mkOptionDefault {
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
@@ -83,9 +95,9 @@
 				"Mod4+backspace" = "exec ${swayConfig.terminal} --class 'sysmenu' -e -sh -c 'sysmenu | xargs -r swaymsg exec --'";
 				F11 = light "-U 1";
 				F12 = light "-A 1";
-				XF86AudioMute = "exec ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ toggle";
-				XF86AudioLowerVolume = "exec ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_SINK@ 5%-";
-				XF86AudioRaiseVolume = "exec ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_SINK@ 5%+";
+				XF86AudioMute = wpctl "set-mute @DEFAULT_SINK@ toggle";
+				XF86AudioLowerVolume = wpctl "set-volume @DEFAULT_SINK@ 1%-";
+				XF86AudioRaiseVolume = wpctl "set-volume @DEFAULT_SINK@ 1%+";
 				XF86AudioPrev = "exec ${pkgs.mpc-cli}/bin/mpc prev";
 				XF86AudioNext = "exec ${pkgs.mpc-cli}/bin/mpc next";
 				XF86AudioStop = "exec ${pkgs.mpc-cli}/bin/mpc stop";
