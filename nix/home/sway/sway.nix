@@ -73,7 +73,7 @@
 
 			keybindings = let
 				notif = program: notifcmd: "exec sh -c '${program} && ${pkgs.libnotify}/bin/notify-send ${notifcmd}'";
-				light = args: notif "${pkgs.light}/bin/light ${args}" "-h int:value:\"$(${pkgs.light}/bin/light)\" Brightness";
+				light = args: notif "${pkgs.light}/bin/light ${args}" "-h \"int:value:$(${pkgs.light}/bin/light)\" Brightness";
 				wpctl = let
 					script = pkgs.writeScriptBin "wpctlNotifArgs" ''
 						${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_SINK@ | ${pkgs.busybox}/bin/awk '{
