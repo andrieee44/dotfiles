@@ -73,7 +73,7 @@ XFM1ATgTEmyv1mndXH+T/X326faN+niIlEUzZHls6uKMSAu589DbaElJenuT8avn
 
 		services.gpg-agent = {
 			pinentryFlavor = "tty";
-			enableSshSupport = true;
+			enableSshSupport = false;
 			defaultCacheTtl = 86400;
 
 			extraConfig = ''
