@@ -46,8 +46,8 @@
 				hide_duplicate_count = false;
 				show_indicators = false;
 				icon_position = "left";
-				min_icon_size = 64;
-				max_icon_size = 64;
+				min_icon_size = 32;
+				max_icon_size = 128;
 				sticky_history = true;
 				history_length = 20;
 				always_run_script = true;
@@ -55,7 +55,7 @@
 				class = "Dunst";
 				corner_radius = 10;
 				ignore_dbusclose = false;
-				layer = "top";
+				layer = "overlay";
 				force_xwayland = false;
 				mouse_left_click = "none";
 				mouse_middle_click = "none";
