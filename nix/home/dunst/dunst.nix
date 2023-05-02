@@ -12,12 +12,13 @@
 				monitor = 0;
 				follow = "keyboard";
 				width = 300;
-				height = 500;
+				height = 136;
 				origin = "top-right";
 				offset = "10x55";
 				scale = 0;
 				notification_limit = 8;
 				progress_bar = true;
+				progress_bar_horizontal_alignment = "center";
 				progress_bar_height = 10;
 				progress_bar_frame_width = 1;
 				progress_bar_min_width = 150;
@@ -26,7 +27,7 @@
 				separator_height = 3;
 				padding = 5;
 				horizontal_padding = 5;
-				text_icon_padding = 5;
+				text_icon_padding = 0;
 				frame_width = 3;
 				frame_color = "#81a1c1";
 				gap_size = 0;
@@ -40,14 +41,14 @@
 				alignment = "center";
 				vertical_alignment = "center";
 				show_age_threshold = 11;
-				ellipsize = "middle";
+				ellipsize = "end";
 				ignore_newline = false;
 				stack_duplicates = true;
 				hide_duplicate_count = false;
 				show_indicators = false;
 				icon_position = "left";
-				min_icon_size = 32;
-				max_icon_size = 128;
+				min_icon_size = 105;
+				max_icon_size = 105;
 				sticky_history = true;
 				history_length = 20;
 				always_run_script = true;
@@ -60,6 +61,7 @@
 				mouse_left_click = "none";
 				mouse_middle_click = "none";
 				mouse_right_click = "none";
+				word_wrap = true;
 			};
 
 			urgency_low = {
@@ -84,16 +86,22 @@
 				timeout = 0;
 			};
 
-			brightness = {
-				summary = "Brightness";
-				set_stack_tag = "synchronous";
+			x-brightness = {
+				category = "x-notifications.brightness";
+				set_stack_tag = "x-canonical-private-synchronous";
 				timeout = 3;
 			};
 
-			volume = {
-				summary = "Volume";
-				set_stack_tag = "synchronous";
+			x-volume = {
+				category = "x-notifications.volume";
+				set_stack_tag = "x-canonical-private-synchronous";
 				timeout = 3;
+			};
+
+			x-music = {
+				category = "x-notifications.music";
+				set_stack_tag = "x-canonical-private-synchronous";
+				timeout = 5;
 			};
 		};
 	};
