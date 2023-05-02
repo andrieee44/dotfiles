@@ -11,8 +11,8 @@
 		sensibleOnTop = false;
 
 		extraConfig = ''
-			set -Fg default-terminal "#{?#{==:''\${TERM},alacritty},tmux-256color,screen-16color}"
-			set -Fsa terminal-overrides "#{?#{==:''\${TERM},alacritty},#,''\${TERM}:RGB,}"
+			set -Fg default-terminal "#{?#{==:${"TERM"},alacritty},tmux-256color,screen-16color}"
+			set -Fsa terminal-overrides "#{?#{==:${"TERM"},alacritty},#,${"TERM"}:RGB,}"
 
 			set -g pane-border-style fg=black,dim,bold
 			set -g pane-active-border-style fg=cyan,bold
