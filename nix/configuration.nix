@@ -29,19 +29,19 @@
 
 		defaultFonts = {
 			emoji = [
-				"Sauce Code Pro Nerd Font"
+				"SauceCodePro Nerd Font"
 			];
 
 			serif = [
-				"Sauce Code Pro Nerd Font"
+				"SauceCodePro Nerd Font"
 			];
 
 			sansSerif = [
-				"Sauce Code Pro Nerd Font"
+				"SauceCodePro Nerd Font"
 			];
 
 			monospace = [
-				"Sauce Code Pro Nerd Font Mono"
+				"SauceCodePro Nerd Font Mono"
 			];
 		};
 	};
