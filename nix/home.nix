@@ -150,8 +150,10 @@
 		notmuch.enable = true;
 		obs-studio.enable = config.customVars.gui;
 		password-store.enable = true;
-		ssh.enable = false;
+		ssh.enable = true;
+		texlive.enable = true;
 		tmux.enable = true;
+		zathura.enable = config.customVars.gui;
 		zsh.enable = lib.mkIf (config.customVars.shell == pkgs.zsh) true;
 
 		waybar = {
