@@ -72,21 +72,9 @@
 			];
 
 			keybindings = let
-				notif = program: notifcmd: "exec sh -c '${program} && ${pkgs.libnotify}/bin/notify-send ${notifcmd}'";
-				light = args: notif "${pkgs.light}/bin/light ${args}" "-h \"int:value:$(${pkgs.light}/bin/light)\" Brightness";
-				wpctl = let
-					script = pkgs.writeScriptBin "wpctlNotifArgs" ''
-						${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_SINK@ | ${pkgs.busybox}/bin/awk '{
-							print $2 * 100
-							if ($3 == "[MUTED]") {
-								print "Volume " $3
-							} else {
-								print "Volume "
-							}
-						}'
-					'';
-				in
-				args: notif "${pkgs.wireplumber}/bin/wpctl ${args}" "-h int:value:$(${script}/bin/wpctlNotifArgs)";
+				mpc = args: "exec sh -c '${pkgs.mpc-cli}/bin/mpc ${args} && ${config.customVars.notifs.music}/bin/music'";
+				light = args: "exec sh -c '${pkgs.light}/bin/light ${args} && ${config.customVars.notifs.brightness}/bin/brightness'";
+				wpctl = args: "exec sh -c '${pkgs.wireplumber}/bin/wpctl ${args} && ${config.customVars.notifs.volume}/bin/volume'";
 			in
 			pkgs.lib.mkOptionDefault {
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
@@ -98,10 +86,10 @@
 				XF86AudioMute = wpctl "set-mute @DEFAULT_SINK@ toggle";
 				XF86AudioLowerVolume = wpctl "set-volume @DEFAULT_SINK@ 1%-";
 				XF86AudioRaiseVolume = wpctl "set-volume @DEFAULT_SINK@ 1%+";
-				XF86AudioPrev = "exec ${pkgs.mpc-cli}/bin/mpc prev";
-				XF86AudioNext = "exec ${pkgs.mpc-cli}/bin/mpc next";
-				XF86AudioStop = "exec ${pkgs.mpc-cli}/bin/mpc stop";
-				XF86AudioPlay = "exec ${pkgs.mpc-cli}/bin/mpc toggle";
+				XF86AudioPrev = mpc "prev";
+				XF86AudioNext = mpc "next";
+				XF86AudioStop = mpc "stop";
+				XF86AudioPlay = mpc "toggle";
 				Print = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy";
 				"Print+Shift" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 				"Mod4+q" = "kill";
