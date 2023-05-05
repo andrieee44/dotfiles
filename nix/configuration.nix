@@ -23,26 +23,32 @@
 		};
 	};
 
-	fonts.fontconfig = {
-		includeUserConf = true;
-		enable = true;
+	fonts = {
+		fonts = [
+			pkgs.vistafonts
+		];
 
-		defaultFonts = {
-			emoji = [
-				"SauceCodePro Nerd Font"
-			];
+		fontconfig = {
+			includeUserConf = true;
+			enable = true;
 
-			serif = [
-				"SauceCodePro Nerd Font"
-			];
+			defaultFonts = {
+				emoji = [
+					"SauceCodePro Nerd Font"
+				];
 
-			sansSerif = [
-				"SauceCodePro Nerd Font"
-			];
+				serif = [
+					"SauceCodePro Nerd Font"
+				];
 
-			monospace = [
-				"SauceCodePro Nerd Font Mono"
-			];
+				sansSerif = [
+					"SauceCodePro Nerd Font"
+				];
+
+				monospace = [
+					"SauceCodePro Nerd Font Mono"
+				];
+			};
 		};
 	};
 
