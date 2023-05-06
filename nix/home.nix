@@ -23,6 +23,12 @@
 				xdg-user-dirs
 			])
 
+			(with config.customVars.notifs; [
+				music
+				brightness
+				volume
+			])
+
 			(lib.mkIf config.customVars.gui (with pkgs; [
 				lutris
 				glxinfo
