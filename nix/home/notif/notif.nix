@@ -15,10 +15,13 @@ in
 	config.customVars.notifs = {
 		music = pkgs.writeScriptBin "music" ''#!${pkgs.dash}/bin/dash
 			set -eu
-			tmp="$(${pkgs.coreutils}/bin/mktemp -p "/tmp" --suffix ".jpg" "music.XXXXXXXXXX")"
-			trap '${pkgs.busybox}/bin/rm -f "$tmp"' INT HUP QUIT TERM PWR EXIT
+
 			info="$(${pkgs.mpc-cli}/bin/mpc -f '%file%\n[%title%\n%album%\n%artist%]|[%file%\n\n]')"
 			[ "$(echo "$info" | ${pkgs.busybox}/bin/wc -l)" -eq 1 ] && exit 1
+
+			tmp="$(${pkgs.coreutils}/bin/mktemp -p "/tmp" --suffix ".jpg" "music.XXXXXXXXXX")"
+			trap '${pkgs.busybox}/bin/rm -f "$tmp"' INT HUP QUIT TERM PWR EXIT
+
 			${pkgs.ffmpeg}/bin/ffmpeg -y -i "${config.services.mpd.musicDirectory}/$(echo "$info" | ${pkgs.busybox}/bin/head -n 1)" "$tmp"
 
 			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$info" | ${pkgs.busybox}/bin/sed -n '''"$(($(echo "$info" | ${pkgs.busybox}/bin/wc -l) - 1))"' s/.*(\([0-9]\{1,3\}\)%).*/\1/p')" \
@@ -52,9 +55,10 @@ in
 		'';
 
 		volume = pkgs.writeScriptBin "volume" ''#!${pkgs.dash}/bin/dash
+			set -eu
 			info="$(${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_SINK@)"
-			perc="$(echo "$info" | awk '{ print $2 * 100 }')"
-			muted="$(echo "$info" | awk '{ print $3 }')"
+			perc="$(echo "$info" | ${pkgs.busybox}/bin/awk '{ print $2 * 100 }')"
+			muted="$(echo "$info" | ${pkgs.busybox}/bin/awk '{ print $3 }')"
 			icons="\
 				66 
 				33 
