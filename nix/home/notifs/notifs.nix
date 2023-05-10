@@ -16,18 +16,46 @@ in
 		music = pkgs.writeScriptBin "music" ''#!${pkgs.dash}/bin/dash
 			set -eu
 
-			info="$(${pkgs.mpc-cli}/bin/mpc -f '%file%\n[%title%\n%album%\n%artist%]|[%file%\n\n]')"
-			[ "$(echo "$info" | ${pkgs.busybox}/bin/wc -l)" -eq 1 ] && exit 1
+			mpcInfo="$(${pkgs.mpc-cli}/bin/mpc -f '%file%[\n%title%\n][%album%\n][%artist%]')"
+			[ "$(echo "$mpcInfo" | ${pkgs.busybox}/bin/wc -l)" -eq 1 ] && {
+				${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" "Now stopped:" "Queue some music!"
+				exit
+			}
 
-			tmp="$(${pkgs.coreutils}/bin/mktemp -p "/tmp" --suffix ".jpg" "music.XXXXXXXXXX")"
-			trap '${pkgs.busybox}/bin/rm -f "$tmp"' INT HUP QUIT TERM PWR EXIT
+			cover=""
+			trap '${pkgs.busybox}/bin/rm -f "$cover"' INT HUP QUIT TERM PWR EXIT
+			cover="$(${pkgs.coreutils}/bin/mktemp -p "/tmp" --suffix ".jpg" "music.XXXXXXXXXX")"
 
-			${pkgs.ffmpeg}/bin/ffmpeg -y -i "${config.services.mpd.musicDirectory}/$(echo "$info" | ${pkgs.busybox}/bin/head -n 1)" "$tmp"
+			${pkgs.ffmpeg}/bin/ffmpeg -v warning -y -vsync vfr -i "${config.services.mpd.musicDirectory}/$(echo "$mpcInfo" | ${pkgs.busybox}/bin/head -n 1)" "$cover" || true
 
-			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$info" | ${pkgs.busybox}/bin/sed -n '''"$(($(echo "$info" | ${pkgs.busybox}/bin/wc -l) - 1))"' s/.*(\([0-9]\{1,3\}\)%).*/\1/p')" \
-				-i "$tmp" \
-				"$(echo "$info" | ${pkgs.busybox}/bin/sed -n '2 p')" \
-				"$(echo "$info" | ${pkgs.busybox}/bin/sed -n '3,4 p')\n$(echo "$info" | ${pkgs.busybox}/bin/awk 'FNR == 5 { print $3 }')"
+			statusLine="$(($(echo "$mpcInfo" | ${pkgs.busybox}/bin/wc -l) - 1))"
+			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n "${"\${statusLine}"}"' s/.*(\([0-9]\{1,3\}\)%).*/\1/p')" \
+				-i "$cover" \
+				"Now $(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n "${"\${statusLine}"}"' s/.*\[\(.\+\)\].*/\1/p'):" \
+				"$(echo "$mpcInfo" | ${pkgs.busybox}/bin/awk -v statusLine="$statusLine" '
+					{
+						if (NR == statusLine) {
+							print $3
+							exit
+						}
+
+						if (statusLine == 2) {
+							print "<u><b>"$0"</b></u>"
+						} else {
+							if (NR == 2) {
+								print "<u><b>"$0"</b>"
+								next
+							}
+
+							if (NR == 3) {
+								print $0"</u>"
+								next
+							}
+
+							print "<i>"$0"</i>"
+						}
+					}'
+				)"
 		'';
 
 		brightness = pkgs.writeScriptBin "brightness" ''#!${pkgs.dash}/bin/dash
@@ -42,13 +70,13 @@ in
 				15 
 				0 "
 
-			icon="$(echo "$icons" | ${pkgs.busybox}/bin/awk '
-			{
-				if ('"$perc"' >= $1) {
-					print $2
-					exit
-				}
-			}'
+			icon="$(echo "$icons" | ${pkgs.busybox}/bin/awk -v perc="$perc" '
+				{
+					if (perc >= $1) {
+						print $2
+						exit
+					}
+				}'
 			)"
 
 			${pkgs.libnotify}/bin/notify-send -c "x-notifications.brightness" -h "int:value:${"\${perc}"}" "${"\${icon}"} Brightness ${"\${icon}"}"
@@ -64,16 +92,16 @@ in
 				33 
 				0 "
 
-			icon="$(echo "$icons" | ${pkgs.busybox}/bin/awk '
-			{
-				if ('"$perc"' >= $1) {
-					print $2
-					exit
-				}
-			}'
+			icon="$(echo "$icons" | ${pkgs.busybox}/bin/awk -v perc="$perc" '
+				{
+					if (perc >= $1) {
+						print $2
+						exit
+					}
+				}'
 			)"
 
-			${pkgs.libnotify}/bin/notify-send -c "x-notifications.volume" -h "int:value:${"\${perc}"}" "${"\${icon}"} Volume ${"\${icon}"}" "${"$muted"}"
+			${pkgs.libnotify}/bin/notify-send -c "x-notifications.volume" -h "int:value:${"\${perc}"}" "${"\${icon}"} Volume ${"\${icon}"}" "$muted"
 		'';
 	};
 }
