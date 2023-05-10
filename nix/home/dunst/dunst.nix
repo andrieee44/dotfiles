@@ -12,7 +12,7 @@
 				monitor = 0;
 				follow = "keyboard";
 				width = 300;
-				height = 136;
+				height = 300;
 				origin = "top-right";
 				offset = "10x55";
 				scale = 0;
@@ -47,8 +47,8 @@
 				hide_duplicate_count = false;
 				show_indicators = false;
 				icon_position = "left";
-				min_icon_size = 105;
-				max_icon_size = 105;
+				min_icon_size = 64;
+				max_icon_size = 128;
 				sticky_history = true;
 				history_length = 20;
 				always_run_script = true;
