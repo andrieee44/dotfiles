@@ -69,10 +69,12 @@
 				{
 					command = "waybar";
 				}
+				{
+					command = "${config.customVars.notifs.musicLoop}/bin/musicLoop";
+				}
 			];
 
 			keybindings = let
-				mpc = args: "exec sh -c '${pkgs.mpc-cli}/bin/mpc ${args} && ${config.customVars.notifs.music}/bin/music'";
 				light = args: "exec sh -c '${pkgs.light}/bin/light ${args} && ${config.customVars.notifs.brightness}/bin/brightness'";
 				wpctl = args: "exec sh -c '${pkgs.wireplumber}/bin/wpctl ${args} && ${config.customVars.notifs.volume}/bin/volume'";
 			in
@@ -86,10 +88,10 @@
 				XF86AudioMute = wpctl "set-mute @DEFAULT_SINK@ toggle";
 				XF86AudioLowerVolume = wpctl "set-volume @DEFAULT_SINK@ 1%-";
 				XF86AudioRaiseVolume = wpctl "set-volume @DEFAULT_SINK@ 1%+";
-				XF86AudioPrev = mpc "prev";
-				XF86AudioNext = mpc "next";
-				XF86AudioStop = mpc "stop";
-				XF86AudioPlay = mpc "toggle";
+				XF86AudioPrev = "exec ${pkgs.mpc-cli}/bin/mpc prev";
+				XF86AudioNext = "exec ${pkgs.mpc-cli}/bin/mpc next";
+				XF86AudioStop = "exec ${pkgs.mpc-cli}/bin/mpc stop";
+				XF86AudioPlay = "exec ${pkgs.mpc-cli}/bin/mpc toggle";
 				Print = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy";
 				"Print+Shift" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
 				"Mod4+q" = "kill";

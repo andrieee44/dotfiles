@@ -8,6 +8,7 @@ in
 {
 	options.customVars.notifs = {
 		music = mkPkgOption "music";
+		musicLoop = mkPkgOption "musicLoop";
 		brightness = mkPkgOption "brightness";
 		volume = mkPkgOption "volume";
 	};
@@ -41,17 +42,22 @@ in
 
 						if (statusLine == 2) {
 							print "<u><b>"$0"</b></u>"
-						} else {
-							if (NR == 2) {
-								print "<u><b>"$0"</b>"
-								next
-							}
+							next
+						}
 
-							if (NR == 3) {
-								print $0"</u>"
-								next
-							}
+						if (NR == 1) {
+							next
+						}
 
+						if (NR == 2) {
+							print "<u><b>"$0"</b>"
+						}
+
+						if (NR == 3) {
+							print $0"</u>"
+						}
+
+						if (NR == 4) {
 							print "<i>"$0"</i>"
 						}
 					}'
@@ -102,6 +108,12 @@ in
 			)"
 
 			${pkgs.libnotify}/bin/notify-send -c "x-notifications.volume" -h "int:value:${"\${perc}"}" "${"\${icon}"} Volume ${"\${icon}"}" "$muted"
+		'';
+
+		musicLoop = pkgs.writeScriptBin "musicLoop" ''#!${pkgs.dash}/bin/dash
+			mpc idleloop player | while read -r _ ; do
+				${config.customVars.notifs.music}/bin/music
+			done
 		'';
 	};
 }
