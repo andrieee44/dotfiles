@@ -25,6 +25,7 @@
 
 			(with config.customVars.notifs; [
 				music
+				musicLoop
 				brightness
 				volume
 			])
@@ -43,7 +44,7 @@
 			rm = "rm -Iv";
 			ip = "ip -color=auto";
 			df = "df -PTha";
-			bc = "bc ${config.home.file.bcrc.target} -ql";
+			bc = "bc ${config.home.homeDirectory}/${config.home.file.bcrc.target} -ql";
 			ls = "LC_ALL=C ls -AFhl --time=use --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
 			grep = "grep --color=auto";
 			diff = "diff --color=auto";
