@@ -148,6 +148,7 @@
 		lf.enable = true;
 		librewolf.enable = config.customVars.gui;
 		man.enable = true;
+		mangohud.enable = config.customVars.gui;
 		mbsync.enable = true;
 		mpv.enable = true;
 		msmtp.enable = true;
