@@ -42,30 +42,31 @@
 
 			bind -n M-q killp
 
-			#bind -n M-! breakp; joinp -t "%%"
-			#bind -n M-@ breakp; joinp -t "%%"
-			#bind -n M-# breakp; joinp -t "%%"
-			#bind -n M-$ breakp; joinp -t "%%"
-			#bind -n M-% breakp; joinp -t "%%"
-			#bind -n M-^ breakp; joinp -t "%%"
-			#bind -n M-& breakp; joinp -t "%%"
-			#bind -n M-* breakp; joinp -t "%%"
-			#bind -n M-( breakp; joinp -t "%%"
-			#bind -n M-) breakp; joinp -t "%%"
+			bind -n M-! run "tmux breakp -t ':1' || tmux joinp -t ':1'"
+			bind -n M-@ run "tmux breakp -t ':2' || tmux joinp -t ':2'"
+			bind -n M-# run "tmux breakp -t ':3' || tmux joinp -t ':3'"
+			bind -n M-$ run "tmux breakp -t ':4' || tmux joinp -t ':4'"
+			bind -n M-% run "tmux breakp -t ':5' || tmux joinp -t ':5'"
+			bind -n M-^ run "tmux breakp -t ':6' || tmux joinp -t ':6'"
+			bind -n M-& run "tmux breakp -t ':7' || tmux joinp -t ':7'"
+			bind -n M-* run "tmux breakp -t ':8' || tmux joinp -t ':8'"
+			bind -n M-( run "tmux breakp -t ':9' || tmux joinp -t ':9'"
 
 			bind -n M-Enter neww
 
-			bind -n M-1 run "tmux selectw -t 1 || tmux neww -t 1"
-			bind -n M-2 run "tmux selectw -t 2 || tmux neww -t 2"
-			bind -n M-3 run "tmux selectw -t 3 || tmux neww -t 3"
-			bind -n M-4 run "tmux selectw -t 4 || tmux neww -t 4"
-			bind -n M-5 run "tmux selectw -t 5 || tmux neww -t 5"
-			bind -n M-6 run "tmux selectw -t 6 || tmux neww -t 6"
-			bind -n M-7 run "tmux selectw -t 7 || tmux neww -t 7"
-			bind -n M-8 run "tmux selectw -t 8 || tmux neww -t 8"
-			bind -n M-9 run "tmux selectw -t 9 || tmux neww -t 9"
+			bind -n M-1 run "tmux selectw -t :1 || tmux neww -t :1"
+			bind -n M-2 run "tmux selectw -t :2 || tmux neww -t :2"
+			bind -n M-3 run "tmux selectw -t :3 || tmux neww -t :3"
+			bind -n M-4 run "tmux selectw -t :4 || tmux neww -t :4"
+			bind -n M-5 run "tmux selectw -t :5 || tmux neww -t :5"
+			bind -n M-6 run "tmux selectw -t :6 || tmux neww -t :6"
+			bind -n M-7 run "tmux selectw -t :7 || tmux neww -t :7"
+			bind -n M-8 run "tmux selectw -t :8 || tmux neww -t :8"
+			bind -n M-9 run "tmux selectw -t :9 || tmux neww -t :9"
 
 			bind -n M-Q killw
+
+			bind -n M-d detach
 
 			bind -n M-R command-prompt -I "#W" "rename-window '%%'"
 
