@@ -8,25 +8,25 @@ in
 			extraConfig = ''
 				set autoquit on
 				set dircache on
-				#set dironly off
+				# set dironly off
 				set incfilter on
 				set hiddenfiles ".*"
 				set infotimefmtnew "${timefmt}"
 				set infotimefmtold "${timefmt}"
 				set mouse off
 				set shellflag "-c"
-				#set tagfmt "\033[31m%s\033[0m"
+				# set tagfmt "\033[31m%s\033[0m"
 				set tempmarks ""
 				set truncatechar "~"
 				set waitmsg "Press any key to continue..."
 			'';
 
 			settings = {
-				#autoquit = true;
-				#dircache = true;
+				# autoquit = true;
+				# dircache = true;
 				dircounts = false;
 				dirfirst = true;
-				#dironly = false;
+				# dironly = false;
 				drawbox = true;
 				globsearch = true;
 				hidden = true;
@@ -34,11 +34,11 @@ in
 				ignorecase = true;
 				ignoredia = true;
 				incsearch = true;
-				#incfilter = true;
+				# incfilter = true;
 				info = "";
-				#infotimefmtnew = "${timefmt}";
-				#infotimefmtold = "${timefmt}";
-				#mouse = false;
+				# infotimefmtnew = "${timefmt}";
+				# infotimefmtold = "${timefmt}";
+				# mouse = false;
 				number = true;
 				period = 0;
 				preview = true;
@@ -47,16 +47,16 @@ in
 				reverse = false;
 				scrolloff = 0;
 				shell = "${pkgs.dash}/bin/dash";
-				#shellflag = "-c";
+				# shellflag = "-c";
 				shellopts = "-eu";
 				smartcase = true;
 				smartdia = true;
 				sortby = "natural";
 				tabstop = 4;
-				#tagfmt = "\033[31m%s\033[0m";
-				#tempmarks = "";
-				#truncatechar = "~";
-				#waitmsg = "Press any key to continue...";
+				# tagfmt = "\033[31m%s\033[0m";
+				# tempmarks = "";
+				# truncatechar = "~";
+				# waitmsg = "Press any key to continue...";
 				wrapscan = true;
 				wrapscroll = false;
 				ratios = "1:2:3";
