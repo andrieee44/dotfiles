@@ -24,6 +24,8 @@
 
 			bind -n M-i splitw -h
 			bind -n M-I splitw -v
+			bind -n M-o splitw -fh
+			bind -n M-O splitw -fv
 
 			bind -n M-l selectp -L
 			bind -n M-h selectp -R
