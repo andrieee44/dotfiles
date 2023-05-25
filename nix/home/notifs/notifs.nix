@@ -1,9 +1,6 @@
-{ config, pkgs, lib, options, ... }:
+{ config, pkgs, options, ... }:
 let
-	mkPkgOption = name: lib.mkOption {
-		type = lib.types.package;
-		description = "Package value for ${name}.";
-	};
+	mkPkgOption = config.customVars.mkPkgOption;
 in
 {
 	options.customVars.notifs = {
