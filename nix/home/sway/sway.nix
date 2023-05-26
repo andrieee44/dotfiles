@@ -169,6 +169,16 @@
 			};
 
 			window = {
+				commands = [
+					{
+						criteria = {
+							app_id = "menu";
+						};
+
+						command = "floating enable";
+					}
+				];
+
 				titlebar = false;
 				border = 2;
 			};
