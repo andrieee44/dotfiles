@@ -11,6 +11,7 @@
 
 		config = let
 			swayConfig = config.wayland.windowManager.sway.config;
+			menu = bin: "${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${pkgs.busybox}/bin/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
 		in
 		{
 			modifier = "Mod4";
@@ -19,7 +20,7 @@
 			up = "k";
 			right = "l";
 			terminal = "${pkgs.alacritty}/bin/alacritty";
-			menu = "${swayConfig.terminal} --class 'fzfmenu' -e sh -c 'menu | xargs -r swaymsg exec --'";
+			menu = menu "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu";
 
 			colors = {
 				background = "#000000";
@@ -82,7 +83,7 @@
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
 				"Mod4+w" = "exec ${pkgs.librewolf}/bin/librewolf";
 				"Mod4+d" = "exec ${swayConfig.menu}";
-				"Mod4+backspace" = "exec ${swayConfig.terminal} --class 'sysmenu' -e -sh -c 'sysmenu | xargs -r swaymsg exec --'";
+				"Mod4+backspace" = "exec ${swayConfig.terminal} --class 'menu' -e -sh -c 'sysmenu | xargs -r swaymsg exec --'";
 				F11 = light "-U 1";
 				F12 = light "-A 1";
 				XF86AudioMute = wpctl "set-mute @DEFAULT_SINK@ toggle";

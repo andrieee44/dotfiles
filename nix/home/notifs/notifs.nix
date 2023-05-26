@@ -1,9 +1,9 @@
 { config, pkgs, options, ... }:
-let
-	mkPkgOption = config.customVars.mkPkgOption;
-in
 {
-	options.customVars.notifs = {
+	options.customVars.notifs = let
+		mkPkgOption = config.customVars.mkPkgOption;
+	in
+	{
 		music = mkPkgOption "music";
 		musicLoop = mkPkgOption "musicLoop";
 		brightness = mkPkgOption "brightness";
