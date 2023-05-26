@@ -23,11 +23,8 @@
 				xdg-user-dirs
 			])
 
-			(with config.customVars.notifs; [
-				music
-				musicLoop
-				brightness
-				volume
+			(with config.customVars.fzfscripts; [
+				pathmenu
 			])
 
 			(lib.mkIf config.customVars.gui (with pkgs; [
