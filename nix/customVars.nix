@@ -22,11 +22,15 @@ in
 		email = mkStrOption "email";
 		emailFlavor = mkStrOption "emailFlavor";
 		emailPassCmd = mkStrOption "emailPassCmd";
+		sshPassCmd = mkStrOption "sshPassCmd";
 		font = mkStrOption "font";
 		characterSet = mkStrOption "characterSet";
 	};
 
-	config.customVars = {
+	config.customVars = let
+		pass = file: "${pkgs.pass}/bin/pass ${file}";
+	in
+	{
 		mkStrOption = name: lib.mkOption {
 			type = lib.types.str;
 			description = "String value for ${name}.";
@@ -48,7 +52,8 @@ in
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";
-		emailPassCmd = "${pkgs.pass}/bin/pass web/gmail.com";
+		emailPassCmd = pass "web/gmail.com";
+		sshPassCmd = pass "ssh/laptop";
 		font = "Sauce Code Pro Nerd Font Mono";
 		characterSet = "en_PH.UTF-8";
 	};
