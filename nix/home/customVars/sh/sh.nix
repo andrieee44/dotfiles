@@ -24,7 +24,7 @@
 			''
 
 			(lib.mkIf config.programs.neovim.enable ''
-				export EDITOR="nvim"
+				export EDITOR="${config.home.homeDirectory}/.nix-profile/bin/nvim"
 			'')
 
 			(lib.mkIf config.programs.tmux.enable ''
