@@ -46,6 +46,14 @@ in
 			description = "Package value for ${name}.";
 		};
 
+		sshPassCmd = let
+			sshPassCmd = pkgs.writeScriptBin "sshPassCmd" ''#!${pkgs.dash}/bin/dash
+				set -eu
+				${pass "ssh/laptop"}
+			'';
+		in
+		"${sshPassCmd}/bin/sshPassCmd";
+
 		gui = true;
 		shell = pkgs.zsh;
 		name = "Andrieee44";
@@ -53,7 +61,6 @@ in
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";
 		emailPassCmd = pass "web/gmail.com";
-		sshPassCmd = pass "ssh/laptop";
 		font = "Sauce Code Pro Nerd Font Mono";
 		characterSet = "en_PH.UTF-8";
 	};

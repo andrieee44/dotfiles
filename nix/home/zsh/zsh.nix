@@ -24,6 +24,9 @@
 
 		initExtra = lib.mkMerge [
 			''
+				export SSH_ASKPASS="${config.customVars.sshPassCmd}"
+				export SSH_ASKPASS_REQUIRE="force"
+
 				_comp_options+=(globdots)
 				export PATH="$PATH:${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.local/mybin"
 				setopt INC_APPEND_HISTORY

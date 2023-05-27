@@ -51,14 +51,11 @@
 		};
 
 		sessionVariables = {
-			SSH_ASKPASS = "${config.customVars.sshPassCmd}";
-			SSH_ASKPASS_FORCE = "force";
 			LESSHISTFILE = "-";
 			CARGO_HOME = "${config.xdg.dataHome}/cargo";
 			WEECHAT_HOME = "${config.xdg.configHome}/weechat";
 			ELECTRUMDIR = "${config.xdg.dataHome}/electrum";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.home.file.npmrc.target}";
-
 		};
 
 		language = let
