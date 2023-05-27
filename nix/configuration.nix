@@ -182,7 +182,7 @@
 		wlr.enable = config.customVars.gui;
 
 		extraPortals = with pkgs; [
-			xdg-desktop-portal-gtk
+			(lib.mkIf config.customVars.gui xdg-desktop-portal-gtk)
 		];
 	};
 }
