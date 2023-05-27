@@ -10,11 +10,13 @@ in
 		mkStrOption = config.customVars.mkStrOption;
 		mkUintOption = config.customVars.mkUintOption;
 		mkPkgOption = config.customVars.mkPkgOption;
+		mkLinesOption = config.customVars.mkLinesOption;
 	in
 	{
 		mkStrOption = mkFuncOption "mkStrOption";
 		mkUintOption = mkFuncOption "mkUintOption";
 		mkPkgOption = mkFuncOption "mkPkgOption";
+		mkLinesOption = mkFuncOption "mkLinesOption";
 		gui = lib.mkEnableOption "gui";
 		shell = mkPkgOption "shell";
 		name = mkStrOption "name";
@@ -44,6 +46,11 @@ in
 		mkPkgOption = name: lib.mkOption {
 			type = lib.types.package;
 			description = "Package value for ${name}.";
+		};
+
+		mkLinesOption = name: lib.mkOption {
+			type = lib.types.lines;
+			description = "Strings concatenated with '\n' value for ${name}.";
 		};
 
 		sshPassCmd = let

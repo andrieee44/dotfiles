@@ -24,17 +24,9 @@
 
 		initExtra = lib.mkMerge [
 			''
-				export SSH_ASKPASS="${config.customVars.sshPassCmd}"
-				export SSH_ASKPASS_REQUIRE="force"
-
 				_comp_options+=(globdots)
-				export PATH="$PATH:${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.local/mybin"
 				setopt INC_APPEND_HISTORY
 			''
-
-			(lib.mkIf config.programs.neovim.enable ''
-				export EDITOR="nvim"
-			'')
 
 			(lib.mkIf (config.programs.zsh.defaultKeymap == "viins") ''
 				export KEYTIMEOUT=1
@@ -73,25 +65,15 @@
 				echo -ne '\e[5 q'
 			'')
 
-			(lib.mkIf config.programs.tmux.enable ''
-				case $- in
-					*i*)
-						[ -z "$TMUX" ] && { ${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux new; }
-						;;
-				esac
-			'')
-
 			(lib.mkIf config.programs.zsh.enableAutosuggestions ''
 				ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=12'
 			'')
 
-			''
-				eval "$(${pkgs.coreutils}/bin/dircolors -b "${config.home.homeDirectory}/${config.home.file.dircolors.target}")"
-			''
+			config.customVars.sh.rc
 		];
 
-		envExtra = lib.mkIf config.wayland.windowManager.sway.enable ''
-			pidof sway >/dev/null 2>&1 || ${pkgs.sway}/bin/sway
-		'';
+		envExtra = lib.mkMerge [
+			config.customVars.sh.profile
+		];
 	};
 }
