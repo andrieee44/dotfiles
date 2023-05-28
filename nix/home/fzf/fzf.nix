@@ -13,17 +13,17 @@
 		];
 
 		colors = {
-			"bg+" = "#3b4252";
-			spinner = "#81a1c1";
-			hl = "#616e88";
-			fg = "#d8dee9";
-			header = "#81a1c1";
-			info = "#88c0d0";
-			pointer = "#81a1c1";
-			marker = "#81a1c1";
-			"fg+" = "#d8dee9";
-			prompt = "#81a1c1";
-			"hl+" = "#81a1c1";
+			"bg+" = "0";
+			fg = "7";
+			"fg+" = "7";
+			hl = "4";
+			"hl+" = "4";
+			spinner = "5";
+			header = "2";
+			info = "3";
+			pointer = "5";
+			marker = "2";
+			prompt = "5";
 		};
 	};
 }
