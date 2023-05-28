@@ -6,24 +6,32 @@
 			"--reverse"
 			"--info inline"
 			"--header-first"
-			"--header 'Search file'"
+			"--header 'Search file:'"
 			"--tabstop 4"
 			"--no-mouse"
 			"--preview-window border-left,wrap"
 		];
 
 		colors = {
-			"bg+" = "0";
 			fg = "7";
-			"fg+" = "7";
+			preview-fg = "7";
+			preview-bg = "0";
 			hl = "4";
+			"fg+" = "7";
+			"bg+" = "0";
+			gutter = "0";
 			"hl+" = "4";
-			spinner = "5";
-			header = "2";
-			info = "3";
-			pointer = "5";
-			marker = "2";
-			prompt = "5";
+			query = "7";
+			disabled = "8";
+			info = "6";
+			separator = "6";
+			border = "6";
+			spinner = "6";
+			label = "6";
+			prompt = "6";
+			pointer = "6";
+			marker = "6";
+			header = "6";
 		};
 	};
 }
