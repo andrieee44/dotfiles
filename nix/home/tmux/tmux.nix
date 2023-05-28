@@ -74,11 +74,13 @@
 
 				bind -n M-Q killw
 
-				bind -n M-d detach
+				bind -n M-D detach
 
 				bind -n M-R command-prompt -I "#W" "rename-window '%%'"
 
 				bind -n M-[ copy-mode
+
+				bind -n M-d run -b "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu 1>&- 2>/dev/null || true"
 
 				bind -n M-r source "${config.xdg.configHome}/tmux/tmux.conf"
 			''
