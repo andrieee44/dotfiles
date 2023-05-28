@@ -23,6 +23,8 @@
 				set -g pane-border-style fg=black,dim,bold
 				set -g pane-active-border-style fg=cyan,bold
 
+				set -g popup-border-style fg=cyan,bold
+
 				set -g focus-events on
 
 				set -g prefix2 M-a
