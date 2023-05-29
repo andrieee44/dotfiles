@@ -9,8 +9,7 @@
 
 	config.customVars.fzfscripts = let
 		fzf-tmuxArgs = ''
-			-p 45%,60% \
-			--border sharp
+			 -p "45%,60%" $(set +u && [ -n "$TMUX" ] && echo "--border=sharp")
 		'';
 	in
 	{
