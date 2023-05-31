@@ -25,6 +25,7 @@
 
 			(with config.customVars.fzfscripts; [
 				pathmenu
+				sysmenu
 			])
 
 			(lib.mkIf config.customVars.gui (with pkgs; [
