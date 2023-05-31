@@ -27,9 +27,19 @@
 			${pkgs.ffmpeg}/bin/ffmpeg -v warning -y -vsync vfr -i "${config.services.mpd.musicDirectory}/$(echo "$mpcInfo" | ${pkgs.busybox}/bin/head -n 1)" "$cover" || true
 
 			statusLine="$(($(echo "$mpcInfo" | ${pkgs.busybox}/bin/wc -l) - 1))"
-			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n "${"\${statusLine}"}"' s/.*(\([0-9]\{1,3\}\)%).*/\1/p')" \
+			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n
+					"${"\${statusLine}"}"' {
+						s/.*(\([0-9]\{1,3\}\)%).*/\1/p
+						q
+					}
+				')" \
 				-i "$cover" \
-				"Now $(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n "${"\${statusLine}"}"' s/.*\[\(.\+\)\].*/\1/p'):" \
+				"Now $(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n
+					"${"\${statusLine}"}"' {
+						s/.*\[\(.\+\)\].*/\1/p
+						q
+					}
+				'):" \
 				"$(echo "$mpcInfo" | ${pkgs.busybox}/bin/awk -v statusLine="$statusLine" '
 					{
 						if (NR == statusLine) {
@@ -64,18 +74,23 @@
 		brightness = pkgs.writeScriptBin "brightness" ''#!${pkgs.dash}/bin/dash
 			set -eu
 			perc="$(${pkgs.light}/bin/light)"
-			icons="\
-				90 
-				75 
-				60 
-				45 
-				30 
-				15 
-				0 "
+			icons='
+				90 ; 
+				75 ; 
+				60 ; 
+				45 ; 
+				30 ; 
+				15 ; 
+				0 ; 
+			'
 
 			icon="$(echo "$icons" | ${pkgs.busybox}/bin/awk -v perc="$perc" '
+				BEGIN {
+					FS = ";"
+				}
 				{
-					if (perc >= $1) {
+					if (NF && perc >= $1) {
+						gsub("[[:space:]]*", "", $2)
 						print $2
 						exit
 					}
@@ -88,16 +103,32 @@
 		volume = pkgs.writeScriptBin "volume" ''#!${pkgs.dash}/bin/dash
 			set -eu
 			info="$(${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_SINK@)"
-			perc="$(echo "$info" | ${pkgs.busybox}/bin/awk '{ print $2 * 100 }')"
-			muted="$(echo "$info" | ${pkgs.busybox}/bin/awk '{ print $3 }')"
-			icons="\
-				66 
-				33 
-				0 "
+
+			perc="$(echo "$info" | ${pkgs.busybox}/bin/awk '
+				{
+					print $2 * 100
+				}
+			')"
+
+			muted="$(echo "$info" | ${pkgs.busybox}/bin/awk '
+				{
+					print $3
+				}
+			')"
+
+			icons='
+				66 ; 
+				33 ; 
+				0 ; 
+			'
 
 			icon="$(echo "$icons" | ${pkgs.busybox}/bin/awk -v perc="$perc" '
+				BEGIN {
+					FS = ";"
+				}
 				{
-					if (perc >= $1) {
+					if (NF && perc >= $1) {
+						gsub("[[:space:]]*", "", $2)
 						print $2
 						exit
 					}
