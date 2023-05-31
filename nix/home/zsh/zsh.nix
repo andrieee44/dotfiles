@@ -20,11 +20,11 @@
 		initExtraBeforeCompInit = ''
 			zstyle ':completion:*' menu select
 			zmodload zsh/complist
+			_comp_options+=(globdots)
 		'';
 
 		initExtra = lib.mkMerge [
 			''
-				_comp_options+=(globdots)
 				setopt INC_APPEND_HISTORY
 			''
 
@@ -66,6 +66,7 @@
 			'')
 
 			(lib.mkIf config.programs.zsh.enableAutosuggestions ''
+				ZSH_AUTOSUGGEST_MANUAL_REBIND="1"
 				ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=12'
 			'')
 
