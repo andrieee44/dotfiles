@@ -83,6 +83,7 @@
 				bind -n M-[ copy-mode
 
 				bind -n M-d run -b "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu 1>&- 2>/dev/null || true"
+				bind -n M-BSpace run -b "${config.customVars.fzfscripts.sysmenu}/bin/sysmenu 1>&- 2>/dev/null || true"
 
 				bind -n M-r source "${config.xdg.configHome}/tmux/tmux.conf"
 			''
