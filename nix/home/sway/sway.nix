@@ -83,7 +83,7 @@
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
 				"Mod4+w" = "exec ${pkgs.librewolf}/bin/librewolf";
 				"Mod4+d" = "exec ${swayConfig.menu}";
-				"Mod4+backspace" = "exec ${swayConfig.terminal} --class 'menu' -e -sh -c 'sysmenu | xargs -r swaymsg exec --'";
+				"Mod4+BackSpace" = "exec ${menu "${config.customVars.fzfscripts.sysmenu}/bin/sysmenu"}";
 				F9 = "exec loginctl lock-session";
 				F11 = light "-U 1";
 				F12 = light "-A 1";
