@@ -40,7 +40,6 @@
 			'
 
 			cmd="$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
-				/^$/ d
 				s/^[[:space:]]*\(.\+\)[[:space:]]*;.*$/\1/p
 			' | ${pkgs.fzf}/bin/fzf-tmux --header "System action:" ${fzf-tmuxArgs})"
 
@@ -48,7 +47,10 @@
 			[ "$err" -ne 0 ] && exit "$err"
 
 			eval "$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
-				/'"${"\${cmd}"}"'/ s/^[[:space:]]*'"${"\${cmd}"}"'[[:space:]]*;[[:space:]]*\(.\+\)[[:space:]]*$/\1/p
+				/'"${"\${cmd}"}"'/ {
+					s/^[[:space:]]*'"${"\${cmd}"}"'[[:space:]]*;[[:space:]]*\(.\+\)[[:space:]]*$/\1/p
+					q
+				}
 			')"
 		'';
 	};
