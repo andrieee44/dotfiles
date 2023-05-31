@@ -41,21 +41,14 @@
 
 			cmd="$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
 				/^$/ d
-				s/[[:space:]]*\(.\+\)[[:space:]]*;.*/\1/p
+				s/^[[:space:]]*\(.\+\)[[:space:]]*;.*$/\1/p
 			' | ${pkgs.fzf}/bin/fzf-tmux --header "System action:" ${fzf-tmuxArgs})"
 
 			err="$?"
 			[ "$err" -ne 0 ] && exit "$err"
 
-			eval "$(echo "$arr" | ${pkgs.busybox}/bin/awk -v "cmd=${"\${cmd}"}" '
-				BEGIN {
-					FS = ";"
-				}
-				{
-					if ($1 == cmd) {
-						print $2
-					}
-				}
+			eval "$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
+				/'"${"\${cmd}"}"'/ s/^[[:space:]]*'"${"\${cmd}"}"'[[:space:]]*;[[:space:]]*\(.\+\)[[:space:]]*$/\1/p
 			')"
 		'';
 	};
