@@ -32,11 +32,11 @@
 		sysmenu = pkgs.writeScriptBin "sysmenu" ''#!${pkgs.dash}/bin/dash
 			set -eu
 			arr='
-				shutdown ; ${pkgs.systemd}/bin/loginctl shutdown
-				reboot ; ${pkgs.systemd}/bin/loginctl reboot
 				lock ; ${pkgs.systemd}/bin/loginctl lock-session
 				reload ; ${pkgs.sway}/bin/swaymsg reload
 				leave ; ${pkgs.sway}/bin/swaymsg exit
+				poweroff ; ${pkgs.systemd}/bin/poweroff
+				reboot ; ${pkgs.systemd}/bin/reboot
 			'
 
 			cmd="$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
