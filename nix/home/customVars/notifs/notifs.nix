@@ -27,15 +27,15 @@
 			${pkgs.ffmpeg}/bin/ffmpeg -v warning -y -vsync vfr -i "${config.services.mpd.musicDirectory}/$(echo "$mpcInfo" | ${pkgs.busybox}/bin/head -n 1)" "$cover" || true
 
 			statusLine="$(($(echo "$mpcInfo" | ${pkgs.busybox}/bin/wc -l) - 1))"
-			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n
-					"${"\${statusLine}"}"' {
+			${pkgs.libnotify}/bin/notify-send -c "x-notifications.music" -h "int:value:$(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n "
+				${"\${statusLine}"}"' {
 						s/.*(\([0-9]\{1,3\}\)%).*/\1/p
 						q
 					}
 				')" \
 				-i "$cover" \
-				"Now $(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n
-					"${"\${statusLine}"}"' {
+				"Now $(echo "$mpcInfo" | ${pkgs.busybox}/bin/sed -n "
+					${"\${statusLine}"}"' {
 						s/.*\[\(.\+\)\].*/\1/p
 						q
 					}
