@@ -21,7 +21,7 @@
 
 			(lib.mkIf (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
 				set -g status-left "#[fg=black,bg=blue,bold] #S "
-				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #H "
+				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #{user}@#H "
 
 				set -g window-status-format " #[fg=white,bg=brightblack]#I #[fg=white,bg=brightblack]#W #F"
 				set -g window-status-current-format " #[fg=black,bg=cyan]#I#[fg=black,bg=cyan,nobold,noitalics,nounderscore] #[fg=black,bg=cyan]#W #F"
@@ -30,6 +30,7 @@
 
 			''
 				set -g status-interval 1
+				set -g status-right-length 80
 
 				set -g pane-border-style fg=black,dim,bold
 				set -g pane-active-border-style fg=cyan,bold
