@@ -13,12 +13,10 @@
 	};
 
 	config.customVars.statusbar = let
-		shell = ''#!${pkgs.dash}/bin/dash
-			set -eu
-		'';
+		shShebang = config.customVars.shShebang;
 		unixUtils = config.customVars.unixUtils;
 	in {
-		volume = pkgs.writeScriptBin "volume" ''${shell}
+		volume = pkgs.writeScriptBin "volume" ''${shShebang}
 			icon="VOL:"
 
 			volume="$(${pkgs.pamixer}/bin/pamixer --get-volume 2>/dev/null)"
@@ -28,7 +26,7 @@
 				echo "${"\${icon} \${volume}"}%"
 		'';
 
-		battery = pkgs.writeScriptBin "battery" ''${shell}
+		battery = pkgs.writeScriptBin "battery" ''${shShebang}
 			name="BAT0"
 			stat="$(${unixUtils}/cat /sys/class/power_supply/${"\${name}"}/status)"
 			percent="$(${unixUtils}/cat /sys/class/power_supply/${"\${name}"}/capacity)"
@@ -46,7 +44,7 @@
 			'
 		'';
 
-		brightness = pkgs.writeScriptBin "brightness" ''${shell}
+		brightness = pkgs.writeScriptBin "brightness" ''${shShebang}
 			brightness="$(${pkgs.light}/bin/light)"
 
 			${unixUtils}/awk -v "icon=BRI:" -v "brightness=${"\${brightness}"}" '
@@ -56,7 +54,7 @@
 			'
 		'';
 
-		cpu = pkgs.writeScriptBin "cpu" ''${shell}
+		cpu = pkgs.writeScriptBin "cpu" ''${shShebang}
 			${unixUtils}/top -bn1 | ${unixUtils}/awk -v "icon=CPU:" '
 				/^CPU:/ {
 					print(icon, 100 - $8 "%")
@@ -64,11 +62,11 @@
 			'
 		'';
 
-		date = pkgs.writeScriptBin "date" ''${shell}
-			${unixUtils}/date "+%b %d %Y (%a) %I:%M %p"
+		date = pkgs.writeScriptBin "date" ''${shShebang}
+			${unixUtils}/date "+${config.customVars.dateFmt}"
 		'';
 
-		ram = pkgs.writeScriptBin "ram" ''${shell}
+		ram = pkgs.writeScriptBin "ram" ''${shShebang}
 			${unixUtils}/free | awk -v "icon=RAM:" '
 				/^Mem:/ {
 					print(icon, $3 / $2 * 100.0)
