@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-	timefmt = "Jan _2 2006 (Mon) _3:04 PM";
+	dateGoFmt = config.customVars.dateGoFmt
 in
 {
 	config = {
@@ -11,8 +11,8 @@ in
 				# set dironly off
 				set incfilter on
 				set hiddenfiles ".*"
-				set infotimefmtnew "${timefmt}"
-				set infotimefmtold "${timefmt}"
+				set infotimefmtnew "${dateGoFmt}"
+				set infotimefmtold "${dateGoFmt}"
 				set mouse off
 				set shellflag "-c"
 				# set tagfmt "\033[31m%s\033[0m"
@@ -36,8 +36,8 @@ in
 				incsearch = true;
 				# incfilter = true;
 				info = "";
-				# infotimefmtnew = "${timefmt}";
-				# infotimefmtold = "${timefmt}";
+				# infotimefmtnew = "${dateGoFmt}";
+				# infotimefmtold = "${dateGoFmt}";
 				# mouse = false;
 				number = true;
 				period = 0;

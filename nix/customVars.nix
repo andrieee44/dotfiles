@@ -17,6 +17,8 @@ in
 		mkUintOption = mkFuncOption "mkUintOption";
 		mkPkgOption = mkFuncOption "mkPkgOption";
 		mkLinesOption = mkFuncOption "mkLinesOption";
+		sshPassCmd = mkStrOption "sshPassCmd";
+		shShebang = mkStrOption "shShebang";
 		gui = lib.mkEnableOption "gui";
 		shell = mkPkgOption "shell";
 		name = mkStrOption "name";
@@ -24,9 +26,11 @@ in
 		email = mkStrOption "email";
 		emailFlavor = mkStrOption "emailFlavor";
 		emailPassCmd = mkStrOption "emailPassCmd";
-		sshPassCmd = mkStrOption "sshPassCmd";
 		font = mkStrOption "font";
 		characterSet = mkStrOption "characterSet";
+		unixUtils = mkStrOption "unixUtils";
+		dateFmt = mkStrOption "dateFmt";
+		dateGoFmt = mkStrOption "dateGoFmt";
 	};
 
 	config.customVars = let
@@ -61,6 +65,10 @@ in
 		in
 		"${sshPassCmd}/bin/sshPassCmd";
 
+		shShebang = ''#!${pkgs.dash}/bin/dash
+			set -eu
+		'';
+
 		gui = true;
 		shell = pkgs.zsh;
 		name = "Andrieee44";
@@ -70,5 +78,8 @@ in
 		emailPassCmd = pass "web/gmail.com";
 		font = "Sauce Code Pro Nerd Font Mono";
 		characterSet = "en_PH.UTF-8";
+		unixUtils = "${pkgs.busybox}/bin";
+		dateFmt = "%b %e %Y (%a) %l:%M %p";
+		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
 	};
 }

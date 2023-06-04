@@ -12,25 +12,26 @@
 		fzf-tmuxArgs = ''
 			-p "45%,60%" $(set +u && [ -n "$TMUX" ] && echo "--border=sharp")
 		'';
+
+		shShebang = config.customVars.shShebang;
+		unixUtils = config.customVars.unixUtils;
 	in
 	{
-		pathmenu = pkgs.writeScriptBin "pathmenu" ''#!${pkgs.dash}/bin/dash
-			set -eu
+		pathmenu = pkgs.writeScriptBin "pathmenu" ''${shShebang}
 			bin=""
 			IFS=:
 			for d in $PATH; do
 				[ ! -d "$d" ] && continue
-				bin="${"\${bin}"}$(${pkgs.busybox}/bin/find -L "$d" -mindepth 1 -type f -perm -u=x -not -name '.*')"
+				bin="${"\${bin}"}$(${unixUtils}/find -L "$d" -mindepth 1 -type f -perm -u=x -not -name '.*')"
 			done
 
-			cmd="$(echo "$bin" | ${pkgs.busybox}/bin/sed 's/.*\///' | ${pkgs.busybox}/bin/sort | ${pkgs.fzf}/bin/fzf-tmux --header "Search executable:" ${fzf-tmuxArgs})"
+			cmd="$(echo "$bin" | ${unixUtils}/sed 's/.*\///' | ${unixUtils}/sort | ${pkgs.fzf}/bin/fzf-tmux --header "Search executable:" ${fzf-tmuxArgs})"
 
 			[ ! -t 1 ] && echo "$cmd" && exit
 			eval "$cmd"
 		'';
 
-		sysmenu = pkgs.writeScriptBin "sysmenu" ''#!${pkgs.dash}/bin/dash
-			set -eu
+		sysmenu = pkgs.writeScriptBin "sysmenu" ''${shShebang}
 			arr='
 				lock ; ${pkgs.systemd}/bin/loginctl lock-session
 				reload ; ${pkgs.sway}/bin/swaymsg reload
@@ -39,14 +40,14 @@
 				reboot ; ${pkgs.systemd}/bin/reboot
 			'
 
-			cmd="$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
+			cmd="$(echo "$arr" | ${unixUtils}/sed -n '
 				s/^[[:space:]]*\(.\+\)[[:space:]]*;.*$/\1/p
 			' | ${pkgs.fzf}/bin/fzf-tmux --header "System action:" ${fzf-tmuxArgs})"
 
 			err="$?"
 			[ "$err" -ne 0 ] && exit "$err"
 
-			eval "$(echo "$arr" | ${pkgs.busybox}/bin/sed -n '
+			eval "$(echo "$arr" | ${unixUtils}/sed -n '
 				/'"${"\${cmd}"}"'/ {
 					s/^[[:space:]]*'"${"\${cmd}"}"'[[:space:]]*;[[:space:]]*\(.\+\)[[:space:]]*$/\1/p
 					q
