@@ -29,13 +29,11 @@
 		'';
 
 		battery = pkgs.writeScriptBin "battery" ''${shell}
-			icon="BAT:"
 			name="BAT0"
-
 			stat="$(${unixUtils}/cat /sys/class/power_supply/${"\${name}"}/status)"
 			percent="$(${unixUtils}/cat /sys/class/power_supply/${"\${name}"}/capacity)"
 
-			${unixUtils}/awk -v "icon=${"\${icon}"}" -v "stat=${"\${stat}"}" -v "percent=${"\${percent}"}" '
+			${unixUtils}/awk -v "icon=BAT:" -v "stat=${"\${stat}"}" -v "percent=${"\${percent}"}" '
 				BEGIN {
 					map["Charging"] = "+"
 					map["Discharging"] = "-"
@@ -49,10 +47,9 @@
 		'';
 
 		brightness = pkgs.writeScriptBin "brightness" ''${shell}
-			icon="BRI:"
 			brightness="$(${pkgs.light}/bin/light)"
 
-			${unixUtils}/awk -v "icon=${"\${icon}"}" -v "brightness=${"\${brightness}"}" '
+			${unixUtils}/awk -v "icon=BRI:" -v "brightness=${"\${brightness}"}" '
 				BEGIN {
 					print(icon, int(brightness + 0.5) "%")
 				}
@@ -60,9 +57,9 @@
 		'';
 
 		cpu = pkgs.writeScriptBin "cpu" ''${shell}
-			${unixUtils}/top -bn1 | ${unixUtils}/awk '
+			${unixUtils}/top -bn1 | ${unixUtils}/awk -v "icon=CPU:" '
 				/^CPU:/ {
-					print(100 - $8 "%")
+					print(icon, 100 - $8 "%")
 				}
 			'
 		'';
@@ -72,9 +69,9 @@
 		'';
 
 		ram = pkgs.writeScriptBin "ram" ''${shell}
-			${unixUtils}/free | awk '
+			${unixUtils}/free | awk -v "icon=RAM:" '
 				/^Mem:/ {
-					print($3 / $2 * 100.0)
+					print(icon, $3 / $2 * 100.0)
 				}
 			'
 		'';
