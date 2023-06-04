@@ -34,6 +34,7 @@
 				battery
 				cpu
 				date
+				ram
 			])
 
 			(lib.mkIf config.customVars.gui (with pkgs; [
