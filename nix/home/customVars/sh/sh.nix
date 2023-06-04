@@ -30,7 +30,9 @@
 			(lib.mkIf config.programs.tmux.enable ''
 				case $- in
 					*i*)
-						[ -z "$TMUX" ] && { ${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux new; }
+						[ -z "$TMUX" ] && {
+							${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux new
+						}
 						;;
 				esac
 			'')
