@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-	dateGoFmt = config.customVars.dateGoFmt
+	dateGoFmt = config.customVars.dateGoFmt;
 in
 {
 	config = {
