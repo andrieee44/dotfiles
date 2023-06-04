@@ -21,7 +21,7 @@
 
 			(lib.mkIf (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
 				set -g status-left "#[fg=black,bg=blue,bold] #S "
-				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #{user}@#H "
+				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan] #{user}@#H "
 
 				set -g window-status-format " #[fg=white,bg=brightblack]#I #W #F"
 				set -g window-status-current-format " #[fg=black,bg=cyan]#I #W #F"
