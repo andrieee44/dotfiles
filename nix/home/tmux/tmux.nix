@@ -23,8 +23,8 @@
 				set -g status-left "#[fg=black,bg=blue,bold] #S "
 				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #{user}@#H "
 
-				set -g window-status-format " #[fg=white,bg=brightblack]#I #[fg=white,bg=brightblack]#W #F"
-				set -g window-status-current-format " #[fg=black,bg=cyan]#I#[fg=black,bg=cyan,nobold,noitalics,nounderscore] #[fg=black,bg=cyan]#W #F"
+				set -g window-status-format " #[fg=white,bg=brightblack]#I #W #F"
+				set -g window-status-current-format " #[fg=black,bg=cyan]#I #W #F"
 				set -g window-status-separator ""
 			'')
 
