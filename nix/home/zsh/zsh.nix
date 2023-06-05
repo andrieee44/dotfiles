@@ -32,7 +32,7 @@
 				export KEYTIMEOUT=1
 
 				autoload -U colors && colors
-				PS1="%B%{$fg[white]%}[%{$fg[blue]%}%n%{$fg[white]%}@%{$fg[cyan]%}%M %{$fg[yellow]%}%~%{$fg[red]%}%(?.. %?)%{$fg[white]%}]%{$reset_color%}$%b "
+				PS1="%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} "
 
 				bindkey -M menuselect 'h' vi-backward-char
 				bindkey -M menuselect 'k' vi-up-line-or-history
