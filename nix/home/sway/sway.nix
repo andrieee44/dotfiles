@@ -144,14 +144,15 @@
 			};
 
 			input = {
-				"1267:12608:MSFT0001:01_04F3:3140_Touchpad" = {
+				"type:touchpad" = {
 					dwt = "enabled";
 					tap = "enabled";
 					natural_scroll = "enabled";
 					middle_emulation = "enabled";
+					events = "disabled_on_external_mouse";
 				};
 
-				"1:1:AT_Translated_Set_2_keyboard" = {
+				"type:keyboard" = {
 					xkb_options = "caps:escape";
 					repeat_delay = "200";
 					repeat_rate = "70";
