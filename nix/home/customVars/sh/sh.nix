@@ -12,7 +12,7 @@
 	config.customVars.sh = {
 		profile = lib.mkMerge [
 			(lib.mkIf config.wayland.windowManager.sway.enable ''
-				pidof sway >/dev/null 2>&1 || ${pkgs.sway}/bin/sway
+				pidof sway >/dev/null 2>&1 || exec ${pkgs.sway}/bin/sway
 			'')
 		];
 
