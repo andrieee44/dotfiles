@@ -19,7 +19,6 @@
 				set -Fsa terminal-overrides "#{?#{==:${"\${TERM}"},alacritty},#,${"\${TERM}"}:RGB,}"
 			'')
 
-			/*
 			(lib.optionalString (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
 				set -g status-left "#[fg=black,bg=blue,bold] #S "
 				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #{user}@#H "
@@ -28,7 +27,6 @@
 				set -g window-status-current-format " #[fg=black,bg=cyan]#I #W #F"
 				set -g window-status-separator ""
 			'')
-			*/
 
 			''
 				set -g status-interval 1
