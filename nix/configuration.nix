@@ -111,7 +111,7 @@
 
 	environment = {
 		pathsToLink = [
-			(lib.mkIf config.programs.zsh.enableCompletion "/share/zsh")
+			(lib.optionalString config.programs.zsh.enableCompletion "/share/zsh")
 		];
 
 		shells = [

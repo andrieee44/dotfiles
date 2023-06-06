@@ -37,7 +37,7 @@
 				ram
 			])
 
-			(lib.mkIf config.customVars.gui (with pkgs; [
+			(lib.optionals config.customVars.gui (with pkgs; [
 				lutris
 				glxinfo
 				grim

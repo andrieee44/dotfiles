@@ -7,19 +7,19 @@
 		clock24 = false;
 		baseIndex = 1;
 		shortcut = "a";
-		shell = lib.mkIf config.programs.zsh.enable "${pkgs.zsh}/bin/zsh";
+		shell = lib.optionalString config.programs.zsh.enable "${pkgs.zsh}/bin/zsh";
 		sensibleOnTop = false;
 
 		extraConfig = let
 			tmux = "${pkgs.tmux}/bin/tmux";
 		in
 		lib.mkMerge [
-			(lib.mkIf config.programs.alacritty.enable ''
+			(lib.optionalString config.programs.alacritty.enable ''
 				set -Fg default-terminal "#{?#{==:${"$TERM"},alacritty},tmux-256color,screen-16color}"
 				set -Fsa terminal-overrides "#{?#{==:${"$TERM"},alacritty},#,${"$TERM"}:RGB,}"
 			'')
 
-			(lib.mkIf (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
+			(lib.optionalString (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
 				set -g status-left "#[fg=black,bg=blue,bold] #S "
 				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #{user}@#H "
 

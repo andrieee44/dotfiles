@@ -28,7 +28,7 @@
 				setopt INC_APPEND_HISTORY
 			''
 
-			(lib.mkIf (config.programs.zsh.defaultKeymap == "viins") ''
+			(lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
 				export KEYTIMEOUT=1
 
 				autoload -U colors && colors
@@ -65,7 +65,7 @@
 				echo -ne '\e[5 q'
 			'')
 
-			(lib.mkIf config.programs.zsh.enableAutosuggestions ''
+			(lib.optionalString config.programs.zsh.enableAutosuggestions ''
 				ZSH_AUTOSUGGEST_MANUAL_REBIND="1"
 				ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=12'
 			'')

@@ -11,7 +11,7 @@
 
 	config.customVars.sh = {
 		profile = lib.mkMerge [
-			(lib.mkIf config.wayland.windowManager.sway.enable ''
+			(lib.optionalString config.wayland.windowManager.sway.enable ''
 				pidof sway >/dev/null 2>&1 || exec ${pkgs.sway}/bin/sway
 			'')
 		];
@@ -23,11 +23,11 @@
 				export PATH="$PATH:${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.local/mybin"
 			''
 
-			(lib.mkIf config.programs.neovim.enable ''
+			(lib.optionalString config.programs.neovim.enable ''
 				export EDITOR="${config.home.homeDirectory}/.nix-profile/bin/nvim"
 			'')
 
-			(lib.mkIf config.programs.tmux.enable ''
+			(lib.optionalString config.programs.tmux.enable ''
 				case $- in
 					*i*)
 						[ -z "$TMUX" ] && {
