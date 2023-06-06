@@ -1,4 +1,4 @@
-{ config, pkgs, options, ... }:
+{ config, pkgs, options, lib, ... }:
 {
 	options.customVars.fzfscripts = let
 		mkPkgOption = config.customVars.mkPkgOption;
@@ -33,11 +33,11 @@
 
 		sysmenu = pkgs.writeScriptBin "sysmenu" ''${shShebang}
 			arr='
-				lock ; ${pkgs.systemd}/bin/loginctl lock-session
-				reload ; ${pkgs.sway}/bin/swaymsg reload
-				leave ; ${pkgs.sway}/bin/swaymsg exit
-				poweroff ; ${pkgs.systemd}/bin/poweroff
-				reboot ; ${pkgs.systemd}/bin/reboot
+				lock wayland session ; ${pkgs.systemd}/bin/loginctl lock-session
+				leave wayland session ; ${pkgs.systemd}/bin/loginctl kill-session self
+				reload window manager ; ${lib.optionalString config.wayland.windowManager.sway.enable "${pkgs.sway}/bin/swaymsg reload"}
+				poweroff computer ; ${pkgs.systemd}/bin/poweroff
+				reboot computer ; ${pkgs.systemd}/bin/reboot
 			'
 
 			cmd="$(echo "$arr" | ${unixUtils}/sed -n '
