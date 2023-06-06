@@ -5,7 +5,7 @@
 		enableCompletion = true;
 		enableSyntaxHighlighting = true;
 		autocd = false;
-		dotDir = "${builtins.baseNameOf config.xdg.configHome}/zsh";
+		dotDir = lib.removePrefix config.home.homeDirectory "${config.xdg.dataHome}/zsh";
 		defaultKeymap = "viins";
 
 		history = {
