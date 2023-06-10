@@ -31,6 +31,7 @@ in
 		unixUtils = mkStrOption "unixUtils";
 		dateFmt = mkStrOption "dateFmt";
 		dateGoFmt = mkStrOption "dateGoFmt";
+		version = mkStrOption "version";
 	};
 
 	config.customVars = let
@@ -81,5 +82,6 @@ in
 		unixUtils = "${pkgs.busybox}/bin";
 		dateFmt = "%b %e %Y (%a) %l:%M %p";
 		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
+		version = "23.05";
 	};
 }

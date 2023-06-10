@@ -84,7 +84,7 @@
 	};
 
 	system = {
-		stateVersion = "22.11";
+		stateVersion = config.customVars.version;
 
 		autoUpgrade = {
 			enable = false;
