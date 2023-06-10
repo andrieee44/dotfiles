@@ -85,15 +85,19 @@
 		};
 	};
 
-	xdg = {
+	xdg = let
+		baseDir = "${config.home.homeDirectory}/xdg";
+	in
+	{
 		enable = true;
 		mime.enable = true;
 		mimeApps.enable = true;
+		configHome = "${config.home.homeDirectory}/.config";
+		cacheHome = "${baseDir}/cache";
+		dataHome = "${baseDir}/share";
+		stateHome = "${baseDir}/state";
 
-		userDirs = let
-			baseDir = "${config.home.homeDirectory}/xdg";
-		in
-		{
+		userDirs = 	{
 			enable = true;
 			createDirectories = true;
 			desktop = config.home.homeDirectory;
