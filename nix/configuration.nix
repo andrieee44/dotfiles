@@ -25,8 +25,14 @@
 		};
 
 		fonts = {
-			fonts = [
-				pkgs.vistafonts
+			fonts = with pkgs; [
+				(nerdfonts.override {
+					fonts = [
+						"SourceCodePro"
+					];
+				})
+
+				vistafonts
 			];
 
 			fontconfig = {
