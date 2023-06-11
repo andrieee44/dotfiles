@@ -75,7 +75,7 @@
 	};
 
 	i18n = {
-		defaultLocale = config.customVars.characterSet;
+		defaultLocale = "en_PH.UTF-8";
 
 		extraLocaleSettings = {
 			LC_LANGUAGE = config.i18n.defaultLocale;
@@ -84,7 +84,7 @@
 	};
 
 	system = {
-		stateVersion = config.customVars.version;
+		stateVersion = "23.05";
 
 		autoUpgrade = {
 			enable = false;
@@ -95,7 +95,7 @@
 	users.users."${config.customVars.user}" = {
 		isNormalUser = true;
 		description = config.customVars.name;
-		shell = config.customVars.shell;
+		shell = pkgs.zsh;
 		createHome = true;
 
 		extraGroups = [
@@ -115,7 +115,7 @@
 		];
 
 		shells = [
-			config.customVars.shell
+			config.users.users."${config.customVars.user}".shell
 		];
 
 		systemPackages = with pkgs; [

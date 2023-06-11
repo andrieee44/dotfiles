@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, osConfig, ... }:
 {
 	imports = [
 		./customVars.nix
@@ -70,13 +70,14 @@
 
 		language = let
 			locale = "fil_PH";
+			defaultLocale = osConfig.i18n.defaultLocale;
 		in
 		{
 			address = locale;
-			base = config.customVars.characterSet;
-			collate = config.customVars.characterSet;
+			base = defaultLocale;
+			collate = defaultLocale;
 			measurement = locale;
-			messages = config.customVars.characterSet;
+			messages = defaultLocale;
 			name = locale;
 			numeric = locale;
 			paper = locale;
@@ -174,7 +175,7 @@
 		texlive.enable = true;
 		tmux.enable = true;
 		zathura.enable = config.customVars.gui;
-		zsh.enable = lib.mkIf (config.customVars.shell == pkgs.zsh) true;
+		zsh.enable = lib.mkIf (osConfig.users.users."${config.customVars.user}".shell == pkgs.zsh) true;
 
 		waybar = {
 			enable = config.customVars.gui;
