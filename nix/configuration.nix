@@ -33,6 +33,7 @@
 				})
 
 				vistafonts
+				terminus_font
 			];
 
 			fontconfig = {
@@ -123,10 +124,6 @@
 
 			shells = [
 				config.users.users."${config.customVars.user}".shell
-			];
-
-			systemPackages = with pkgs; [
-				terminus_font
 			];
 		};
 
