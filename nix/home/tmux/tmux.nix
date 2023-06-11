@@ -14,17 +14,17 @@
 			tmux = "${pkgs.tmux}/bin/tmux";
 		in
 		lib.mkMerge [
-			(lib.optionalString config.programs.alacritty.enable ''
-				set -Fg default-terminal "#{?#{==:${"\${TERM}"},alacritty},tmux-256color,screen-16color}"
-				set -Fsa terminal-overrides "#{?#{==:${"\${TERM}"},alacritty},#,${"\${TERM}"}:RGB,}"
-			'')
+			''
+				set -Fg default-terminal "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},tmux-256color,screen-16color}"
+				set -Fsa terminal-overrides "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#,${"\${TERM}"}:RGB,}"
+			''
 
 			(lib.optionalString (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
-				set -g status-left "#[fg=black,bg=blue,bold] #S "
-				set -g status-right "#[fg=white,bg=brightblack] ${config.customVars.dateFmt} #[fg=black,bg=cyan,bold] #{user}@#H "
+				set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=cyan#,bg=black#,nobold],}"
+				set -Fg status-right "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H ,#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
 
-				set -g window-status-format " #[fg=white,bg=brightblack]#I #W #F"
-				set -g window-status-current-format " #[fg=black,bg=cyan]#I #W #F"
+				set -Fg window-status-format "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=black#,bg=brightblack]#[fg=white] ##I  ##W ##F #[fg=brightblack#,bg=black], #[fg=white#,bg=brightblack]##I ##W ##F}"
+				set -Fg window-status-current-format "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=black#,bg=cyan] ##I  ##W ##F #[fg=cyan#,bg=black], #[fg=black#,bg=cyan]##I ##W ##F}"
 				set -g window-status-separator ""
 			'')
 
@@ -104,11 +104,6 @@
 		plugins = with pkgs; [
 			{
 				plugin = tmuxPlugins.nord;
-				extraConfig = ''
-					set -g @nord_tmux_no_patched_font 1
-					set -g @nord_tmux_show_status_content 1
-					set -g @nord_tmux_date_format "(%a) %b %d %Y"
-				'';
 			}
 		];
 	};
