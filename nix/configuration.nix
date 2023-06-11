@@ -6,183 +6,185 @@
 		./customVars.nix
 	] ++ import ./importPath.nix lib ./configuration;
 
-	home-manager.users."${config.customVars.user}".imports = [
-		./home.nix
-	];
-
-	time.timeZone = "Asia/Manila";
-	console.enable = true;
-
-	nixpkgs.config = {
-		allowUnfree = true;
-
-		packageOverrides = pkgs: {
-			vaapiIntel = pkgs.vaapiIntel.override {
-				enableHybridCodec = true;
-			};
-		};
-	};
-
-	fonts = {
-		fonts = [
-			pkgs.vistafonts
+	config = {
+		home-manager.users."${config.customVars.user}".imports = [
+			./home.nix
 		];
 
-		fontconfig = {
-			includeUserConf = true;
-			enable = true;
+		time.timeZone = "Asia/Manila";
+		console.enable = true;
 
-			defaultFonts = {
-				emoji = [
-					"SauceCodePro Nerd Font"
-				];
+		nixpkgs.config = {
+			allowUnfree = true;
 
-				serif = [
-					"SauceCodePro Nerd Font"
-				];
-
-				sansSerif = [
-					"SauceCodePro Nerd Font"
-				];
-
-				monospace = [
-					"SauceCodePro Nerd Font Mono"
-				];
+			packageOverrides = pkgs: {
+				vaapiIntel = pkgs.vaapiIntel.override {
+					enableHybridCodec = true;
+				};
 			};
 		};
-	};
 
-	boot = {
-		tmpOnTmpfs = true;
+		fonts = {
+			fonts = [
+				pkgs.vistafonts
+			];
 
-		loader = {
-			systemd-boot = {
+			fontconfig = {
+				includeUserConf = true;
 				enable = true;
-				editor = false;
-				configurationLimit = 50;
-			};
 
-			efi = {
-				canTouchEfiVariables = true;
-				efiSysMountPoint = "/boot/efi";
-			};
-		};
-	};
+				defaultFonts = {
+					emoji = [
+						"SauceCodePro Nerd Font"
+					];
 
-	networking = {
-		hostName = "nixos";
-		networkmanager.enable = true;
-	};
+					serif = [
+						"SauceCodePro Nerd Font"
+					];
 
-	i18n = {
-		defaultLocale = "en_PH.UTF-8";
+					sansSerif = [
+						"SauceCodePro Nerd Font"
+					];
 
-		extraLocaleSettings = {
-			LC_LANGUAGE = config.i18n.defaultLocale;
-			LC_ALL = config.i18n.defaultLocale;
-		};
-	};
-
-	system = {
-		stateVersion = "23.05";
-
-		autoUpgrade = {
-			enable = false;
-			allowReboot = false;
-		};
-	};
-
-	users.users."${config.customVars.user}" = {
-		isNormalUser = true;
-		description = config.customVars.name;
-		shell = pkgs.zsh;
-		createHome = true;
-
-		extraGroups = [
-			"networkmanager"
-			"wheel"
-			"audio"
-			"video"
-			"input"
-			"floppy"
-			"render"
-		];
-	};
-
-	environment = {
-		pathsToLink = [
-			(lib.optionalString config.programs.zsh.enableCompletion "/share/zsh")
-		];
-
-		shells = [
-			config.users.users."${config.customVars.user}".shell
-		];
-
-		systemPackages = with pkgs; [
-			terminus_font
-		];
-	};
-
-	security = {
-		polkit.enable = true;
-		rtkit.enable = true;
-
-		pam.services = {
-			swaylock.gnupg.enable = true;
-
-			login.gnupg = {
-				enable = true;
-				storeOnly = true;
+					monospace = [
+						"SauceCodePro Nerd Font Mono"
+					];
+				};
 			};
 		};
-	};
 
-	programs = {
-		steam.enable = config.customVars.gui;
-		dconf.enable = true;
-		light.enable = true;
+		boot = {
+			tmpOnTmpfs = true;
 
-		gamemode = {
-			enable = config.customVars.gui;
-			enableRenice = true;
-		};
-	};
+			loader = {
+				systemd-boot = {
+					enable = true;
+					editor = false;
+					configurationLimit = 50;
+				};
 
-	services = {
-		pipewire.enable = true;
-		tlp.enable = true;
-		thermald.enable = true;
-		blueman.enable = true;
-
-		xserver = {
-			xkbOptions = "caps:escape";
-		};
-	};
-
-	hardware = {
-		bluetooth = {
-			enable = true;
+				efi = {
+					canTouchEfiVariables = true;
+					efiSysMountPoint = "/boot/efi";
+				};
+			};
 		};
 
-		opengl = {
-			enable = config.customVars.gui;
-			extraPackages = with pkgs; [
-				intel-media-driver
-				vaapiIntel
-				vaapiVdpau
-				libvdpau-va-gl
+		networking = {
+			hostName = "nixos";
+			networkmanager.enable = true;
+		};
+
+		i18n = {
+			defaultLocale = "en_PH.UTF-8";
+
+			extraLocaleSettings = {
+				LC_LANGUAGE = config.i18n.defaultLocale;
+				LC_ALL = config.i18n.defaultLocale;
+			};
+		};
+
+		system = {
+			stateVersion = "23.05";
+
+			autoUpgrade = {
+				enable = false;
+				allowReboot = false;
+			};
+		};
+
+		users.users."${config.customVars.user}" = {
+			isNormalUser = true;
+			description = config.customVars.name;
+			shell = pkgs.zsh;
+			createHome = true;
+
+			extraGroups = [
+				"networkmanager"
+				"wheel"
+				"audio"
+				"video"
+				"input"
+				"floppy"
+				"render"
 			];
 		};
 
-		steam-hardware.enable = config.customVars.gui;
-	};
+		environment = {
+			pathsToLink = [
+				(lib.optionalString config.programs.zsh.enableCompletion "/share/zsh")
+			];
 
-	xdg.portal ={
-		enable = true;
-		wlr.enable = config.customVars.gui;
+			shells = [
+				config.users.users."${config.customVars.user}".shell
+			];
 
-		extraPortals = with pkgs; [
-			(lib.mkIf config.customVars.gui xdg-desktop-portal-gtk)
-		];
+			systemPackages = with pkgs; [
+				terminus_font
+			];
+		};
+
+		security = {
+			polkit.enable = true;
+			rtkit.enable = true;
+
+			pam.services = {
+				swaylock.gnupg.enable = true;
+
+				login.gnupg = {
+					enable = true;
+					storeOnly = true;
+				};
+			};
+		};
+
+		programs = {
+			steam.enable = config.customVars.gui;
+			dconf.enable = true;
+			light.enable = true;
+
+			gamemode = {
+				enable = config.customVars.gui;
+				enableRenice = true;
+			};
+		};
+
+		services = {
+			pipewire.enable = true;
+			tlp.enable = true;
+			thermald.enable = true;
+			blueman.enable = true;
+
+			xserver = {
+				xkbOptions = "caps:escape";
+			};
+		};
+
+		hardware = {
+			bluetooth = {
+				enable = true;
+			};
+
+			opengl = {
+				enable = config.customVars.gui;
+				extraPackages = with pkgs; [
+					intel-media-driver
+					vaapiIntel
+					vaapiVdpau
+					libvdpau-va-gl
+				];
+			};
+
+			steam-hardware.enable = config.customVars.gui;
+		};
+
+		xdg.portal ={
+			enable = true;
+			wlr.enable = config.customVars.gui;
+
+			extraPortals = with pkgs; [
+				(lib.mkIf config.customVars.gui xdg-desktop-portal-gtk)
+			];
+		};
 	};
 }
