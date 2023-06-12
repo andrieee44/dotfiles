@@ -6,61 +6,74 @@
 				plugin = nord-vim;
 
 				config = ''
-					if ($TERM == "tmux-256color")
-						set termguicolors
-						augroup clearbg
+				lua <<EOF
+					if vim.env.TERM == "tmux-256color" then
+						vim.opt.termguicolors = true
+
+						vim.cmd([[
+							augroup clearbg
+								autocmd!
+								autocmd ColorScheme nord highlight Normal guibg=none
+								autocmd ColorScheme nord highlight NonText guibg=none
+							augroup END
+						]])
+					end
+
+					vim.cmd([[
+						augroup nord
 							autocmd!
-							autocmd ColorScheme nord highlight Normal guibg=none
-							autocmd ColorScheme nord highlight NonText guibg=none
+							autocmd VimEnter * ++nested colorscheme nord
+							autocmd ColorScheme nord highlight Visual ctermfg=black ctermbg=white guibg=#4c566a
+							autocmd ColorScheme nord highlight Comment ctermfg=blue guifg=#81a1c1
+							autocmd ColorScheme nord highlight LineNr ctermfg=blue guifg=#81a1c1
 						augroup END
-					endif
-
-					augroup nord
-						autocmd!
-						autocmd vimenter * ++nested colorscheme nord
-						autocmd ColorScheme nord highlight Visual ctermfg=black ctermbg=white guibg=#4c566a
-						autocmd ColorScheme nord highlight Comment ctermfg=blue guifg=#81a1c1
-						autocmd ColorScheme nord highlight LineNr ctermfg=blue guifg=#81a1c1
-					augroup END
-
+					]])
+EOF
 				'';
 			}
 			{
 				plugin = vim-airline;
-				config = "let g:airline_symbols_ascii = 1";
+
+				config = ''
+					lua vim.g.airline_symbols_ascii = 1
+				'';
 			}
 			{
 				plugin = colorizer;
 			}
 		];
 
-		extraConfig = ''
-			set tabstop=4
-			set shiftwidth=4
-			set smartindent
-			set smartcase
-			set number relativenumber
-			set wildmode=longest,list,full
-			set clipboard+=unnamedplus
-			set nocompatible
-			set background=dark
+		extraLuaConfig = ''
+			local opt = vim.opt
+			opt.tabstop = 4
+			opt.shiftwidth = 0
+			opt.syntax = "enable"
+			opt.smartindent = true
+			opt.smartcase = true
+			opt.number = true
+			opt.relativenumber = true
+			opt.compatible = false
+			opt.wildmode = "longest,list,full"
+			opt.background = "dark"
+			opt.clipboard:append("unnamedplus")
+			opt.complete:append("kspell")
 
-			nnoremap ZW :w<cr>
-			nnoremap ZE :e<cr>
-			cmap w!! w !sudo tee >/dev/null %
+			local keymap = vim.api.nvim_set_keymap
+			keymap("n", "ZW", ":w<CR>", { noremap = true })
+			keymap("n", "ZE", ":e<CR>", { noremap = true })
+			keymap("c", "w!!", "w !${pkgs.sudo}/bin/sudo ${pkgs.busybox}/bin/tee >/dev/null %", { noremap = true })
 
-			filetype plugin indent on
-			filetype plugin on
-			syntax enable
-			set complete+=kspell
-
-			augroup filetype
-				autocmd!
-				autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-				autocmd FileType mail set colorcolumn=76
-				autocmd FileType mail set tw=75
-				autocmd FileType mail set spell spelllang=en
-			augroup END
+			local cmd = vim.cmd
+			cmd([[filetype plugin indent on]])
+			cmd([[
+				augroup filetype
+					autocmd!
+					autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+					autocmd FileType mail set colorcolumn=76
+					autocmd FileType mail set tw=75
+					autocmd FileType mail set spell spelllang=en
+				augroup END
+			]])
 		'';
 	};
 }
