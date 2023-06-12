@@ -63,10 +63,8 @@
 
 			sessionVariables = {
 				LESSHISTFILE = "-";
-				CARGO_HOME = "${config.xdg.dataHome}/cargo";
-				WEECHAT_HOME = "${config.xdg.configHome}/weechat";
-				ELECTRUMDIR = "${config.xdg.dataHome}/electrum";
 				NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.home.file.npmrc.target}";
+				W3M_DIR = "${config.xdg.dataHome}/w3m";
 			};
 
 			language = let
