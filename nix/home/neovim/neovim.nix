@@ -84,7 +84,10 @@ EOF
 				'';
 			}
 			{
-				plugin = colorizer;
+				plugin = vim-hexokinase;
+			}
+			{
+				plugin = vim-sleuth;
 			}
 		];
 
@@ -114,9 +117,17 @@ EOF
 			opt.clipboard:append('unnamedplus')
 			opt.complete:append('kspell')
 
-			keymap('n', 'ZW', ':w<CR>', { noremap = true })
-			keymap('n', 'ZE', ':e<CR>', { noremap = true })
-			keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${pkgs.busybox}/bin/tee >/dev/null %', { noremap = true })
+			keymap('n', 'ZW', ':w<CR>', {
+				noremap = true,
+			})
+
+			keymap('n', 'ZE', ':e<CR>', {
+				noremap = true,
+			})
+
+			keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${pkgs.busybox}/bin/tee >/dev/null %', {
+				noremap = true,
+			})
 
 			local function filetypeSettings()
 				opt.formatoptions:remove('c')
