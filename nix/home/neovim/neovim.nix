@@ -3,39 +3,84 @@
 	config.programs.neovim = {
 		plugins = with pkgs.vimPlugins; [
 			{
-				plugin = nord-vim;
+				plugin = nord-nvim;
 
 				config = ''
-				lua <<EOF
-					if vim.env.TERM == "tmux-256color" then
-						vim.opt.termguicolors = true
+					lua <<EOF
+						local g = vim.g
+						local api = vim.api
 
-						vim.cmd([[
-							augroup clearbg
-								autocmd!
-								autocmd ColorScheme nord highlight Normal guibg=none
-								autocmd ColorScheme nord highlight NonText guibg=none
-							augroup END
-						]])
-					end
+						local function nordTheme()
+							local hl = api.nvim_set_hl
 
-					vim.cmd([[
-						augroup nord
-							autocmd!
-							autocmd VimEnter * ++nested colorscheme nord
-							autocmd ColorScheme nord highlight Visual ctermfg=black ctermbg=white guibg=#4c566a
-							autocmd ColorScheme nord highlight Comment ctermfg=blue guifg=#81a1c1
-							autocmd ColorScheme nord highlight LineNr ctermfg=blue guifg=#81a1c1
-						augroup END
-					]])
+							hl(0, 'Visual', {
+								ctermfg = 'black',
+								ctermbg = 'white',
+								bg = '#4c566a',
+							})
+
+							hl(0, 'Comment', {
+								ctermfg = 'blue',
+								fg = '#81a1c1',
+							})
+
+							hl(0, 'LineNr', {
+								ctermfg = 'blue',
+								fg = '#81a1c1',
+							})
+						end
+
+						local nordAugroup = api.nvim_create_augroup('nord', {
+							clear = true
+						})
+
+						api.nvim_create_autocmd('ColorScheme nord', {
+							callback = nordTheme,
+							group = nordAugroup,
+
+							pattern = {
+								'nord',
+							},
+						})
+
+						g.nord_disable_background = true
+						require('nord').set()
 EOF
 				'';
 			}
 			{
-				plugin = vim-airline;
+				plugin = lightline-vim;
 
 				config = ''
-					lua vim.g.airline_symbols_ascii = 1
+					lua <<EOF
+						local g = vim.g
+						local api = vim.api
+
+						local function lightlineUpdate()
+							local fn = vim.fn
+
+							if not fn.exists('g:loaded_lightline') then
+								return
+							end
+
+							g.lightline = {
+								colorscheme = g.colors_name
+							}
+
+							fn['lightline#init']()
+							fn['lightline#colorscheme']()
+							fn['lightline#update']()
+						end
+
+						local lightlineAugroup = api.nvim_create_augroup('lightline', {
+							clear = true
+						})
+
+						api.nvim_create_autocmd('ColorScheme', {
+							callback = lightlineUpdate,
+							group = lightlineAugroup,
+						})
+EOF
 				'';
 			}
 			{
@@ -44,36 +89,73 @@ EOF
 		];
 
 		extraLuaConfig = ''
+			local env = vim.env
 			local opt = vim.opt
+			local api = vim.api
+			local keymap = api.nvim_set_keymap
+			local mkAugroup = api.nvim_create_augroup
+			local mkAutocmd = api.nvim_create_autocmd
+
+			if env.TERM == 'tmux-256color' then
+				opt.termguicolors = true
+			end
+
+			opt.showmode = false
 			opt.tabstop = 4
 			opt.shiftwidth = 0
-			opt.syntax = "enable"
+			opt.syntax = 'enable'
 			opt.smartindent = true
 			opt.smartcase = true
 			opt.number = true
 			opt.relativenumber = true
 			opt.compatible = false
-			opt.wildmode = "longest,list,full"
-			opt.background = "dark"
-			opt.clipboard:append("unnamedplus")
-			opt.complete:append("kspell")
+			opt.wildmode = 'longest,list,full'
+			opt.background = 'dark'
+			opt.clipboard:append('unnamedplus')
+			opt.complete:append('kspell')
 
-			local keymap = vim.api.nvim_set_keymap
-			keymap("n", "ZW", ":w<CR>", { noremap = true })
-			keymap("n", "ZE", ":e<CR>", { noremap = true })
-			keymap("c", "w!!", "w !${pkgs.sudo}/bin/sudo ${pkgs.busybox}/bin/tee >/dev/null %", { noremap = true })
+			keymap('n', 'ZW', ':w<CR>', { noremap = true })
+			keymap('n', 'ZE', ':e<CR>', { noremap = true })
+			keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${pkgs.busybox}/bin/tee >/dev/null %', { noremap = true })
 
-			local cmd = vim.cmd
-			cmd([[filetype plugin indent on]])
-			cmd([[
-				augroup filetype
-					autocmd!
-					autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-					autocmd FileType mail set colorcolumn=76
-					autocmd FileType mail set tw=75
-					autocmd FileType mail set spell spelllang=en
-				augroup END
-			]])
+			local function filetypeSettings()
+				opt.formatoptions:remove('c')
+				opt.formatoptions:remove('r')
+				opt.formatoptions:remove('o')
+			end
+
+			local filetypeAugroup = mkAugroup('filetype', {
+				clear = true
+			})
+
+			mkAutocmd('FileType', {
+				callback = filetypeSettings,
+				group = filetypeAugroup,
+
+				pattern = {
+					'*',
+				},
+			})
+
+			local function mailSettings()
+				opt.colorcolumn = 76
+				opt.textwidth = 75
+				opt.spell = true
+				opt.spelllang = 'en'
+			end
+
+			local mailAugroup = mkAugroup('mail', {
+				clear = true
+			})
+
+			mkAutocmd('FileType', {
+				callback = mailSettings,
+				group = mailAugroup,
+
+				pattern = {
+					'mail',
+				},
+			})
 		'';
 	};
 }
