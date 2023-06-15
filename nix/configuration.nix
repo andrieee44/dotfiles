@@ -11,6 +11,12 @@
 			./home.nix
 		];
 
+		nix = {
+			settings = {
+				auto-optimise-store = true;
+			};
+		};
+
 		time.timeZone = "Asia/Manila";
 		console.enable = true;
 
