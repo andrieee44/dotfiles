@@ -110,6 +110,7 @@ EOF
 				opt.termguicolors = true
 			end
 
+			opt.mouse = ${"''"}
 			opt.showmode = false
 			opt.tabstop = 4
 			opt.shiftwidth = 0
