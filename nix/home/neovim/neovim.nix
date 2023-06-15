@@ -30,9 +30,7 @@
 							})
 						end
 
-						local nordAugroup = api.nvim_create_augroup('nord', {
-							clear = true
-						})
+						local nordAugroup = api.nvim_create_augroup('nord', {})
 
 						api.nvim_create_autocmd('ColorScheme nord', {
 							callback = nordTheme,
@@ -72,9 +70,7 @@ EOF
 							fn['lightline#update']()
 						end
 
-						local lightlineAugroup = api.nvim_create_augroup('lightline', {
-							clear = true
-						})
+						local lightlineAugroup = api.nvim_create_augroup('lightline', {})
 
 						api.nvim_create_autocmd('ColorScheme', {
 							callback = lightlineUpdate,
@@ -95,6 +91,7 @@ EOF
 			local env = vim.env
 			local opt = vim.opt
 			local api = vim.api
+			local bo = vim.bo
 			local keymap = api.nvim_set_keymap
 			local mkAugroup = api.nvim_create_augroup
 			local mkAutocmd = api.nvim_create_autocmd
@@ -130,14 +127,10 @@ EOF
 			})
 
 			local function filetypeSettings()
-				opt.formatoptions:remove('c')
-				opt.formatoptions:remove('r')
-				opt.formatoptions:remove('o')
+				bo.formatoptions = bo.formatoptions:gsub('[cro]', ${"''"})
 			end
 
-			local filetypeAugroup = mkAugroup('filetype', {
-				clear = true
-			})
+			local filetypeAugroup = mkAugroup('filetype', {})
 
 			mkAutocmd('FileType', {
 				callback = filetypeSettings,
@@ -155,9 +148,7 @@ EOF
 				opt.spelllang = 'en'
 			end
 
-			local mailAugroup = mkAugroup('mail', {
-				clear = true
-			})
+			local mailAugroup = mkAugroup('mail', {})
 
 			mkAutocmd('FileType', {
 				callback = mailSettings,
