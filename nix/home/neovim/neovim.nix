@@ -81,6 +81,16 @@ EOF
 			}
 			{
 				plugin = vim-hexokinase;
+
+				config = ''
+					lua <<EOF
+						local g = vim.g
+
+						g.Hexokinase_highlighters = {
+							'background',
+						}
+EOF
+				'';
 			}
 			{
 				plugin = vim-sleuth;
