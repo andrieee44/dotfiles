@@ -10,7 +10,7 @@
 						local g = vim.g
 						local api = vim.api
 
-						local function nordTheme()
+						local function customNord()
 							local hl = api.nvim_set_hl
 
 							hl(0, 'Visual', {
@@ -30,10 +30,10 @@
 							})
 						end
 
-						local nordAugroup = api.nvim_create_augroup('nord', {})
+						local nordAugroup = api.nvim_create_augroup('nordAugroup', {})
 
-						api.nvim_create_autocmd('ColorScheme nord', {
-							callback = nordTheme,
+						api.nvim_create_autocmd('ColorScheme', {
+							callback = customNord,
 							group = nordAugroup,
 
 							pattern = {
@@ -54,7 +54,7 @@ EOF
 						local g = vim.g
 						local api = vim.api
 
-						local function lightlineUpdate()
+						local function customLightline()
 							local fn = vim.fn
 
 							if not fn.exists('g:loaded_lightline') then
@@ -62,7 +62,26 @@ EOF
 							end
 
 							g.lightline = {
-								colorscheme = g.colors_name
+								colorscheme = g.colors_name,
+
+								component = {
+									helloworld = 'Hello, world!',
+								},
+
+								active = {
+									left = {
+										{
+											'mode',
+											'paste',
+										},
+										{
+											'readonly',
+											'filename',
+											'modified',
+											'helloworld',
+										},
+									},
+								},
 							}
 
 							fn['lightline#init']()
@@ -70,12 +89,14 @@ EOF
 							fn['lightline#update']()
 						end
 
-						local lightlineAugroup = api.nvim_create_augroup('lightline', {})
+						local lightlineAugroup = api.nvim_create_augroup('lightlineAugroup', {})
 
 						api.nvim_create_autocmd('ColorScheme', {
-							callback = lightlineUpdate,
+							callback = customLightline,
 							group = lightlineAugroup,
 						})
+
+						customLightline()
 EOF
 				'';
 			}
@@ -91,9 +112,6 @@ EOF
 						}
 EOF
 				'';
-			}
-			{
-				plugin = vim-sleuth;
 			}
 		];
 
@@ -141,15 +159,11 @@ EOF
 				bo.formatoptions = bo.formatoptions:gsub('[cro]', ${"''"})
 			end
 
-			local filetypeAugroup = mkAugroup('filetype', {})
+			local filetypeAugroup = mkAugroup('filetypeAugroup', {})
 
 			mkAutocmd('FileType', {
 				callback = filetypeSettings,
 				group = filetypeAugroup,
-
-				pattern = {
-					'*',
-				},
 			})
 
 			local function mailSettings()
@@ -159,7 +173,7 @@ EOF
 				opt.spelllang = 'en'
 			end
 
-			local mailAugroup = mkAugroup('mail', {})
+			local mailAugroup = mkAugroup('mailAugroup', {})
 
 			mkAutocmd('FileType', {
 				callback = mailSettings,
