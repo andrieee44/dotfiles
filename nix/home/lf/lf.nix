@@ -63,9 +63,8 @@ in
 			};
 		};
 
-		home.file.lficons = lib.mkIf config.programs.lf.enable {
-			executable = false;
-			target = "${config.xdg.configHome}/lf/icons";
+		xdg.configFile.lficons = lib.mkIf config.programs.lf.enable {
+			target = "lf/icons";
 
 			text = ''
 				# These examples require Nerd Fonts or a compatible font to be used.
@@ -428,9 +427,8 @@ in
 			'';
 		};
 
-		home.file.lfcolors = lib.mkIf config.programs.lf.enable {
-			executable = false;
-			target = "${config.xdg.configHome}/lf/colors";
+		xdg.configFile.lfcolors = lib.mkIf config.programs.lf.enable {
+			target = "lf/colors";
 
 			text = ''
 				# file types (with matching order)

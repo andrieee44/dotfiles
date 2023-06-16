@@ -8,9 +8,8 @@
 			};
 		};
 
-		home.file.latexmkrc = lib.mkIf config.programs.texlive.enable {
-			executable = false;
-			target = "${config.xdg.configHome}/latexmk/latexmkrc";
+		xdg.configFile.latexmkrc = lib.mkIf config.programs.texlive.enable {
+			target = "latexmk/latexmkrc";
 
 			text = ''
 				$ENV{'TEXMFHOME'} = "${config.xdg.dataHome}/texlive";

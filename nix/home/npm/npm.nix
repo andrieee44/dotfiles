@@ -1,8 +1,7 @@
 { config, ... }:
 {
-	config.home.file.npmrc = {
-		executable = false;
-		target = "${config.xdg.configHome}/npm/npmrc";
+	config.xdg.configFile.npmrc = {
+		target = "npm/npmrc";
 
 		text = ''
 			cache="${config.xdg.cacheHome}/npm"

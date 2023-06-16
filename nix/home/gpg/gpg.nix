@@ -81,9 +81,8 @@ XFM1ATgTEmyv1mndXH+T/X326faN+niIlEUzZHls6uKMSAu589DbaElJenuT8avn
 			'';
 		};
 
-		home.file.pam-gnupg = {
-			executable = false;
-			target = "${config.xdg.configHome}/pam-gnupg";
+		xdg.configFile.pam-gnupg = {
+			target = "pam-gnupg";
 			text = ''
 				${config.programs.gpg.homedir}
 				4761373E4C1DF3223D5D82B64B2B4D7665A3138B

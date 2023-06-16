@@ -52,7 +52,7 @@
 				rm = "rm -Iv";
 				ip = "ip -color=auto";
 				df = "df -PTha";
-				bc = "bc ${config.home.homeDirectory}/${config.home.file.bcrc.target} -ql";
+				bc = "bc ${config.home.homeDirectory}/${config.xdg.configFile.bcrc.target} -ql";
 				ls = "LC_ALL=C ls -AFhl --time=use --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
 				grep = "grep --color=auto";
 				diff = "diff --color=auto";
@@ -63,7 +63,7 @@
 
 			sessionVariables = {
 				LESSHISTFILE = "-";
-				NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.home.file.npmrc.target}";
+				NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile.npmrc.target}";
 				W3M_DIR = "${config.xdg.dataHome}/w3m";
 			};
 

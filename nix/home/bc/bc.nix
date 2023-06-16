@@ -1,8 +1,7 @@
 { config, ... }:
 {
-	config.home.file.bcrc = {
-		executable = false;
-		target = "${config.xdg.configHome}/bc/bcrc";
+	config.xdg.configFile.bcrc = {
+		target = "bc/bcrc";
 
 		text = ''
 			# scale=6;

@@ -1,8 +1,8 @@
 { config, ... }:
 {
-	config.home.file.dircolors = {
+	config.xdg.configFile.dircolors = {
 		executable = false;
-		target = "${config.xdg.configHome}/dircolors/dircolors";
+		target = "dircolors/dircolors";
 
 		text = ''
 			# Copyright (c) 2016-present Sven Greb <development@svengreb.de>
