@@ -51,11 +51,9 @@ EOF
 
 				config = ''
 					lua <<EOF
-						local g = vim.g
-						local api = vim.api
-
 						local function customLightline()
 							local fn = vim.fn
+							local g = vim.g
 
 							if not fn.exists('g:loaded_lightline') then
 								return
@@ -89,14 +87,21 @@ EOF
 							fn['lightline#update']()
 						end
 
-						local lightlineAugroup = api.nvim_create_augroup('lightlineAugroup', {})
+						local api = vim.api
+						local mkAugroup = api.nvim_create_augroup
+						local mkAutocmd = api.nvim_create_autocmd
 
-						api.nvim_create_autocmd('ColorScheme', {
+						local lightlineAugroup = mkAugroup('lightlineAugroup', {})
+
+						mkAutocmd('VimEnter', {
 							callback = customLightline,
 							group = lightlineAugroup,
 						})
 
-						customLightline()
+						mkAutocmd('ColorScheme', {
+							callback = customLightline,
+							group = lightlineAugroup,
+						})
 EOF
 				'';
 			}
