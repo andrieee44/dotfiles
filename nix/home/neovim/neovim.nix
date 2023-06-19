@@ -12,7 +12,7 @@
 						local mkAugroup = api.nvim_create_augroup
 						local mkAutocmd = api.nvim_create_autocmd
 
-						local function customNord()
+						local function nordSettings()
 							local hl = api.nvim_set_hl
 
 							hl(0, 'Visual', {
@@ -35,7 +35,7 @@
 						local nordAugroup = mkAugroup('nordAugroup', {})
 
 						mkAutocmd('ColorScheme', {
-							callback = customNord,
+							callback = nordSettings,
 							group = nordAugroup,
 
 							pattern = {
@@ -53,7 +53,7 @@ EOF
 
 				config = ''
 					lua <<EOF
-						local function customLightline()
+						local function lightlineSettings()
 							local fn = vim.fn
 							local g = vim.g
 
@@ -96,12 +96,12 @@ EOF
 						local lightlineAugroup = mkAugroup('lightlineAugroup', {})
 
 						mkAutocmd('VimEnter', {
-							callback = customLightline,
+							callback = lightlineSettings,
 							group = lightlineAugroup,
 						})
 
 						mkAutocmd('ColorScheme', {
-							callback = customLightline,
+							callback = lightlineSettings,
 							group = lightlineAugroup,
 						})
 EOF
