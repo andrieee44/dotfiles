@@ -156,6 +156,15 @@ EOF
 EOF
 				'';
 			}
+			{
+				plugin = trim-nvim;
+
+				config = ''
+					lua <<EOF
+						require('trim').setup()
+EOF
+				'';
+			}
 		];
 
 		extraLuaConfig = ''
