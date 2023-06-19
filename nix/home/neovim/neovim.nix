@@ -121,42 +121,6 @@ EOF
 				'';
 			}
 			{
-				plugin = indent-blankline-nvim;
-
-				config = ''
-					lua <<EOF
-						local g = vim.g
-						local api = vim.api
-						local hl = api.nvim_set_hl
-						local mkAugroup = api.nvim_create_augroup
-						local mkAutocmd = api.nvim_create_autocmd
-
-						local function customIndentBlankline()
-							hl(0, 'IndentBlanklineChar', {
-								ctermfg = 'blue',
-								fg = '#81a1c1',
-							})
-						end
-
-						local indentBlanklineAugroup = mkAugroup('indentBlanklineAugroup', {})
-
-						mkAutocmd('ColorScheme', {
-							callback = customIndentBlankline,
-							group = indentBlanklineAugroup,
-						})
-
-						require("indent_blankline").setup({
-							show_first_indent_level = false,
-							char = '|',
-							char_blankline = ${"''"},
-							use_treesitter = true,
-    						show_current_context = true,
-							show_current_context_start = true,
-						})
-EOF
-				'';
-			}
-			{
 				plugin = trim-nvim;
 
 				config = ''
