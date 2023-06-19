@@ -9,6 +9,8 @@
 					lua <<EOF
 						local g = vim.g
 						local api = vim.api
+						local mkAugroup = api.nvim_create_augroup
+						local mkAutocmd = api.nvim_create_autocmd
 
 						local function customNord()
 							local hl = api.nvim_set_hl
@@ -30,9 +32,9 @@
 							})
 						end
 
-						local nordAugroup = api.nvim_create_augroup('nordAugroup', {})
+						local nordAugroup = mkAugroup('nordAugroup', {})
 
-						api.nvim_create_autocmd('ColorScheme', {
+						mkAutocmd('ColorScheme', {
 							callback = customNord,
 							group = nordAugroup,
 
@@ -148,7 +150,7 @@ EOF
 							char = '|',
 							char_blankline = ${"''"},
 							use_treesitter = true,
-    							show_current_context = true,
+    						show_current_context = true,
 							show_current_context_start = true,
 						})
 EOF
@@ -164,10 +166,6 @@ EOF
 			local keymap = api.nvim_set_keymap
 			local mkAugroup = api.nvim_create_augroup
 			local mkAutocmd = api.nvim_create_autocmd
-
-			if env.TERM == 'tmux-256color' then
-				opt.termguicolors = true
-			end
 
 			opt.mouse = ${"''"}
 			opt.showmode = false
@@ -223,6 +221,17 @@ EOF
 				pattern = {
 					'mail',
 				},
+			})
+
+			local function termguicolorsSettings()
+				opt.termguicolors = env.TERM == 'tmux-256color'
+			end
+
+			local termguicolorsAugroup = mkAugroup('termguicolorsAugroup', {})
+
+			mkAutocmd('VimEnter', {
+				callback = termguicolorsSettings,
+				group = termguicolorsAugroup,
 			})
 		'';
 	};
