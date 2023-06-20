@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
 	config.programs.neovim = {
 		plugins = with pkgs.vimPlugins; [
@@ -145,9 +145,62 @@ EOF
 			{
 				plugin = nvim-lspconfig;
 
-				config = ''
+				config = let
+					setup = name: pname: lib.optionalString (builtins.any (pkg: pkg == pkgs.${pname}) config.programs.neovim.extraPackages) "setup('${name}')";
+				in
+				''
 					lua <<EOF
-						require('lspconfig').rnix.setup({})
+						local set = vim.keymap.set
+						local api = vim.api
+						local mkAutocmd = api.nvim_create_autocmd
+						local mkAugroup = api.nvim_create_augroup
+
+						local function setup(server)
+							require('lspconfig')[server].setup({})
+						end
+
+						${setup "rnix" "rnix-lsp"}
+						${setup "gopls" "gopls"}
+
+						set('n', '<space>e', vim.diagnostic.open_float)
+						set('n', '[d', vim.diagnostic.goto_prev)
+						set('n', ']d', vim.diagnostic.goto_next)
+						set('n', '<space>q', vim.diagnostic.setloclist)
+
+						local lspAugroup = mkAugroup('lspAugroup', {}),
+
+						local function lspSettings(ev)
+							local set = vim.keymap.set
+
+							vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+							local opts = {
+								buffer = ev.buf
+							}
+
+							set('n', 'gD', vim.lsp.buf.declaration, opts)
+							set('n', 'gd', vim.lsp.buf.definition, opts)
+							set('n', 'K', vim.lsp.buf.hover, opts)
+							set('n', 'gi', vim.lsp.buf.implementation, opts)
+							set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+							set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+							set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+							set('n', '<space>wl', function()
+								print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+							end, opts)
+							vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+							vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+							vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+							vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+							vim.keymap.set('n', '<space>f', function()
+								vim.lsp.buf.format { async = true }
+							end, opts)
+						end
+
+						mkAutocmd('LspAttach', {
+							callback = lspSettings,
+							group = LspAugroup,
+						})
 EOF
 				'';
 			}
@@ -155,6 +208,7 @@ EOF
 
 		extraPackages = with pkgs; [
 			rnix-lsp
+			gopls
 		];
 
 		extraLuaConfig = ''
