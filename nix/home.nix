@@ -22,6 +22,7 @@
 					neofetch
 					powertop
 					xdg-user-dirs
+					hugo
 				])
 
 				(with config.customVars.fzfscripts; [
