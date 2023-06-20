@@ -142,6 +142,19 @@ EOF
 EOF
 				'';
 			}
+			{
+				plugin = nvim-lspconfig;
+
+				config = ''
+					lua <<EOF
+						require('lspconfig').rnix.setup({})
+EOF
+				'';
+			}
+		];
+
+		extraPackages = with pkgs; [
+			rnix-lsp
 		];
 
 		extraLuaConfig = ''
