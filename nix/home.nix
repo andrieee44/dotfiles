@@ -44,6 +44,7 @@
 					glxinfo
 					grim
 					wl-clipboard
+					gamemode
 				]))
 			];
 
