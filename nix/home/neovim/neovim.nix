@@ -159,7 +159,7 @@ EOF
 							require('lspconfig')[server].setup({})
 						end
 
-						${setup "rnix" "rnix-lsp"}
+						${setup "nil_ls" "nil"}
 						${setup "gopls" "gopls"}
 
 						set('n', '<space>e', vim.diagnostic.open_float)
@@ -167,7 +167,7 @@ EOF
 						set('n', ']d', vim.diagnostic.goto_next)
 						set('n', '<space>q', vim.diagnostic.setloclist)
 
-						local lspAugroup = mkAugroup('lspAugroup', {}),
+						local lspAugroup = mkAugroup('lspAugroup', {})
 
 						local function lspSettings(ev)
 							local set = vim.keymap.set
@@ -193,7 +193,9 @@ EOF
 							vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
 							vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 							vim.keymap.set('n', '<space>f', function()
-								vim.lsp.buf.format { async = true }
+								vim.lsp.buf.format({
+									async = true
+								})
 							end, opts)
 						end
 
@@ -207,7 +209,7 @@ EOF
 		];
 
 		extraPackages = with pkgs; [
-			rnix-lsp
+			nil
 			gopls
 		];
 
