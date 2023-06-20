@@ -17,15 +17,12 @@
 			share = true;
 		};
 
-		initExtraBeforeCompInit = ''
-			zstyle ':completion:*' menu select
-			zmodload zsh/complist
-			_comp_options+=(globdots)
-		'';
-
 		initExtra = lib.mkMerge [
 			''
 				setopt INC_APPEND_HISTORY
+				zstyle ':completion:*' menu select
+				_comp_options+=(globdots)
+				zmodload zsh/complist
 			''
 
 			(lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
