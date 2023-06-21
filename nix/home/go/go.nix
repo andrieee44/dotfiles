@@ -1,6 +1,6 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
 	config.programs.go = {
-		goPath = "${config.xdg.dataHome}/go";
+		goPath = lib.removePrefix config.home.homeDirectory "${config.xdg.dataHome}/go";
 	};
 }
