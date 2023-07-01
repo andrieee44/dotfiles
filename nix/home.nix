@@ -61,6 +61,7 @@
 				ccat = "highlight --out-format=ansi";
 				mkdir = "mkdir -pv";
 				rmdir = "rmdir -pv";
+				nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history nix-shell";
 			};
 
 			sessionVariables = {
