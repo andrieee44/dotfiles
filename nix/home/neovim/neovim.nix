@@ -30,6 +30,11 @@
 								ctermfg = 'blue',
 								fg = '#81a1c1',
 							})
+
+							hl(0, '@comment', {
+								ctermfg = 'blue',
+								fg = '#81a1c1',
+							})
 						end
 
 						local nordAugroup = mkAugroup('nordAugroup', {})
@@ -147,7 +152,9 @@ EOF
 
 				config = let
 					setup = name: pname:
-						lib.optionalString (builtins.any (pkg: pkg == pkgs.${pname}) config.programs.neovim.extraPackages) "setup('${name}')";
+						lib.optionalString (builtins.any (pkg:
+							pkg == pkgs.${pname}
+						) config.programs.neovim.extraPackages) "setup('${name}')";
 				in
 				''
 					lua <<EOF
@@ -171,6 +178,11 @@ EOF
 
 						o.updatetime = 250
 
+						set('n', '<space>e', vim.diagnostic.open_float)
+						set('n', '[d', vim.diagnostic.goto_prev)
+						set('n', ']d', vim.diagnostic.goto_next)
+						set('n', '<space>q', vim.diagnostic.setloclist)
+
 						local lspAugroup = mkAugroup('lspAugroup', {})
 
 						local function floatDiagnostic()
@@ -181,11 +193,6 @@ EOF
 							callback = floatDiagnostic,
 							group = LspAugroup,
 						})
-
-						set('n', '<space>e', vim.diagnostic.open_float)
-						set('n', '[d', vim.diagnostic.goto_prev)
-						set('n', ']d', vim.diagnostic.goto_next)
-						set('n', '<space>q', vim.diagnostic.setloclist)
 
 						local function lspSettings(ev)
 							local set = vim.keymap.set
