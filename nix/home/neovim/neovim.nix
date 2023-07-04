@@ -146,12 +146,15 @@ EOF
 				plugin = nvim-lspconfig;
 
 				config = let
-					setup = name: pname: lib.optionalString (builtins.any (pkg: pkg == pkgs.${pname}) config.programs.neovim.extraPackages) "setup('${name}')";
+					setup = name: pname:
+						lib.optionalString (builtins.any (pkg: pkg == pkgs.${pname}) config.programs.neovim.extraPackages) "setup('${name}')";
 				in
 				''
 					lua <<EOF
 						local set = vim.keymap.set
 						local api = vim.api
+						local diagnostic = vim.diagnostic
+						local o = vim.o
 						local mkAutocmd = api.nvim_create_autocmd
 						local mkAugroup = api.nvim_create_augroup
 
@@ -162,12 +165,27 @@ EOF
 						${setup "nil_ls" "nil"}
 						${setup "gopls" "gopls"}
 
+						diagnostic.config({
+							signs = false
+						})
+
+						o.updatetime = 250
+
+						local lspAugroup = mkAugroup('lspAugroup', {})
+
+						local function floatDiagnostic()
+							diagnostic.open_float(nil, {focus=false})
+						end
+
+						mkAutocmd({"CursorHold", "CursorHoldI"}, {
+							callback = floatDiagnostic,
+							group = LspAugroup,
+						})
+
 						set('n', '<space>e', vim.diagnostic.open_float)
 						set('n', '[d', vim.diagnostic.goto_prev)
 						set('n', ']d', vim.diagnostic.goto_next)
 						set('n', '<space>q', vim.diagnostic.setloclist)
-
-						local lspAugroup = mkAugroup('lspAugroup', {})
 
 						local function lspSettings(ev)
 							local set = vim.keymap.set
