@@ -11,7 +11,7 @@
 
 		home = {
 			username = config.customVars.user;
-			homeDirectory = "/home/${config.customVars.user}";
+			homeDirectory = "/home/${config.home.username}";
 			stateVersion = "22.11";
 			enableNixpkgsReleaseCheck = true;
 
@@ -184,7 +184,7 @@
 			texlive.enable = true;
 			tmux.enable = true;
 			zathura.enable = config.customVars.gui;
-			zsh.enable = osConfig.users.users."${config.customVars.user}".shell == pkgs.zsh;
+			zsh.enable = osConfig.users.users."${config.home.username}".shell == pkgs.zsh;
 
 			waybar = {
 				enable = config.customVars.gui;

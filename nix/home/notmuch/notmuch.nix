@@ -1,7 +1,7 @@
 { config, ... }:
 {
 	config = {
-		accounts.email.accounts."${config.customVars.user}".notmuch = {
+		accounts.email.accounts."${config.home.username}".notmuch = {
 			enable = config.programs.notmuch.enable;
 		};
 	};

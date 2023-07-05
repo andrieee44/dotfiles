@@ -1,7 +1,7 @@
 { config, ... }:
 {
 	config = {
-		accounts.email.accounts."${config.customVars.user}".neomutt = {
+		accounts.email.accounts."${config.home.username}".neomutt = {
 			enable = config.programs.neomutt.enable;
 
 			extraConfig = ''

@@ -66,7 +66,7 @@ XFM1ATgTEmyv1mndXH+T/X326faN+niIlEUzZHls6uKMSAu589DbaElJenuT8avn
 			];
 		};
 
-		accounts.email.accounts."${config.customVars.user}".gpg = {
+		accounts.email.accounts."${config.home.username}".gpg = {
 			key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
 			signByDefault = true;
 		};

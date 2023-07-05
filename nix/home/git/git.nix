@@ -1,7 +1,7 @@
 { config, ... }:
 {
 	config.programs.git = {
-		userEmail = config.accounts.email.accounts."${config.customVars.user}".address;
-		userName = config.customVars.user;
+		userEmail = config.accounts.email.accounts."${config.home.username}".address;
+		userName = config.home.username;
 	};
 }
