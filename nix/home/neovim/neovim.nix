@@ -153,7 +153,7 @@ EOF
 				config = let
 					setup = name: pname:
 						lib.optionalString (builtins.any (pkg:
-							pkg == pkgs.${pname}
+							pkg == pname
 						) config.programs.neovim.extraPackages) "setup('${name}')";
 				in
 				''
@@ -169,8 +169,9 @@ EOF
 							require('lspconfig')[server].setup({})
 						end
 
-						${setup "nil_ls" "nil"}
-						${setup "gopls" "gopls"}
+						${setup "nil_ls" pkgs.nil}
+						${setup "gopls" pkgs.gopls}
+						${setup "bashls" pkgs.nodePackages_latest.bash-language-server}
 
 						diagnostic.config({
 							signs = false
@@ -234,6 +235,8 @@ EOF
 		];
 
 		extraPackages = with pkgs; [
+			nodePackages_latest.bash-language-server
+			shellcheck
 			nil
 			gopls
 		];
