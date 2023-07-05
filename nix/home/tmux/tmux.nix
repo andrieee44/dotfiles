@@ -30,7 +30,9 @@
 				set -Fsa terminal-overrides "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#,${"\${TERM}"}:RGB,}"
 			''
 
-			(lib.optionalString (builtins.any (plugin: plugin.plugin == pkgs.tmuxPlugins.nord) config.programs.tmux.plugins) ''
+			(lib.optionalString (builtins.any (plugin:
+				plugin.plugin == pkgs.tmuxPlugins.nord
+			) config.programs.tmux.plugins) ''
 				set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=cyan#,bg=black#,nobold],}"
 				set -Fg status-right "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H ,#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
 
