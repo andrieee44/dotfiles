@@ -63,7 +63,7 @@
 				ls = "LC_ALL=C ${pkgs.coreutils}/bin/ls -AFhl --time=use --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
 				grep = "${pkgs.gnugrep}/bin/grep --color=auto";
 				diff = "${pkgs.diffutils}/bin/diff --color=auto";
-				nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history ${pkgs.nix}/bin/nix-shell";
+				nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history ${pkgs.cached-nix-shell}/bin/cached-nix-shell";
 			};
 
 			sessionVariables = {
@@ -184,7 +184,7 @@
 			texlive.enable = true;
 			tmux.enable = true;
 			zathura.enable = config.customVars.gui;
-			zsh.enable = lib.mkIf (osConfig.users.users."${config.customVars.user}".shell == pkgs.zsh) true;
+			zsh.enable = osConfig.users.users."${config.customVars.user}".shell == pkgs.zsh;
 
 			waybar = {
 				enable = config.customVars.gui;
@@ -192,7 +192,7 @@
 		};
 
 		services = {
-			dunst.enable = true;
+			dunst.enable = config.customVars.gui;
 			gpg-agent.enable = true;
 			mpd.enable = true;
 			swayidle.enable = config.wayland.windowManager.sway.enable;
