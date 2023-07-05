@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, osConfig, ... }:
 {
 	config.services.mpd = {
 		dataDir = "${config.xdg.dataHome}/mpd";
@@ -11,10 +11,12 @@
 			restore_paused "yes"
 			auto_update "yes"
 
-			audio_output {
-				type "pipewire"
-				name "Pipewire Sound Server"
-			}
+			${lib.optionalString osConfig.services.pipewire.enable ''
+				audio_output {
+					type "pipewire"
+					name "Pipewire Sound Server"
+				}
+			''}
 
 			audio_output {
 				type "fifo"
