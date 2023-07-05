@@ -20,7 +20,6 @@ in
 		sshPassCmd = mkStrOption "sshPassCmd";
 		shShebang = mkStrOption "shShebang";
 		gui = lib.mkEnableOption "gui";
-		name = mkStrOption "name";
 		user = mkStrOption "user";
 		email = mkStrOption "email";
 		emailFlavor = mkStrOption "emailFlavor";
@@ -66,7 +65,6 @@ in
 		'';
 
 		gui = true;
-		name = "Andrieee44";
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";

@@ -108,7 +108,6 @@
 
 		users.users."${config.customVars.user}" = {
 			isNormalUser = true;
-			description = config.customVars.name;
 			shell = pkgs.zsh;
 			createHome = true;
 
@@ -138,7 +137,7 @@
 			rtkit.enable = true;
 
 			pam.services = {
-				swaylock.gnupg.enable = true;
+				swaylock.gnupg.enable = config.customVars.gui;
 
 				login.gnupg = {
 					enable = true;
