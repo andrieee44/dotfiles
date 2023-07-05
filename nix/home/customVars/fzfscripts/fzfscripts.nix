@@ -6,6 +6,7 @@
 	{
 		pathmenu = mkPkgOption "pathmenu";
 		sysmenu = mkPkgOption "sysmenu";
+		preview = mkPkgOption "preview";
 	};
 
 	config.customVars.fzfscripts = let
@@ -53,6 +54,23 @@
 					q
 				}
 			')"
+		'';
+
+		preview = pkgs.writeScriptBin "preview" ''${shShebang}
+			file="$1"
+
+			case "$(${pkgs.file}/bin/file --dereference --brief --mime-type -- "$file")" in
+				text/html)
+					${pkgs.w3m}/bin/w3m -T text/html <"$file"
+					;;
+				text/* | */xml | application/json)
+					${lib.optionalString config.programs.neovim.enable ''
+						${pkgs.moar}/bin/moar "$file"
+					''}
+					;;
+				application/pgp-encrypted)
+					${pkgs.gnupg}/bin/gpg2 -d -- "$file" ;;
+			esac
 		'';
 	};
 }

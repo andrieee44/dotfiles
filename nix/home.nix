@@ -18,6 +18,7 @@
 			packages = lib.mkMerge [
 				(with pkgs; [
 					(lib.mkIf config.services.mpd.enable mpc-cli)
+					moar
 					bc
 					neofetch
 					powertop
@@ -52,15 +53,14 @@
 				cp = "cp -iv";
 				mv = "mv -iv";
 				rm = "rm -Iv";
+				mkdir = "mkdir -pv";
+				rmdir = "rmdir -pv";
 				ip = "ip -color=auto";
 				df = "df -PTha";
 				bc = "bc ${config.home.homeDirectory}/${config.xdg.configFile.bcrc.target} -ql";
 				ls = "LC_ALL=C ls -AFhl --time=use --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
 				grep = "grep --color=auto";
 				diff = "diff --color=auto";
-				ccat = "highlight --out-format=ansi";
-				mkdir = "mkdir -pv";
-				rmdir = "rmdir -pv";
 				nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history nix-shell";
 			};
 
@@ -68,6 +68,11 @@
 				LESSHISTFILE = "-";
 				NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile.npmrc.target}";
 				W3M_DIR = "${config.xdg.dataHome}/w3m";
+				MOAR = "--style nord";
+
+				PAGER = lib.optionalString (builtins.any (pkg:
+					pkg == pkgs.moar
+				) config.home.packages) "${pkgs.moar}/bin/moar";
 			};
 
 			language = let
