@@ -619,9 +619,6 @@ in
 				*.vob	32
 				*.webm	32
 				*.wmv	32
-
-				# (This is not a dircolors file but it helps to highlight colors and comments)
-				# vim:ft=dircolors
 			'';
 		};
 	};
