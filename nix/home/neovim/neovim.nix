@@ -273,7 +273,7 @@ EOF
 				noremap = true,
 			})
 
-			keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${pkgs.busybox}/bin/tee >/dev/null %', {
+			keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${config.customVars.unixUtils}/tee >/dev/null %', {
 				noremap = true,
 			})
 

@@ -70,7 +70,7 @@ in
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";
-		unixUtils = "${pkgs.busybox}/bin";
+		unixUtils = "${pkgs.toybox}/bin";
 		dateFmt = "%b %e %Y (%a) %l:%M %p";
 		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
 	};

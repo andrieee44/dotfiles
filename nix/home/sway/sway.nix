@@ -11,7 +11,7 @@
 
 		config = let
 			swayConfig = config.wayland.windowManager.sway.config;
-			menu = bin: "${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${pkgs.busybox}/bin/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
+			menu = bin: "${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${config.customVars.unixUtils}/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
 		in
 		{
 			modifier = "Mod4";
