@@ -2,8 +2,7 @@
 {
 	options.customVars.fzfscripts = let
 		mkPkgOption = config.customVars.mkPkgOption;
-	in
-	{
+	in {
 		pathmenu = mkPkgOption "pathmenu";
 		sysmenu = mkPkgOption "sysmenu";
 		preview = mkPkgOption "preview";
@@ -16,8 +15,7 @@
 
 		shShebang = config.customVars.shShebang;
 		unixUtils = config.customVars.unixUtils;
-	in
-	{
+	in {
 		pathmenu = pkgs.writeScriptBin "pathmenu" ''${shShebang}
 			bin=""
 			IFS=:

@@ -1,12 +1,22 @@
 { config, ... }:
 let
-	ringColor="#3b4252";
-	keyColor = "#88c0d0";
-	warnColor = "#d08770";
-	verColor = "#a3be8c";
-	errorColor = "#BF616A";
-in
-{
+	colorschemes = {
+		nord = {
+			ringColor = "#3b4252";
+			keyColor = "#88c0d0";
+			warnColor = "#d08770";
+			verColor = "#a3be8c";
+			errorColor = "#BF616A";
+		};
+	};
+
+	colorscheme = colorschemes.${config.customVars.colorscheme};
+	ringColor = colorscheme.ringColor;
+	keyColor = colorscheme.keyColor;
+	warnColor = colorscheme.warnColor;
+	verColor = colorscheme.verColor;
+	errorColor = colorscheme.errorColor;
+in {
 	config.programs.swaylock = {
 		settings = {
 			daemonize = true;

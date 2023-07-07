@@ -2,8 +2,7 @@
 {
 	options.customVars.sh = let
 		mkLinesOption = config.customVars.mkLinesOption;
-	in
-	{
+	in {
 		profile = mkLinesOption "profile";
 		rc = mkLinesOption "rc";
 	};
@@ -25,6 +24,10 @@
 
 			(lib.optionalString config.programs.neovim.enable ''
 				export EDITOR="${config.home.homeDirectory}/.nix-profile/bin/nvim"
+			'')
+
+			(lib.optionalString (config.home.sessionVariables.PAGER == "${pkgs.moar}/bin/moar") ''
+				export PAGER="${pkgs.moar}/bin/moar"
 			'')
 
 			(lib.optionalString config.programs.tmux.enable ''

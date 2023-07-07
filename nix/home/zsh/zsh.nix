@@ -17,9 +17,17 @@
 			share = true;
 		};
 
-		initExtra = lib.mkMerge [
+		initExtra = let
+			colorschemes = {
+				nord = "%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} ";
+			};
+		in lib.mkMerge [
 			''
 				setopt INC_APPEND_HISTORY
+
+				autoload -U colors && colors
+				PS1="${colorschemes.${config.customVars.colorscheme}}"
+
 				zstyle ':completion:*' menu select
 				_comp_options+=(globdots)
 				zmodload zsh/complist
@@ -27,9 +35,6 @@
 
 			(lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
 				export KEYTIMEOUT=1
-
-				autoload -U colors && colors
-				PS1="%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} "
 
 				bindkey -M menuselect 'h' vi-backward-char
 				bindkey -M menuselect 'k' vi-up-line-or-history

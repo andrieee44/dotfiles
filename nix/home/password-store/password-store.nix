@@ -1,8 +1,7 @@
 { config, ... }:
 let
 	dir = "${config.xdg.dataHome}/password-store";
-in
-{
+in {
 	config.programs.password-store = {
 		settings = {
 			PASSWORD_STORE_DIR = dir;

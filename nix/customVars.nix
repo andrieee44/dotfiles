@@ -4,15 +4,13 @@ let
 		type = lib.types.anything;
 		description = "Function value for ${name}.";
 	};
-in
-{
+in {
 	options.customVars = let
 		mkStrOption = config.customVars.mkStrOption;
 		mkUintOption = config.customVars.mkUintOption;
 		mkPkgOption = config.customVars.mkPkgOption;
 		mkLinesOption = config.customVars.mkLinesOption;
-	in
-	{
+	in {
 		mkStrOption = mkFuncOption "mkStrOption";
 		mkUintOption = mkFuncOption "mkUintOption";
 		mkPkgOption = mkFuncOption "mkPkgOption";
@@ -20,6 +18,7 @@ in
 		sshPassCmd = mkStrOption "sshPassCmd";
 		shShebang = mkStrOption "shShebang";
 		gui = lib.mkEnableOption "gui";
+		colorscheme = mkStrOption "colorscheme";
 		user = mkStrOption "user";
 		email = mkStrOption "email";
 		emailFlavor = mkStrOption "emailFlavor";
@@ -30,8 +29,7 @@ in
 
 	config.customVars = let
 		pass = file: "${pkgs.pass}/bin/pass ${file}";
-	in
-	{
+	in {
 		mkStrOption = name: lib.mkOption {
 			type = lib.types.str;
 			description = "String value for ${name}.";
@@ -57,14 +55,14 @@ in
 				set -eu
 				${pass "ssh/laptop"}
 			'';
-		in
-		"${sshPassCmd}/bin/sshPassCmd";
+		in "${sshPassCmd}/bin/sshPassCmd";
 
 		shShebang = ''#!${pkgs.dash}/bin/dash
 			set -eu
 		'';
 
 		gui = true;
+		colorscheme = "nord";
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";

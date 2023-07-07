@@ -70,7 +70,7 @@
 				LESSHISTFILE = "-";
 				NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile.npmrc.target}";
 				W3M_DIR = "${config.xdg.dataHome}/w3m";
-				MOAR = "--style nord";
+				MOAR = "--style ${config.customVars.colorscheme}";
 
 				PAGER = lib.optionalString (builtins.any (pkg:
 					pkg == pkgs.moar
@@ -80,8 +80,7 @@
 			language = let
 				locale = "fil_PH";
 				defaultLocale = osConfig.i18n.defaultLocale;
-			in
-			{
+			in {
 				address = locale;
 				base = defaultLocale;
 				collate = defaultLocale;
@@ -97,8 +96,7 @@
 
 		xdg = let
 			baseDir = "${config.home.homeDirectory}/xdg";
-		in
-		{
+		in {
 			enable = true;
 			mime.enable = true;
 			mimeApps.enable = true;
@@ -125,16 +123,24 @@
 			enable = config.customVars.gui;
 			gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
-			cursorTheme = {
-				package = pkgs.nordzy-cursor-theme;
-				name = "Nordzy-cursors";
-				size = 16;
-			};
+			cursorTheme = let
+				colorschemes = {
+					nord = {
+						package = pkgs.nordzy-cursor-theme;
+						name = "Nordzy-cursors";
+						size = 16;
+					};
+				};
+			in colorschemes.${config.customVars.colorscheme};
 
-			iconTheme = {
-				package = pkgs.nordzy-icon-theme;
-				name = "Nordzy-dark";
-			};
+			iconTheme = let
+				colorschemes = {
+					nord = {
+						package = pkgs.nordzy-icon-theme;
+						name = "Nordzy-dark";
+					};
+				};
+			in colorschemes.${config.customVars.colorscheme};
 
 			font = {
 				package = pkgs.nerdfonts.override {
@@ -147,10 +153,14 @@
 				size = 12;
 			};
 
-			theme = {
-				package = pkgs.nordic;
-				name = "Nordic";
-			};
+			theme = let
+				colorschemes = {
+					nord = {
+						package = pkgs.nordic;
+						name = "Nordic";
+					};
+				};
+			in colorschemes.${config.customVars.colorscheme};
 		};
 
 		qt = {

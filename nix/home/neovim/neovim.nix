@@ -2,7 +2,7 @@
 {
 	config.programs.neovim = {
 		plugins = with pkgs.vimPlugins; [
-			{
+			(lib.mkIf (config.customVars.colorscheme == "nord") {
 				plugin = nord-nvim;
 
 				config = ''
@@ -52,7 +52,7 @@
 						require('nord').set()
 EOF
 				'';
-			}
+			})
 			{
 				plugin = lightline-vim;
 
@@ -155,8 +155,7 @@ EOF
 						lib.optionalString (builtins.any (pkg:
 							pkg == pname
 						) config.programs.neovim.extraPackages) "setup('${name}')";
-				in
-				''
+				in ''
 					lua <<EOF
 						local set = vim.keymap.set
 						local api = vim.api

@@ -12,8 +12,7 @@
 		config = let
 			swayConfig = config.wayland.windowManager.sway.config;
 			menu = bin: "${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${config.customVars.unixUtils}/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
-		in
-		{
+		in {
 			modifier = "Mod4";
 			left = "h";
 			down = "j";
@@ -22,49 +21,53 @@
 			terminal = "${pkgs.alacritty}/bin/alacritty";
 			menu = menu "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu";
 
-			colors = {
-				background = "#000000";
+			colors = let
+				colorschemes = {
+					nord = {
+						background = "#000000";
 
-				focused = {
-					border = "#ff0000";
-					background = "#ff0000";
-					text = "#ff0000";
-					indicator = "#5e81ac";
-					childBorder = "#5e81ac";
-				};
+						focused = {
+							border = "#ff0000";
+							background = "#ff0000";
+							text = "#ff0000";
+							indicator = "#5e81ac";
+							childBorder = "#5e81ac";
+						};
 
-				focusedInactive = {
-					border = "#00ff00";
-					background = "#00ff00";
-					text = "#00ff00";
-					indicator = "#81a1c1";
-					childBorder = "#81a1c1";
-				};
+						focusedInactive = {
+							border = "#00ff00";
+							background = "#00ff00";
+							text = "#00ff00";
+							indicator = "#81a1c1";
+							childBorder = "#81a1c1";
+						};
 
-				unfocused = {
-					border = "#0000ff";
-					background = "#0000ff";
-					text = "#0000ff";
-					indicator = "#4c566a";
-					childBorder = "#4c566a";
-				};
+						unfocused = {
+							border = "#0000ff";
+							background = "#0000ff";
+							text = "#0000ff";
+							indicator = "#4c566a";
+							childBorder = "#4c566a";
+						};
 
-				urgent = {
-					border = "#00ffff";
-					background = "#00ffff";
-					text = "#00ffff";
-					indicator = "#bf616a";
-					childBorder = "#bf616a";
-				};
+						urgent = {
+							border = "#00ffff";
+							background = "#00ffff";
+							text = "#00ffff";
+							indicator = "#bf616a";
+							childBorder = "#bf616a";
+						};
 
-				placeholder = {
-					border = "#ffff00";
-					background = "#ffff00";
-					text = "#ffff00";
-					indicator = "#ffff00";
-					childBorder = "#ffff00";
+						placeholder = {
+							border = "#ffff00";
+							background = "#ffff00";
+							text = "#ffff00";
+							indicator = "#ffff00";
+							childBorder = "#ffff00";
+						};
+					};
 				};
-			};
+			in colorschemes.${config.customVars.colorscheme};
 
 			startup = [
 				{
@@ -78,8 +81,7 @@
 			keybindings = let
 				light = args: "exec sh -c '${pkgs.light}/bin/light ${args} && ${config.customVars.notifs.brightness}/bin/brightness'";
 				wpctl = args: "exec sh -c '${pkgs.wireplumber}/bin/wpctl ${args} && ${config.customVars.notifs.volume}/bin/volume'";
-			in
-			pkgs.lib.mkOptionDefault {
+			in pkgs.lib.mkOptionDefault {
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
 				"Mod4+w" = "exec ${pkgs.librewolf}/bin/librewolf";
 				"Mod4+d" = "exec ${swayConfig.menu}";
