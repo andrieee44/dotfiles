@@ -211,6 +211,10 @@
 
 			seat = {
 				"*" = {
+					xcursor_theme = let
+						cursorTheme = config.gtk.cursorTheme;
+					in "${cursorTheme.name} ${builtins.toString cursorTheme.size}";
+
 					hide_cursor = "5000";
 				};
 			};
