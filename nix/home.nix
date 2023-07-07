@@ -12,7 +12,7 @@
 		home = {
 			username = config.customVars.user;
 			homeDirectory = "/home/${config.home.username}";
-			stateVersion = "22.11";
+			stateVersion = osConfig.system.stateVersion;
 			enableNixpkgsReleaseCheck = true;
 
 			packages = lib.mkMerge [
