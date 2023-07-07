@@ -67,7 +67,9 @@
 		};
 
 		boot = {
-			tmpOnTmpfs = true;
+			tmp = {
+				useTmpfs = true;
+			};
 
 			loader = {
 				systemd-boot = {
@@ -150,6 +152,7 @@
 			steam.enable = config.customVars.gui;
 			dconf.enable = true;
 			light.enable = true;
+			zsh.enable = config.users.users."${config.customVars.user}".shell == pkgs.zsh;
 
 			gamemode = {
 				enable = config.customVars.gui;
