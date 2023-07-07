@@ -23,7 +23,7 @@ in {
 			show-failed-attempts = true;
 			ignore-empty-password = true;
 			scaling = "stretch";
-			image = "${./../wallpapers/astronaut.png}";
+			image = "${./../wallpapers/${config.customVars.colorscheme}/lock.png}";
 			bs-hl-color = warnColor;
 			text-color = keyColor;
 			text-clear-color = warnColor;

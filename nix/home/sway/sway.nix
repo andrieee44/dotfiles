@@ -141,7 +141,7 @@
 
 			output = {
 				eDP-1 = {
-					bg = "${./../wallpapers/japanese.png} fill";
+					bg = "${./../wallpapers/${config.customVars.colorscheme}/home.png} fill";
 				};
 			};
 
