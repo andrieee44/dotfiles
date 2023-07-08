@@ -142,16 +142,20 @@
 				};
 			in colorschemes.${config.customVars.colorscheme};
 
-			font = {
-				package = pkgs.nerdfonts.override {
-					fonts = [
-						"SourceCodePro"
-					];
-				};
+			font = let
+				fonts = {
+					SauceCodePro = {
+						package = pkgs.nerdfonts.override {
+							fonts = [
+								"SourceCodePro"
+							];
+						};
 
-				name = "Sauce Code Pro Nerd Font Mono";
-				size = 12;
-			};
+						name = "Sauce Code Pro Nerd Font Mono";
+						size = 12;
+					};
+				};
+			in fonts.${config.customVars.font};
 
 			theme = let
 				colorschemes = {

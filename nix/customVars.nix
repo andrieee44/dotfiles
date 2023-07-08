@@ -18,6 +18,7 @@ in {
 		sshPassCmd = mkStrOption "sshPassCmd";
 		shShebang = mkStrOption "shShebang";
 		gui = lib.mkEnableOption "gui";
+		font = mkStrOption "font";
 		colorscheme = mkStrOption "colorscheme";
 		user = mkStrOption "user";
 		email = mkStrOption "email";
@@ -63,6 +64,7 @@ in {
 
 		gui = true;
 		colorscheme = "nord";
+		font = "SauceCodePro";
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";

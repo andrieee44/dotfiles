@@ -32,11 +32,11 @@
 
 		fonts = {
 			fonts = with pkgs; [
-				(nerdfonts.override {
+				(lib.mkIf (config.customVars.font == "SauceCodePro") (nerdfonts.override {
 					fonts = [
 						"SourceCodePro"
 					];
-				})
+				}))
 
 				vistafonts
 				terminus_font
@@ -48,19 +48,19 @@
 
 				defaultFonts = {
 					emoji = [
-						"SauceCodePro Nerd Font"
+						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font")
 					];
 
 					serif = [
-						"SauceCodePro Nerd Font"
+						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font")
 					];
 
 					sansSerif = [
-						"SauceCodePro Nerd Font"
+						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font")
 					];
 
 					monospace = [
-						"SauceCodePro Nerd Font Mono"
+						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font Mono")
 					];
 				};
 			};
