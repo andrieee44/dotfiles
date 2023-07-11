@@ -195,6 +195,7 @@
 			obs-studio.enable = config.customVars.gui;
 			password-store.enable = true;
 			ssh.enable = true;
+			swaylock.enable = config.wayland.windowManager.sway.enable;
 			texlive.enable = true;
 			tmux.enable = true;
 			zathura.enable = config.customVars.gui;
