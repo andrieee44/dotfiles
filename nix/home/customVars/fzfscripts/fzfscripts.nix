@@ -21,7 +21,7 @@
 			IFS=:
 			for d in $PATH; do
 				[ ! -d "$d" ] && continue
-				bin="${"\${bin}"}$(${unixUtils}/find -L "$d" -mindepth 1 -type f -perm -u=x -not -name '.*')"
+				bin="${"\${bin}"}$(${unixUtils}/find -L "$d" -mindepth 1 -maxdepth 1 -type f -perm -u=x -not -name '.*')"
 			done
 
 			cmd="$(echo "$bin" | ${unixUtils}/sed 's/.*\///' | ${unixUtils}/sort | ${pkgs.fzf}/bin/fzf-tmux --header "Search executable:" ${fzf-tmuxArgs})"
