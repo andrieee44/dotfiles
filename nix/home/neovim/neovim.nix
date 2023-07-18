@@ -21,11 +21,6 @@
 								bg = '#4c566a',
 							})
 
-							hl(0, 'Comment', {
-								ctermfg = 'blue',
-								fg = '#81a1c1',
-							})
-
 							hl(0, 'LineNr', {
 								ctermfg = 'blue',
 								fg = '#81a1c1',
@@ -34,6 +29,13 @@
 							hl(0, '@comment', {
 								ctermfg = 'blue',
 								fg = '#81a1c1',
+								italic = true,
+							})
+
+							hl(0, 'Comment', {
+								ctermfg = 'blue',
+								fg = '#81a1c1',
+								italic = true,
 							})
 						end
 
