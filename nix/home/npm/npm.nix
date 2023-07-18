@@ -1,6 +1,7 @@
 { config, ... }:
 {
 	config.xdg.configFile.npmrc = {
+		enable = true;
 		target = "npm/npmrc";
 
 		text = ''

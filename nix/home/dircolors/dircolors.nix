@@ -1,7 +1,7 @@
 { config, ... }:
 {
 	config.xdg.configFile.dircolors = {
-		executable = false;
+		enable = true;
 		target = "dircolors/dircolors";
 
 		text = let

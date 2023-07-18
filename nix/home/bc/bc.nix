@@ -1,6 +1,7 @@
 { config, ... }:
 {
 	config.xdg.configFile.bcrc = {
+		enable = true;
 		target = "bc/bcrc";
 
 		text = ''

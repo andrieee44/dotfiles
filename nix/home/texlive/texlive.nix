@@ -8,7 +8,8 @@
 			};
 		};
 
-		xdg.configFile.latexmkrc = lib.mkIf config.programs.texlive.enable {
+		xdg.configFile.latexmkrc = {
+			enable = config.programs.texlive.enable ;
 			target = "latexmk/latexmkrc";
 
 			text = ''

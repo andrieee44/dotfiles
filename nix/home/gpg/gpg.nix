@@ -82,6 +82,7 @@ XFM1ATgTEmyv1mndXH+T/X326faN+niIlEUzZHls6uKMSAu589DbaElJenuT8avn
 		};
 
 		xdg.configFile.pam-gnupg = {
+			enable = config.services.gpg-agent.enable;
 			target = "pam-gnupg";
 			text = ''
 				${config.programs.gpg.homedir}

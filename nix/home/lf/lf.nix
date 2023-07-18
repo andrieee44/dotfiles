@@ -62,7 +62,8 @@ in {
 			};
 		};
 
-		xdg.configFile.lficons = lib.mkIf config.programs.lf.enable {
+		xdg.configFile.lficons = {
+			enable = config.programs.lf.enable;
 			target = "lf/icons";
 
 			text = ''
@@ -423,7 +424,8 @@ in {
 			'';
 		};
 
-		xdg.configFile.lfcolors = lib.mkIf config.programs.lf.enable {
+		xdg.configFile.lfcolors = {
+			enable = config.programs.lf.enable;
 			target = "lf/colors";
 
 			text = let
