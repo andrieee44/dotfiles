@@ -178,10 +178,8 @@ EOF
 
 						o.updatetime = 250
 
-						set('n', '<space>e', vim.diagnostic.open_float)
 						set('n', '[d', vim.diagnostic.goto_prev)
 						set('n', ']d', vim.diagnostic.goto_next)
-						set('n', '<space>q', vim.diagnostic.setloclist)
 
 						local lspAugroup = mkAugroup('lspAugroup', {})
 
@@ -189,7 +187,7 @@ EOF
 							diagnostic.open_float(nil, {focus=false})
 						end
 
-						mkAutocmd({"CursorHold", "CursorHoldI"}, {
+						mkAutocmd({'CursorHold', 'CursorHoldI'}, {
 							callback = floatDiagnostic,
 							group = LspAugroup,
 						})
@@ -203,20 +201,21 @@ EOF
 								buffer = ev.buf
 							}
 
-							set('n', 'gD', vim.lsp.buf.declaration, opts)
 							set('n', 'gd', vim.lsp.buf.definition, opts)
 							set('n', 'K', vim.lsp.buf.hover, opts)
 							set('n', 'gi', vim.lsp.buf.implementation, opts)
 							set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 							set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
 							set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+							set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+							set('n', '<space>rn', vim.lsp.buf.rename, opts)
+							set({'n', 'v'}, '<space>ca', vim.lsp.buf.code_action, opts)
+							set('n', 'gr', vim.lsp.buf.references, opts)
+
 							set('n', '<space>wl', function()
 								print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 							end, opts)
-							vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-							vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-							vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-							vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
 							vim.keymap.set('n', '<space>f', function()
 								vim.lsp.buf.format({
 									async = true
