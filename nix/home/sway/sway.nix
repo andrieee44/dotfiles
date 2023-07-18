@@ -11,7 +11,8 @@
 
 		config = let
 			swayConfig = config.wayland.windowManager.sway.config;
-			menu = bin: "${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${config.customVars.unixUtils}/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
+			menu = bin:
+			"${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${config.customVars.unixUtils}/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
 		in {
 			modifier = "Mod4";
 			left = "h";
@@ -79,8 +80,12 @@
 			];
 
 			keybindings = let
-				light = args: "exec sh -c '${pkgs.light}/bin/light ${args} && ${config.customVars.notifs.brightness}/bin/brightness'";
-				wpctl = args: "exec sh -c '${pkgs.wireplumber}/bin/wpctl ${args} && ${config.customVars.notifs.volume}/bin/volume'";
+				light = args:
+				"exec sh -c '${pkgs.light}/bin/light ${args} && ${config.customVars.notifs.brightness}/bin/brightness'";
+
+				wpctl = args:
+				"exec sh -c '${pkgs.wireplumber}/bin/wpctl ${args} && ${config.customVars.notifs.volume}/bin/volume'";
+
 			in pkgs.lib.mkOptionDefault {
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
 				"Mod4+w" = "exec ${pkgs.librewolf}/bin/librewolf";

@@ -73,7 +73,7 @@
 				MOAR = "--style ${config.customVars.colorscheme}";
 
 				PAGER = lib.optionalString (builtins.any (pkg:
-					pkg == pkgs.moar
+				pkg == pkgs.moar
 				) config.home.packages) "${pkgs.moar}/bin/moar";
 			};
 

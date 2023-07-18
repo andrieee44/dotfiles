@@ -152,9 +152,9 @@ EOF
 
 				config = let
 					setup = name: pname:
-						lib.optionalString (builtins.any (pkg:
-							pkg == pname
-						) config.programs.neovim.extraPackages) "setup('${name}')";
+					lib.optionalString (builtins.any (pkg:
+					pkg == pname
+					) config.programs.neovim.extraPackages) "setup('${name}')";
 				in ''
 					lua <<EOF
 						local set = vim.keymap.set

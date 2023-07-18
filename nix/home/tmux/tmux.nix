@@ -13,14 +13,14 @@
 		extraConfig = let
 			tmux = "${pkgs.tmux}/bin/tmux";
 			mvpane = pane:
-				let
-					paneStr = builtins.toString pane;
-				in "${tmux} breakp -t ':${paneStr}' || ${tmux} joinp -t ':${paneStr}' || true";
+			let
+				paneStr = builtins.toString pane;
+			in "${tmux} breakp -t ':${paneStr}' || ${tmux} joinp -t ':${paneStr}' || true";
 
 			cdpane = pane:
-				let
-					paneStr = builtins.toString pane;
-				in "${tmux} selectw -t ':${paneStr}' || ${tmux} neww -t ':${paneStr}'";
+			let
+				paneStr = builtins.toString pane;
+			in "${tmux} selectw -t ':${paneStr}' || ${tmux} neww -t ':${paneStr}'";
 		in lib.mkMerge [
 			''
 				set -Fg default-terminal "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},tmux-256color,screen-16color}"
@@ -28,7 +28,7 @@
 			''
 
 			(lib.optionalString (builtins.any (plugin:
-				plugin.plugin == pkgs.tmuxPlugins.nord
+			plugin.plugin == pkgs.tmuxPlugins.nord
 			) config.programs.tmux.plugins) ''
 				set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=cyan#,bg=black#,nobold],}"
 				set -Fg status-right "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H ,#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
