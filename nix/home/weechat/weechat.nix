@@ -5,16 +5,35 @@ in
 {
 	options.programs.weechat = {
 		enable = lib.mkEnableOption "weechat - the extensible chat client";
-		package = lib.mkPackageOptionMD pkgs "weechat" {};
+
+		plugins = lib.mkOption {
+			type = lib.types.listOf lib.types.package;
+			default = [];
+			description = "List of weechat plugins.";
+		};
 	};
 
 	config = lib.mkIf cfg.enable {
+		nixpkgs.overlays = [
+			(final: prev:
+			{
+				weechat = prev.weechat.override {
+					configure = { availablePlugins, ... }:
+					{
+						scripts = cfg.plugins;
+					};
+				};
+			})
+		];
+
 		home.packages = [
-			cfg.package
+			pkgs.weechat
 		];
 
 		programs.weechat = {
-			package = pkgs.weechat;
+			plugins = with pkgs.weechatScripts; [
+				weechat-grep
+			];
 		};
 	};
 }
