@@ -198,6 +198,7 @@
 			swaylock.enable = config.wayland.windowManager.sway.enable;
 			texlive.enable = true;
 			tmux.enable = true;
+			weechat.enable = true;
 			zathura.enable = config.customVars.gui;
 			zsh.enable = osConfig.users.users."${config.home.username}".shell == pkgs.zsh;
 
