@@ -12,6 +12,9 @@
 
 		extraConfig = let
 			tmux = "${pkgs.tmux}/bin/tmux";
+			nerdFont = string:
+			lib.optionalString (lib.getName config.gtk.font.package == "nerdfonts") string;
+
 			mvpane = pane:
 			let
 				paneStr = builtins.toString pane;
@@ -30,11 +33,11 @@
 			(lib.optionalString (builtins.any (plugin:
 			plugin.plugin == pkgs.tmuxPlugins.nord
 			) config.programs.tmux.plugins) ''
-				set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=cyan#,bg=black#,nobold],}"
-				set -Fg status-right "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H ,#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
+				set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${nerdFont "#[fg=cyan#,bg=black#,nobold]"},}"
+				set -Fg status-right "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${nerdFont "#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H "},#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
 
-				set -Fg window-status-format "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=black#,bg=brightblack]#[fg=white] ##I  ##W ##F #[fg=brightblack#,bg=black], #[fg=white#,bg=brightblack]##I ##W ##F}"
-				set -Fg window-status-current-format "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#[fg=black#,bg=cyan] ##I  ##W ##F #[fg=cyan#,bg=black], #[fg=black#,bg=cyan]##I ##W ##F}"
+				set -Fg window-status-format "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${nerdFont "#[fg=black#,bg=brightblack]#[fg=white] ##I  ##W ##F #[fg=brightblack#,bg=black]"}, #[fg=white#,bg=brightblack]##I ##W ##F}"
+				set -Fg window-status-current-format "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${nerdFont "#[fg=black#,bg=cyan] ##I  ##W ##F #[fg=cyan#,bg=black]"}, #[fg=black#,bg=cyan]##I ##W ##F}"
 				set -g window-status-separator ""
 			'')
 
