@@ -58,11 +58,15 @@ EOF
 			{
 				plugin = lightline-vim;
 
-				config = ''
+				config = let
+					nerdFont = string:
+					lib.optionalString (lib.getName config.gtk.font.package == "nerdfonts") string;
+				in ''
 					lua <<EOF
 						local function lightlineSettings()
 							local fn = vim.fn
 							local g = vim.g
+							local tty = os.getenv('XDG_SESSION_TYPE') == 'tty'
 
 							if not fn.exists('g:loaded_lightline') then
 								return
@@ -74,6 +78,18 @@ EOF
 								component = {
 									helloworld = 'Hello, world!',
 								},
+
+								${nerdFont ''
+									separator = {
+										left = not tty and '' or ${"''"},
+										right = not tty and '' or ${"''"},
+									},
+
+									subseparator = {
+										left = not tty and '' or '|',
+										right = not tty and '' or '|',
+									},
+								''}
 
 								active = {
 									left = {
