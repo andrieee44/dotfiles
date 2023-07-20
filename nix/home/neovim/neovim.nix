@@ -61,58 +61,61 @@ EOF
 				config = let
 					nerdFont = string:
 					lib.optionalString (lib.getName config.gtk.font.package == "nerdfonts") string;
+					nordTheme = string:
+					lib.optionalString (config.customVars.colorscheme == "nord") string;
 				in ''
 					lua <<EOF
-						local function copyTable(datatable)
-							local tblRes={}
-							if type(datatable)=="table" then
-								for k,v in pairs(datatable) do tblRes[k]=copyTable(v) end
-							else
-								tblRes=datatable
+						${nordTheme ''
+							local function copyTable(datatable)
+								local tblRes={}
+								if type(datatable)=="table" then
+									for k,v in pairs(datatable) do tblRes[k]=copyTable(v) end
+								else
+									tblRes=datatable
+								end
+								return tblRes
 							end
-							return tblRes
-						end
 
-						local function nordCustom()
-							local tmp = vim.g['lightline#colorscheme#nord#palette']
+							local function nordCustom()
+								local tmp = vim.g['lightline#colorscheme#nord#palette']
 
-							tmp.normal.left = {
-								{ '#3b4252', '#88C0D0', 0, 6, 'bold', },
-								{ '#e5e9f0', '#3B4252', 7, 0, },
-								{ '#3b4252', '#88C0D0', 0, 6, },
-							}
+								tmp.normal.left = {
+									{ '#3b4252', '#88C0D0', 0, 6, 'bold', },
+									{ '#e5e9f0', '#3B4252', 7, 0, },
+									{ '#3b4252', '#88C0D0', 0, 6, },
+								}
 
-							tmp.visual.left = copyTable(tmp.normal.left)
-							tmp.visual.left[1][2] = '#a3be8c'
-							tmp.visual.left[1][4] = '2'
+								tmp.visual.left = copyTable(tmp.normal.left)
+								tmp.visual.left[1][2] = '#a3be8c'
+								tmp.visual.left[1][4] = '2'
 
-							tmp.insert.left = copyTable(tmp.normal.left)
-							tmp.insert.left[1][2] = '#eceff4'
-							tmp.insert.left[1][4] = '7'
+								tmp.insert.left = copyTable(tmp.normal.left)
+								tmp.insert.left[1][2] = '#eceff4'
+								tmp.insert.left[1][4] = '7'
 
-							tmp.replace.left = copyTable(tmp.normal.left)
-							tmp.replace.left[1][2] = '#ebcb8b'
-							tmp.replace.left[1][4] = '3'
+								tmp.replace.left = copyTable(tmp.normal.left)
+								tmp.replace.left[1][2] = '#ebcb8b'
+								tmp.replace.left[1][4] = '3'
 
-							tmp.normal.right = {
-								{ '#e5e9f0', '#4c566a', 7, 8, },
-								{ '#e5e9f0', '#3B4252', 7, 0, },
-								{ '#e5e9f0', '#4c566a', 7, 8, },
-							}
+								tmp.normal.right = {
+									{ '#e5e9f0', '#4c566a', 7, 8, },
+									{ '#e5e9f0', '#4c566a', 7, 8, },
+								}
 
-							tmp.normal.middle = {{ '#e5e9f0', '#3B4252', 7, 0, },}
-							tmp.visual.middle = copyTable(tmp.normal.middle)
-							tmp.insert.middle = copyTable(tmp.normal.middle)
-							tmp.replace.middle = copyTable(tmp.normal.middle)
+								tmp.normal.error[1] = { '#e5e9f0', '#bf616a', 7, 1, 'bold' }
 
-							vim.g['lightline#colorscheme#nord#palette'] = tmp
-						end
+								tmp.normal.middle = {{ '#e5e9f0', '#3b4252', 7, 8, },}
+								tmp.visual.middle = copyTable(tmp.normal.middle)
+								tmp.insert.middle = copyTable(tmp.normal.middle)
+								tmp.replace.middle = copyTable(tmp.normal.middle)
+
+								vim.g['lightline#colorscheme#nord#palette'] = tmp
+							end
+						''}
 
 						local function lightlineSettings()
 							local fn = vim.fn
 							local g = vim.g
-							local api = vim.api
-							local lsp = vim.lsp
 							local diagnostic = vim.diagnostic
 							local severity = diagnostic.severity
 							local getD = diagnostic.get
@@ -124,9 +127,15 @@ EOF
 
 							g.lspStatusline = {
 								error = function()
-									return tostring(#(getD(0, {
+									local n = #(getD(0, {
 										severity = severity.ERROR
-									})))
+									}))
+
+									if n == 0 then
+										return ${"''"}
+									end
+
+									return string.format('E: %d', n)
 								end,
 
 								warn = function()
@@ -146,19 +155,17 @@ EOF
 										severity = severity.HINT
 									})))
 								end,
-
-								Diagnostic = function()
-									local lspd = g.lspStatusline
-									local sep = g.lightline.subseparator.right
-									return string.format('E: %s %s W: %s %s I: %s %s H: %s', lspd.error(), sep, lspd.warn(), sep, lspd.info(), sep, lspd.hint())
-								end,
 							}
 
 							g.lightline = {
 								colorscheme = g.colors_name,
 
-								component_function = {
-									lspDiagnostic = 'g:lspStatusline.Diagnostic'
+								component_expand = {
+									error = 'g:lspStatusline.error',
+								},
+
+								component_type = {
+									error = 'error',
 								},
 
 								${nerdFont ''
@@ -190,15 +197,14 @@ EOF
 
 									right = {
 										{
-											'lineinfo',
-											'percent',
-										},
-										{
+											'error',
 										},
 										{
 											'fileformat',
 											'fileencoding',
 											'filetype',
+											'lineinfo',
+											'percent',
 										},
 									},
 								},
@@ -206,7 +212,7 @@ EOF
 
 							fn['lightline#init']()
 							fn['lightline#colorscheme']()
-							nordCustom()
+							${nordTheme "nordCustom()"}
 							fn['lightline#update']()
 						end
 
@@ -225,9 +231,18 @@ EOF
 							callback = lightlineSettings,
 							group = lightlineAugroup,
 						})
+
+						mkAutocmd('DiagnosticChanged', {
+							callback = function()
+								local fn = vim.fn
+
+								fn['lightline#update']()
+							end,
+
+							group = lightlineAugroup,
+						})
 EOF
 				'';
-
 			}
 			{
 				plugin = vim-hexokinase;
