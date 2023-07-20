@@ -59,8 +59,6 @@ EOF
 				plugin = lightline-vim;
 
 				config = let
-					nerdFont = string:
-					lib.optionalString (lib.getName config.gtk.font.package == "nerdfonts") string;
 					nordTheme = string:
 					lib.optionalString (config.customVars.colorscheme == "nord") string;
 				in ''
@@ -99,10 +97,10 @@ EOF
 
 								tmp.normal.right = {
 									{ '#e5e9f0', '#4c566a', 7, 8, },
-									{ '#e5e9f0', '#4c566a', 7, 8, },
 								}
 
 								tmp.normal.error[1] = { '#e5e9f0', '#bf616a', 7, 1, 'bold' }
+								tmp.normal.warning[1] = { '#3b4252', '#ebcb8b', 0, 3, 'bold' }
 
 								tmp.normal.middle = {{ '#e5e9f0', '#3b4252', 7, 8, },}
 								tmp.visual.middle = copyTable(tmp.normal.middle)
@@ -119,7 +117,9 @@ EOF
 							local diagnostic = vim.diagnostic
 							local severity = diagnostic.severity
 							local getD = diagnostic.get
-							local tty = os.getenv('XDG_SESSION_TYPE') == 'tty'
+							local nerdFont = os.getenv('XDG_SESSION_TYPE') == 'tty' and ${if config.customVars.colorscheme == "nord" then
+								"true" else "false"
+							}
 
 							if not fn.exists('g:loaded_lightline') then
 								return
@@ -139,21 +139,39 @@ EOF
 								end,
 
 								warn = function()
-									return tostring(#(getD(0, {
+									local n = #(getD(0, {
 										severity = severity.WARN
-									})))
+									}))
+
+									if n == 0 then
+										return ${"''"}
+									end
+
+									return string.format('W: %d', n)
 								end,
 
 								info = function()
-									return tostring(#(getD(0, {
+									local n = #(getD(0, {
 										severity = severity.INFO
-									})))
+									}))
+
+									if n == 0 then
+										return ${"''"}
+									end
+
+									return string.format('I: %d', n)
 								end,
 
 								hint = function()
-									return tostring(#(getD(0, {
+									local n = #(getD(0, {
 										severity = severity.HINT
-									})))
+									}))
+
+									if n == 0 then
+										return ${"''"}
+									end
+
+									return string.format('H: %d', n)
 								end,
 							}
 
@@ -162,23 +180,25 @@ EOF
 
 								component_expand = {
 									error = 'g:lspStatusline.error',
+									warn = 'g:lspStatusline.warn',
+									info = 'g:lspStatusline.info',
+									hint = 'g:lspStatusline.hint',
 								},
 
 								component_type = {
 									error = 'error',
+									warn = 'warning',
 								},
 
-								${nerdFont ''
-									separator = {
-										left = not tty and '' or ' ',
-										right = not tty and '' or ' ',
-									},
+								separator = {
+									left = not nerdFont and '' or ' ',
+									right = not nerdFont and '' or ' ',
+								},
 
-									subseparator = {
-										left = not tty and '' or '|',
-										right = not tty and '' or '|',
-									},
-								''}
+								subseparator = {
+									left = not nerdFont and '' or '|',
+									right = not nerdFont and '' or '|',
+								},
 
 								active = {
 									left = {
@@ -198,8 +218,9 @@ EOF
 									right = {
 										{
 											'error',
-										},
-										{
+											'warn',
+											'hint',
+											'info',
 											'fileformat',
 											'fileencoding',
 											'filetype',
