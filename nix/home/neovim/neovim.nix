@@ -149,30 +149,6 @@ EOF
 
 									return string.format('W: %d', n)
 								end,
-
-								info = function()
-									local n = #(getD(0, {
-										severity = severity.INFO
-									}))
-
-									if n == 0 then
-										return ${"''"}
-									end
-
-									return string.format('I: %d', n)
-								end,
-
-								hint = function()
-									local n = #(getD(0, {
-										severity = severity.HINT
-									}))
-
-									if n == 0 then
-										return ${"''"}
-									end
-
-									return string.format('H: %d', n)
-								end,
 							}
 
 							g.lightline = {
@@ -181,8 +157,6 @@ EOF
 								component_expand = {
 									error = 'g:lspStatusline.error',
 									warn = 'g:lspStatusline.warn',
-									info = 'g:lspStatusline.info',
-									hint = 'g:lspStatusline.hint',
 								},
 
 								component_type = {
@@ -219,8 +193,6 @@ EOF
 										{
 											'error',
 											'warn',
-											'hint',
-											'info',
 											'fileformat',
 											'fileencoding',
 											'filetype',
