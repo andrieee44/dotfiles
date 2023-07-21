@@ -117,7 +117,7 @@ EOF
 							local diagnostic = vim.diagnostic
 							local severity = diagnostic.severity
 							local getD = diagnostic.get
-							local nerdFont = os.getenv('XDG_SESSION_TYPE') == 'tty' and ${if config.customVars.colorscheme == "nord" then
+							local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.colorscheme == "nord" then
 								"true" else "false"
 							}
 
@@ -165,13 +165,13 @@ EOF
 								},
 
 								separator = {
-									left = not nerdFont and '' or ' ',
-									right = not nerdFont and '' or ' ',
+									left = nerdFont and '' or ' ',
+									right = nerdFont and '' or ' ',
 								},
 
 								subseparator = {
-									left = not nerdFont and '' or '|',
-									right = not nerdFont and '' or '|',
+									left = nerdFont and '' or '|',
+									right = nerdFont and '' or '|',
 								},
 
 								active = {
@@ -227,9 +227,7 @@ EOF
 
 						mkAutocmd('DiagnosticChanged', {
 							callback = function()
-								local fn = vim.fn
-
-								fn['lightline#update']()
+								vim.fn['lightline#update']()
 							end,
 
 							group = lightlineAugroup,
@@ -296,6 +294,7 @@ EOF
 						${setup "nil_ls" pkgs.nil}
 						${setup "gopls" pkgs.gopls}
 						${setup "bashls" pkgs.nodePackages_latest.bash-language-server}
+						${setup "lua_ls" pkgs.lua-language-server}
 
 						diagnostic.config({
 							signs = false
@@ -362,6 +361,7 @@ EOF
 			shellcheck
 			nil
 			gopls
+			lua-language-server
 		];
 
 		extraLuaConfig = ''
