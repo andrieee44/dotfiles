@@ -61,6 +61,11 @@ EOF
 				config = let
 					nordTheme = string:
 					lib.optionalString (config.customVars.colorscheme == "nord") string;
+
+					lsp = string:
+					lib.optionalString (builtins.any (p:
+					p.plugin == nvim-lspconfig
+					) config.programs.neovim.plugins) string;
 				in ''
 					lua <<EOF
 						${nordTheme ''
@@ -117,7 +122,7 @@ EOF
 							local diagnostic = vim.diagnostic
 							local severity = diagnostic.severity
 							local getD = diagnostic.get
-							local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.colorscheme == "nord" then
+							local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if (lib.getName config.gtk.font.package == "nerdfonts") then
 								"true" else "false"
 							}
 
@@ -125,38 +130,42 @@ EOF
 								return
 							end
 
-							g.lspStatusline = {
-								error = function()
-									local n = #(getD(0, {
-										severity = severity.ERROR,
-									}))
+							${lsp ''
+								g.lspStatusline = {
+									error = function()
+										local n = #(getD(0, {
+											severity = severity.ERROR,
+										}))
 
-									if n == 0 then
-										return ${"''"}
-									end
+										if n == 0 then
+											return ${"''"}
+										end
 
-									return string.format('E: %d', n)
-								end,
+										return string.format('E: %d', n)
+									end,
 
-								warn = function()
-									local n = #(getD(0, {
-										severity = severity.WARN,
-									}))
+									warn = function()
+										local n = #(getD(0, {
+											severity = severity.WARN,
+										}))
 
-									if n == 0 then
-										return ${"''"}
-									end
+										if n == 0 then
+											return ${"''"}
+										end
 
-									return string.format('W: %d', n)
-								end,
-							}
+										return string.format('W: %d', n)
+									end,
+								}
+							''}
 
 							g.lightline = {
 								colorscheme = g.colors_name,
 
 								component_expand = {
-									error = 'g:lspStatusline.error',
-									warn = 'g:lspStatusline.warn',
+									${lsp ''
+										error = 'g:lspStatusline.error',
+										warn = 'g:lspStatusline.warn',
+									''}
 								},
 
 								component_type = {
@@ -191,8 +200,11 @@ EOF
 
 									right = {
 										{
-											'error',
-											'warn',
+											${lsp ''
+												'error',
+												'warn',
+											''}
+
 											'fileformat',
 											'fileencoding',
 											'filetype',
@@ -286,6 +298,9 @@ EOF
 						local o = vim.o
 						local mkAutocmd = api.nvim_create_autocmd
 						local mkAugroup = api.nvim_create_augroup
+						local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if (lib.getName config.gtk.font.package == "nerdfonts") then
+							"true" else "false"
+						}
 
 						local function setup(server)
 							require('lspconfig')[server].setup({})
@@ -296,16 +311,32 @@ EOF
 						${setup "bashls" pkgs.nodePackages_latest.bash-language-server}
 						${setup "lua_ls" pkgs.lua-language-server}
 
+						local signs = {
+							Error = nerdFont and ' ' or '! ',
+							Warn = nerdFont and ' ' or '? ',
+							Hint = nerdFont and ' ' or '* ',
+							Info = nerdFont and ' ' or 'i ',
+						}
+
+						for type, icon in pairs(signs) do
+							local hl = "DiagnosticSign" .. type
+							vim.fn.sign_define(hl, {
+								text = icon,
+								texthl = hl,
+								numhl = hl,
+							})
+						end
+
 						diagnostic.config({
 							virtual_text = {
 								prefix = ${"''"},
 								format = function(d)
 									local s = diagnostic.severity
 									local t = {
-										[s.ERROR] = 'E: %s',
-										[s.WARN] = 'W: %s',
-										[s.HINT] = 'H: %s',
-										[s.INFO] = 'I: %s',
+										[s.ERROR] = signs.Error .. '%s',
+										[s.WARN] = signs.Warn .. '%s',
+										[s.HINT] = signs.Hint .. '%s',
+										[s.INFO] = signs.Info .. '%s',
 									}
 
 									return string.format(t[d.severity], d.message)
@@ -337,7 +368,7 @@ EOF
 							vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 							local opts = {
-								buffer = ev.buf
+								buffer = ev.buf,
 							}
 
 							set('n', 'gd', vim.lsp.buf.definition, opts)
