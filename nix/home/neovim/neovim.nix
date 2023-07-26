@@ -128,7 +128,7 @@ EOF
 							g.lspStatusline = {
 								error = function()
 									local n = #(getD(0, {
-										severity = severity.ERROR
+										severity = severity.ERROR,
 									}))
 
 									if n == 0 then
@@ -140,7 +140,7 @@ EOF
 
 								warn = function()
 									local n = #(getD(0, {
-										severity = severity.WARN
+										severity = severity.WARN,
 									}))
 
 									if n == 0 then
@@ -297,7 +297,20 @@ EOF
 						${setup "lua_ls" pkgs.lua-language-server}
 
 						diagnostic.config({
-							signs = false
+							virtual_text = {
+								prefix = ${"''"},
+								format = function(d)
+									local s = diagnostic.severity
+									local t = {
+										[s.ERROR] = 'E: %s',
+										[s.WARN] = 'W: %s',
+										[s.HINT] = 'H: %s',
+										[s.INFO] = 'I: %s',
+									}
+
+									return string.format(t[d.severity], d.message)
+								end,
+							},
 						})
 
 						o.updatetime = 250
@@ -308,7 +321,9 @@ EOF
 						local lspAugroup = mkAugroup('lspAugroup', {})
 
 						local function floatDiagnostic()
-							diagnostic.open_float(nil, {focus=false})
+							diagnostic.open_float(nil, {
+								focus = false,
+							})
 						end
 
 						mkAutocmd({'CursorHold', 'CursorHoldI'}, {
@@ -342,7 +357,7 @@ EOF
 
 							vim.keymap.set('n', '<space>f', function()
 								vim.lsp.buf.format({
-									async = true
+									async = true,
 								})
 							end, opts)
 						end
@@ -387,6 +402,7 @@ EOF
 			opt.background = 'dark'
 			opt.clipboard:append('unnamedplus')
 			opt.complete:append('kspell')
+			opt.signcolumn = 'yes'
 
 			keymap('n', 'ZW', ':w<CR>', {
 				noremap = true,
