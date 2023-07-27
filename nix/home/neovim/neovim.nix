@@ -5,7 +5,12 @@
 			(lib.mkIf (config.customVars.colorscheme == "nord") {
 				plugin = nord-nvim;
 
-				config = ''
+				config = let
+					lsp = string:
+					lib.optionalString (builtins.any (p:
+					p.plugin == nvim-lspconfig
+					) config.programs.neovim.plugins) string;
+				in ''
 					lua <<EOF
 						local g = vim.g
 						local api = vim.api
@@ -37,6 +42,32 @@
 								fg = '#81a1c1',
 								italic = true,
 							})
+
+							${lsp ''
+								hl(0, 'DiagnosticVirtualTextError', {
+									ctermfg = 'red',
+									fg = '#bf616a',
+									bold = true,
+								})
+
+								hl(0, 'DiagnosticSignError', {
+									ctermfg = 'red',
+									fg = '#bf616a',
+									bold = true,
+								})
+
+								hl(0, 'DiagnosticVirtualTextWarn', {
+									ctermfg = 'yellow',
+									fg = '#ebcb8b',
+									bold = true,
+								})
+
+								hl(0, 'DiagnosticSignWarn', {
+									ctermfg = 'yellow',
+									fg = '#ebcb8b',
+									bold = true,
+								})
+							''}
 						end
 
 						local nordAugroup = mkAugroup('nordAugroup', {})
