@@ -19,6 +19,11 @@
 
 						local function nordSettings()
 							local hl = api.nvim_set_hl
+							local comment = {
+								ctermfg = 'blue',
+								fg = '#81a1c1',
+								italic = true,
+							}
 
 							hl(0, 'Visual', {
 								ctermfg = 'black',
@@ -31,42 +36,30 @@
 								fg = '#81a1c1',
 							})
 
-							hl(0, '@comment', {
-								ctermfg = 'blue',
-								fg = '#81a1c1',
-								italic = true,
-							})
+							hl(0, '@comment', comment)
 
-							hl(0, 'Comment', {
-								ctermfg = 'blue',
-								fg = '#81a1c1',
-								italic = true,
-							})
+							hl(0, 'Comment', comment)
 
 							${lsp ''
-								hl(0, 'DiagnosticVirtualTextError', {
+								local error = {
 									ctermfg = 'red',
 									fg = '#bf616a',
 									bold = true,
-								})
+								}
 
-								hl(0, 'DiagnosticSignError', {
-									ctermfg = 'red',
-									fg = '#bf616a',
-									bold = true,
-								})
-
-								hl(0, 'DiagnosticVirtualTextWarn', {
+								local warn = {
 									ctermfg = 'yellow',
 									fg = '#ebcb8b',
 									bold = true,
-								})
+								}
 
-								hl(0, 'DiagnosticSignWarn', {
-									ctermfg = 'yellow',
-									fg = '#ebcb8b',
-									bold = true,
-								})
+								hl(0, 'DiagnosticVirtualTextError', error)
+								hl(0, 'DiagnosticSignError', error)
+								hl(0, 'DiagnosticFloatingError', error)
+
+								hl(0, 'DiagnosticVirtualTextWarn', warn)
+								hl(0, 'DiagnosticSignWarn', warn)
+								hl(0, 'DiagnosticFloatingWarn', warn)
 							''}
 						end
 
