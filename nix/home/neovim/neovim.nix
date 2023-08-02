@@ -1,16 +1,18 @@
 { config, pkgs, lib, ... }:
 {
 	config.programs.neovim = {
-		plugins = with pkgs.vimPlugins; [
+		plugins = with pkgs.vimPlugins; let
+			isPlugin = pkg:
+			(builtins.any (p:
+			p.plugin == pkg
+			) config.programs.neovim.plugins);
+
+			lsp = lib.optionalString (isPlugin nvim-lspconfig);
+		in [
 			(lib.mkIf (config.customVars.colorscheme == "nord") {
 				plugin = nord-nvim;
 
-				config = let
-					lsp = string:
-					lib.optionalString (builtins.any (p:
-					p.plugin == nvim-lspconfig
-					) config.programs.neovim.plugins) string;
-				in ''
+				config = ''
 					lua <<EOF
 						local g = vim.g
 						local api = vim.api
@@ -79,17 +81,13 @@
 EOF
 				'';
 			})
+
 			{
 				plugin = lightline-vim;
 
 				config = let
 					nordTheme = string:
 					lib.optionalString (config.customVars.colorscheme == "nord") string;
-
-					lsp = string:
-					lib.optionalString (builtins.any (p:
-					p.plugin == nvim-lspconfig
-					) config.programs.neovim.plugins) string;
 				in ''
 					lua <<EOF
 						${nordTheme ''
@@ -213,8 +211,10 @@ EOF
 											'mode',
 											'paste',
 										},
+
 										{
 										},
+
 										{
 											'filename',
 											'readonly',
@@ -271,6 +271,7 @@ EOF
 EOF
 				'';
 			}
+
 			{
 				plugin = vim-hexokinase;
 
@@ -284,6 +285,7 @@ EOF
 EOF
 				'';
 			}
+
 			{
 				plugin = trim-nvim;
 
@@ -293,6 +295,7 @@ EOF
 EOF
 				'';
 			}
+
 			{
 				plugin = nvim-treesitter.withAllGrammars;
 
@@ -306,6 +309,7 @@ EOF
 EOF
 				'';
 			}
+
 			{
 				plugin = nvim-lspconfig;
 
@@ -327,13 +331,18 @@ EOF
 						}
 
 						local function setup(server)
-							require('lspconfig')[server].setup({})
+							${lib.optionalString (isPlugin nvim-cmp) "local c = require('cmp_nvim_lsp').default_capabilities()"}
+
+							require('lspconfig')[server].setup({
+								${lib.optionalString (isPlugin nvim-cmp) "capabilities = c,"}
+							})
 						end
 
 						${setup "nil_ls" pkgs.nil}
 						${setup "gopls" pkgs.gopls}
 						${setup "bashls" pkgs.nodePackages_latest.bash-language-server}
 						${setup "lua_ls" pkgs.lua-language-server}
+						${setup "ltex" pkgs.ltex-ls}
 
 						local signs = {
 							Error = nerdFont and ' ' or '! ',
@@ -424,6 +433,99 @@ EOF
 EOF
 				'';
 			}
+
+			{
+				plugin = nvim-cmp;
+
+				config = ''
+					lua <<EOF
+						local cmp = require('cmp')
+
+						cmp.setup({
+							snippet = {
+								expand = function(args)
+									${lib.optionalString (isPlugin luasnip) "require('luasnip').lsp_expand(args.body)"}
+								end,
+							},
+
+							window = {
+							},
+
+							mapping = cmp.mapping.preset.insert({
+								['<C-b>'] = cmp.mapping.scroll_docs(-4),
+								['<C-f>'] = cmp.mapping.scroll_docs(4),
+								['<C-Space>'] = cmp.mapping.complete(),
+								['<C-e>'] = cmp.mapping.abort(),
+								['<CR>'] = cmp.mapping.confirm({
+									select = true,
+								}),
+							}),
+
+							sources = cmp.config.sources({
+								{
+									name = 'nvim-lspconfig',
+								},
+
+								${lib.optionalString (isPlugin luasnip) ''
+									{
+										name = 'lua-snip',
+									},
+								''}
+							}, {
+								{
+									name = 'buffer',
+								},
+							})
+						})
+
+						cmp.setup.cmdline({ '/', '?', }, {
+							mapping = cmp.mapping.preset.cmdline(),
+							sources = {
+								{
+									name = 'buffer',
+								},
+							},
+						})
+
+						cmp.setup.cmdline(':', {
+							mapping = cmp.mapping.preset.cmdline(),
+							sources = cmp.config.sources({
+								{
+									name = 'path',
+								},
+							}, {
+									{
+										name = 'cmdline',
+									},
+							}),
+						})
+EOF
+				'';
+			}
+
+			{
+				plugin = luasnip;
+			}
+
+			{
+				plugin = cmp_luasnip;
+			}
+
+			{
+				plugin = cmp-nvim-lsp;
+			}
+
+			{
+				plugin = cmp-buffer;
+			}
+
+			{
+				plugin = cmp-path;
+			}
+
+			{
+				plugin = cmp-cmdline;
+			}
 		];
 
 		extraPackages = with pkgs; [
@@ -432,6 +534,7 @@ EOF
 			nil
 			gopls
 			lua-language-server
+			ltex-ls
 		];
 
 		extraLuaConfig = ''
