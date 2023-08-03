@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-	cmp = true;
+	enableCmp = true;
+	enableLuasnip = true;
 in
 {
 	config.programs.neovim = {
@@ -440,7 +441,7 @@ EOF
 
 			]
 
-			(lib.mkIf (cmp) [
+			(lib.mkIf (enableCmp) [
 				{
 					plugin = nvim-cmp;
 
@@ -511,14 +512,6 @@ EOF
 				}
 
 				{
-					plugin = luasnip;
-				}
-
-				{
-					plugin = cmp_luasnip;
-				}
-
-				{
 					plugin = cmp-nvim-lsp;
 				}
 
@@ -532,6 +525,16 @@ EOF
 
 				{
 					plugin = cmp-cmdline;
+				}
+			])
+
+			(lib.mkIf (enableLuasnip) [
+				{
+					plugin = luasnip;
+				}
+
+				{
+					plugin = cmp_luasnip;
 				}
 			])
 		];
