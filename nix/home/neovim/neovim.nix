@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
 	enableCmp = true;
-	enableLuasnip = true;
+	enableLuasnip = enableCmp && true;
 in
 {
 	config.programs.neovim = {
@@ -160,6 +160,7 @@ EOF
 								${lsp ''
 									g.lspStatusline = {
 										error = function()
+											local s = nerdFont and '' or '!'
 											local n = #(getD(0, {
 												severity = severity.ERROR,
 											}))
@@ -168,10 +169,11 @@ EOF
 												return ${"''"}
 											end
 
-											return string.format('E: %d', n)
+											return string.format('%s: %d', s, n)
 										end,
 
 										warn = function()
+											s = nerdFont and '' or '?'
 											local n = #(getD(0, {
 												severity = severity.WARN,
 											}))
@@ -180,7 +182,7 @@ EOF
 												return ${"''"}
 											end
 
-											return string.format('W: %d', n)
+											return string.format('%s: %d', s, n)
 										end,
 									}
 								''}
@@ -438,7 +440,6 @@ EOF
 EOF
 					'';
 				}
-
 			]
 
 			(lib.mkIf (enableCmp) [
@@ -457,6 +458,8 @@ EOF
 								},
 
 								window = {
+									completion = cmp.config.window.bordered(),
+									documentation = cmp.config.window.bordered(),
 								},
 
 								mapping = cmp.mapping.preset.insert({
