@@ -1,30 +1,33 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
 	config.console = {
 		useXkbConfig = true;
 		font = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
 
 		colors = let
-			colorschemes = {
-				nord = [
-					"3b4252"
-					"bf616a"
-					"a3be8c"
-					"ebcb8b"
-					"81a1c1"
-					"b48ead"
-					"88c0d0"
-					"e5e9f0"
-					"4c566a"
-					"bf616a"
-					"a3be8c"
-					"ebcb8b"
-					"81a1c1"
-					"b48ead"
-					"8fbcbb"
-					"eceff4"
-				];
-			};
-		in colorschemes.${config.customVars.colorscheme};
+			colorscheme = config.customVars.colorschemes."${config.customVars.colorscheme}";
+			normal = colorscheme.normal;
+			bright = colorscheme.bright;
+			nohash = hex:
+			lib.removePrefix "#" hex;
+		in [
+			"${nohash normal.black}"
+			"${nohash normal.red}"
+			"${nohash normal.green}"
+			"${nohash normal.yellow}"
+			"${nohash normal.blue}"
+			"${nohash normal.magenta}"
+			"${nohash normal.cyan}"
+			"${nohash normal.white}"
+
+			"${nohash bright.black}"
+			"${nohash bright.red}"
+			"${nohash bright.green}"
+			"${nohash bright.yellow}"
+			"${nohash bright.blue}"
+			"${nohash bright.magenta}"
+			"${nohash bright.cyan}"
+			"${nohash bright.white}"
+		];
 	};
 }

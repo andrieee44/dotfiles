@@ -15,13 +15,16 @@ in {
 		shShebang = mkStrOption;
 		gui = lib.mkEnableOption "";
 		font = mkStrOption;
-		colorscheme = mkStrOption;
 		user = mkStrOption;
 		email = mkStrOption;
 		emailFlavor = mkStrOption;
 		unixUtils = mkStrOption;
 		dateFmt = mkStrOption;
 		dateGoFmt = mkStrOption;
+		colorscheme = mkStrOption;
+		colorschemes = lib.mkOption {
+			type = lib.types.attrsOf lib.types.anything;
+		};
 	};
 
 	config.customVars = {
@@ -52,7 +55,6 @@ in {
 		'';
 
 		gui = true;
-		colorscheme = "nord";
 		font = "SauceCodePro";
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
@@ -60,5 +62,31 @@ in {
 		unixUtils = "${pkgs.toybox}/bin";
 		dateFmt = "%b %e %Y (%a) %l:%M %p";
 		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
+		colorscheme = "nord";
+		colorschemes = {
+			nord = {
+				normal = {
+					black = "#3b4252";
+					red = "#bf616a";
+					green = "#a3be8c";
+					yellow = "#ebcb8b";
+					blue = "#81a1c1";
+					magenta = "#b48ead";
+					cyan = "#88c0d0";
+					white = "#e5e9f0";
+				};
+
+				bright = {
+					black = "#4c566a";
+					red = "#bf616a";
+					green = "#a3be8c";
+					yellow = "#ebcb8b";
+					blue = "#81a1c1";
+					magenta = "#b48ead";
+					cyan = "#8fbcbb";
+					white = "#eceff4";
+				};
+			};
+		};
 	};
 }
