@@ -3,8 +3,8 @@
 	options.customVars.sh = let
 		mkLinesOption = config.customVars.mkLinesOption;
 	in {
-		profile = mkLinesOption "profile";
-		rc = mkLinesOption "rc";
+		profile = mkLinesOption;
+		rc = mkLinesOption;
 	};
 
 	config.customVars.sh = {

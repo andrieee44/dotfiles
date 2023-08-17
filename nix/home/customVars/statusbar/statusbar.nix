@@ -4,12 +4,12 @@
 		mkPkgOption = config.customVars.mkPkgOption;
 	in
 	{
-		volume = mkPkgOption "volume";
-		battery = mkPkgOption "battery";
-		brightness = mkPkgOption "brightness";
-		cpu = mkPkgOption "cpu";
-		date = mkPkgOption "date";
-		ram = mkPkgOption "ram";
+		volume = mkPkgOption;
+		battery = mkPkgOption;
+		brightness = mkPkgOption;
+		cpu = mkPkgOption;
+		date = mkPkgOption;
+		ram = mkPkgOption;
 	};
 
 	config.customVars.statusbar = let

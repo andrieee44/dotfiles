@@ -3,9 +3,9 @@
 	options.customVars.fzfscripts = let
 		mkPkgOption = config.customVars.mkPkgOption;
 	in {
-		pathmenu = mkPkgOption "pathmenu";
-		sysmenu = mkPkgOption "sysmenu";
-		preview = mkPkgOption "preview";
+		pathmenu = mkPkgOption;
+		sysmenu = mkPkgOption;
+		preview = mkPkgOption;
 	};
 
 	config.customVars.fzfscripts = let

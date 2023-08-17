@@ -4,10 +4,10 @@
 		mkPkgOption = config.customVars.mkPkgOption;
 	in
 	{
-		music = mkPkgOption "music";
-		musicLoop = mkPkgOption "musicLoop";
-		brightness = mkPkgOption "brightness";
-		volume = mkPkgOption "volume";
+		music = mkPkgOption;
+		musicLoop = mkPkgOption;
+		brightness = mkPkgOption;
+		volume = mkPkgOption;
 	};
 
 	config.customVars.notifs = {
