@@ -58,8 +58,7 @@ in {
 		};
 
 		sshPassCmd = let
-			sshPassCmd = pkgs.writeScriptBin "sshPassCmd" ''#!${pkgs.dash}/bin/dash
-				set -eu
+			sshPassCmd = pkgs.writeScriptBin "sshPassCmd" ''${config.customVars.shShebang}
 				${pass "ssh/laptop"}
 			'';
 		in "${sshPassCmd}/bin/sshPassCmd";

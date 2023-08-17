@@ -7,7 +7,6 @@
 		rc = mkLinesOption "rc";
 	};
 
-
 	config.customVars.sh = {
 		profile = lib.mkMerge [
 			(lib.optionalString config.wayland.windowManager.sway.enable ''
