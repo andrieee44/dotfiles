@@ -88,7 +88,7 @@ in {
 							local mkAugroup = api.nvim_create_augroup
 							local mkAutocmd = api.nvim_create_autocmd
 
-							local function nordSettings()
+							local function customNord()
 								local hl = api.nvim_set_hl
 								local comment = {
 									ctermfg = 'blue',
@@ -135,7 +135,7 @@ in {
 							local nordAugroup = mkAugroup('nordAugroup', {})
 
 							mkAutocmd('ColorScheme', {
-								callback = nordSettings,
+								callback = customNord,
 								group = nordAugroup,
 
 								pattern = {
@@ -145,6 +145,53 @@ in {
 
 							g.nord_disable_background = true
 							require('nord').set()
+
+							g.customLightline = function()
+								local function copyTable(datatable)
+									local tblRes={}
+									if type(datatable)=="table" then
+										for k,v in pairs(datatable) do tblRes[k]=copyTable(v) end
+									else
+										tblRes=datatable
+									end
+
+									return tblRes
+								end
+
+								local tmp = g['lightline#colorscheme#nord#palette']
+
+								tmp.normal.left = {
+									{ '#3b4252', '#88C0D0', 0, 6, 'bold', },
+									{ '#e5e9f0', '#3B4252', 7, 0, },
+									{ '#3b4252', '#88C0D0', 0, 6, },
+								}
+
+								tmp.visual.left = copyTable(tmp.normal.left)
+								tmp.visual.left[1][2] = '#a3be8c'
+								tmp.visual.left[1][4] = '2'
+
+								tmp.insert.left = copyTable(tmp.normal.left)
+								tmp.insert.left[1][2] = '#eceff4'
+								tmp.insert.left[1][4] = '7'
+
+								tmp.replace.left = copyTable(tmp.normal.left)
+								tmp.replace.left[1][2] = '#ebcb8b'
+								tmp.replace.left[1][4] = '3'
+
+								tmp.normal.right = {
+									{ '#e5e9f0', '#4c566a', 7, 8, },
+								}
+
+								tmp.normal.error[1] = { '#e5e9f0', '#bf616a', 7, 1, 'bold' }
+								tmp.normal.warning[1] = { '#3b4252', '#ebcb8b', 0, 3, 'bold' }
+
+								tmp.normal.middle = {{ '#e5e9f0', '#3b4252', 7, 8, },}
+								tmp.visual.middle = copyTable(tmp.normal.middle)
+								tmp.insert.middle = copyTable(tmp.normal.middle)
+								tmp.replace.middle = copyTable(tmp.normal.middle)
+
+								vim.g['lightline#colorscheme#nord#palette'] = tmp
+							end
 EOF
 					'';
 				}

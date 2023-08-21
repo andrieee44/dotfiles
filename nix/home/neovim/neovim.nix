@@ -5,57 +5,8 @@
 			{
 				plugin = lightline-vim;
 
-				config = let
-					nordTheme = string:
-					lib.optionalString (config.customVars.colorscheme == "nord") string;
-				in ''
+				config = ''
 					lua <<EOF
-						local function copyTable(datatable)
-							local tblRes={}
-							if type(datatable)=="table" then
-								for k,v in pairs(datatable) do tblRes[k]=copyTable(v) end
-							else
-								tblRes=datatable
-							end
-							return tblRes
-						end
-
-						local function nordCustom()
-							local tmp = vim.g['lightline#colorscheme#nord#palette']
-
-							tmp.normal.left = {
-								{ '#3b4252', '#88C0D0', 0, 6, 'bold', },
-								{ '#e5e9f0', '#3B4252', 7, 0, },
-								{ '#3b4252', '#88C0D0', 0, 6, },
-							}
-
-							tmp.visual.left = copyTable(tmp.normal.left)
-							tmp.visual.left[1][2] = '#a3be8c'
-							tmp.visual.left[1][4] = '2'
-
-							tmp.insert.left = copyTable(tmp.normal.left)
-							tmp.insert.left[1][2] = '#eceff4'
-							tmp.insert.left[1][4] = '7'
-
-							tmp.replace.left = copyTable(tmp.normal.left)
-							tmp.replace.left[1][2] = '#ebcb8b'
-							tmp.replace.left[1][4] = '3'
-
-							tmp.normal.right = {
-								{ '#e5e9f0', '#4c566a', 7, 8, },
-							}
-
-							tmp.normal.error[1] = { '#e5e9f0', '#bf616a', 7, 1, 'bold' }
-							tmp.normal.warning[1] = { '#3b4252', '#ebcb8b', 0, 3, 'bold' }
-
-							tmp.normal.middle = {{ '#e5e9f0', '#3b4252', 7, 8, },}
-							tmp.visual.middle = copyTable(tmp.normal.middle)
-							tmp.insert.middle = copyTable(tmp.normal.middle)
-							tmp.replace.middle = copyTable(tmp.normal.middle)
-
-							vim.g['lightline#colorscheme#nord#palette'] = tmp
-						end
-
 						local function lightlineSettings()
 							local fn = vim.fn
 							local g = vim.g
@@ -155,7 +106,7 @@
 
 							fn['lightline#init']()
 							fn['lightline#colorscheme']()
-							${nordTheme "nordCustom()"}
+							g.customLightline()
 							fn['lightline#update']()
 						end
 
