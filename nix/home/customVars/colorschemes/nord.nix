@@ -149,15 +149,18 @@ in {
 							require('nord').set()
 
 							g.customLightline = function()
-								local function copyTable(datatable)
-									local tblRes={}
-									if type(datatable)=="table" then
-										for k,v in pairs(datatable) do tblRes[k]=copyTable(v) end
+								local function copyTable(table)
+									local tmp = {}
+
+									if type(table) == "table" then
+										for k, v in pairs(table) do
+											tmp[k] = copyTable(v)
+										end
 									else
-										tblRes=datatable
+										tmp = table
 									end
 
-									return tblRes
+									return tmp
 								end
 
 								local tmp = g['lightline#colorscheme#nord#palette']
