@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 let
 	colorscheme = config.customVars.colorschemes.nord;
+	normal = colorscheme.normal;
+	bright = colorscheme.bright;
 in {
 	config = {
 		programs = lib.mkIf (config.customVars.colorscheme == "nord") {
@@ -23,13 +25,13 @@ in {
 
 				selection = {
 					text = "CellForeground";
-					background = "#4c566a";
+					background = "${bright.black}";
 				};
 
 				search = {
 					matches = {
 						foreground = "CellBackground";
-						background = "#88c0d0";
+						background = "${normal.cyan}";
 					};
 				};
 
@@ -51,8 +53,8 @@ in {
 					white = "#aeb3bb";
 				};
 
-				normal = colorscheme.normal;
-				bright = colorscheme.bright;
+				normal = normal;
+				bright = bright;
 			};
 
 			fzf.colors = {
@@ -92,19 +94,19 @@ in {
 								local hl = api.nvim_set_hl
 								local comment = {
 									ctermfg = 'blue',
-									fg = '#81a1c1',
+									fg = '${normal.blue}',
 									italic = true,
 								}
 
 								hl(0, 'Visual', {
-									ctermfg = 'black',
+									ctermfg = 'darkgray',
 									ctermbg = 'white',
-									bg = '#4c566a',
+									bg = '${bright.black}',
 								})
 
 								hl(0, 'LineNr', {
 									ctermfg = 'blue',
-									fg = '#81a1c1',
+									fg = '${normal.blue}',
 								})
 
 								hl(0, '@comment', comment)
@@ -113,13 +115,13 @@ in {
 
 								local error = {
 									ctermfg = 'red',
-									fg = '#bf616a',
+									fg = '${normal.red}',
 									bold = true,
 								}
 
 								local warn = {
 									ctermfg = 'yellow',
-									fg = '#ebcb8b',
+									fg = '${normal.yellow}',
 									bold = true,
 								}
 
@@ -161,31 +163,31 @@ in {
 								local tmp = g['lightline#colorscheme#nord#palette']
 
 								tmp.normal.left = {
-									{ '#3b4252', '#88C0D0', 0, 6, 'bold', },
-									{ '#e5e9f0', '#3B4252', 7, 0, },
-									{ '#3b4252', '#88C0D0', 0, 6, },
+									{ '${normal.black}', '${normal.cyan}', 0, 6, 'bold', },
+									{ '${normal.white}', '${normal.black}', 7, 0, },
+									{ '${normal.black}', '${normal.cyan}', 0, 6, },
 								}
 
 								tmp.visual.left = copyTable(tmp.normal.left)
-								tmp.visual.left[1][2] = '#a3be8c'
+								tmp.visual.left[1][2] = '${normal.green}'
 								tmp.visual.left[1][4] = '2'
 
 								tmp.insert.left = copyTable(tmp.normal.left)
-								tmp.insert.left[1][2] = '#eceff4'
+								tmp.insert.left[1][2] = '${bright.white}'
 								tmp.insert.left[1][4] = '7'
 
 								tmp.replace.left = copyTable(tmp.normal.left)
-								tmp.replace.left[1][2] = '#ebcb8b'
+								tmp.replace.left[1][2] = '${normal.yellow}'
 								tmp.replace.left[1][4] = '3'
 
 								tmp.normal.right = {
-									{ '#e5e9f0', '#4c566a', 7, 8, },
+									{ '${normal.white}', '${bright.black}', 7, 8, },
 								}
 
-								tmp.normal.error[1] = { '#e5e9f0', '#bf616a', 7, 1, 'bold' }
-								tmp.normal.warning[1] = { '#3b4252', '#ebcb8b', 0, 3, 'bold' }
+								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', 7, 1, 'bold' }
+								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', 0, 3, 'bold' }
 
-								tmp.normal.middle = {{ '#e5e9f0', '#3b4252', 7, 8, },}
+								tmp.normal.middle = {{ '${normal.white}', '${normal.black}', 7, 8, },}
 								tmp.visual.middle = copyTable(tmp.normal.middle)
 								tmp.insert.middle = copyTable(tmp.normal.middle)
 								tmp.replace.middle = copyTable(tmp.normal.middle)
