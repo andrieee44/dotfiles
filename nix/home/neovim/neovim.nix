@@ -2,77 +2,6 @@
 {
 	config.programs.neovim = {
 		plugins = with pkgs.vimPlugins; [
-			(lib.mkIf (config.customVars.colorscheme == "nord") {
-				plugin = nord-nvim;
-
-				config = ''
-					lua <<EOF
-						local g = vim.g
-						local api = vim.api
-						local mkAugroup = api.nvim_create_augroup
-						local mkAutocmd = api.nvim_create_autocmd
-
-						local function nordSettings()
-							local hl = api.nvim_set_hl
-							local comment = {
-								ctermfg = 'blue',
-								fg = '#81a1c1',
-								italic = true,
-							}
-
-							hl(0, 'Visual', {
-								ctermfg = 'black',
-								ctermbg = 'white',
-								bg = '#4c566a',
-							})
-
-							hl(0, 'LineNr', {
-								ctermfg = 'blue',
-								fg = '#81a1c1',
-							})
-
-							hl(0, '@comment', comment)
-
-							hl(0, 'Comment', comment)
-
-							local error = {
-								ctermfg = 'red',
-								fg = '#bf616a',
-								bold = true,
-							}
-
-							local warn = {
-								ctermfg = 'yellow',
-								fg = '#ebcb8b',
-								bold = true,
-							}
-
-							hl(0, 'DiagnosticVirtualTextError', error)
-							hl(0, 'DiagnosticSignError', error)
-							hl(0, 'DiagnosticFloatingError', error)
-
-							hl(0, 'DiagnosticVirtualTextWarn', warn)
-							hl(0, 'DiagnosticSignWarn', warn)
-							hl(0, 'DiagnosticFloatingWarn', warn)
-						end
-
-						local nordAugroup = mkAugroup('nordAugroup', {})
-
-						mkAutocmd('ColorScheme', {
-							callback = nordSettings,
-							group = nordAugroup,
-
-							pattern = {
-								'nord',
-							},
-						})
-
-						g.nord_disable_background = true
-						require('nord').set()
-EOF
-				'';
-			})
-
 			{
 				plugin = lightline-vim;
 
@@ -484,7 +413,7 @@ EOF
 									},
 							}),
 						})
-
+EOF
 				'';
 			}
 
