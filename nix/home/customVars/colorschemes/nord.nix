@@ -3,6 +3,12 @@ let
 	colorscheme = config.customVars.colorschemes.nord;
 	normal = colorscheme.normal;
 	bright = colorscheme.bright;
+
+	colorNums = config.customVars.colorNums;
+	normalNums = colorNums.normal;
+	brightNums = colorNums.bright;
+
+	str = builtins.toString;
 in {
 	config = {
 		programs = lib.mkIf (config.customVars.colorscheme == "nord") {
@@ -58,25 +64,25 @@ in {
 			};
 
 			fzf.colors = {
-				fg = "7";
-				preview-fg = "7";
-				preview-bg = "0";
-				hl = "4";
-				"fg+" = "7";
-				"bg+" = "0";
-				gutter = "0";
-				"hl+" = "4";
-				query = "7";
-				disabled = "8";
-				info = "6";
-				separator = "6";
-				border = "6";
-				spinner = "6";
-				label = "6";
-				prompt = "6";
-				pointer = "6";
-				marker = "6";
-				header = "6";
+				fg = str normalNums.white;
+				preview-fg = str normalNums.white;
+				preview-bg = str normalNums.black;
+				hl = str normalNums.blue;
+				"fg+" = str normalNums.white;
+				"bg+" = str normalNums.black;
+				gutter = str normalNums.black;
+				"hl+" = str normalNums.blue;
+				query = str normalNums.white;
+				disabled = str brightNums.white;
+				info = str normalNums.cyan;
+				separator = str normalNums.cyan;
+				border = str normalNums.cyan;
+				spinner = str normalNums.cyan;
+				label = str normalNums.cyan;
+				prompt = str normalNums.cyan;
+				pointer = str normalNums.cyan;
+				marker = str normalNums.cyan;
+				header = str normalNums.cyan;
 			};
 
 			neovim.plugins = [
@@ -166,31 +172,31 @@ in {
 								local tmp = g['lightline#colorscheme#nord#palette']
 
 								tmp.normal.left = {
-									{ '${normal.black}', '${normal.cyan}', 0, 6, 'bold', },
-									{ '${normal.white}', '${normal.black}', 7, 0, },
-									{ '${normal.black}', '${normal.cyan}', 0, 6, },
+									{ '${normal.black}', '${normal.cyan}', ${str normalNums.black}, ${str normalNums.cyan}, 'bold', },
+									{ '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str normalNums.black}, },
+									{ '${normal.black}', '${normal.cyan}', ${str normalNums.black}, ${str normalNums.cyan}, },
 								}
 
 								tmp.visual.left = copyTable(tmp.normal.left)
 								tmp.visual.left[1][2] = '${normal.green}'
-								tmp.visual.left[1][4] = '2'
+								tmp.visual.left[1][4] = ${str normalNums.green}
 
 								tmp.insert.left = copyTable(tmp.normal.left)
 								tmp.insert.left[1][2] = '${bright.white}'
-								tmp.insert.left[1][4] = '7'
+								tmp.insert.left[1][4] = ${str normalNums.white}
 
 								tmp.replace.left = copyTable(tmp.normal.left)
 								tmp.replace.left[1][2] = '${normal.yellow}'
-								tmp.replace.left[1][4] = '3'
+								tmp.replace.left[1][4] = ${str normalNums.yellow}
 
 								tmp.normal.right = {
-									{ '${normal.white}', '${bright.black}', 7, 8, },
+									{ '${normal.white}', '${bright.black}', ${str normalNums.white}, ${str brightNums.black}, },
 								}
 
-								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', 7, 1, 'bold' }
-								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', 0, 3, 'bold' }
+								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', ${str normalNums.white}, ${str normalNums.red}, 'bold' }
+								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', ${str normalNums.black}, ${str normalNums.yellow}, 'bold' }
 
-								tmp.normal.middle = {{ '${normal.white}', '${normal.black}', 7, 8, },}
+								tmp.normal.middle = {{ '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str brightNums.black}, },}
 								tmp.visual.middle = copyTable(tmp.normal.middle)
 								tmp.insert.middle = copyTable(tmp.normal.middle)
 								tmp.replace.middle = copyTable(tmp.normal.middle)
