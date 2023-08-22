@@ -23,7 +23,7 @@
 
 							g.lspStatusline = {
 								error = function()
-									local s = nerdFont and '' or '!'
+									local s = fn.sign_getdefined('DiagnosticSignError')[1].text
 									local n = #(getD(0, {
 										severity = severity.ERROR,
 									}))
@@ -32,11 +32,11 @@
 										return ${"''"}
 									end
 
-									return string.format('%s: %d', s, n)
+									return string.format('%s%d', s, n)
 								end,
 
 								warn = function()
-									s = nerdFont and '' or '?'
+									local s = fn.sign_getdefined('DiagnosticSignWarn')[1].text
 									local n = #(getD(0, {
 										severity = severity.WARN,
 									}))
@@ -45,7 +45,7 @@
 										return ${"''"}
 									end
 
-									return string.format('%s: %d', s, n)
+									return string.format('%s%d', s, n)
 								end,
 							}
 
