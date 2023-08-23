@@ -1,6 +1,24 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 {
-	config.programs.neovim = {
+	options.programs.neovim.langServers = {
+		nil = lib.mkEnableOption "";
+		go = lib.mkEnableOption "";
+		sh = lib.mkEnableOption "";
+		lua = lib.mkEnableOption "";
+		latex = lib.mkEnableOption "";
+	};
+
+	config.programs.neovim = let
+		langServers = config.programs.neovim.langServers;
+	in {
+		langServers = {
+			nil = true;
+			go = true;
+			sh = true;
+			lua = true;
+			latex = true;
+		};
+
 		plugins = with pkgs.vimPlugins; [
 			{
 				plugin = lightline-vim;
@@ -179,10 +197,8 @@ EOF
 				plugin = nvim-lspconfig;
 
 				config = let
-					setup = name: pkglist:
-					lib.optionalString (builtins.any (pkg:
-					pkg == pkglist
-					) config.programs.neovim.extraPackages) "setup('${name}')";
+					setup = ls:
+					"setup('${ls}')";
 				in ''
 					lua <<EOF
 						local set = vim.keymap.set
@@ -203,11 +219,11 @@ EOF
 							})
 						end
 
-						${setup "nil_ls" pkgs.nil}
-						${setup "gopls" pkgs.gopls}
-						${setup "bashls" pkgs.nodePackages_latest.bash-language-server}
-						${setup "lua_ls" pkgs.lua-language-server}
-						${setup "ltex" pkgs.ltex-ls}
+						${lib.optionalString langServers.nil setup "nil_ls"}
+						${lib.optionalString langServers.go setup "gopls"}
+						${lib.optionalString langServers.sh setup "bashls"}
+						${lib.optionalString langServers.lua setup "lua_ls"}
+						${lib.optionalString langServers.latex setup "ltex"}
 
 						local signs = {
 							Error = nerdFont and ' ' or '! ',
@@ -395,13 +411,27 @@ EOF
 		];
 
 
-		extraPackages = with pkgs; [
-			nodePackages_latest.bash-language-server
-			shellcheck
-			nil
-			gopls
-			lua-language-server
-			ltex-ls
+		extraPackages = with pkgs; lib.mkMerge [
+			(lib.mkIf langServers.nil [
+				nil
+			])
+
+			(lib.mkIf langServers.go [
+				gopls
+			])
+
+			(lib.mkIf langServers.sh [
+				nodePackages_latest.bash-language-server
+				shellcheck
+			])
+
+			(lib.mkIf langServers.lua [
+				lua-language-server
+			])
+
+			(lib.mkIf langServers.latex [
+				ltex-ls
+			])
 		];
 
 		extraLuaConfig = ''
