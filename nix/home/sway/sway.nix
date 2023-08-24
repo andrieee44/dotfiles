@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-	wayland.windowManager.sway = {
+	config.wayland.windowManager.sway = {
 		xwayland = true;
 		systemdIntegration = true;
 
@@ -21,54 +21,6 @@
 			right = "l";
 			terminal = "${pkgs.alacritty}/bin/alacritty";
 			menu = menu "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu";
-
-			colors = let
-				colorschemes = {
-					nord = {
-						background = "#000000";
-
-						focused = {
-							border = "#ff0000";
-							background = "#ff0000";
-							text = "#ff0000";
-							indicator = "#5e81ac";
-							childBorder = "#5e81ac";
-						};
-
-						focusedInactive = {
-							border = "#00ff00";
-							background = "#00ff00";
-							text = "#00ff00";
-							indicator = "#81a1c1";
-							childBorder = "#81a1c1";
-						};
-
-						unfocused = {
-							border = "#0000ff";
-							background = "#0000ff";
-							text = "#0000ff";
-							indicator = "#4c566a";
-							childBorder = "#4c566a";
-						};
-
-						urgent = {
-							border = "#00ffff";
-							background = "#00ffff";
-							text = "#00ffff";
-							indicator = "#bf616a";
-							childBorder = "#bf616a";
-						};
-
-						placeholder = {
-							border = "#ffff00";
-							background = "#ffff00";
-							text = "#ffff00";
-							indicator = "#ffff00";
-							childBorder = "#ffff00";
-						};
-					};
-				};
-			in colorschemes.${config.customVars.colorscheme};
 
 			startup = [
 				{
@@ -142,12 +94,6 @@
 				"Mod4+Shift+minus" = "move scratchpad";
 				"Mod4+minus" = "scratchpad show";
 				"Mod4+r" = "mode resize";
-			};
-
-			output = {
-				eDP-1 = {
-					bg = "${./../wallpapers/${config.customVars.colorscheme}/home.png} fill";
-				};
 			};
 
 			input = {
