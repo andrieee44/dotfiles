@@ -31,13 +31,13 @@ in {
 
 				selection = {
 					text = "CellForeground";
-					background = "${bright.black}";
+					background = bright.black;
 				};
 
 				search = {
 					matches = {
 						foreground = "CellBackground";
-						background = "${normal.cyan}";
+						background = normal.cyan;
 					};
 				};
 
@@ -207,6 +207,35 @@ EOF
 					'';
 				}
 			];
+
+			swaylock.settings = let
+				ringColor = normal.black;
+				keyColor = normal.cyan;
+				warnColor = normal.yellow;
+				verColor = normal.green;
+				errorColor = normal.red;
+			in {
+				image = "${./../wallpapers/${config.customVars.colorscheme}/lock.png}";
+				bs-hl-color = warnColor;
+				text-color = keyColor;
+				text-clear-color = warnColor;
+				text-ver-color = verColor;
+				text-wrong-color = errorColor;
+				inside-color = ringColor;
+				inside-clear-color = ringColor;
+				inside-ver-color = ringColor;
+				inside-wrong-color = ringColor;
+				key-hl-color = keyColor;
+				ring-color = ringColor;
+				ring-clear-color = warnColor;
+				ring-ver-color = verColor;
+				ring-wrong-color = errorColor;
+				line-color = keyColor;
+				line-clear-color = keyColor;
+				line-ver-color = keyColor;
+				line-wrong-color = keyColor;
+				separator-color = "#00000000";
+			};
 		};
 
 		xdg.configFile.dircolors = {
@@ -463,6 +492,53 @@ EOF
 				.webm 32
 				.wmv 32
 			'';
+		};
+
+		wayland.windowManager.sway.config = {
+			colors = {
+				focused = {
+					border = normal.red;
+					background = normal.red;
+					text = normal.red;
+					indicator = normal.cyan;
+					childBorder = normal.cyan;
+				};
+
+				focusedInactive = {
+					border = normal.green;
+					background = normal.green;
+					text = normal.green;
+					indicator = normal.cyan;
+					childBorder = normal.cyan;
+				};
+
+				unfocused = {
+					border = normal.blue;
+					background = normal.blue;
+					text = normal.blue;
+					indicator = bright.black;
+					childBorder = bright.black;
+				};
+
+				urgent = {
+					border = normal.cyan;
+					background = normal.cyan;
+					text = normal.cyan;
+					indicator = normal.red;
+					childBorder = normal.red;
+				};
+
+				placeholder = {
+					border = normal.yellow;
+					background = normal.yellow;
+					text = normal.yellow;
+					indicator = normal.yellow;
+					childBorder = normal.yellow;
+				};
+			};
+
+			output."*".bg = "${./../wallpapers/${config.customVars.colorscheme}/home.png} fill";
+
 		};
 	};
 }
