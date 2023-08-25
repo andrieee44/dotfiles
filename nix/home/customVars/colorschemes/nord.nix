@@ -236,6 +236,29 @@ EOF
 				line-wrong-color = keyColor;
 				separator-color = "#00000000";
 			};
+
+			tmux = {
+				extraConfig = let
+					nerdFont = "#{&&:#{!=:${"\${XDG_SESSION_TYPE}"},tty}, true}";
+				in ''
+					set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?${nerdFont},#[fg=cyan#,bg=black#,nobold],}"
+					set -Fg status-right "#{?${nerdFont},#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H ,#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
+
+					set -Fg window-status-format "#{?${nerdFont},#[fg=black#,bg=brightblack]#[fg=white] ##I  ##W ##F #[fg=brightblack#,bg=black], #[fg=white#,bg=brightblack]##I ##W ##F}"
+					set -Fg window-status-current-format "#{?${nerdFont},#[fg=black#,bg=cyan] ##I  ##W ##F #[fg=cyan#,bg=black], #[fg=black#,bg=cyan]##I ##W ##F}"
+					set -g window-status-separator ""
+
+					set -g pane-border-style fg=black,dim,bold
+					set -g pane-active-border-style fg=cyan,bold
+					set -g popup-border-style fg=cyan,bold
+				'';
+
+				plugins = with pkgs; [
+					{
+						plugin = tmuxPlugins.nord;
+					}
+				];
+			};
 		};
 
 		xdg.configFile.dircolors = {
@@ -538,7 +561,6 @@ EOF
 			};
 
 			output."*".bg = "${./../wallpapers/${config.customVars.colorscheme}/home.png} fill";
-
 		};
 	};
 }
