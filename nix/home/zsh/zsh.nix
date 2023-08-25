@@ -17,16 +17,11 @@
 			share = true;
 		};
 
-		initExtra = let
-			colorschemes = {
-				nord = "%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} ";
-			};
-		in lib.mkMerge [
+		initExtra = lib.mkMerge [
 			''
 				setopt INC_APPEND_HISTORY
 
 				autoload -U colors && colors
-				PS1="${colorschemes.${config.customVars.colorscheme}}"
 
 				zstyle ':completion:*' menu select
 				_comp_options+=(globdots)

@@ -259,6 +259,8 @@ EOF
 					}
 				];
 			};
+
+			zsh.initExtra = "PS1=\"%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} \"";
 		};
 
 		xdg.configFile.dircolors.text = ''
