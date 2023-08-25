@@ -40,7 +40,6 @@
 				}))
 
 				vistafonts
-				terminus_font
 			];
 
 			fontconfig = {

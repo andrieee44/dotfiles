@@ -3,6 +3,9 @@
 	config.console = {
 		useXkbConfig = true;
 		font = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
+		packages = with pkgs; [
+			terminus_font
+		];
 
 		colors = let
 			colorscheme = config.customVars.colorschemes."${config.customVars.colorscheme}";
