@@ -1,11 +1,9 @@
 { config, ... }:
 {
-	config.xdg.configFile.dircolors = {
-		enable = true;
-		target = "dircolors/dircolors";
-		text = ''
-			COLOR tty
+	config.programs.dircolors = {
+		settings.COLOR = "tty";
 
+		extraConfig = ''
 			TERM alacritty
 			TERM alacritty-direct
 			TERM ansi

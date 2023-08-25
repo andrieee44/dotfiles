@@ -181,13 +181,14 @@
 		};
 
 		programs = {
-			home-manager.enable = true;
 			alacritty.enable = config.customVars.gui;
 			abook.enable = true;
+			dircolors.enable = true;
 			fzf.enable = true;
 			git.enable = true;
 			go.enable = true;
 			gpg.enable = true;
+			home-manager.enable = true;
 			htop.enable = true;
 			lf.enable = true;
 			librewolf.enable = config.customVars.gui;

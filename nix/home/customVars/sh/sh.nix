@@ -38,10 +38,6 @@
 						;;
 				esac
 			'')
-
-			''
-				eval "$(${pkgs.coreutils}/bin/dircolors -b "${config.home.homeDirectory}/${config.xdg.configFile.dircolors.target}")"
-			''
 		];
 	};
 }
