@@ -60,6 +60,7 @@
 			shellAliases = let
 				unixUtils = config.customVars.unixUtils;
 			in {
+				less = "\${PAGER}";
 				cp = "${unixUtils}/cp -iv";
 				mv = "${unixUtils}/mv -iv";
 				rm = "${unixUtils}/rm -iv";
