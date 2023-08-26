@@ -495,5 +495,23 @@ EOF
 
 			output."*".bg = "${./../wallpapers/${config.customVars.colorscheme}/home.png} fill";
 		};
+
+		gtk = {
+			cursorTheme = {
+				package = pkgs.nordzy-cursor-theme;
+				name = "Nordzy-cursors";
+				size = 16;
+			};
+
+			iconTheme = {
+				package = pkgs.nordzy-icon-theme;
+				name = "Nordzy-dark";
+			};
+
+			theme = {
+				package = pkgs.nordic;
+				name = "Nordic";
+			};
+		};
 	};
 }
