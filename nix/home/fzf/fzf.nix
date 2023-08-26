@@ -1,6 +1,8 @@
 { config, ... }:
 {
 	config.programs.fzf = {
+		tmux.enableShellIntegration = true;
+
 		defaultOptions = [
 			"--exact"
 			"--reverse"
