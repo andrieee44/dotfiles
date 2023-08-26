@@ -115,7 +115,7 @@
 			createHome = true;
 
 			extraGroups = [
-				"networkmanager"
+				(lib.optionalString config.networking.networkmanager.enable "networkmanager")
 				"wheel"
 				"audio"
 				"video"
