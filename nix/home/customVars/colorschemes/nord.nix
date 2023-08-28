@@ -361,8 +361,10 @@ in {
 								tmp.normal.left = {
 									{ '${normal.black}', '${normal.cyan}', ${str normalNums.black}, ${str normalNums.cyan}, 'bold', },
 									{ '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str normalNums.black}, },
-									{ '${normal.black}', '${normal.cyan}', ${str normalNums.black}, ${str normalNums.cyan}, },
 								}
+
+
+								tmp.normal.left[3] = copyTable(tmp.normal.left[1])
 
 								tmp.visual.left = copyTable(tmp.normal.left)
 								tmp.visual.left[1][2] = '${normal.green}'
