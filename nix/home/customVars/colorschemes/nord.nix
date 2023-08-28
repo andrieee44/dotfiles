@@ -10,8 +10,8 @@ let
 
 	str = builtins.toString;
 in {
-	config = {
-		programs = lib.mkIf (config.customVars.colorscheme == "nord") {
+	config = lib.mkIf (config.customVars.colorscheme == "nord") {
+		programs = {
 			alacritty.settings.colors = {
 				primary = {
 					background = "#2e3440";
