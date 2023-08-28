@@ -430,16 +430,16 @@ EOF
 				extraConfig = let
 					nerdFont = "#{&&:#{!=:${"\${XDG_SESSION_TYPE}"},tty}, true}";
 				in ''
-					set -Fg status-left "#[fg=black,bg=cyan,bold] ##S #{?${nerdFont},#[fg=cyan#,bg=black#,nobold],}"
-					set -Fg status-right "#{?${nerdFont},#[fg=brightblack#,bg=black]#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=cyan]#[fg=black#,bg=cyan#,bold] #{user}@##H ,#[fg=white#,bg=brightblack] ${config.customVars.dateFmt} #[fg=black#,bg=cyan#,bold] #{user}@##H }"
+					set -Fg status-left "#[fg=${normal.black},bg=${normal.cyan},bold] ##S #{?${nerdFont},#[fg=${normal.cyan}#,bg=${normal.black}#,nobold],}"
+					set -Fg status-right "#{?${nerdFont},#[fg=${bright.black}#,bg=${normal.black}]#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.cyan}]#[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H ,#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H }"
 
-					set -Fg window-status-format "#{?${nerdFont},#[fg=black#,bg=brightblack]#[fg=white] ##I  ##W ##F #[fg=brightblack#,bg=black], #[fg=white#,bg=brightblack]##I ##W ##F}"
-					set -Fg window-status-current-format "#{?${nerdFont},#[fg=black#,bg=cyan] ##I  ##W ##F #[fg=cyan#,bg=black], #[fg=black#,bg=cyan]##I ##W ##F}"
+					set -Fg window-status-format "#{?${nerdFont},#[fg=${normal.black}#,bg=${bright.black}]#[fg=${normal.white}] ##I  ##W ##F #[fg=${bright.black}#,bg=${normal.black}], #[fg=${normal.white}#,bg=${bright.black}]##I ##W ##F}"
+					set -Fg window-status-current-format "#{?${nerdFont},#[fg=${normal.black}#,bg=${normal.cyan}] #[bold]##I#[nobold]  #[bold]##W ##F#[nobold] #[fg=${normal.cyan}#,bg=${normal.black}], #[fg=${normal.black}#,bg=${normal.cyan}]##I ##W ##F}"
 					set -g window-status-separator ""
 
-					set -g pane-border-style fg=black,dim,bold
-					set -g pane-active-border-style fg=cyan,bold
-					set -g popup-border-style fg=cyan,bold
+					set -g pane-border-style fg=${normal.black},dim,bold
+					set -g pane-active-border-style fg=${normal.cyan},bold
+					set -g popup-border-style fg=${normal.cyan},bold
 				'';
 
 				plugins = with pkgs; [
