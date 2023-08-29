@@ -69,7 +69,7 @@
 				ip = "${pkgs.iproute2}/bin/ip -color=auto";
 				df = "${unixUtils}/df -Pha";
 				bc = "${pkgs.bc}/bin/bc ${config.home.homeDirectory}/${config.xdg.configFile.bcrc.target} -ql";
-				ls = "LC_ALL=C ${pkgs.coreutils}/bin/ls -AFhl --time=use --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
+				ls = "LC_ALL=C ${pkgs.coreutils}/bin/ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
 				grep = "${pkgs.gnugrep}/bin/grep --color=auto";
 				diff = "${pkgs.diffutils}/bin/diff --color=auto";
 				nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history ${pkgs.cached-nix-shell}/bin/cached-nix-shell";
