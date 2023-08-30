@@ -24,9 +24,6 @@
 
 			startup = [
 				{
-					command = "waybar";
-				}
-				{
 					command = "${config.customVars.notifs.musicLoop}/bin/musicLoop";
 				}
 			];
