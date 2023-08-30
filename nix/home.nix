@@ -39,15 +39,6 @@
 					sysmenu
 				])
 
-				(with config.customVars.statusbar; [
-					volume
-					brightness
-					battery
-					cpu
-					date
-					ram
-				])
-
 				(lib.optionals config.customVars.gui (with pkgs; [
 					lutris
 					glxinfo
