@@ -19,7 +19,13 @@
 			latex = true;
 		};
 
-		plugins = with pkgs.vimPlugins; [
+		plugins = let
+			nerdFontLua = ''
+				local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if (lib.getName config.gtk.font.package == "nerdfonts") then
+						"true" else "false"
+				}
+			'';
+		in with pkgs.vimPlugins; [
 			{
 				plugin = lightline-vim;
 
@@ -31,9 +37,7 @@
 							local diagnostic = vim.diagnostic
 							local severity = diagnostic.severity
 							local getD = diagnostic.get
-							local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if (lib.getName config.gtk.font.package == "nerdfonts") then
-								"true" else "false"
-							}
+							${nerdFontLua}
 
 							if not fn.exists('g:loaded_lightline') then
 								return
@@ -207,9 +211,7 @@ EOF
 						local o = vim.o
 						local mkAutocmd = api.nvim_create_autocmd
 						local mkAugroup = api.nvim_create_augroup
-						local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if (lib.getName config.gtk.font.package == "nerdfonts") then
-							"true" else "false"
-						}
+						${nerdFontLua}
 
 						local function setup(server)
 							local c = require('cmp_nvim_lsp').default_capabilities()
