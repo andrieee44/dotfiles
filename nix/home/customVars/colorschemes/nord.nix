@@ -10,7 +10,9 @@ let
 
 	str = builtins.toString;
 in {
-	config = lib.mkIf (config.customVars.colorscheme == "nord") {
+	config = let
+		nerdFontBool = (lib.getName config.gtk.font.package) == "nerdfonts";
+	in lib.mkIf (config.customVars.colorscheme == "nord") {
 		programs = {
 			alacritty.settings.colors = {
 				primary = {
@@ -428,7 +430,10 @@ EOF
 
 			tmux = {
 				extraConfig = let
-					nerdFont = "#{&&:#{!=:${"\${XDG_SESSION_TYPE}"},tty}, true}";
+					nerdFont = if nerdFontBool then
+						"#{&&:#{!=:${"\${XDG_SESSION_TYPE}"},tty}, true}"
+					else
+						"false";
 				in ''
 					set -Fg status-left "#[fg=${normal.black},bg=${normal.cyan},bold] ##S #{?${nerdFont},#[fg=${normal.cyan}#,bg=${normal.black}#,nobold],}"
 					set -Fg status-right "#{?${nerdFont},#[fg=${bright.black}#,bg=${normal.black}]#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.cyan}]#[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H ,#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H }"
