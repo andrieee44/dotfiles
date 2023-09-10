@@ -33,36 +33,12 @@
 
 		fonts = {
 			fonts = with pkgs; [
-				(lib.mkIf (config.customVars.font == "SauceCodePro") (nerdfonts.override {
-					fonts = [
-						"SourceCodePro"
-					];
-				}))
-
 				vistafonts
 			];
 
 			fontconfig = {
 				includeUserConf = true;
 				enable = true;
-
-				defaultFonts = {
-					emoji = [
-						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font")
-					];
-
-					serif = [
-						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font")
-					];
-
-					sansSerif = [
-						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font")
-					];
-
-					monospace = [
-						(lib.mkIf (config.customVars.font == "SauceCodePro") "SauceCodePro Nerd Font Mono")
-					];
-				};
 			};
 		};
 

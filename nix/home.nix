@@ -122,21 +122,7 @@
 		gtk = {
 			enable = config.customVars.gui;
 			gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-
-			font = let
-				fonts = {
-					SauceCodePro = {
-						package = pkgs.nerdfonts.override {
-							fonts = [
-								"SourceCodePro"
-							];
-						};
-
-						name = "Sauce Code Pro Nerd Font Mono";
-						size = 12;
-					};
-				};
-			in fonts.${config.customVars.font};
+			font.size = 12;
 		};
 
 		qt = {

@@ -10,6 +10,7 @@ in {
 			type = lib.types.attrsOf lib.types.anything;
 		};
 	in {
+		mkFuncOption = mkFuncOption;
 		mkStrOption = mkFuncOption;
 		mkUintOption = mkFuncOption;
 		mkPkgOption = mkFuncOption;
@@ -30,6 +31,7 @@ in {
 	};
 
 	config.customVars = {
+		mkFuncOption = mkFuncOption;
 		mkStrOption = lib.mkOption {
 			type = lib.types.str;
 		};
@@ -57,7 +59,7 @@ in {
 		'';
 
 		gui = true;
-		font = "SauceCodePro";
+		font = "saucecodepro";
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";
