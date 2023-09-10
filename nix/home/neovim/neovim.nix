@@ -21,8 +21,8 @@
 
 		plugins = let
 			nerdFontLua = ''
-				local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if (lib.getName config.gtk.font.package == "nerdfonts") then
-						"true" else "false"
+				local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFontBool then
+					"true" else "false"
 				}
 			'';
 		in with pkgs.vimPlugins; [

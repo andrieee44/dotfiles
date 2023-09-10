@@ -11,8 +11,8 @@ let
 	str = builtins.toString;
 in {
 	config = let
-		nerdFontBool = (lib.getName config.gtk.font.package) == "nerdfonts";
-	in lib.mkIf (config.customVars.colorscheme == "nord") {
+		nerdFontBool = config.customVars.fonts.nerdFontBool;
+	in lib.mkIf nerdFontBool {
 		programs = {
 			alacritty.settings.colors = {
 				primary = {
