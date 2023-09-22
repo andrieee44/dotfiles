@@ -24,6 +24,7 @@
 					powertop
 					xdg-user-dirs
 					hugo
+					go-mtpfs
 					(pkgs.weechat.override {
 						configure = { availablePlugins, ... }:
 						{
