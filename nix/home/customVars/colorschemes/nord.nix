@@ -12,6 +12,8 @@ let
 in {
 	config = let
 		nerdFontBool = config.customVars.fonts.nerdFontBool;
+		nerdFontStr = config.customVars.fonts.nerdFontStr;
+		nerdFontMk = config.customVars.fonts.nerdFontMk;
 	in lib.mkIf nerdFontBool {
 		programs = {
 			alacritty.settings.colors = {
@@ -455,6 +457,84 @@ EOF
 			};
 
 			zsh.initExtra = "PS1=\"%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} \"";
+
+			waybar = {
+				settings.mainBar = let
+					separator = str:
+					" <span color=\"${normal.blue}\">|</span> ${str}";
+
+					color = str:
+					"<span color=\"${normal.cyan}\">${str}</span>";
+
+					separatorColor = str:
+					separator (color str);
+
+					separatorList = list:
+					lib.forEach list separator;
+
+					colorList = list:
+					lib.forEach list color;
+
+					separatorColorList = list:
+					separatorList (colorList list);
+				in {
+					backlight.format-icons = nerdFontMk (separatorColorList [
+						"󰃞" "󰃟" "󰃝" "󰃠"
+					]);
+
+        			battery.format-icons = nerdFontMk (separatorColorList [
+						"" "" "" "" ""
+					]);
+
+					bluetooth = {
+						format = "${nerdFontStr (separatorColor "")} {status}";
+						format-connected = "${nerdFontStr (separatorColor "")} {device_alias}";
+						format-connected-battery = "${nerdFontStr (separatorColor "")} {device_alias} {device_battery_percentage}%";
+					};
+
+					"custom/clock".format = "${nerdFontStr (separatorColor "󰃰")} {} ";
+					"custom/uptime".format = "${nerdFontStr (separatorColor "󰭖")} {} up";
+					"custom/user".format = "${nerdFontStr (separatorColor "")} {}";
+
+					"custom/separator".format = color "| ";
+					cpu.format = "${nerdFontStr (separatorColor "")} {usage}%";
+					memory.format = "${nerdFontStr (separatorColor "󰓌")} {percentage}%";
+
+        			network = {
+						format-ethernet = "${nerdFontStr (color "󰈀")} {essid}";
+						format-disconnected = "${nerdFontStr (color "󰤭")} Offline";
+						format-icons = nerdFontMk (colorList [
+							"󰤯" "󰤟" "󰤢" "󰤥" "󰤨"
+						]);
+					};
+
+					"sway/mode".format = "${nerdFontStr (separatorColor "󰂮")} {}";
+
+					wireplumber = {
+						format-muted = "${nerdFontStr (separatorColor "󰝟")} Muted";
+						format-icons = nerdFontMk (separatorColorList [
+							"" "" ""
+						]);
+					};
+				};
+
+				style = ''
+					window#waybar {
+						background-color: rgba(59, 66, 82, 0.8);
+						color: ${normal.white};
+					}
+
+					#workspaces button.focused {
+						background-color: ${bright.black};
+					}
+
+					#workspaces button.urgent {
+						background-color: ${normal.red};
+					}
+				'';
+
+
+			};
 		};
 
 		wayland.windowManager.sway.config = {
