@@ -77,7 +77,7 @@
 				tooltip = false;
 				interval = 60;
 				exec = pkgs.writeScript "uptime" ''${shShebang}
-					${unixUtils}/uptime | ${pkgs.gawk}/bin/gawk '1 {
+					${pkgs.coreutils}/bin/uptime | ${pkgs.gawk}/bin/gawk '1 {
 						gsub(",", "", $3)
 						print $3
 					}'
