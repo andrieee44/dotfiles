@@ -31,44 +31,41 @@
 
 				config = ''
 					lua <<EOF
+						local fn = vim.fn
+						local g = vim.g
+						local diagnostic = vim.diagnostic
+						local severity = diagnostic.severity
+						local getD = diagnostic.get
+						local api = vim.api
+						local mkAugroup = api.nvim_create_augroup
+						local mkAutocmd = api.nvim_create_autocmd
+						local lightlineAugroup = mkAugroup('lightlineAugroup', {})
+						${nerdFontLua}
+
+						function statusFn(diagnostic, severity)
+							return function()
+								local s = fn.sign_getdefined(diagnostic)[1].text
+								local n = #(getD(0, {
+									severity = severity,
+								}))
+
+								if n == 0 then
+									return ${"''"}
+								end
+
+								return string.format('%s%d', s, n)
+							end
+						end
+
 						local function lightlineSettings()
-							local fn = vim.fn
-							local g = vim.g
-							local diagnostic = vim.diagnostic
-							local severity = diagnostic.severity
-							local getD = diagnostic.get
-							${nerdFontLua}
 
 							if not fn.exists('g:loaded_lightline') then
 								return
 							end
 
 							g.lspStatusline = {
-								error = function()
-									local s = fn.sign_getdefined('DiagnosticSignError')[1].text
-									local n = #(getD(0, {
-										severity = severity.ERROR,
-									}))
-
-									if n == 0 then
-										return ${"''"}
-									end
-
-									return string.format('%s%d', s, n)
-								end,
-
-								warn = function()
-									local s = fn.sign_getdefined('DiagnosticSignWarn')[1].text
-									local n = #(getD(0, {
-										severity = severity.WARN,
-									}))
-
-									if n == 0 then
-										return ${"''"}
-									end
-
-									return string.format('%s%d', s, n)
-								end,
+								error = statusFn('DiagnosticSignError', severity.ERROR),
+								warn = statusFn('DiagnosticSignWarn', severity.WARN),
 							}
 
 							g.lightline = {
@@ -128,15 +125,13 @@
 
 							fn['lightline#init']()
 							fn['lightline#colorscheme']()
-							g.customLightline()
+
+							if g.customLightline and type(g.customLightline) == "function" then
+								g.customLightline()
+							end
+
 							fn['lightline#update']()
 						end
-
-						local api = vim.api
-						local mkAugroup = api.nvim_create_augroup
-						local mkAutocmd = api.nvim_create_autocmd
-
-						local lightlineAugroup = mkAugroup('lightlineAugroup', {})
 
 						mkAutocmd('VimEnter', {
 							callback = lightlineSettings,
