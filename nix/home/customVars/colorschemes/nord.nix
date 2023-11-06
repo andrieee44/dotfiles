@@ -367,7 +367,6 @@ in {
 									{ '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str normalNums.black}, },
 								}
 
-
 								tmp.normal.left[3] = copyTable(tmp.normal.left[1])
 
 								tmp.visual.left = copyTable(tmp.normal.left)
@@ -382,14 +381,11 @@ in {
 								tmp.replace.left[1][2] = '${normal.yellow}'
 								tmp.replace.left[1][4] = ${str normalNums.yellow}
 
-								tmp.normal.right = {
-									{ '${normal.white}', '${bright.black}', ${str normalNums.white}, ${str brightNums.black}, },
-								}
-
+								tmp.normal.right[1] = { '${normal.white}', '${bright.black}', ${str normalNums.white}, ${str brightNums.black}, }
 								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', ${str normalNums.white}, ${str normalNums.red}, 'bold' }
 								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', ${str normalNums.black}, ${str normalNums.yellow}, 'bold' }
+								tmp.normal.middle[1] = { '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str brightNums.black}, }
 
-								tmp.normal.middle = {{ '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str brightNums.black}, },}
 								tmp.visual.middle = copyTable(tmp.normal.middle)
 								tmp.insert.middle = copyTable(tmp.normal.middle)
 								tmp.replace.middle = copyTable(tmp.normal.middle)
@@ -532,8 +528,6 @@ EOF
 						background-color: ${normal.red};
 					}
 				'';
-
-
 			};
 		};
 
