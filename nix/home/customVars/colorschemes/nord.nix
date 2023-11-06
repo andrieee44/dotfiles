@@ -1,20 +1,30 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 let
-	colorscheme = config.customVars.colorschemes.nord;
+	customVars = config.customVars;
+
+	colorscheme = customVars.colorschemes.nord;
 	normal = colorscheme.normal;
 	bright = colorscheme.bright;
 
-	colorNums = config.customVars.colorNums;
+	colorNums = customVars.colorNums;
 	normalNums = colorNums.normal;
 	brightNums = colorNums.bright;
 
 	str = builtins.toString;
 in {
+	options.customVars.waybar = {
+		separatorColor = customVars.mkStrOption;
+		color = customVars.mkStrOption;
+	};
+
 	config = let
-		nerdFontBool = config.customVars.fonts.nerdFontBool;
-		nerdFontStr = config.customVars.fonts.nerdFontStr;
-		nerdFontMk = config.customVars.fonts.nerdFontMk;
+		nerdFontBool = customVars.fonts.nerdFontBool;
 	in lib.mkIf nerdFontBool {
+		customVars.waybar = {
+			separatorColor = normal.white;
+			color = normal.cyan;
+		};
+
 		programs = {
 			alacritty.settings.colors = {
 				primary = {
@@ -404,7 +414,7 @@ EOF
 				verColor = normal.green;
 				errorColor = normal.red;
 			in {
-				image = "${./../wallpapers/${config.customVars.colorscheme}/lock.png}";
+				image = "${./../wallpapers/${customVars.colorscheme}/lock.png}";
 				bs-hl-color = warnColor;
 				text-color = keyColor;
 				text-clear-color = warnColor;
@@ -434,7 +444,7 @@ EOF
 						"false";
 				in ''
 					set -Fg status-left "#[fg=${normal.black},bg=${normal.cyan},bold] ##S #{?${nerdFont},#[fg=${normal.cyan}#,bg=${normal.black}#,nobold],}"
-					set -Fg status-right "#{?${nerdFont},#[fg=${bright.black}#,bg=${normal.black}]#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.cyan}]#[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H ,#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H }"
+					set -Fg status-right "#{?${nerdFont},#[fg=${bright.black}#,bg=${normal.black}]#[fg=${normal.white}#,bg=${bright.black}] ${customVars.dateFmt} #[fg=${normal.cyan}]#[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H ,#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H }"
 
 					set -Fg window-status-format "#{?${nerdFont},#[fg=${normal.black}#,bg=${bright.black}]#[fg=${normal.white}] ##I  ##W ##F #[fg=${bright.black}#,bg=${normal.black}], #[fg=${normal.white}#,bg=${bright.black}]##I ##W ##F}"
 					set -Fg window-status-current-format "#{?${nerdFont},#[fg=${normal.black}#,bg=${normal.cyan}] #[bold]##I#[nobold]  #[bold]##W ##F#[nobold] #[fg=${normal.cyan}#,bg=${normal.black}], #[fg=${normal.black}#,bg=${normal.cyan}]##I ##W ##F}"
@@ -455,65 +465,6 @@ EOF
 			zsh.initExtra = "PS1=\"%B%{$fg[white]%}[%{$fg[cyan]%}%n@%M %{$fg[blue]%}%~%{$fg[yellow]%}%(?.. %?)%{$fg[white]%}]$%b%{$reset_color%} \"";
 
 			waybar = {
-				settings.mainBar = let
-					separator = str:
-					" <span color=\"${normal.blue}\">|</span> ${str}";
-
-					color = str:
-					"<span color=\"${normal.cyan}\">${str}</span>";
-
-					separatorColor = str:
-					separator (color str);
-
-					separatorList = list:
-					lib.forEach list separator;
-
-					colorList = list:
-					lib.forEach list color;
-
-					separatorColorList = list:
-					separatorList (colorList list);
-				in {
-					backlight.format-icons = nerdFontMk (separatorColorList [
-						"󰃞" "󰃟" "󰃝" "󰃠"
-					]);
-
-        			battery.format-icons = nerdFontMk (separatorColorList [
-						"" "" "" "" ""
-					]);
-
-					bluetooth = {
-						format = "${nerdFontStr (separatorColor "")} {status}";
-						format-connected = "${nerdFontStr (separatorColor "")} {device_alias}";
-						format-connected-battery = "${nerdFontStr (separatorColor "")} {device_alias} {device_battery_percentage}%";
-					};
-
-					"custom/clock".format = "${nerdFontStr (separatorColor "󰃰")} {} ";
-					"custom/uptime".format = "${nerdFontStr (separatorColor "󰭖")} {} up";
-					"custom/user".format = "${nerdFontStr (separatorColor "")} {}";
-
-					"custom/separator".format = color "| ";
-					cpu.format = "${nerdFontStr (separatorColor "")} {usage}%";
-					memory.format = "${nerdFontStr (separatorColor "󰓌")} {percentage}%";
-
-        			network = {
-						format-ethernet = "${nerdFontStr (color "󰈀")} {essid}";
-						format-disconnected = "${nerdFontStr (color "󰤭")} Offline";
-						format-icons = nerdFontMk (colorList [
-							"󰤯" "󰤟" "󰤢" "󰤥" "󰤨"
-						]);
-					};
-
-					"sway/mode".format = "${nerdFontStr (separatorColor "󰂮")} {}";
-
-					wireplumber = {
-						format-muted = "${nerdFontStr (separatorColor "󰝟")} Muted";
-						format-icons = nerdFontMk (separatorColorList [
-							"" "" ""
-						]);
-					};
-				};
-
 				style = ''
 					window#waybar {
 						background-color: rgba(59, 66, 82, 0.8);
@@ -574,7 +525,7 @@ EOF
 				};
 			};
 
-			output."*".bg = "${./../wallpapers/${config.customVars.colorscheme}/home.png} fill";
+			output."*".bg = "${./../wallpapers/${customVars.colorscheme}/home.png} fill";
 		};
 
 		gtk = {

@@ -1,14 +1,54 @@
 { config, lib, pkgs, ... }:
 {
 	config.programs.waybar = let
-		nerdFontStr = config.customVars.fonts.nerdFontStr;
 		sway = config.wayland.windowManager.sway.enable;
 		swayStr = lib.optionalString sway;
 	in {
 		settings.mainBar = let
-			shShebang = config.customVars.shShebang;
-			unixUtils = config.customVars.unixUtils;
+			customVars = config.customVars;
+
+			shShebang = customVars.shShebang;
+			unixUtils = customVars.unixUtils;
+
+			fonts = customVars.fonts;
+			nerdFontStr = fonts.nerdFontStr;
+			nerdFontMk = fonts.nerdFontMk;
+
+			waybar = customVars.waybar;
+
+			separator = str:
+			" <span color=\"${waybar.separatorColor}\">|</span> ${str}";
+
+			color = str:
+			"<span color=\"${waybar.color}\">${str}</span>";
+
+			separatorColor = str:
+			separator (color str);
+
+			separatorList = list:
+			lib.forEach list separator;
+
+			colorList = list:
+			lib.forEach list color;
+
+			separatorColorList = list:
+			separatorList (colorList list);
 		in {
+        	network = {
+				format-ethernet = "${nerdFontStr (color "󰈀")} {essid}";
+				format-disconnected = "${nerdFontStr (color "󰤭")} Offline";
+				format-icons = nerdFontMk (colorList [
+					"󰤯" "󰤟" "󰤢" "󰤥" "󰤨"
+				]);
+			};
+
+			wireplumber = {
+				format-muted = "${nerdFontStr (separatorColor "󰝟")} Muted";
+				format-icons = nerdFontMk (separatorColorList [
+					"" "" ""
+				]);
+			};
+
 			layer = "bottom";
 			position = "top";
 			height = 46;
@@ -46,6 +86,9 @@
 			backlight = {
 				tooltip = false;
 				format = "{icon} {percent}%";
+				format-icons = nerdFontMk (separatorColorList [
+					"󰃞" "󰃟" "󰃝" "󰃠"
+				]);
 			};
 
 			battery = {
@@ -53,16 +96,23 @@
 				design-capacity = false;
 				format = "{icon} -{capacity}%";
 				format-plugged = "{icon} +{capacity}%";
+				format-icons = nerdFontMk (separatorColorList [
+					"" "" "" "" ""
+				]);
 			};
 
 			bluetooth = {
 				tooltip = false;
+				format = "${nerdFontStr (separatorColor "")} {status}";
+				format-connected = "${nerdFontStr (separatorColor "")} {device_alias}";
+				format-connected-battery = "${nerdFontStr (separatorColor "")} {device_alias} {device_battery_percentage}%";
 				format-disabled = "";
 			};
 
 			"custom/clock" = {
 				tooltip = false;
 				interval = 60;
+				format = "${nerdFontStr (separatorColor "󰃰")} {} ";
 				exec = pkgs.writeScript "date" ''${shShebang}
 					${unixUtils}/date "+${config.customVars.dateFmt}"
 				'';
@@ -71,11 +121,13 @@
 			"custom/separator" = {
 				tooltip = false;
 				interval = "once";
+				format = color "| ";
 			};
 
 			"custom/uptime" = {
 				tooltip = false;
 				interval = 60;
+				format = "${nerdFontStr (separatorColor "󰭖")} {} up";
 				exec = pkgs.writeScript "uptime" ''${shShebang}
 					${pkgs.coreutils}/bin/uptime | ${pkgs.gawk}/bin/gawk '1 {
 						gsub(",", "", $3)
@@ -87,6 +139,7 @@
 			"custom/user" = {
 				tooltip = false;
 				interval = 60;
+				format = "${nerdFontStr (separatorColor "")} {}";
 				exec = pkgs.writeScript "user" ''${shShebang}
 					${unixUtils}/whoami
 				'';
@@ -95,11 +148,13 @@
 			cpu = {
 				tooltip = false;
 				interval = 5;
+				format = "${nerdFontStr (separatorColor "")} {usage}%";
 			};
 
 			memory = {
 				tooltip = false;
 				interval = 5;
+				format = "${nerdFontStr (separatorColor "󰓌")} {percentage}%";
 			};
 
 			network = {
@@ -110,6 +165,7 @@
 
 			"sway/mode" = lib.mkIf sway {
 				tooltip = false;
+				format = "${nerdFontStr (separatorColor "󰂮")} {}";
 			};
 
 			"sway/window" = lib.mkIf sway {
