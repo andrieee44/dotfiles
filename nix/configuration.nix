@@ -155,6 +155,7 @@
 
 			opengl = {
 				enable = config.customVars.gui;
+				driSupport32Bit = true;
 				extraPackages = with pkgs; [
 					intel-media-driver
 					vaapiIntel
