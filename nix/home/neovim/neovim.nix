@@ -20,7 +20,7 @@
 		};
 
 		plugins = let
-			nerdFontLua = ''
+			nerdFontLuaVar = ''
 				local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFontBool then
 					"true" else "false"
 				}
@@ -33,18 +33,23 @@
 					lua <<EOF
 						local fn = vim.fn
 						local g = vim.g
-						local diagnostic = vim.diagnostic
-						local severity = diagnostic.severity
-						local getD = diagnostic.get
 						local api = vim.api
 						local mkAugroup = api.nvim_create_augroup
 						local mkAutocmd = api.nvim_create_autocmd
 						local lightlineAugroup = mkAugroup('lightlineAugroup', {})
-						${nerdFontLua}
+						local diagnostic = vim.diagnostic
+						${nerdFontLuaVar}
 
-						function statusFn(diagnostic, severity)
+						function statusFn(diagnosticVar, severity)
 							return function()
-								local s = fn.sign_getdefined(diagnostic)[1].text
+								local t = fn.sign_getdefined(diagnosticVar)[1]
+
+								if not t then
+									return ${"''"}
+								end
+
+								local s = t.text
+								local getD = diagnostic.get
 								local n = #(getD(0, {
 									severity = severity,
 								}))
@@ -58,6 +63,7 @@
 						end
 
 						local function lightlineSettings()
+							local severity = diagnostic.severity
 
 							if not fn.exists('g:loaded_lightline') then
 								return
@@ -112,7 +118,36 @@
 										{
 											'error',
 											'warn',
+											'fileformat',
+											'fileencoding',
+											'filetype',
+											'lineinfo',
+											'percent',
+										},
+									},
+								},
 
+								inactive = {
+									left = {
+										{
+											'mode',
+											'paste',
+										},
+
+										{
+										},
+
+										{
+											'filename',
+											'readonly',
+											'modified',
+										},
+									},
+
+									right = {
+										{
+											'error',
+											'warn',
 											'fileformat',
 											'fileencoding',
 											'filetype',
@@ -197,7 +232,11 @@ EOF
 
 				config = let
 					setup = ls:
-					"setup('${ls}')";
+					''
+						require('lspconfig')['${ls}'].setup(package.loaded['cmp_nvim_lsp'] and {
+							capabilities = require('cmp_nvim_lsp').default_capabilities(),
+						} or {})
+					'';
 				in ''
 					lua <<EOF
 						local set = vim.keymap.set
@@ -206,21 +245,13 @@ EOF
 						local o = vim.o
 						local mkAutocmd = api.nvim_create_autocmd
 						local mkAugroup = api.nvim_create_augroup
-						${nerdFontLua}
+						${nerdFontLuaVar}
 
-						local function setup(server)
-							local c = require('cmp_nvim_lsp').default_capabilities()
-
-							require('lspconfig')[server].setup({
-								capabilities = c,
-							})
-						end
-
-						${lib.optionalString langServers.nil setup "nil_ls"}
-						${lib.optionalString langServers.go setup "gopls"}
-						${lib.optionalString langServers.sh setup "bashls"}
-						${lib.optionalString langServers.lua setup "lua_ls"}
-						${lib.optionalString langServers.latex setup "ltex"}
+						${lib.optionalString langServers.nil (setup "nil_ls")}
+						${lib.optionalString langServers.go (setup "gopls")}
+						${lib.optionalString langServers.sh (setup "bashls")}
+						${lib.optionalString langServers.lua (setup "lua_ls")}
+						${lib.optionalString langServers.latex (setup "ltex")}
 
 						local signs = {
 							Error = nerdFont and ' ' or '! ',
@@ -396,7 +427,6 @@ EOF
 			{
 				plugin = cmp-cmdline;
 			}
-
 
 			{
 				plugin = luasnip;
