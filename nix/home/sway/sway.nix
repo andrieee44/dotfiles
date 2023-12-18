@@ -2,7 +2,7 @@
 {
 	config.wayland.windowManager.sway = {
 		xwayland = true;
-		systemdIntegration = true;
+		systemd.enable = true;
 
 		wrapperFeatures = {
 			base = true;
