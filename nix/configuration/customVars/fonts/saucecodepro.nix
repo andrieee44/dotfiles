@@ -2,7 +2,7 @@
 {
 	config = lib.mkIf (config.customVars.font == "saucecodepro") {
 		fonts = {
-			fonts = [
+			packages = [
 				(pkgs.nerdfonts.override {
 					fonts = [
 						"SourceCodePro"

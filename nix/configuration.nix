@@ -32,7 +32,7 @@
 		};
 
 		fonts = {
-			fonts = with pkgs; [
+			packages = with pkgs; [
 				vistafonts
 			];
 
@@ -77,7 +77,7 @@
 		};
 
 		system = {
-			stateVersion = "23.05";
+			stateVersion = "23.11";
 
 			autoUpgrade = {
 				enable = false;
@@ -149,6 +149,8 @@
 		};
 
 		hardware = {
+			enableAllFirmware = true;
+
 			bluetooth = {
 				enable = true;
 			};
@@ -174,6 +176,14 @@
 			extraPortals = with pkgs; [
 				(lib.mkIf config.customVars.gui xdg-desktop-portal-gtk)
 			];
+
+			config = {
+				common = {
+					default = [
+						"gtk"
+					];
+				};
+			};
 		};
 	};
 }
