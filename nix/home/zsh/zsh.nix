@@ -3,7 +3,7 @@
 	config.programs.zsh = {
 		enableAutosuggestions = true;
 		enableCompletion = true;
-		enableSyntaxHighlighting = true;
+		syntaxHighlighting.enable = true;
 		autocd = false;
 		dotDir = lib.removePrefix "${config.home.homeDirectory}/" "${config.xdg.configHome}/zsh";
 		defaultKeymap = "viins";
