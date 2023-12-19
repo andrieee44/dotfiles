@@ -141,6 +141,7 @@
 			gpg.enable = true;
 			home-manager.enable = true;
 			htop.enable = true;
+			imv.enable = true;
 			lf.enable = true;
 			librewolf.enable = config.customVars.gui;
 			man.enable = true;
