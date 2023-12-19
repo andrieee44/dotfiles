@@ -5,6 +5,9 @@
 		socketActivation = true;
 		wireplumber.enable = true;
 		pulse.enable = true;
-		alsa.enable = true;
+		alsa = {
+			enable = true;
+			support32bit = true;
+		};
 	};
 }
