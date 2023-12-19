@@ -52,6 +52,7 @@
 				systemd-boot = {
 					enable = true;
 					editor = false;
+					memtest86 = true;
 					configurationLimit = 50;
 				};
 
