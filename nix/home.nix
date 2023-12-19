@@ -25,14 +25,6 @@
 					xdg-user-dirs
 					hugo
 					go-mtpfs
-					(pkgs.weechat.override {
-						configure = { availablePlugins, ... }:
-						{
-							scripts = with pkgs.weechatScripts; [
-								weechat-grep
-							];
-						};
-					})
 				])
 
 				(with config.customVars.fzfscripts; [
@@ -41,7 +33,6 @@
 				])
 
 				(lib.optionals config.customVars.gui (with pkgs; [
-					lutris
 					glxinfo
 					grim
 					wl-clipboard
@@ -102,9 +93,9 @@
 			mime.enable = true;
 			mimeApps.enable = true;
 			configHome = "${config.home.homeDirectory}/.config";
-			cacheHome = "${baseDir}/cache";
-			dataHome = "${baseDir}/share";
-			stateHome = "${baseDir}/state";
+			cacheHome = "${config.home.homeDirectory}/.cache";
+			dataHome = "${config.home.homeDirectory}/.local/share";
+			stateHome = "${config.home.homeDirectory}/.local/state";
 
 			userDirs = 	{
 				enable = true;
