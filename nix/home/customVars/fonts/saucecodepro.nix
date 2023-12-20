@@ -12,5 +12,10 @@
 		};
 
 		customVars.fonts.nerdFontBool = true;
+
+		programs.mangohud.settings = {
+			font_file = "${config.gtk.font.package}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFont-Regular.ttf";
+			font_size = 20;
+		};
 	};
 }

@@ -10,6 +10,9 @@ let
 	normalNums = colorNums.normal;
 	brightNums = colorNums.bright;
 
+	nohash = hex:
+	lib.removePrefix "#" hex;
+
 	str = builtins.toString;
 in {
 	options.customVars.waybar = {
@@ -479,6 +482,24 @@ EOF
 						background-color: ${normal.red};
 					}
 				'';
+			};
+
+			mangohud.settings = let
+				loadColor = "${nohash normal.green},${nohash normal.yellow},${nohash normal.red}";
+			in {
+				background_alpha = 0.1;
+				alpha = 1;
+
+				cpu_load_color = loadColor;
+				gpu_load_color = loadColor;
+				fps_color = "${nohash normal.red},${nohash normal.yellow},${nohash normal.green}";
+
+				text_color = nohash normal.white;
+				gpu_color = nohash normal.green;
+				cpu_color = nohash normal.blue;
+				ram_color = nohash normal.magenta;
+				engine_color = nohash normal.red;
+				background_color = nohash bright.black;
 			};
 		};
 
