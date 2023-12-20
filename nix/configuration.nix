@@ -43,6 +43,8 @@
 		};
 
 		boot = {
+			kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+
 			tmp = {
 				useTmpfs = true;
 				cleanOnBoot = true;
@@ -115,6 +117,15 @@
 		security = {
 			polkit.enable = true;
 			rtkit.enable = true;
+
+			wrappers = {
+				intel_gpu_top = (lib.mkIf config.customVars.gui {
+					owner = "root";
+					group = "wheel";
+					capabilities = "cap_perfmon+ep";
+					source = "${pkgs.intel-gpu-tools}/bin/intel_gpu_top";
+				});
+			};
 
 			pam.services = {
 				swaylock.gnupg.enable = config.customVars.gui;
