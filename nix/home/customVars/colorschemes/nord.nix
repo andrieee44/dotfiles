@@ -487,7 +487,7 @@ EOF
 			mangohud.settings = let
 				loadColor = "${nohash normal.green},${nohash normal.yellow},${nohash normal.red}";
 			in {
-				background_alpha = 0.1;
+				background_alpha = 0.5;
 				alpha = 1;
 
 				cpu_load_color = loadColor;

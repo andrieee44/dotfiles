@@ -23,7 +23,6 @@
 
 			throttling_status = true;
 			wine = true;
-			exec_name = true;
 			gamemode = true;
 
 			text_outline = true;
