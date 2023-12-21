@@ -12,8 +12,6 @@ let
 
 	nohash = hex:
 	lib.removePrefix "#" hex;
-
-	str = builtins.toString;
 in {
 	options.customVars.waybar = {
 		separatorColor = customVars.mkStrOption;
@@ -268,25 +266,25 @@ in {
 			};
 
 			fzf.colors = {
-				fg = str normalNums.white;
-				preview-fg = str normalNums.white;
-				preview-bg = str normalNums.black;
-				hl = str normalNums.blue;
-				"fg+" = str normalNums.white;
-				"bg+" = str normalNums.black;
-				gutter = str normalNums.black;
-				"hl+" = str normalNums.blue;
-				query = str normalNums.white;
-				disabled = str brightNums.white;
-				info = str normalNums.cyan;
-				separator = str normalNums.cyan;
-				border = str normalNums.cyan;
-				spinner = str normalNums.cyan;
-				label = str normalNums.cyan;
-				prompt = str normalNums.cyan;
-				pointer = str normalNums.cyan;
-				marker = str normalNums.cyan;
-				header = str normalNums.cyan;
+				fg = normalNums.white;
+				preview-fg = normalNums.white;
+				preview-bg = normalNums.black;
+				hl = normalNums.blue;
+				"fg+" = normalNums.white;
+				"bg+" = normalNums.black;
+				gutter = normalNums.black;
+				"hl+" = normalNums.blue;
+				query = normalNums.white;
+				disabled = brightNums.white;
+				info = normalNums.cyan;
+				separator = normalNums.cyan;
+				border = normalNums.cyan;
+				spinner = normalNums.cyan;
+				label = normalNums.cyan;
+				prompt = normalNums.cyan;
+				pointer = normalNums.cyan;
+				marker = normalNums.cyan;
+				header = normalNums.cyan;
 			};
 
 			neovim.plugins = [
@@ -376,28 +374,28 @@ in {
 								local tmp = g['lightline#colorscheme#nord#palette']
 
 								tmp.normal.left = {
-									{ '${normal.black}', '${normal.cyan}', ${str normalNums.black}, ${str normalNums.cyan}, 'bold', },
-									{ '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str normalNums.black}, },
+									{ '${normal.black}', '${normal.cyan}', ${normalNums.black}, ${normalNums.cyan}, 'bold', },
+									{ '${normal.white}', '${normal.black}', ${normalNums.white}, ${normalNums.black}, },
 								}
 
 								tmp.normal.left[3] = copyTable(tmp.normal.left[1])
 
 								tmp.visual.left = copyTable(tmp.normal.left)
 								tmp.visual.left[1][2] = '${normal.green}'
-								tmp.visual.left[1][4] = ${str normalNums.green}
+								tmp.visual.left[1][4] = ${normalNums.green}
 
 								tmp.insert.left = copyTable(tmp.normal.left)
 								tmp.insert.left[1][2] = '${bright.white}'
-								tmp.insert.left[1][4] = ${str normalNums.white}
+								tmp.insert.left[1][4] = ${normalNums.white}
 
 								tmp.replace.left = copyTable(tmp.normal.left)
 								tmp.replace.left[1][2] = '${normal.yellow}'
-								tmp.replace.left[1][4] = ${str normalNums.yellow}
+								tmp.replace.left[1][4] = ${normalNums.yellow}
 
-								tmp.normal.right[1] = { '${normal.white}', '${bright.black}', ${str normalNums.white}, ${str brightNums.black}, }
-								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', ${str normalNums.white}, ${str normalNums.red}, 'bold' }
-								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', ${str normalNums.black}, ${str normalNums.yellow}, 'bold' }
-								tmp.normal.middle[1] = { '${normal.white}', '${normal.black}', ${str normalNums.white}, ${str brightNums.black}, }
+								tmp.normal.right[1] = { '${normal.white}', '${bright.black}', ${normalNums.white}, ${brightNums.black}, }
+								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', ${normalNums.white}, ${normalNums.red}, 'bold' }
+								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', ${normalNums.black}, ${normalNums.yellow}, 'bold' }
+								tmp.normal.middle[1] = { '${normal.white}', '${normal.black}', ${normalNums.white}, ${brightNums.black}, }
 
 								tmp.visual.middle = copyTable(tmp.normal.middle)
 								tmp.insert.middle = copyTable(tmp.normal.middle)
@@ -487,7 +485,7 @@ EOF
 			mangohud.settings = let
 				loadColor = "${nohash normal.green},${nohash normal.yellow},${nohash normal.red}";
 			in {
-				background_alpha = 0.5;
+				background_alpha = 0.3;
 				alpha = 1;
 
 				cpu_load_color = loadColor;
@@ -499,7 +497,7 @@ EOF
 				cpu_color = nohash normal.blue;
 				ram_color = nohash normal.magenta;
 				engine_color = nohash normal.red;
-				background_color = nohash bright.black;
+				background_color = nohash normal.black;
 			};
 		};
 
