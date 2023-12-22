@@ -486,7 +486,7 @@ EOF
 				loadColor = "${nohash normal.green},${nohash normal.yellow},${nohash normal.red}";
 			in {
 				background_alpha = 0.3;
-				alpha = 1;
+				alpha = 0.9;
 
 				cpu_load_color = loadColor;
 				gpu_load_color = loadColor;
