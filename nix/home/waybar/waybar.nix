@@ -94,7 +94,8 @@
 			battery = {
 				tooltip = false;
 				design-capacity = false;
-				format = "{icon} -{capacity}%";
+				format = "{icon} {time} -{capacity}%";
+				format_time = "{H}:{m}";
 				format-plugged = "{icon} +{capacity}%";
 				format-icons = nerdFontMk (separatorColorList [
 					"" "" "" "" ""
