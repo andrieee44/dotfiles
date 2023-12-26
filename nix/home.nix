@@ -18,6 +18,7 @@
 			packages = lib.mkMerge [
 				(with pkgs; [
 					(lib.mkIf config.services.mpd.enable mpc-cli)
+					(lib.mkIf config.programs.go.enable gotools)
 					moar
 					bc
 					neofetch
