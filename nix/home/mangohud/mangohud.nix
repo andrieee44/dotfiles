@@ -46,7 +46,7 @@
 			round_corners = 0;
 			hud_no_margin = false;
 			hud_compact = true;
-			position = "top-center";
+			position = "middle-left";
 		};
 	};
 }
