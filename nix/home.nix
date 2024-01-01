@@ -115,7 +115,7 @@
 		gtk = {
 			enable = config.customVars.gui;
 			gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-			font.size = 12;
+			font.size = 14;
 		};
 
 		qt = {

@@ -204,7 +204,7 @@
 		style = ''
 			* {
 				border-radius: 0;
-				font-size: 14pt;
+				font-size: ${builtins.toString config.gtk.font.size}pt;
 			}
 
 			#workspaces button {

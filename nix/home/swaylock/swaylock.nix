@@ -9,7 +9,7 @@
 			indicator-radius = 100;
 			indicator-thickness = 20;
 			font = config.gtk.font.name;
-			font-size = 30;
+			font-size = config.gtk.font.size * 2;
 		};
 	};
 }

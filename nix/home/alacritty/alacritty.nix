@@ -42,7 +42,7 @@
 					style = "Bold Italic";
 				};
 
-				size = config.gtk.font.size + 2;
+				size = config.gtk.font.size;
 				builtin_box_drawing = true;
 			};
 
