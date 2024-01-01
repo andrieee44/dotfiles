@@ -47,6 +47,7 @@
 			hud_no_margin = false;
 			hud_compact = true;
 			position = "middle-left";
+			font_size = config.gtk.font.size * 1.5;
 		};
 	};
 }
