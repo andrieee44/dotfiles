@@ -17,10 +17,10 @@
 			waybar = customVars.waybar;
 
 			separator = str:
-			" <span color=\"${waybar.separatorColor}\">|</span> ${str}";
+			" <span color='${waybar.separatorColor}'>|</span> ${str}";
 
 			color = str:
-			"<span color=\"${waybar.color}\">${str}</span>";
+			"<span color='${waybar.color}'>${str}</span>";
 
 			separatorColor = str:
 			separator (color str);
@@ -122,7 +122,7 @@
 			"custom/separator" = {
 				tooltip = false;
 				interval = "once";
-				format = color "| ";
+				format = "<span color='${waybar.separatorColor}'>|</span> ";
 			};
 
 			"custom/uptime" = {
@@ -166,7 +166,7 @@
 
 			"sway/mode" = lib.mkIf sway {
 				tooltip = false;
-				format = "${nerdFontStr (separatorColor "󰂮")} {}";
+				format = "<span color='${waybar.separatorColor}'>|</span> ${nerdFontStr (color "󰂮")} {} ";
 			};
 
 			"sway/window" = lib.mkIf sway {
