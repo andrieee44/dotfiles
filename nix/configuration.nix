@@ -127,13 +127,24 @@
 				});
 			};
 
-			pam.services = {
-				swaylock.gnupg.enable = config.customVars.gui;
+			pam = {
+				services = {
+					swaylock.gnupg.enable = config.customVars.gui;
 
-				login.gnupg = {
-					enable = true;
-					storeOnly = true;
+					login.gnupg = {
+						enable = true;
+						storeOnly = true;
+					};
 				};
+
+				loginLimits = [
+					{
+						domain = "@wheel";
+						type = "-";
+						item = "memlock";
+						value = "unlimited";
+					}
+				];
 			};
 		};
 
@@ -167,10 +178,8 @@
 				enable = true;
 			};
 
-			opengl = {
-				enable = config.customVars.gui;
-				driSupport32Bit = true;
-				extraPackages = with pkgs; [
+			opengl = let
+				extraPkgs = with pkgs; [
 					intel-media-driver
 					vaapiIntel
 					vaapiVdpau
@@ -178,6 +187,12 @@
 					rocm-opencl-icd
 					rocm-opencl-runtime
 				];
+			in {
+				enable = config.customVars.gui;
+				driSupport = true;
+				driSupport32Bit = true;
+				extraPackages = extraPkgs;
+				extraPackages32 = extraPkgs;
 			};
 
 			steam-hardware.enable = config.customVars.gui;
