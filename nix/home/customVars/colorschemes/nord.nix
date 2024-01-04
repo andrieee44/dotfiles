@@ -499,6 +499,44 @@ EOF
 				engine_color = nohash normal.red;
 				background_color = nohash normal.black;
 			};
+
+			zathura.options = {
+				notification-error-bg = normal.black;
+				notification-error-fg = normal.red;
+				notification-warning-bg = normal.black;
+				notification-warning-fg = normal.yellow;
+				notification-bg = normal.black;
+				notification-fg = normal.white;
+
+				completion-bg = normal.black;
+				completion-fg = normal.white;
+				completion-group-bg = normal.black;
+				completion-group-fg = normal.white;
+				completion-highlight-bg = normal.blue;
+				completion-highlight-fg = normal.black;
+
+				index-bg = normal.black;
+				index-fg = normal.cyan;
+				index-active-bg = normal.cyan;
+				index-active-fg = normal.black;
+
+				inputbar-bg = normal.black;
+				inputbar-fg = normal.white;
+
+				statusbar-bg = normal.black;
+				statusbar-fg = normal.white;
+
+				highlight-color = normal.yellow;
+				highlight-active-color = normal.red;
+
+				default-bg = bright.black;
+				default-fg = normal.white;
+				render-loading-bg = normal.black;
+				render-loading-fg = bright.black;
+
+				recolor-lightcolor = normal.black;
+				recolor-darkcolor = normal.white;
+			};
 		};
 
 		wayland.windowManager.sway.config = {
