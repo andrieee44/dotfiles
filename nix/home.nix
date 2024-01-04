@@ -38,6 +38,8 @@
 					grim
 					wl-clipboard
 					gamemode
+					pcsx2
+					rpcs3
 				]))
 			];
 
