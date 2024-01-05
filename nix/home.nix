@@ -40,6 +40,8 @@
 					gamemode
 					pcsx2
 					rpcs3
+					wineWowPackages.full
+					winetricks
 				]))
 			];
 
