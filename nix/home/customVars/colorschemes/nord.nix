@@ -537,6 +537,12 @@ EOF
 				recolor-lightcolor = normal.black;
 				recolor-darkcolor = normal.white;
 			};
+
+			imv.settings.options = {
+				overlay_text_color = normal.white;
+				overlay_background_color = normal.black;
+				background = bright.black;
+			};
 		};
 
 		wayland.windowManager.sway.config = {
