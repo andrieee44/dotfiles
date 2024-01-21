@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 {
-	config = lib.mkIf (config.customVars.font == "saucecodepro"){
+	config = lib.mkIf (config.customVars.font == "saucecodepro") {
 		gtk.font = config.customVars.fonts.nerdFontMk {
 			package = pkgs.nerdfonts.override {
 				fonts = [
