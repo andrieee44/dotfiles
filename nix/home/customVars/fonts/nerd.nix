@@ -22,7 +22,7 @@
 			enable = config.programs.lf.enable;
 			target = "lf/icons";
 
-			text = config.customVars.fonts.nerdFontMk ''
+			text = config.customVars.fonts.nerdFontStr ''
 				# file types (with matching order)
 				ln             # LINK
 				or             # ORPHAN
