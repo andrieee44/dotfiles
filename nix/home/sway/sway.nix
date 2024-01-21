@@ -123,11 +123,13 @@
 			window = {
 				commands = [
 					{
-						criteria = {
-							app_id = "menu";
-						};
-
+						criteria.app_id = "menu";
 						command = "floating enable";
+					}
+
+					{
+						criteria.shell = ".*";
+						command = "inhibit_idle fullscreen";
 					}
 				];
 
