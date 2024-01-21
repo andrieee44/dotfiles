@@ -38,8 +38,10 @@
 					grim
 					wl-clipboard
 					gamemode
+					ppsspp
 					pcsx2
 					rpcs3
+					dolphin-emu
 					wineWowPackages.full
 					winetricks
 				]))
