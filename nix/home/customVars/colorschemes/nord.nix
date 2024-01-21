@@ -1,24 +1,19 @@
 { config, pkgs, lib, options, ... }:
-let
-	customVars = config.customVars;
-
-	colorscheme = customVars.colorschemes.nord;
-	normal = colorscheme.normal;
-	bright = colorscheme.bright;
-
-	colorNums = customVars.colorNums;
-	normalNums = colorNums.normal;
-	brightNums = colorNums.bright;
-
-	nohash = hex:
-	lib.removePrefix "#" hex;
-in {
-	options.customVars.waybar = {
-		separatorColor = customVars.mkStrOption;
-		color = customVars.mkStrOption;
-	};
-
+{
 	config = let
+		customVars = config.customVars;
+
+		colorscheme = customVars.colorschemes.nord;
+		normal = colorscheme.normal;
+		bright = colorscheme.bright;
+
+		colorNums = customVars.colorNums;
+		normalNums = colorNums.normal;
+		brightNums = colorNums.bright;
+
+		nohash = hex:
+		lib.removePrefix "#" hex;
+
 		nerdFontBool = customVars.fonts.nerdFontBool;
 	in lib.mkIf (customVars.colorscheme == "nord") {
 		customVars.waybar = {
