@@ -538,6 +538,8 @@ EOF
 				overlay_background_color = normal.black;
 				background = bright.black;
 			};
+
+			lf.settings.promptfmt = ''\033[37;1m[\033[36;1m%u@%h \033[34;1m%d%f\033[37;1m]$\033[0m'';
 		};
 
 		wayland.windowManager.sway.config = {
