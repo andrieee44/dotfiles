@@ -1,18 +1,22 @@
-{ config, lib, pkgs, ... }:
-{
+{ config, options, lib, pkgs, ... }:
+let
+	customVars = config.customVars;
+in {
+	options.customVars.waybar = {
+		separatorColor = customVars.mkStrOption;
+		color = customVars.mkStrOption;
+	};
+
 	config.programs.waybar = let
 		sway = config.wayland.windowManager.sway.enable;
 		swayStr = lib.optionalString sway;
 	in {
 		settings.mainBar = let
-			customVars = config.customVars;
-
 			shShebang = customVars.shShebang;
 			unixUtils = customVars.unixUtils;
 
 			fonts = customVars.fonts;
 			nerdFontStr = fonts.nerdFontStr;
-			nerdFontMk = fonts.nerdFontMk;
 
 			waybar = customVars.waybar;
 
@@ -20,7 +24,7 @@
 			" <span color='${waybar.separatorColor}'>|</span> ${str}";
 
 			color = str:
-			"<span color='${waybar.color}'>${str}</span>";
+			nerdFontStr "<span color='${waybar.color}'>${str}</span>";
 
 			separatorColor = str:
 			separator (color str);
@@ -35,18 +39,18 @@
 			separatorList (colorList list);
 		in {
         	network = {
-				format-ethernet = "${nerdFontStr (color "󰈀")} {essid}";
-				format-disconnected = "${nerdFontStr (color "󰤭")} Offline";
-				format-icons = nerdFontMk (colorList [
+				format-ethernet = "${color "󰈀"} {essid}";
+				format-disconnected = "${color "󰤭"} Offline";
+				format-icons = colorList [
 					"󰤯" "󰤟" "󰤢" "󰤥" "󰤨"
-				]);
+				];
 			};
 
 			wireplumber = {
 				format-muted = "${nerdFontStr (separatorColor "󰝟")} Muted";
-				format-icons = nerdFontMk (separatorColorList [
+				format-icons = separatorColorList [
 					"" "" ""
-				]);
+				];
 			};
 
 			layer = "bottom";
@@ -86,9 +90,9 @@
 			backlight = {
 				tooltip = false;
 				format = "{icon} {percent}%";
-				format-icons = nerdFontMk (separatorColorList [
+				format-icons = separatorColorList [
 					"󰃞" "󰃟" "󰃝" "󰃠"
-				]);
+				];
 			};
 
 			battery = {
@@ -97,9 +101,9 @@
 				format = "{icon} {time} -{capacity}%";
 				format_time = "{H}:{m}";
 				format-plugged = "{icon} +{capacity}%";
-				format-icons = nerdFontMk (separatorColorList [
+				format-icons = separatorColorList [
 					"" "" "" "" ""
-				]);
+				];
 			};
 
 			bluetooth = {
@@ -166,7 +170,7 @@
 
 			"sway/mode" = lib.mkIf sway {
 				tooltip = false;
-				format = "<span color='${waybar.separatorColor}'>|</span> ${nerdFontStr (color "󰂮")} {} ";
+				format = "<span color='${waybar.separatorColor}'>|</span> ${color "󰂮"} {} ";
 			};
 
 			"sway/window" = lib.mkIf sway {
