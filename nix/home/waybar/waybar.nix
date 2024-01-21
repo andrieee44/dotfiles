@@ -14,43 +14,44 @@ in {
 		settings.mainBar = let
 			shShebang = customVars.shShebang;
 			unixUtils = customVars.unixUtils;
-
-			fonts = customVars.fonts;
-			nerdFontStr = fonts.nerdFontStr;
-
+			nerdFontBool = customVars.fonts.nerdFontBool;
 			waybar = customVars.waybar;
+
+			icon = nerd: fallback:
+			"<span color='${waybar.color}'>${if nerdFontBool then
+				nerd else fallback
+			}</span>";
 
 			separator = str:
 			" <span color='${waybar.separatorColor}'>|</span> ${str}";
 
-			color = str:
-			nerdFontStr "<span color='${waybar.color}'>${str}</span>";
+			separatorIcon = nerd: fallback:
+			separator (icon nerd fallback);
 
-			separatorColor = str:
-			separator (color str);
+			iconList = list: fallback:
+			lib.forEach list (nerd:
+			icon nerd fallback);
 
-			separatorList = list:
-			lib.forEach list separator;
-
-			colorList = list:
-			lib.forEach list color;
-
-			separatorColorList = list:
-			separatorList (colorList list);
+			separatorIconList = list: fallback:
+			lib.forEach list (nerd:
+			separatorIcon nerd fallback);
 		in {
         	network = {
-				format-ethernet = "${color "󰈀"} {essid}";
-				format-disconnected = "${color "󰤭"} Offline";
-				format-icons = colorList [
+				tooltip = false;
+				format = "{essid}";
+				format-wifi = "{icon} {essid}";
+				format-ethernet = "${icon "󰈀" "Eth:"} {essid}";
+				format-disconnected = "${icon "󰤭" "Wifi:"} Offline";
+				format-icons = iconList [
 					"󰤯" "󰤟" "󰤢" "󰤥" "󰤨"
-				];
+				] "Wifi:";
 			};
 
 			wireplumber = {
-				format-muted = "${nerdFontStr (separatorColor "󰝟")} Muted";
-				format-icons = separatorColorList [
+				format-muted = "${separatorIcon "󰝟" "Vol:"} Muted";
+				format-icons = separatorIconList [
 					"" "" ""
-				];
+				] "Vol:";
 			};
 
 			layer = "bottom";
@@ -90,9 +91,9 @@ in {
 			backlight = {
 				tooltip = false;
 				format = "{icon} {percent}%";
-				format-icons = separatorColorList [
+				format-icons = separatorIconList [
 					"󰃞" "󰃟" "󰃝" "󰃠"
-				];
+				] "Bri:";
 			};
 
 			battery = {
@@ -101,23 +102,23 @@ in {
 				format = "{icon} {time} -{capacity}%";
 				format_time = "{H}:{m}";
 				format-plugged = "{icon} +{capacity}%";
-				format-icons = separatorColorList [
+				format-icons = separatorIconList [
 					"" "" "" "" ""
-				];
+				] "Bat:";
 			};
 
 			bluetooth = {
 				tooltip = false;
-				format = "${nerdFontStr (separatorColor "")} {status}";
-				format-connected = "${nerdFontStr (separatorColor "")} {device_alias}";
-				format-connected-battery = "${nerdFontStr (separatorColor "")} {device_alias} {device_battery_percentage}%";
+				format = "${separatorIcon "" "Blue:"} {status}";
+				format-connected = "${separatorIcon "" "Blue:"} {device_alias}";
+				format-connected-battery = "${separatorIcon "" "Blue:"} {device_alias} {device_battery_percentage}%";
 				format-disabled = "";
 			};
 
 			"custom/clock" = {
 				tooltip = false;
 				interval = 60;
-				format = "${nerdFontStr (separatorColor "󰃰")} {} ";
+				format = "${separatorIcon "󰃰" "Date:"} {} ";
 				exec = pkgs.writeScript "date" ''${shShebang}
 					${unixUtils}/date "+${config.customVars.dateFmt}"
 				'';
@@ -132,7 +133,7 @@ in {
 			"custom/uptime" = {
 				tooltip = false;
 				interval = 60;
-				format = "${nerdFontStr (separatorColor "󰭖")} {} up";
+				format = "${separatorIcon "󰭖" "Up:"} {} up";
 				exec = pkgs.writeScript "uptime" ''${shShebang}
 					${pkgs.coreutils}/bin/uptime | ${pkgs.gawk}/bin/gawk '1 {
 						gsub(",", "", $3)
@@ -144,7 +145,7 @@ in {
 			"custom/user" = {
 				tooltip = false;
 				interval = 60;
-				format = "${nerdFontStr (separatorColor "")} {}";
+				format = "${separatorIcon "" "User:"} {}";
 				exec = pkgs.writeScript "user" ''${shShebang}
 					${unixUtils}/whoami
 				'';
@@ -153,24 +154,18 @@ in {
 			cpu = {
 				tooltip = false;
 				interval = 5;
-				format = "${nerdFontStr (separatorColor "")} {usage}%";
+				format = "${separatorIcon "" "Cpu:"} {usage}%";
 			};
 
 			memory = {
 				tooltip = false;
 				interval = 5;
-				format = "${nerdFontStr (separatorColor "󰓌")} {percentage}%";
-			};
-
-			network = {
-				tooltip = false;
-				format = "{essid}";
-				format-wifi = "{icon} {essid}";
+				format = "${separatorIcon "󰓌" "Ram:"} {percentage}%";
 			};
 
 			"sway/mode" = lib.mkIf sway {
 				tooltip = false;
-				format = "<span color='${waybar.separatorColor}'>|</span> ${color "󰂮"} {} ";
+				format = "<span color='${waybar.separatorColor}'>|</span> ${icon "󰂮" "Mode:"} {} ";
 			};
 
 			"sway/window" = lib.mkIf sway {
