@@ -164,7 +164,6 @@
 			pipewire.enable = true;
 			tlp.enable = true;
 			thermald.enable = true;
-			blueman.enable = true;
 
 			xserver = {
 				xkbOptions = "caps:escape";
@@ -176,6 +175,7 @@
 
 			bluetooth = {
 				enable = true;
+				powerOnBoot = false;
 			};
 
 			opengl = let
