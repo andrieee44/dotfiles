@@ -19,6 +19,7 @@ in {
 		shShebang = mkStrOption;
 		gui = lib.mkEnableOption "";
 		font = mkStrOption;
+		consoleFont = mkStrOption;
 		user = mkStrOption;
 		email = mkStrOption;
 		emailFlavor = mkStrOption;
@@ -60,6 +61,7 @@ in {
 
 		gui = true;
 		font = "saucecodepro";
+		consoleFont = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
 		user = "andrieee44";
 		email = "andrieee44@gmail.com";
 		emailFlavor = "gmail.com";

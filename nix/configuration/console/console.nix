@@ -2,7 +2,7 @@
 {
 	config.console = {
 		useXkbConfig = true;
-		font = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
+		font = config.customVars.consoleFont;
 
 		colors = let
 			colorscheme = config.customVars.colorschemes."${config.customVars.colorscheme}";
