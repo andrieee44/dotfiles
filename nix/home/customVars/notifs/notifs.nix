@@ -1,7 +1,7 @@
-{ config, pkgs, options, ... }:
+{ config, pkgs, lib, options, ... }:
 {
 	options.customVars.notifs = let
-		mkPkgOption = config.customVars.mkPkgOption;
+		mkPkgOption = config.customVars.mkOption lib.types.package;
 	in
 	{
 		music = mkPkgOption;

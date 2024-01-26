@@ -1,53 +1,37 @@
 { config, pkgs, lib, options, ... }:
-let
-	mkFuncOption = lib.mkOption {
-		type = lib.types.anything;
-	};
-in {
+{
 	options.customVars = let
-		mkStrOption = config.customVars.mkStrOption;
+		mkOption = config.customVars.mkOption;
+
 		attrs = lib.mkOption {
 			type = lib.types.attrs;
 		};
 	in {
-		mkFuncOption = mkFuncOption;
-		mkStrOption = mkFuncOption;
-		mkUintOption = mkFuncOption;
-		mkPkgOption = mkFuncOption;
-		mkLinesOption = mkFuncOption;
-		sshPassCmd = mkStrOption;
-		shShebang = mkStrOption;
-		gui = lib.mkEnableOption "";
-		font = mkStrOption;
-		consoleFont = mkStrOption;
-		user = mkStrOption;
-		email = mkStrOption;
-		emailFlavor = mkStrOption;
-		unixUtils = mkStrOption;
-		dateFmt = mkStrOption;
-		dateGoFmt = mkStrOption;
-		colorscheme = mkStrOption;
+		sshPassCmd = mkOption lib.types.str;
+		shShebang = mkOption lib.types.str;
+		gui = mkOption lib.types.bool;
+		font = mkOption lib.types.str;
+		consoleFont = mkOption lib.types.str;
+		user = mkOption lib.types.str;
+		email = mkOption lib.types.str;
+		emailFlavor = mkOption lib.types.str;
+		unixUtils = mkOption lib.types.str;
+		dateFmt = mkOption lib.types.str;
+		dateGoFmt = mkOption lib.types.str;
+		colorscheme = mkOption lib.types.str;
 		colorNums = attrs;
 		colorschemes = attrs;
+
+		mkOption = lib.mkOption {
+			type = lib.types.anything;
+		};
 	};
 
 	config.customVars = {
-		mkFuncOption = mkFuncOption;
-		mkStrOption = lib.mkOption {
-			type = lib.types.str;
-		};
-
-		mkUintOption = lib.mkOption {
-			type = lib.types.ints.unsigned;
-		};
-
-		mkPkgOption = lib.mkOption {
-			type = lib.types.package;
-		};
-
-		mkLinesOption = lib.mkOption {
-			type = lib.types.lines;
-		};
+		mkOption = type:
+			lib.mkOption {
+				type = type;
+			};
 
 		sshPassCmd = let
 			sshPassCmd = pkgs.writeScriptBin "sshPassCmd" ''${config.customVars.shShebang}

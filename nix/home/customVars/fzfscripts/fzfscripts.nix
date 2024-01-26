@@ -1,7 +1,7 @@
 { config, pkgs, options, lib, ... }:
 {
 	options.customVars.fzfscripts = let
-		mkPkgOption = config.customVars.mkPkgOption;
+		mkPkgOption = config.customVars.mkOption lib.types.package;
 	in {
 		pathmenu = mkPkgOption;
 		sysmenu = mkPkgOption;

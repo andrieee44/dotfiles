@@ -1,7 +1,7 @@
 { config, pkgs, options, lib, ... }:
 {
 	options.customVars.sh = let
-		mkLinesOption = config.customVars.mkLinesOption;
+		mkLinesOption = config.customVars.mkOption lib.types.lines;
 	in {
 		profile = mkLinesOption;
 		rc = mkLinesOption;

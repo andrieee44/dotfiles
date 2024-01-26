@@ -3,8 +3,8 @@ let
 	customVars = config.customVars;
 in {
 	options.customVars.waybar = {
-		separatorColor = customVars.mkStrOption;
-		color = customVars.mkStrOption;
+		separatorColor = customVars.mkOption lib.types.str;
+		color = customVars.mkOption lib.types.str;
 	};
 
 	config.programs.waybar = let
