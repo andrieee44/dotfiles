@@ -6,8 +6,8 @@ let
 in {
 	options.customVars = let
 		mkStrOption = config.customVars.mkStrOption;
-		attrsAny = lib.mkOption {
-			type = lib.types.attrsOf lib.types.anything;
+		attrs = lib.mkOption {
+			type = lib.types.attrs;
 		};
 	in {
 		mkFuncOption = mkFuncOption;
@@ -27,8 +27,8 @@ in {
 		dateFmt = mkStrOption;
 		dateGoFmt = mkStrOption;
 		colorscheme = mkStrOption;
-		colorNums = attrsAny;
-		colorschemes = attrsAny;
+		colorNums = attrs;
+		colorschemes = attrs;
 	};
 
 	config.customVars = {
@@ -94,6 +94,30 @@ in {
 		};
 
 		colorschemes = {
+			default = {
+				normal = {
+					black = "#000000";
+					red = "#aa0000";
+					green = "#00aa00";
+					yellow = "#aa5500";
+					blue = "#0000aa";
+					magenta = "#aa00aa";
+					cyan = "#00aaaa";
+					white = "#aaaaaa";
+				};
+
+				bright = {
+					black = "#555555";
+					red = "#ff5555";
+					green = "#55ff55";
+					yellow = "#ffff55";
+					blue = "#5555ff";
+					magenta = "#ff55ff";
+					cyan = "#55ffff";
+					white = "#ffffff";
+				};
+			};
+
 			nord = {
 				normal = {
 					black = "#3b4252";
