@@ -8,6 +8,7 @@
 		wayland.windowManager.sway.enable = config.customVars.gui;
 		nixpkgs.config.allowUnfree = true;
 		fonts.fontconfig.enable = true;
+		customVars.programs.moar.enable = true;
 
 		home = {
 			username = config.customVars.user;
@@ -17,7 +18,6 @@
 
 			packages = lib.mkMerge [
 				(with pkgs; [
-					moar
 					bc
 					neofetch
 					powertop
@@ -68,11 +68,6 @@
 				LESSHISTFILE = "-";
 				NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile.npmrc.target}";
 				W3M_DIR = "${config.xdg.dataHome}/w3m";
-				MOAR = "--style ${config.customVars.colorscheme}";
-
-				PAGER = lib.optionalString (builtins.any (pkg:
-				pkg == pkgs.moar
-				) config.home.packages) "${pkgs.moar}/bin/moar";
 			};
 
 			language = let
