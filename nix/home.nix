@@ -24,6 +24,7 @@
 					xdg-user-dirs
 					hugo
 					go-mtpfs
+					ffmpeg
 				])
 
 				(with config.customVars.fzfscripts; [
