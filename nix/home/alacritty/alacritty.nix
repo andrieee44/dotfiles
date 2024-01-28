@@ -2,24 +2,12 @@
 {
 	config.programs.alacritty = {
 		settings = {
-			env = {
-				TERM = "alacritty";
-			};
-
 			window = {
 				opacity = 0.9;
-				title = "Alacritty";
-				dynamic_title = true;
-
-				class = {
-					instance = "Alacritty";
-					general = "Alacritty";
-				};
+				dynamic_padding = true;
 			};
 
-			scrolling = {
-				history = 0;
-			};
+			scrolling.history = 0;
 
 			font = {
 				normal = {
