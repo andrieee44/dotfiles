@@ -17,15 +17,9 @@
 		unixUtils = mkStrOption;
 		dateFmt = mkStrOption;
 		dateGoFmt = mkStrOption;
-		colorscheme = mkStrOption;
-
-		colorNums = lib.mkOption {
-			type = lib.types.attrsOf (lib.types.attrsOf (lib.types.strMatching "1?[[:digit:]]{1}"));
-		};
-
-		colorschemes = lib.mkOption {
-			type = lib.types.attrsOf (lib.types.attrsOf (lib.types.attrsOf (lib.types.strMatching "#[[:xdigit:]]{6}")));
-		};
+		colorscheme = mkOption (lib.types.enum (builtins.attrNames config.customVars.colorschemes));
+		colorNums = mkOption (lib.types.attrsOf (lib.types.attrsOf (lib.types.strMatching "1?[[:digit:]]{1}")));
+		colorschemes = mkOption (lib.types.attrsOf (lib.types.attrsOf (lib.types.attrsOf (lib.types.strMatching "#[[:xdigit:]]{6}"))));
 
 		mkOption = lib.mkOption {
 			type = lib.mkOptionType {
