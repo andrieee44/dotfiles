@@ -22,7 +22,7 @@
 		in {
 			plugins = let
 				nerdFontLuaVar = ''
-					local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFontBool then
+					local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFont then
 						"true" else "false"
 					}
 				'';
@@ -233,11 +233,11 @@ EOF
 
 					config = let
 						setup = ls:
-						''
-							require('lspconfig')['${ls}'].setup(package.loaded['cmp_nvim_lsp'] and {
-								capabilities = require('cmp_nvim_lsp').default_capabilities(),
-							} or {})
-						'';
+							''
+								require('lspconfig')['${ls}'].setup(package.loaded['cmp_nvim_lsp'] and {
+									capabilities = require('cmp_nvim_lsp').default_capabilities(),
+								} or {})
+							'';
 					in ''
 						lua <<EOF
 							local set = vim.keymap.set

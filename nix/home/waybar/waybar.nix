@@ -8,11 +8,11 @@
 			customVars = config.customVars;
 			shShebang = customVars.shShebang;
 			unixUtils = customVars.unixUtils;
-			nerdFontBool = customVars.fonts.nerdFontBool;
+			nerdFont = customVars.fonts.nerdFont;
 			customWaybar = customVars.programs.waybar;
 
 			icon = nerd: fallback:
-				"<span color='${customWaybar.color}'>${if nerdFontBool then
+				"<span color='${customWaybar.color}'>${if nerdFont then
 					nerd else fallback
 				}</span>";
 

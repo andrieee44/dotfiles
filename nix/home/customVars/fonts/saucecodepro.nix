@@ -11,7 +11,7 @@
 			name = "Sauce Code Pro Nerd Font Mono";
 		};
 
-		customVars.fonts.nerdFontBool = true;
+		customVars.fonts.nerdFont = true;
 
 		programs.mangohud.settings = {
 			font_file = "${config.gtk.font.package}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFont-Regular.ttf";

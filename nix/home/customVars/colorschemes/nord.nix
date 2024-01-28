@@ -1,4 +1,4 @@
-{ config, pkgs, lib, options, ... }:
+{ config, pkgs, lib, ... }:
 {
 	config = let
 		customVars = config.customVars;
@@ -12,9 +12,9 @@
 		brightNums = colorNums.bright;
 
 		nohash = hex:
-		lib.removePrefix "#" hex;
+			lib.removePrefix "#" hex;
 
-		nerdFontBool = customVars.fonts.nerdFontBool;
+		nerdFont = customVars.fonts.nerdFont;
 	in lib.mkIf (customVars.colorscheme == "nord") {
 		customVars.programs.waybar = {
 			separatorColor = normal.white;
@@ -434,16 +434,16 @@ EOF
 
 			tmux = {
 				extraConfig = let
-					nerdFont = if nerdFontBool then
+					isNerdFont = if nerdFont then
 						"#{&&:#{!=:${"\${XDG_SESSION_TYPE}"},tty}, true}"
 					else
 						"false";
 				in ''
-					set -Fg status-left "#[fg=${normal.black},bg=${normal.cyan},bold] ##S #{?${nerdFont},#[fg=${normal.cyan}#,bg=${normal.black}#,nobold],}"
-					set -Fg status-right "#{?${nerdFont},#[fg=${bright.black}#,bg=${normal.black}]#[fg=${normal.white}#,bg=${bright.black}] ${customVars.dateFmt} #[fg=${normal.cyan}]#[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H ,#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H }"
+					set -Fg status-left "#[fg=${normal.black},bg=${normal.cyan},bold] ##S #{?${isNerdFont},#[fg=${normal.cyan}#,bg=${normal.black}#,nobold],}"
+					set -Fg status-right "#{?${isNerdFont},#[fg=${bright.black}#,bg=${normal.black}]#[fg=${normal.white}#,bg=${bright.black}] ${customVars.dateFmt} #[fg=${normal.cyan}]#[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H ,#[fg=${normal.white}#,bg=${bright.black}] ${config.customVars.dateFmt} #[fg=${normal.black}#,bg=${normal.cyan}#,bold] #{user}@##H }"
 
-					set -Fg window-status-format "#{?${nerdFont},#[fg=${normal.black}#,bg=${bright.black}]#[fg=${normal.white}] ##I  ##W ##F #[fg=${bright.black}#,bg=${normal.black}], #[fg=${normal.white}#,bg=${bright.black}] ##I ##W ##F }"
-					set -Fg window-status-current-format "#{?${nerdFont},#[fg=${normal.black}#,bg=${normal.cyan}] #[bold]##I#[nobold]  #[bold]##W ##F#[nobold] #[fg=${normal.cyan}#,bg=${normal.black}], #[fg=${normal.black}#,bg=${normal.cyan}] #[bold]##I ##W ##F#[nobold] }"
+					set -Fg window-status-format "#{?${isNerdFont},#[fg=${normal.black}#,bg=${bright.black}]#[fg=${normal.white}] ##I  ##W ##F #[fg=${bright.black}#,bg=${normal.black}], #[fg=${normal.white}#,bg=${bright.black}] ##I ##W ##F }"
+					set -Fg window-status-current-format "#{?${isNerdFont},#[fg=${normal.black}#,bg=${normal.cyan}] #[bold]##I#[nobold]  #[bold]##W ##F#[nobold] #[fg=${normal.cyan}#,bg=${normal.black}], #[fg=${normal.black}#,bg=${normal.cyan}] #[bold]##I ##W ##F#[nobold] }"
 					set -g window-status-separator ""
 
 					set -g pane-border-style fg=${normal.black},dim,bold
