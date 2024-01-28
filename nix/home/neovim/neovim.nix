@@ -1,11 +1,13 @@
-{ config, pkgs, lib, options, ... }:
+{ config, pkgs, lib, ... }:
 {
-	options.customVars.neovim.langServers = {
-		nil = lib.mkEnableOption "";
-		go = lib.mkEnableOption "";
-		sh = lib.mkEnableOption "";
-		lua = lib.mkEnableOption "";
-		latex = lib.mkEnableOption "";
+	options.customVars.neovim.langServers = let
+		mkEnableOption = config.customVars.mkOption lib.types.bool;
+	in {
+		nil = mkEnableOption;
+		go = mkEnableOption;
+		sh = mkEnableOption;
+		lua = mkEnableOption;
+		latex = mkEnableOption;
 	};
 
 	config = {
@@ -20,6 +22,8 @@
 		programs.neovim = let
 			langServers = config.customVars.neovim.langServers;
 		in {
+			defaultEditor = true;
+
 			plugins = let
 				nerdFontLuaVar = ''
 					local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFont then

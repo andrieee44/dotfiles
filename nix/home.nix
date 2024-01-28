@@ -70,6 +70,8 @@
 				W3M_DIR = "${config.xdg.dataHome}/w3m";
 			};
 
+			sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+
 			language = let
 				locale = "fil_PH";
 				defaultLocale = osConfig.i18n.defaultLocale;
