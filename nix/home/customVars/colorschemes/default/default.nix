@@ -9,7 +9,7 @@
 	in lib.mkIf (customVars.colorscheme == "default") {
 		customVars.programs.waybar = {
 			separatorColor = normal.white;
-			color = normal.cyan;
+			color = normal.black;
 		};
 
 		gtk = {
