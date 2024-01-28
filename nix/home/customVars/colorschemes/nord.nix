@@ -16,7 +16,7 @@
 
 		nerdFontBool = customVars.fonts.nerdFontBool;
 	in lib.mkIf (customVars.colorscheme == "nord") {
-		customVars.waybar = {
+		customVars.programs.waybar = {
 			separatorColor = normal.white;
 			color = normal.cyan;
 		};

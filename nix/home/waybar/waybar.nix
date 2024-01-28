@@ -1,40 +1,36 @@
-{ config, options, lib, pkgs, ... }:
-let
-	customVars = config.customVars;
-in {
-	options.customVars.waybar = {
-		separatorColor = customVars.mkOption lib.types.str;
-		color = customVars.mkOption lib.types.str;
-	};
-
-	config.programs.waybar = let
-		sway = config.wayland.windowManager.sway.enable;
-		swayStr = lib.optionalString sway;
-	in {
+{ config, lib, pkgs, ... }:
+{
+	config.programs.waybar = {
 		settings.mainBar = let
+			sway = config.wayland.windowManager.sway.enable;
+			swayStr = lib.optionalString sway;
+
+			customVars = config.customVars;
 			shShebang = customVars.shShebang;
 			unixUtils = customVars.unixUtils;
 			nerdFontBool = customVars.fonts.nerdFontBool;
-			waybar = customVars.waybar;
+			customWaybar = customVars.programs.waybar;
 
 			icon = nerd: fallback:
-			"<span color='${waybar.color}'>${if nerdFontBool then
-				nerd else fallback
-			}</span>";
+				"<span color='${customWaybar.color}'>${if nerdFontBool then
+					nerd else fallback
+				}</span>";
 
 			separator = str:
-			" <span color='${waybar.separatorColor}'>|</span> ${str}";
+				" <span color='${customWaybar.separatorColor}'>|</span> ${str}";
 
 			separatorIcon = nerd: fallback:
-			separator (icon nerd fallback);
+				separator (icon nerd fallback);
 
 			iconList = list: fallback:
-			lib.forEach list (nerd:
-			icon nerd fallback);
+				lib.forEach list (nerd:
+					icon nerd fallback
+				);
 
 			separatorIconList = list: fallback:
-			lib.forEach list (nerd:
-			separatorIcon nerd fallback);
+				lib.forEach list (nerd:
+					separatorIcon nerd fallback
+				);
 		in {
         	network = {
 				tooltip = false;
@@ -127,7 +123,7 @@ in {
 			"custom/separator" = {
 				tooltip = false;
 				interval = "once";
-				format = "<span color='${waybar.separatorColor}'>|</span> ";
+				format = "<span color='${customWaybar.separatorColor}'>|</span> ";
 			};
 
 			"custom/uptime" = {
@@ -165,7 +161,7 @@ in {
 
 			"sway/mode" = lib.mkIf sway {
 				tooltip = false;
-				format = "<span color='${waybar.separatorColor}'>|</span> ${icon "󰂮" "Mode:"} {} ";
+				format = "<span color='${customWaybar.separatorColor}'>|</span> ${icon "󰂮" "Mode:"} {} ";
 			};
 
 			"sway/window" = lib.mkIf sway {

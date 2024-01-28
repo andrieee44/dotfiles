@@ -7,7 +7,7 @@
 		normal = colorscheme.normal;
 		bright = colorscheme.bright;
 	in lib.mkIf (customVars.colorscheme == "default") {
-		customVars.waybar = {
+		customVars.programs.waybar = {
 			separatorColor = normal.white;
 			color = normal.cyan;
 		};
