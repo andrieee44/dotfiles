@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
-	config.programs.htop = {
-		package = pkgs.htop-vim;
-	};
+	config.programs.htop.package = pkgs.htop-vim;
 }
