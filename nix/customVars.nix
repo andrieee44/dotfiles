@@ -28,7 +28,10 @@
 		};
 
 		mkOption = lib.mkOption {
-			type = lib.types.anything;
+			type = lib.mkOptionType {
+				name = "function";
+				check = lib.isFunction;
+			};
 		};
 	};
 
