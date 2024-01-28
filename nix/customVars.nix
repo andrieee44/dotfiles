@@ -1,4 +1,4 @@
-{ config, pkgs, lib, options, ... }:
+{ config, pkgs, lib, ... }:
 {
 	options.customVars = let
 		mkOption = config.customVars.mkOption;
