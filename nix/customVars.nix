@@ -2,25 +2,30 @@
 {
 	options.customVars = let
 		mkOption = config.customVars.mkOption;
+		mkStrOption = mkOption lib.types.str;
+		mkEnableOption = mkOption lib.types.bool;
 
-		attrs = lib.mkOption {
-			type = lib.types.attrs;
-		};
 	in {
-		sshPassCmd = mkOption lib.types.str;
-		shShebang = mkOption lib.types.str;
-		gui = mkOption lib.types.bool;
-		font = mkOption lib.types.str;
-		consoleFont = mkOption lib.types.str;
-		user = mkOption lib.types.str;
-		email = mkOption lib.types.str;
-		emailFlavor = mkOption lib.types.str;
-		unixUtils = mkOption lib.types.str;
-		dateFmt = mkOption lib.types.str;
-		dateGoFmt = mkOption lib.types.str;
-		colorscheme = mkOption lib.types.str;
-		colorNums = attrs;
-		colorschemes = attrs;
+		sshPassCmd = mkStrOption;
+		shShebang = mkStrOption;
+		gui = mkEnableOption;
+		font = mkStrOption;
+		consoleFont = mkStrOption;
+		user = mkStrOption;
+		email = mkStrOption;
+		emailFlavor = mkStrOption;
+		unixUtils = mkStrOption;
+		dateFmt = mkStrOption;
+		dateGoFmt = mkStrOption;
+		colorscheme = mkStrOption;
+
+		colorNums = lib.mkOption {
+			type = lib.types.attrsOf (lib.types.attrsOf (lib.types.strMatching "1?[[:digit:]]{1}"));
+		};
+
+		colorschemes = lib.mkOption {
+			type = lib.types.attrsOf (lib.types.attrsOf (lib.types.attrsOf (lib.types.strMatching "#[[:xdigit:]]{6}")));
+		};
 
 		mkOption = lib.mkOption {
 			type = lib.types.anything;
