@@ -1,4 +1,4 @@
-{ config, pkgs, options, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
 	options.customVars.sh = let
 		mkLinesOption = config.customVars.mkOption lib.types.lines;
