@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
 	config.services.pipewire = {
 		audio.enable = true;
