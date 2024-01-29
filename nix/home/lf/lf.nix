@@ -7,7 +7,7 @@
 			dateGoFmt = config.customVars.dateGoFmt;
 		in {
 			autoquit = true;
-			cleaner = "${ctpv}/cleaner";
+			cleaner = "${ctpv}/ctpvclear";
 			dircache = true;
 			drawbox = true;
 			globsearch = true;
@@ -20,11 +20,15 @@
 			relativenumber = true;
 			shell = "${pkgs.dash}/bin/dash";
 			shellopts = "-eu";
-			sixel = true;
 			tabstop = 4;
 			wrapscroll = true;
 		};
 
 		previewer.source = "${ctpv}/ctpv";
+
+		extraConfig = ''
+			&${ctpv}/ctpv -s $id
+			&${ctpv}/ctpvquit $id
+		'';
 	};
 }
