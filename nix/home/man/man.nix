@@ -1,6 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
-	config.programs.man = {
-		generateCaches = true;
-	};
+	config.programs.man.generateCaches = true;
 }
