@@ -22,6 +22,13 @@
 			];
 
 			scriptOpts = {
+				uosc = {
+					timeline_style = "bar";
+					timeline_size_min = 10;
+					timeline_size_min_fullscreen = 10;
+					timeline_opacity = 1;
+				};
+
 				thumbfast.network = true;
 			};
 
