@@ -28,6 +28,7 @@
 			config = {
 				osd-bar = !cfg.uosc;
 				border = !cfg.uosc;
+				video-sync = lib.mkIf cfg.uosc "display-resample";
 			};
 		};
 	};
