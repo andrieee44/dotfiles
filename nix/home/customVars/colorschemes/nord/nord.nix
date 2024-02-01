@@ -538,6 +538,13 @@ EOF
 			};
 
 			lf.settings.promptfmt = ''\033[37;1m[\033[36;1m%u@%h \033[34;1m%d%f\033[37;1m]$\033[0m'';
+
+			mpv.scriptOpts.uosc = {
+				foreground = nohash normal.white;
+				foreground_text = nohash normal.black;
+				background = nohash normal.black;
+				background_text = nohash normal.white;
+			};
 		};
 
 		wayland.windowManager.sway.config = {
