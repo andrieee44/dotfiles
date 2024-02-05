@@ -1,11 +1,11 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
 	config = {
 		programs.texlive = {
 			extraPackages = tpkgs:
-			{
-				inherit (tpkgs) scheme-full;
-			};
+				{
+					inherit (tpkgs) scheme-full;
+				};
 		};
 
 		xdg.configFile.latexmkrc = {
