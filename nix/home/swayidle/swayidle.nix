@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
 	config.services.swayidle = {
 		extraArgs = [
@@ -10,6 +10,7 @@
 				timeout = 300;
 				command = "${pkgs.systemd}/bin/loginctl lock-session";
 			}
+
 			{
 				timeout = 360;
 				command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
@@ -22,6 +23,7 @@
 				event = "before-sleep";
 				command = "${pkgs.systemd}/bin/loginctl lock-session";
 			}
+
 			{
 				event = "lock";
 				command = "${pkgs.swaylock}/bin/swaylock";
