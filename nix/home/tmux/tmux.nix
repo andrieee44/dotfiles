@@ -12,15 +12,16 @@
 
 		extraConfig = let
 			tmux = "${pkgs.tmux}/bin/tmux";
+
 			mvpane = pane:
-			let
-				paneStr = builtins.toString pane;
-			in "${tmux} breakp -t ':${paneStr}' || ${tmux} joinp -t ':${paneStr}' || true";
+				let
+					paneStr = builtins.toString pane;
+				in "${tmux} breakp -t ':${paneStr}' || ${tmux} joinp -t ':${paneStr}' || true";
 
 			cdpane = pane:
-			let
-				paneStr = builtins.toString pane;
-			in "${tmux} selectw -t ':${paneStr}' || ${tmux} neww -t ':${paneStr}'";
+				let
+					paneStr = builtins.toString pane;
+				in "${tmux} selectw -t ':${paneStr}' || ${tmux} neww -t ':${paneStr}'";
 		in ''
 			set -Fg default-terminal "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},tmux-256color,screen-16color}"
 			set -Fsa terminal-overrides "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#,${"\${TERM}"}:RGB,}"
