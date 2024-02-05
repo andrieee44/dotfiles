@@ -11,8 +11,8 @@
 
 		config = let
 			swayConfig = config.wayland.windowManager.sway.config;
-			menu = bin:
-			"${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${config.customVars.unixUtils}/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
+			mkMenu = bin:
+				"${swayConfig.terminal} --class 'menu' -e '${pkgs.dash}/bin/dash' -c '${bin} | ${config.customVars.unixUtils}/xargs -r ${pkgs.sway}/bin/swaymsg exec --'";
 		in {
 			modifier = "Mod4";
 			left = "h";
@@ -20,38 +20,37 @@
 			up = "k";
 			right = "l";
 			terminal = "${pkgs.alacritty}/bin/alacritty";
-			menu = menu "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu";
-
-			startup = [
-				{
-					command = "${config.customVars.notifs.musicLoop}/bin/musicLoop";
-				}
-			];
+			menu = mkMenu "${config.customVars.fzfscripts.pathmenu}/bin/pathmenu";
 
 			keybindings = let
 				light = args:
-				"exec sh -c '${pkgs.light}/bin/light ${args} && ${config.customVars.notifs.brightness}/bin/brightness'";
+					"exec ${pkgs.light}/bin/light ${args}";
 
 				wpctl = args:
-				"exec sh -c '${pkgs.wireplumber}/bin/wpctl ${args} && ${config.customVars.notifs.volume}/bin/volume'";
+					"exec ${pkgs.wireplumber}/bin/wpctl ${args}";
 
+				mpc = args:
+					"exec ${pkgs.mpc-cli}/bin/mpc ${args}";
+
+				grimshot = args:
+					"exec ${pkgs.sway-contrib.grimshot}/bin/grimshot ${args}";
 			in pkgs.lib.mkOptionDefault {
 				"Mod4+Return" = "exec ${swayConfig.terminal}";
 				"Mod4+w" = "exec ${pkgs.librewolf}/bin/librewolf";
 				"Mod4+d" = "exec ${swayConfig.menu}";
-				"Mod4+BackSpace" = "exec ${menu "${config.customVars.fzfscripts.sysmenu}/bin/sysmenu"}";
-				F9 = "exec loginctl lock-session";
+				"Mod4+BackSpace" = "exec ${mkMenu "${config.customVars.fzfscripts.sysmenu}/bin/sysmenu"}";
+				F9 = "exec ${pkgs.systemd}/bin/loginctl lock-session";
 				F11 = light "-U 1";
 				F12 = light "-A 1";
 				XF86AudioMute = wpctl "set-mute @DEFAULT_SINK@ toggle";
 				XF86AudioLowerVolume = wpctl "set-volume @DEFAULT_SINK@ 1%-";
 				XF86AudioRaiseVolume = wpctl "set-volume @DEFAULT_SINK@ 1%+";
-				XF86AudioPrev = "exec ${pkgs.mpc-cli}/bin/mpc prev";
-				XF86AudioNext = "exec ${pkgs.mpc-cli}/bin/mpc next";
-				XF86AudioStop = "exec ${pkgs.mpc-cli}/bin/mpc stop";
-				XF86AudioPlay = "exec ${pkgs.mpc-cli}/bin/mpc toggle";
-				Print = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy";
-				"Print+Shift" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+				XF86AudioPrev = mpc "prev";
+				XF86AudioNext = mpc "next";
+				XF86AudioStop = mpc "stop";
+				XF86AudioPlay = mpc "toggle";
+				Print = grimshot "copy";
+				"Print+Shift" = grimshot "copy area";
 				"Mod4+q" = "kill";
 				"Mod4+Shift+q" = "exit";
 				"Mod4+shift+r" = "reload";
