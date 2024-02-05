@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 {
 	config.programs.zsh = {
 		enableAutosuggestions = true;
