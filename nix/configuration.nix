@@ -164,6 +164,7 @@
 			pipewire.enable = true;
 			tlp.enable = true;
 			thermald.enable = true;
+			flatpak.enable = true;
 
 			xserver = {
 				xkbOptions = "caps:escape";
