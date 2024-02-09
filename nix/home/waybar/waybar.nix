@@ -36,9 +36,9 @@
 				tooltip = false;
 				format = "{essid}";
 				format-wifi = "{icon} {essid}";
-				format-ethernet = "${icon "󰈀" "Eth:"} {essid}";
-				format-disconnected = "${icon "󰤭" "Wifi:"} Offline";
-				format-icons = iconList [
+				format-ethernet = "${separatorIcon "󰈀" "Eth:"} on";
+				format-disconnected = "${separatorIcon "󰤭" "Wifi:"} off";
+				format-icons = separatorIconList [
 					"󰤯" "󰤟" "󰤢" "󰤥" "󰤨"
 				] "Wifi:";
 			};
@@ -72,15 +72,13 @@
 			];
 
 			modules-right = [
-				"network"
-				"bluetooth"
 				"cpu"
 				"memory"
 				"backlight"
 				"wireplumber"
 				"battery"
-				"custom/uptime"
-				"custom/user"
+				"network"
+				"bluetooth"
 				"custom/clock"
 			];
 
@@ -150,7 +148,7 @@
 			cpu = {
 				tooltip = false;
 				interval = 5;
-				format = "${separatorIcon "" "Cpu:"} {usage}%";
+				format = "${icon "" "Cpu:"} {usage}%";
 			};
 
 			memory = {
