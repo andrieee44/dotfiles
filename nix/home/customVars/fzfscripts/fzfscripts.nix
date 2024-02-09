@@ -1,4 +1,4 @@
-{ config, pkgs, options, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
 	options.customVars.fzfscripts = let
 		mkPkgOption = config.customVars.mkOption lib.types.package;
@@ -9,66 +9,63 @@
 	};
 
 	config.customVars.fzfscripts = let
-		fzf-tmuxArgs = ''
-			-p "45%,60%" $(set +u && [ -n "$TMUX" ] && echo "--border=sharp")
-		'';
-
 		shShebang = config.customVars.shShebang;
 		unixUtils = config.customVars.unixUtils;
+		awk = "${pkgs.gawk}/bin/awk";
+
+		fzf-tmux = header:
+			''${pkgs.fzf}/bin/fzf-tmux --header "${header}" -p "45%,60%" $(set +u && [ -n "$TMUX" ] && echo "--border=sharp")'';
 	in {
 		pathmenu = pkgs.writeScriptBin "pathmenu" ''${shShebang}
-			bin=""
+			tmpfile=$(${unixUtils}/mktemp /tmp/pathmenu.XXXXXX)
+			exec 3> "$tmpfile"
+			exec 4< "$tmpfile"
+			rm "$tmpfile"
+
 			IFS=:
 			for d in $PATH; do
 				[ ! -d "$d" ] && continue
-				bin="${"\${bin}"}$(${unixUtils}/find -L "$d" -mindepth 1 -maxdepth 1 -type f -perm -u=x -not -name '.*')"
+				${unixUtils}/find -L "$d" -mindepth 1 -maxdepth 1 -type f -perm -u=x -not -name '.*' -printf "%f\n" >& 3
 			done
 
-			cmd="$(echo "$bin" | ${unixUtils}/sed 's/.*\///' | ${unixUtils}/sort | ${pkgs.fzf}/bin/fzf-tmux --header "Search executable:" ${fzf-tmuxArgs})"
-
-			[ ! -t 1 ] && echo "$cmd" && exit
-			eval "$cmd"
+			${unixUtils}/sort <& 4 | ${fzf-tmux "Search executable:"}
+			exec 3>& -
 		'';
 
-		sysmenu = pkgs.writeScriptBin "sysmenu" ''${shShebang}
+		sysmenu = let
+			systemd = "${pkgs.systemd}/bin";
+		in pkgs.writeScriptBin "sysmenu" ''${shShebang}
 			arr='
-				lock wayland session ; ${pkgs.systemd}/bin/loginctl lock-session
-				leave wayland session ; ${pkgs.systemd}/bin/loginctl kill-session self
-				reload window manager ; ${lib.optionalString config.wayland.windowManager.sway.enable "${pkgs.sway}/bin/swaymsg reload"}
-				poweroff computer ; ${pkgs.systemd}/bin/poweroff
-				reboot computer ; ${pkgs.systemd}/bin/reboot
+				leave desktop session = ${systemd}/loginctl kill-session self
+				poweroff computer = ${systemd}/poweroff
+				reboot computer = ${systemd}/reboot
+				lock desktop session = ${systemd}/loginctl lock-session
+				reload window manager = ${lib.optionalString config.wayland.windowManager.sway.enable "${pkgs.sway}/bin/swaymsg reload"}
 			'
 
-			cmd="$(echo "$arr" | ${unixUtils}/sed -n '
-				s/^[[:space:]]*\(.\+\)[[:space:]]*;.*$/\1/p
-			' | ${pkgs.fzf}/bin/fzf-tmux --header "System action:" ${fzf-tmuxArgs})"
+			cmd="$(echo "$arr" | ${awk} '
+				BEGIN {
+					FS = "="
+				}
+
+				NF == 2 {
+					gsub("^[[:space:]]*", "", $1)
+					print($1)
+				}
+			' | ${fzf-tmux "System action:"})"
 
 			err="$?"
 			[ "$err" -ne 0 ] && exit "$err"
 
-			eval "$(echo "$arr" | ${unixUtils}/sed -n '
-				/'"${"\${cmd}"}"'/ {
-					s/^[[:space:]]*'"${"\${cmd}"}"'[[:space:]]*;[[:space:]]*\(.\+\)[[:space:]]*$/\1/p
-					q
+			eval "$(echo "$arr" | ${awk} -v cmd="${"\${cmd}"}" '
+				BEGIN {
+					FS = "="
+				}
+
+				NF == 2 && match($0, cmd) {
+					print($2)
 				}
 			')"
-		'';
-
-		preview = pkgs.writeScriptBin "preview" ''${shShebang}
-			file="$1"
-
-			case "$(${pkgs.file}/bin/file --dereference --brief --mime-type -- "$file")" in
-				text/html)
-					${pkgs.w3m}/bin/w3m -T text/html <"$file"
-					;;
-				text/* | */xml | application/json)
-					${lib.optionalString config.programs.neovim.enable ''
-						${pkgs.moar}/bin/moar "$file"
-					''}
-					;;
-				application/pgp-encrypted)
-					${pkgs.gnupg}/bin/gpg2 -d -- "$file" ;;
-			esac
 		'';
 	};
 }
