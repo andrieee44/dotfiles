@@ -6,8 +6,8 @@
 
 			plugins = with pkgs.vimPlugins; [
 				{
-					plugin = vim-hexokinase;
-					config =  builtins.readFile ./vim-hexokinase.vim;
+					plugin = nvim-colorizer-lua;
+					config =  builtins.readFile ./nvim-colorizer-lua.vim;
 				}
 
 				{
