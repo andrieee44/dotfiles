@@ -365,9 +365,11 @@ EOF
 												name = 'nvim-lspconfig',
 											},
 
-											{
-												name = 'lua-snip',
-											},
+											${lib.optionalString (cfg.cmp.snippet == "luasnip") ''
+												{
+													name = 'lua-snip',
+												},
+											''}
 										}, {
 											{
 												name = 'buffer',
