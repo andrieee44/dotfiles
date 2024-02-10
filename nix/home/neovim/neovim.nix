@@ -7,40 +7,17 @@
 			plugins = with pkgs.vimPlugins; [
 				{
 					plugin = vim-hexokinase;
-
-					config = ''
-						lua <<EOF
-							local g = vim.g
-
-							g.Hexokinase_highlighters = {
-								'background',
-							}
-EOF
-					'';
+					config =  builtins.readFile ./vim-hexokinase.vim;
 				}
 
 				{
 					plugin = trim-nvim;
-
-					config = ''
-						lua <<EOF
-							require('trim').setup()
-EOF
-					'';
+					config =  builtins.readFile ./trim-nvim.vim;
 				}
 
 				{
 					plugin = nvim-treesitter.withAllGrammars;
-
-					config = ''
-						lua <<EOF
-							require('nvim-treesitter.configs').setup({
-								highlight = {
-									enable = true,
-								},
-							})
-EOF
-					'';
+					config =  builtins.readFile ./nvim-treesitter.vim;
 				}
 			];
 
