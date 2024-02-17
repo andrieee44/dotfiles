@@ -43,170 +43,103 @@
 		in {
 			plugins = let
 				nerdFontLuaVar = ''
-					local nerdFont = os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFont then
+					os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFont then
 						"true" else "false"
 					}
 				'';
 			in with pkgs.vimPlugins; lib.mkMerge [
 				[
 					{
-						plugin = lightline-vim;
+						plugin = lualine-nvim;
 
 						config = ''
 							lua <<EOF
-								local fn = vim.fn
-								local g = vim.g
-								local api = vim.api
-								local mkAugroup = api.nvim_create_augroup
-								local mkAutocmd = api.nvim_create_autocmd
-								local lightlineAugroup = mkAugroup('lightlineAugroup', {})
-								local diagnostic = vim.diagnostic
-								${nerdFontLuaVar}
+								local nerdFont = ${nerdFontLuaVar}
 
-								function statusFn(diagnosticVar, severity)
-									return function()
-										local t = fn.sign_getdefined(diagnosticVar)[1]
+								local component_separators = {
+									left = nerdFont and '' or '|',
+									right = nerdFont and '' or '|',
+								}
 
-										if not t then
-											return ${"''"}
-										end
+								local section_separators = {
+									left = nerdFont and '' or ' ',
+									right = nerdFont and '' or ' ',
+								}
 
-										local s = t.text
-										local getD = diagnostic.get
-										local n = #(getD(0, {
-											severity = severity,
-										}))
+								require('lualine').setup({
+									options = {
+										icons_enabled = true,
+										always_divide_middle = false,
+										globalstatus = false,
+										component_separators = component_separators,
+										section_separators = section_separators,
+									},
 
-										if n == 0 then
-											return ${"''"}
-										end
-
-										return string.format('%s%d', s, n)
-									end
-								end
-
-								local function lightlineSettings()
-									local severity = diagnostic.severity
-
-									if not fn.exists('g:loaded_lightline') then
-										return
-									end
-
-									g.lspStatusline = {
-										error = statusFn('DiagnosticSignError', severity.ERROR),
-										warn = statusFn('DiagnosticSignWarn', severity.WARN),
-									}
-
-									g.lightline = {
-										colorscheme = g.colors_name,
-
-										component_expand = {
-											error = 'g:lspStatusline.error',
-											warn = 'g:lspStatusline.warn',
+									sections = {
+										lualine_a = {
+											'mode',
 										},
 
-										component_type = {
-											error = 'error',
-											warn = 'warning',
-										},
+										lualine_b = {
+											{
+												function()
+													return ${"''"}
+												end,
 
-										separator = {
-											left = nerdFont and '' or ' ',
-											right = nerdFont and '' or ' ',
-										},
+												draw_empty = true,
 
-										subseparator = {
-											left = nerdFont and '' or '|',
-											right = nerdFont and '' or '|',
-										},
-
-										active = {
-											left = {
-												{
-													'mode',
-													'paste',
-												},
-
-												{
-												},
-
-												{
-													'filename',
-													'readonly',
-													'modified',
+												separator = {
+													right = section_separators.left,
 												},
 											},
 
-											right = {
-												{
-													'error',
-													'warn',
-													'fileformat',
-													'fileencoding',
-													'filetype',
-													'lineinfo',
-													'percent',
+											'branch',
+											'filename',
+
+											{
+												'diff',
+												newfile_status = true,
+											},
+
+											{
+												'diagnostics',
+
+												sources = {
+													'nvim_workspace_diagnostic',
+												},
+
+												symbols = {
+													error = nerdFont and ' ' or '! ',
+													warn = nerdFont and ' ' or '? ',
+													hint = nerdFont and ' ' or '* ',
+													info = nerdFont and ' ' or 'i ',
 												},
 											},
 										},
 
-										inactive = {
-											left = {
-												{
-													'mode',
-													'paste',
-												},
+										lualine_c = {},
+										lualine_x = {},
 
-												{
-												},
-
-												{
-													'filename',
-													'readonly',
-													'modified',
-												},
-											},
-
-											right = {
-												{
-													'error',
-													'warn',
-													'fileformat',
-													'fileencoding',
-													'filetype',
-													'lineinfo',
-													'percent',
-												},
-											},
+										lualine_y = {
+											'encoding',
+											'fileformat',
+											'filetype',
 										},
-									}
 
-									fn['lightline#init']()
-									fn['lightline#colorscheme']()
+										lualine_z = {
+											'progress',
+											'location',
+										},
+									},
 
-									if g.customLightline and type(g.customLightline) == "function" then
-										g.customLightline()
-									end
-
-									fn['lightline#update']()
-								end
-
-								mkAutocmd('VimEnter', {
-									callback = lightlineSettings,
-									group = lightlineAugroup,
-								})
-
-								mkAutocmd('ColorScheme', {
-									callback = lightlineSettings,
-									group = lightlineAugroup,
-								})
-
-								mkAutocmd('DiagnosticChanged', {
-									callback = function()
-										vim.fn['lightline#update']()
-									end,
-
-									group = lightlineAugroup,
+									inactive_sections = {
+										lualine_a = {},
+										lualine_b = {},
+										lualine_c = { 'filename', },
+										lualine_x = { 'location', },
+										lualine_y = {},
+										lualine_z = {},
+									},
 								})
 EOF
 						'';
@@ -230,7 +163,7 @@ EOF
 								local o = vim.o
 								local mkAutocmd = api.nvim_create_autocmd
 								local mkAugroup = api.nvim_create_augroup
-								${nerdFontLuaVar}
+								local nerdFont = ${nerdFontLuaVar}
 
 								${lib.optionalString lspServers.nix (setup "nil_ls")}
 								${lib.optionalString lspServers.go (setup "gopls")}
