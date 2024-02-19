@@ -15,6 +15,7 @@
 			lib.removePrefix "#" hex;
 
 		nerdFont = customVars.fonts.nerdFont;
+		nerdFontLuaVar = customVars.fonts.nerdFontLuaVar;
 	in lib.mkIf (customVars.colorscheme == "nord") {
 		customVars.programs.waybar = {
 			separatorColor = normal.white;
@@ -282,9 +283,9 @@
 				header = normalNums.cyan;
 			};
 
-			neovim.plugins = [
+			neovim.plugins = with pkgs.vimPlugins; [
 				{
-					plugin = pkgs.vimPlugins.nord-nvim;
+					plugin = nord-nvim;
 
 					config = ''
 						lua <<EOF
@@ -295,26 +296,12 @@
 
 							local function customNord()
 								local hl = api.nvim_set_hl
+
 								local comment = {
 									ctermfg = 'blue',
 									fg = '${normal.blue}',
 									italic = true,
 								}
-
-								hl(0, 'Visual', {
-									ctermfg = 'darkgray',
-									ctermbg = 'white',
-									bg = '${bright.black}',
-								})
-
-								hl(0, 'LineNr', {
-									ctermfg = 'blue',
-									fg = '${normal.blue}',
-								})
-
-								hl(0, '@comment', comment)
-
-								hl(0, 'Comment', comment)
 
 								local error = {
 									ctermfg = 'red',
@@ -328,6 +315,9 @@
 									bold = true,
 								}
 
+								hl(0, '@comment', comment)
+								hl(0, 'Comment', comment)
+
 								hl(0, 'DiagnosticVirtualTextError', error)
 								hl(0, 'DiagnosticSignError', error)
 								hl(0, 'DiagnosticFloatingError', error)
@@ -335,13 +325,22 @@
 								hl(0, 'DiagnosticVirtualTextWarn', warn)
 								hl(0, 'DiagnosticSignWarn', warn)
 								hl(0, 'DiagnosticFloatingWarn', warn)
-							end
 
-							local nordAugroup = mkAugroup('nordAugroup', {})
+								hl(0, 'Visual', {
+									ctermfg = 'darkgray',
+									ctermbg = 'white',
+									bg = '${bright.black}',
+								})
+
+								hl(0, 'LineNr', {
+									ctermfg = 'blue',
+									fg = '${normal.blue}',
+								})
+							end
 
 							mkAutocmd('ColorScheme', {
 								callback = customNord,
-								group = nordAugroup,
+								group = mkAugroup('nordAugroup', {}),
 
 								pattern = {
 									'nord',
@@ -350,54 +349,168 @@
 
 							g.nord_disable_background = true
 							require('nord').set()
+EOF
+					'';
+				}
 
-							g.customLightline = function()
-								local function copyTable(table)
-									local tmp = {}
+				{
+					plugin = lualine-nvim;
 
-									if type(table) == "table" then
-										for k, v in pairs(table) do
-											tmp[k] = copyTable(v)
-										end
-									else
-										tmp = table
-									end
+					config = ''
+						lua <<EOF
+							local nerdFont = ${nerdFontLuaVar}
+							local hl = vim.api.nvim_set_hl
+							local nord = require('lualine.themes.nord')
 
-									return tmp
-								end
+							local component_separators = {
+								left = nerdFont and '' or '|',
+								right = nerdFont and '' or '|',
+							}
 
-								local tmp = g['lightline#colorscheme#nord#palette']
+							local section_separators = {
+								left = nerdFont and '' or ' ',
+								right = nerdFont and '' or ' ',
+							}
 
-								tmp.normal.left = {
-									{ '${normal.black}', '${normal.cyan}', ${normalNums.black}, ${normalNums.cyan}, 'bold', },
-									{ '${normal.white}', '${normal.black}', ${normalNums.white}, ${normalNums.black}, },
-								}
+							nord.normal.a = { fg = '${normal.black}', bg = '${normal.cyan}', gui = 'bold', }
+							nord.normal.b = { fg = '${normal.black}', bg = '${normal.cyan}', gui = 'bold', }
+							nord.normal.c = { fg = '${normal.white}', bg = '${normal.black}', }
+							nord.normal.x = { fg = '${normal.white}', bg = '${normal.black}', }
+							nord.normal.y = { fg = '${normal.white}', bg = '${bright.black}', }
+							nord.normal.z = { fg = '${normal.black}', bg = '${normal.cyan}', gui = 'bold', }
 
-								tmp.normal.left[3] = copyTable(tmp.normal.left[1])
+							nord.inactive.b = { fg = '${normal.white}', bg = '${bright.black}', }
 
-								tmp.visual.left = copyTable(tmp.normal.left)
-								tmp.visual.left[1][2] = '${normal.green}'
-								tmp.visual.left[1][4] = ${normalNums.green}
+							require('lualine').setup({
+								options = {
+									theme = nord,
+									icons_enabled = true,
+									always_divide_middle = false,
+									globalstatus = false,
+									component_separators = component_separators,
+									section_separators = section_separators,
+								},
 
-								tmp.insert.left = copyTable(tmp.normal.left)
-								tmp.insert.left[1][2] = '${bright.white}'
-								tmp.insert.left[1][4] = ${normalNums.white}
+								sections = {
+									lualine_a = {
+										'mode',
+									},
 
-								tmp.replace.left = copyTable(tmp.normal.left)
-								tmp.replace.left[1][2] = '${normal.yellow}'
-								tmp.replace.left[1][4] = ${normalNums.yellow}
+									lualine_b = {
+										{
+											function()
+												return ${"''"}
+											end,
 
-								tmp.normal.right[1] = { '${normal.white}', '${bright.black}', ${normalNums.white}, ${brightNums.black}, }
-								tmp.normal.error[1] = { '${normal.white}', '${normal.red}', ${normalNums.white}, ${normalNums.red}, 'bold' }
-								tmp.normal.warning[1] = { '${normal.black}', '${normal.yellow}', ${normalNums.black}, ${normalNums.yellow}, 'bold' }
-								tmp.normal.middle[1] = { '${normal.white}', '${normal.black}', ${normalNums.white}, ${brightNums.black}, }
+											draw_empty = true,
 
-								tmp.visual.middle = copyTable(tmp.normal.middle)
-								tmp.insert.middle = copyTable(tmp.normal.middle)
-								tmp.replace.middle = copyTable(tmp.normal.middle)
+											color = {
+												bg = '${normal.black}',
+											},
 
-								vim.g['lightline#colorscheme#nord#palette'] = tmp
-							end
+											separator = {
+												right = section_separators.left,
+											},
+										},
+
+										'branch',
+
+										{
+											'filename',
+											separator = ${"''"},
+										},
+
+										{
+											'diagnostics',
+
+											sources = {
+												'nvim_workspace_diagnostic',
+											},
+
+											symbols = {
+												error = nerdFont and ' ' or '! ',
+												warn = nerdFont and ' ' or '? ',
+												hint = nerdFont and ' ' or '* ',
+												info = nerdFont and ' ' or 'i ',
+											},
+										},
+									},
+
+									lualine_c = {},
+									lualine_x = {},
+
+									lualine_y = {
+										'encoding',
+										'fileformat',
+										'filetype',
+									},
+
+									lualine_z = {
+										'progress',
+										'location',
+									},
+								},
+
+								inactive_sections = {
+									lualine_a = {
+										'mode',
+									},
+
+									lualine_b = {
+										{
+											function()
+												return ${"''"}
+											end,
+
+											draw_empty = true,
+
+											color = {
+												bg = '${normal.black}',
+											},
+
+											separator = {
+												right = section_separators.left,
+											},
+										},
+
+										'branch',
+
+										{
+											'filename',
+											separator = ${"''"},
+										},
+
+										{
+											'diagnostics',
+
+											sources = {
+												'nvim_workspace_diagnostic',
+											},
+
+											symbols = {
+												error = nerdFont and ' ' or '! ',
+												warn = nerdFont and ' ' or '? ',
+												hint = nerdFont and ' ' or '* ',
+												info = nerdFont and ' ' or 'i ',
+											},
+										},
+									},
+
+									lualine_c = {},
+									lualine_x = {},
+
+									lualine_y = {
+										'encoding',
+										'fileformat',
+										'filetype',
+									},
+
+									lualine_z = {
+										'progress',
+										'location',
+									},
+								},
+							})
 EOF
 					'';
 				}
@@ -609,7 +722,6 @@ EOF
 				name = "Nordic";
 			};
 		};
-
 
 		xdg.configFile.lfcolors = {
 			enable = config.programs.lf.enable;

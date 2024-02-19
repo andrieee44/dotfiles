@@ -42,109 +42,9 @@
 			lspServers = cfg.lspServers;
 		in {
 			plugins = let
-				nerdFontLuaVar = ''
-					os.getenv('XDG_SESSION_TYPE') ~= 'tty' and ${if config.customVars.fonts.nerdFont then
-						"true" else "false"
-					}
-				'';
+				nerdFontLuaVar = config.customVars.fonts.nerdFontLuaVar;
 			in with pkgs.vimPlugins; lib.mkMerge [
 				[
-					{
-						plugin = lualine-nvim;
-
-						config = ''
-							lua <<EOF
-								local nerdFont = ${nerdFontLuaVar}
-
-								local component_separators = {
-									left = nerdFont and '' or '|',
-									right = nerdFont and '' or '|',
-								}
-
-								local section_separators = {
-									left = nerdFont and '' or ' ',
-									right = nerdFont and '' or ' ',
-								}
-
-								require('lualine').setup({
-									options = {
-										icons_enabled = true,
-										always_divide_middle = false,
-										globalstatus = false,
-										component_separators = component_separators,
-										section_separators = section_separators,
-									},
-
-									sections = {
-										lualine_a = {
-											'mode',
-										},
-
-										lualine_b = {
-											{
-												function()
-													return ${"''"}
-												end,
-
-												draw_empty = true,
-
-												separator = {
-													right = section_separators.left,
-												},
-											},
-
-											'branch',
-											'filename',
-
-											{
-												'diff',
-												newfile_status = true,
-											},
-
-											{
-												'diagnostics',
-
-												sources = {
-													'nvim_workspace_diagnostic',
-												},
-
-												symbols = {
-													error = nerdFont and ' ' or '! ',
-													warn = nerdFont and ' ' or '? ',
-													hint = nerdFont and ' ' or '* ',
-													info = nerdFont and ' ' or 'i ',
-												},
-											},
-										},
-
-										lualine_c = {},
-										lualine_x = {},
-
-										lualine_y = {
-											'encoding',
-											'fileformat',
-											'filetype',
-										},
-
-										lualine_z = {
-											'progress',
-											'location',
-										},
-									},
-
-									inactive_sections = {
-										lualine_a = {},
-										lualine_b = {},
-										lualine_c = { 'filename', },
-										lualine_x = { 'location', },
-										lualine_y = {},
-										lualine_z = {},
-									},
-								})
-EOF
-						'';
-					}
-
 					{
 						plugin = nvim-lspconfig;
 
@@ -180,6 +80,7 @@ EOF
 
 								for type, icon in pairs(signs) do
 									local hl = "DiagnosticSign" .. type
+
 									vim.fn.sign_define(hl, {
 										text = icon,
 										texthl = hl,
@@ -192,6 +93,7 @@ EOF
 										prefix = ${"''"},
 										format = function(d)
 											local s = diagnostic.severity
+
 											local t = {
 												[s.ERROR] = signs.Error .. '%s',
 												[s.WARN] = signs.Warn .. '%s',
