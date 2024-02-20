@@ -340,8 +340,6 @@
 
 							mkAutocmd('ColorScheme', {
 								callback = customNord,
-								group = mkAugroup('nordAugroup', {}),
-
 								pattern = {
 									'nord',
 								},
@@ -356,11 +354,24 @@ EOF
 				{
 					plugin = lualine-nvim;
 
-					config = ''
+					config = let
+						lualineDiagnosticHl = color:
+							''
+								{
+									ctermfg = 'black',
+									ctermbg = '${color}',
+									fg = '${normal.black}',
+									bg = '${normal.${color}}',
+									bold = true,
+								}
+							'';
+					in ''
 						lua <<EOF
-							local nerdFont = ${nerdFontLuaVar}
-							local hl = vim.api.nvim_set_hl
+							local api = vim.api
+							local hl = api.nvim_set_hl
+							local mkAutocmd = api.nvim_create_autocmd
 							local nord = require('lualine.themes.nord')
+							local nerdFont = ${nerdFontLuaVar}
 							local signs = ${customVars.programs.neovim.diagnosticIconsLuaTable}
 
 							local component_separators = {
@@ -371,6 +382,77 @@ EOF
 							local section_separators = {
 								left = nerdFont and '' or ' ',
 								right = nerdFont and '' or ' ',
+							}
+
+							local sep = {
+								function()
+									return ${"''"}
+								end,
+
+								draw_empty = true,
+
+								color = {
+									bg = '${normal.black}',
+								},
+
+								separator = {
+									right = section_separators.left,
+								},
+							}
+
+							local sections = {
+								lualine_a = {
+									'mode',
+								},
+
+								lualine_b = {
+									sep,
+									'branch',
+
+									{
+										'filename',
+										separator = ${"''"},
+									},
+								},
+
+								lualine_c = {
+									sep,
+
+									{
+										'diagnostics',
+
+										sources = {
+											'nvim_workspace_diagnostic',
+										},
+
+										symbols = {
+											error = signs.Error,
+											warn = signs.Warn,
+											hint = signs.Hint,
+											info = signs.Info,
+										},
+
+										diagnostics_color = {
+											error = 'LualineDiagnosticError',
+											warn = 'LualineDiagnosticWarn',
+											hint = 'LualineDiagnosticHint',
+											info = 'LualineDiagnosticInfo',
+										},
+									},
+								},
+
+								lualine_x = {},
+
+								lualine_y = {
+									'encoding',
+									'fileformat',
+									'filetype',
+								},
+
+								lualine_z = {
+									'progress',
+									'location',
+								},
 							}
 
 							nord.normal.a = { fg = '${normal.black}', bg = '${normal.cyan}', gui = 'bold', }
@@ -392,127 +474,20 @@ EOF
 									section_separators = section_separators,
 								},
 
-								sections = {
-									lualine_a = {
-										'mode',
-									},
+								sections = sections,
+								inactive_sections = sections,
+							})
 
-									lualine_b = {
-										{
-											function()
-												return ${"''"}
-											end,
+							mkAutocmd('ColorScheme', {
+								callback = function()
+									hl(0, 'LualineDiagnosticError', ${lualineDiagnosticHl "red"})
+									hl(0, 'LualineDiagnosticWarn', ${lualineDiagnosticHl "yellow"})
+									hl(0, 'LualineDiagnosticHint', ${lualineDiagnosticHl "cyan"})
+									hl(0, 'LualineDiagnosticInfo', ${lualineDiagnosticHl "blue"})
+								end,
 
-											draw_empty = true,
-
-											color = {
-												bg = '${normal.black}',
-											},
-
-											separator = {
-												right = section_separators.left,
-											},
-										},
-
-										'branch',
-
-										{
-											'filename',
-											separator = ${"''"},
-										},
-
-									},
-
-									lualine_c = {
-										{
-											'diagnostics',
-
-											sources = {
-												'nvim_workspace_diagnostic',
-											},
-
-											symbols = {
-												error = signs.Error,
-												warn = signs.Warn,
-												hint = signs.Hint,
-												info = signs.Info,
-											},
-										},
-									},
-
-									lualine_x = {},
-
-									lualine_y = {
-										'encoding',
-										'fileformat',
-										'filetype',
-									},
-
-									lualine_z = {
-										'progress',
-										'location',
-									},
-								},
-
-								inactive_sections = {
-									lualine_a = {
-										'mode',
-									},
-
-									lualine_b = {
-										{
-											function()
-												return ${"''"}
-											end,
-
-											draw_empty = true,
-
-											color = {
-												bg = '${normal.black}',
-											},
-
-											separator = {
-												right = section_separators.left,
-											},
-										},
-
-										'branch',
-
-										{
-											'filename',
-											separator = ${"''"},
-										},
-									},
-
-									lualine_c = {
-										{
-											'diagnostics',
-
-											sources = {
-												'nvim_workspace_diagnostic',
-											},
-
-											symbols = {
-												error = nerdFont and ' ' or '! ',
-												warn = nerdFont and ' ' or '? ',
-												hint = nerdFont and ' ' or '* ',
-												info = nerdFont and ' ' or 'i ',
-											},
-										},
-									},
-
-									lualine_x = {},
-
-									lualine_y = {
-										'encoding',
-										'fileformat',
-										'filetype',
-									},
-
-									lualine_z = {
-										'progress',
-										'location',
-									},
+								pattern = {
+									'nord',
 								},
 							})
 EOF
