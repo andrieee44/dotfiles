@@ -3,6 +3,8 @@
 	options.customVars.programs.neovim = let
 		mkEnableOption = config.customVars.mkOption lib.types.bool;
 	in {
+		diagnosticIconsLuaTable = config.customVars.mkOption lib.types.lines;
+
 		cmp = {
 			enable = mkEnableOption;
 
@@ -22,8 +24,18 @@
 
 	config = let
 		cfg = config.customVars.programs.neovim;
+		nerdFontLuaVar = config.customVars.fonts.nerdFontLuaVar;
 	in {
 		customVars.programs.neovim = {
+			diagnosticIconsLuaTable = ''
+				{
+					Error = ${nerdFontLuaVar} and ' ' or '! ',
+					Warn = ${nerdFontLuaVar} and ' ' or '? ',
+					Hint = ${nerdFontLuaVar} and ' ' or '* ',
+					Info = ${nerdFontLuaVar} and ' ' or 'i ',
+				}
+			'';
+
 			cmp = {
 				enable = true;
 				snippet = "luasnip";
@@ -41,9 +53,7 @@
 		programs.neovim = let
 			lspServers = cfg.lspServers;
 		in {
-			plugins = let
-				nerdFontLuaVar = config.customVars.fonts.nerdFontLuaVar;
-			in with pkgs.vimPlugins; lib.mkMerge [
+			plugins = with pkgs.vimPlugins; lib.mkMerge [
 				[
 					{
 						plugin = nvim-lspconfig;
@@ -71,12 +81,7 @@
 								${lib.optionalString lspServers.lua (setup "lua_ls")}
 								${lib.optionalString lspServers.latex (setup "ltex")}
 
-								local signs = {
-									Error = nerdFont and ' ' or '! ',
-									Warn = nerdFont and ' ' or '? ',
-									Hint = nerdFont and ' ' or '* ',
-									Info = nerdFont and ' ' or 'i ',
-								}
+								local signs = ${cfg.diagnosticIconsLuaTable}
 
 								for type, icon in pairs(signs) do
 									local hl = "DiagnosticSign" .. type
@@ -119,9 +124,9 @@
 									})
 								end
 
-								mkAutocmd({'CursorHold', 'CursorHoldI'}, {
+								mkAutocmd({ 'CursorHold', 'CursorHoldI' }, {
 									callback = floatDiagnostic,
-									group = LspAugroup,
+									group = lspAugroup,
 								})
 
 								local function lspSettings(ev)
@@ -141,7 +146,7 @@
 									set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
 									set('n', '<space>D', vim.lsp.buf.type_definition, opts)
 									set('n', '<space>rn', vim.lsp.buf.rename, opts)
-									set({'n', 'v'}, '<space>ca', vim.lsp.buf.code_action, opts)
+									set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
 									set('n', 'gr', vim.lsp.buf.references, opts)
 
 									set('n', '<space>wl', function()
@@ -157,7 +162,7 @@
 
 								mkAutocmd('LspAttach', {
 									callback = lspSettings,
-									group = LspAugroup,
+									group = lspAugroup,
 								})
 EOF
 						'';

@@ -361,6 +361,7 @@ EOF
 							local nerdFont = ${nerdFontLuaVar}
 							local hl = vim.api.nvim_set_hl
 							local nord = require('lualine.themes.nord')
+							local signs = ${customVars.programs.neovim.diagnosticIconsLuaTable}
 
 							local component_separators = {
 								left = nerdFont and '' or '|',
@@ -420,6 +421,9 @@ EOF
 											separator = ${"''"},
 										},
 
+									},
+
+									lualine_c = {
 										{
 											'diagnostics',
 
@@ -428,15 +432,14 @@ EOF
 											},
 
 											symbols = {
-												error = nerdFont and ' ' or '! ',
-												warn = nerdFont and ' ' or '? ',
-												hint = nerdFont and ' ' or '* ',
-												info = nerdFont and ' ' or 'i ',
+												error = signs.Error,
+												warn = signs.Warn,
+												hint = signs.Hint,
+												info = signs.Info,
 											},
 										},
 									},
 
-									lualine_c = {},
 									lualine_x = {},
 
 									lualine_y = {
@@ -479,7 +482,9 @@ EOF
 											'filename',
 											separator = ${"''"},
 										},
+									},
 
+									lualine_c = {
 										{
 											'diagnostics',
 
@@ -496,7 +501,6 @@ EOF
 										},
 									},
 
-									lualine_c = {},
 									lualine_x = {},
 
 									lualine_y = {
