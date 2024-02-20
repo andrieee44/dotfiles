@@ -27,7 +27,6 @@
 				local api = vim.api
 				local bo = vim.bo
 				local keymap = api.nvim_set_keymap
-				local mkAugroup = api.nvim_create_augroup
 				local mkAutocmd = api.nvim_create_autocmd
 
 				opt.mouse = ${"''"}
@@ -46,56 +45,33 @@
 				opt.complete:append('kspell')
 				opt.signcolumn = 'yes'
 
-				keymap('n', 'ZW', ':w<CR>', {
-					noremap = true,
-				})
-
-				keymap('n', 'ZE', ':e<CR>', {
-					noremap = true,
-				})
-
-				keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${config.customVars.unixUtils}/tee > /dev/null %', {
-					noremap = true,
-				})
-
-				local function filetypeSettings()
-					bo.formatoptions = bo.formatoptions:gsub('[cro]', ${"''"})
-				end
-
-				local filetypeAugroup = mkAugroup('filetypeAugroup', {})
+				keymap('n', 'ZW', ':w<CR>', { noremap = true, })
+				keymap('n', 'ZE', ':e<CR>', { noremap = true, })
+				keymap('c', 'w!!', 'w !${pkgs.sudo}/bin/sudo ${config.customVars.unixUtils}/tee > /dev/null %', { noremap = true, })
 
 				mkAutocmd('FileType', {
-					callback = filetypeSettings,
-					group = filetypeAugroup,
+					callback = function()
+						bo.formatoptions = bo.formatoptions:gsub('[cro]', ${"''"})
+					end,
 				})
 
-				local function mailSettings()
-					opt.colorcolumn = 76
-					opt.textwidth = 75
-					opt.spell = true
-					opt.spelllang = 'en'
-				end
-
-				local mailAugroup = mkAugroup('mailAugroup', {})
-
 				mkAutocmd('FileType', {
-					callback = mailSettings,
-					group = mailAugroup,
+					callback = function()
+						opt.colorcolumn = 76
+						opt.textwidth = 75
+						opt.spell = true
+						opt.spelllang = 'en'
+					end,
 
 					pattern = {
 						'mail',
 					},
 				})
 
-				local function termguicolorsSettings()
-					opt.termguicolors = env.TERM == 'tmux-256color'
-				end
-
-				local termguicolorsAugroup = mkAugroup('termguicolorsAugroup', {})
-
 				mkAutocmd('VimEnter', {
-					callback = termguicolorsSettings,
-					group = termguicolorsAugroup,
+					callback = function()
+						opt.termguicolors = env.TERM == 'tmux-256color'
+					end,
 				})
 			'';
 		};
