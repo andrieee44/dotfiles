@@ -421,6 +421,10 @@ EOF
 									{
 										'diagnostics',
 
+										separator = {
+											right = section_separators.left,
+										},
+
 										sources = {
 											'nvim_workspace_diagnostic',
 										},
