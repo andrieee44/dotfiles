@@ -5,6 +5,8 @@ local bo = vim.bo
 local keymap = api.nvim_set_keymap
 local mkAutocmd = api.nvim_create_autocmd
 
+vim.g.mapleader = ' '
+
 opt.mouse = ''
 opt.showmode = false
 opt.tabstop = 4

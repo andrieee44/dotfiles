@@ -74,14 +74,13 @@
 								local mkAutocmd = api.nvim_create_autocmd
 								local mkAugroup = api.nvim_create_augroup
 								local nerdFont = ${nerdFontLuaVar}
+								local signs = ${cfg.diagnosticIconsLuaTable}
 
 								${lib.optionalString lspServers.nix (setup "nil_ls")}
 								${lib.optionalString lspServers.go (setup "gopls")}
 								${lib.optionalString lspServers.sh (setup "bashls")}
 								${lib.optionalString lspServers.lua (setup "lua_ls")}
 								${lib.optionalString lspServers.latex (setup "ltex")}
-
-								local signs = ${cfg.diagnosticIconsLuaTable}
 
 								for type, icon in pairs(signs) do
 									local hl = "DiagnosticSign" .. type
@@ -130,30 +129,21 @@
 
 								mkAutocmd('LspAttach', {
 									callback = function(ev)
-										local set = vim.keymap.set
-
-										vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
 										local opts = {
 											buffer = ev.buf,
 										}
 
-										set('n', 'gd', vim.lsp.buf.definition, opts)
-										set('n', 'K', vim.lsp.buf.hover, opts)
-										set('n', 'gi', vim.lsp.buf.implementation, opts)
-										set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-										set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-										set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-										set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-										set('n', '<space>rn', vim.lsp.buf.rename, opts)
-										set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-										set('n', 'gr', vim.lsp.buf.references, opts)
+										vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-										set('n', '<space>wl', function()
-											print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-										end, opts)
+										set('n', '<Leader>d', vim.lsp.buf.definition, opts)
+										set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
+										set('n', '<Leader>i', vim.lsp.buf.implementation, opts)
+										set('n', '<Leader>h', vim.lsp.buf.hover, opts)
+										set('n', '<Leader>f', vim.lsp.buf.references, opts)
+										set('n', '<Leader>r', vim.lsp.buf.rename, opts)
+										set({ 'n', 'v' }, '<Leader>a', vim.lsp.buf.code_action, opts)
 
-										vim.keymap.set('n', '<space>f', function()
+										set('n', '<Leader>f', function()
 											vim.lsp.buf.format({
 												async = true,
 											})
@@ -219,6 +209,11 @@ EOF
 						}
 
 						{
+							plugin = cmp-cmdline;
+							config = builtins.readFile ./cmp-cmdline.vim;
+						}
+
+						{
 							plugin = cmp-nvim-lsp;
 						}
 
@@ -228,11 +223,6 @@ EOF
 
 						{
 							plugin = cmp-path;
-						}
-
-						{
-							plugin = cmp-cmdline;
-							config = builtins.readFile ./cmp-cmdline.vim;
 						}
 					]
 
