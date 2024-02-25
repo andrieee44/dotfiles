@@ -355,16 +355,19 @@ EOF
 					plugin = lualine-nvim;
 
 					config = let
-						lualineDiagnosticHl = color:
+						lualineDiagnosticHlSep = fg: bg:
 							''
 								{
-									ctermfg = 'black',
-									ctermbg = '${color}',
-									fg = '${normal.black}',
-									bg = '${normal.${color}}',
+									ctermfg = '${fg}',
+									ctermbg = '${bg}',
+									fg = '${normal.${fg}}',
+									bg = '${normal.${bg}}',
 									bold = true,
 								}
 							'';
+
+						lualineDiagnosticHl = bg:
+							lualineDiagnosticHlSep "black" bg;
 					in ''
 						lua <<EOF
 							local api = vim.api
@@ -420,6 +423,28 @@ EOF
 
 									{
 										'diagnostics',
+
+										fmt = function(_, arg2)
+											local str = ${"''"}
+											local diagNames = { 'error', 'warn', 'hint', 'info', }
+											local diagCount = arg2.last_diagnostics_count[vim.api.nvim_get_current_buf()]
+
+											function diagString(key, sep)
+												local n = diagCount[key]
+
+												if n == 0 then
+													return ${"''"}
+												end
+
+												return string.format('%%#%s#%s%d', arg2.options.diagnostics_color[key], arg2.options.symbols[key], n) .. (sep and string.format(' %%#%s%s#%s ', arg2.options.diagnostics_color[key], 'Sep', section_separators.left) or ${"''"})
+											end
+
+											for index, value in ipairs(diagNames) do
+												str = str .. diagString(diagNames[index], index+1 < #diagNames and diagCount[diagNames[index+1]] ~= 0)
+											end
+
+											return str
+										end,
 
 										separator = {
 											right = section_separators.left,
@@ -485,9 +510,16 @@ EOF
 							mkAutocmd('ColorScheme', {
 								callback = function()
 									hl(0, 'LualineDiagnosticError', ${lualineDiagnosticHl "red"})
+									hl(0, 'LualineDiagnosticErrorSep', ${lualineDiagnosticHlSep "red" "yellow"})
+
 									hl(0, 'LualineDiagnosticWarn', ${lualineDiagnosticHl "yellow"})
+									hl(0, 'LualineDiagnosticWarnSep', ${lualineDiagnosticHlSep "yellow" "cyan"})
+
 									hl(0, 'LualineDiagnosticHint', ${lualineDiagnosticHl "cyan"})
+									hl(0, 'LualineDiagnosticHintSep', ${lualineDiagnosticHlSep "cyan" "blue"})
+
 									hl(0, 'LualineDiagnosticInfo', ${lualineDiagnosticHl "blue"})
+									hl(0, 'LualineDiagnosticInfoSep', ${lualineDiagnosticHlSep "blue" "blue"})
 								end,
 
 								pattern = {
