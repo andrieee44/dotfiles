@@ -174,7 +174,7 @@
 			"sway/workspaces" = lib.mkIf sway {
 				tooltip = false;
 				format = "{name}";
-				all-outputs = false;
+				all-outputs = true;
 				disable-scroll = true;
 				disable-click = true;
 				disable-scroll-wraparound = true;
@@ -201,8 +201,14 @@
 			}
 
 			#workspaces button {
-				padding-left: 10px;
-				padding-right: 10px;
+				padding-left: 0.5em;
+				padding-right: 0.5em;
+			}
+
+			#workspaces button:hover {
+				background-color: unset;
+				color: unset;
+				transition: unset;
 			}
 		'';
 
