@@ -22,6 +22,7 @@ opt.background = 'dark'
 opt.clipboard:append('unnamedplus')
 opt.complete:append('kspell')
 opt.signcolumn = 'yes'
+opt.completeopt = { "menu", "menuone", "noselect" }
 
 keymap('n', 'ZW', ':w<CR>', { noremap = true, })
 keymap('n', 'ZE', ':e<CR>', { noremap = true, })
