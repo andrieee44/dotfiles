@@ -70,8 +70,6 @@
 			tilde = "yes";
 		};
 
-		sidebar = {
-			enable = true;
-		};
+		sidebar.enable = true;
 	};
 }

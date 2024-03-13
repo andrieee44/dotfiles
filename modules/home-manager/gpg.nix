@@ -1,12 +1,12 @@
 { config, ... }:
 {
+	accounts.email.accounts."${config.home.username}".gpg.signByDefault = true;
+
 	programs.gpg = {
 		homedir = "${config.xdg.dataHome}/gnupg";
 		mutableKeys = false;
 		mutableTrust = false;
 	};
-
-	accounts.email.accounts."${config.home.username}".gpg.signByDefault = true;
 
 	services.gpg-agent = {
 		pinentryFlavor = "tty";

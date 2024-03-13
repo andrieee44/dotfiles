@@ -1,11 +1,7 @@
 { config, ... }:
 {
-	programs.texlive = {
-		extraPackages = tpkgs:
-			{
-				inherit (tpkgs) scheme-full;
-			};
-	};
+	programs.texlive.extraPackages = tpkgs:
+		{ inherit (tpkgs) scheme-full; };
 
 	xdg.configFile.latexmkrc = {
 		enable = config.programs.texlive.enable ;
