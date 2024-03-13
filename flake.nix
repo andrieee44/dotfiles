@@ -28,7 +28,7 @@
 				modules = [
 					./hosts/default/configuration.nix
 					./hosts/lenovoIdeapadSlim3/configuration.nix
-				];
+				] ++ modules ./modules/nixos;
 			};
 
 			homeConfigurations.andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {
