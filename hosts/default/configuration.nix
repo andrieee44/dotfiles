@@ -17,7 +17,7 @@
 
 			brightnessKeys = {
 				enable = true;
-				step = 10;
+				step = 5;
 			};
 		};
 
@@ -30,12 +30,7 @@
 
 	services = {
 		thermald.enable = true;
-
-		xserver = {
-			autoRepeatDelay = 10;
-			autoRepeatInterval = 10;
-			xkb.options = "caps:escape";
-		};
+		xserver.xkb.options = "delay:200,repeat:70,caps:escape";
 
 		pipewire = {
 			enable = true;
