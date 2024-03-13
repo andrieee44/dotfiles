@@ -1,0 +1,4 @@
+{ ... }:
+{
+	programs.man.generateCaches = true;
+}

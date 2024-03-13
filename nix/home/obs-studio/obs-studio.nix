@@ -1,5 +1,0 @@
-{ ... }:
-{
-	config.programs.obs-studio = {
-	};
-}

@@ -1,5 +1,0 @@
-{ config, ... }:
-{
-	config.programs.msmtp = {
-	};
-}
