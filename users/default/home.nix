@@ -57,6 +57,11 @@
 			telephone = locale;
 			time = locale;
 		};
+
+		pointerCursor = {
+			package = pkgs.vanilla-dmz;
+			name = "Vanilla-DMZ";
+		};
 	};
 
 	programs = {

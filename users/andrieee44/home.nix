@@ -4,9 +4,11 @@
 	nixpkgs.config.allowUnfree = true;
 	gtk.enable = true;
 
-	accounts.email.accounts."${config.home.username}" = rec {
-		realName = config.home.username;
+	accounts.email.accounts."${config.home.username}" = let
 		address = "andrieee44@gmail.com";
+	in {
+		realName = config.home.username;
+		address = address;
 		passwordCommand = "${pkgs.pass}/bin/pass googleAppPasswords/neomutt";
 		flavor = "gmail.com";
 		primary = true;
@@ -37,11 +39,6 @@
 			wineWowPackages.full
 			winetricks
 		];
-
-		pointerCursor = {
-			package = pkgs.vanilla-dmz;
-			name = "Vanilla-DMZ";
-		};
 	};
 
 	programs = {
