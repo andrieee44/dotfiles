@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-	config.programs.ncmpcpp = {
+	programs.ncmpcpp = {
 		package = pkgs.ncmpcpp.override {
 			visualizerSupport = true;
 		};
@@ -133,17 +133,60 @@
 		};
 
 		bindings = [
-			{ key = "h"; command = "previous_column"; }
-			{ key = "j"; command = "scroll_down"; }
-			{ key = "k"; command = "scroll_up"; }
-			{ key = "l"; command = "next_column"; }
-			{ key = "l"; command = "run_action"; }
-			{ key = "l"; command = "play_item"; }
-			{ key = "u"; command = "page_up"; }
-			{ key = "d"; command = "page_down"; }
-			{ key = "+"; command = "show_clock"; }
-			{ key = "v"; command = "show_visualizer"; }
-			{ key = "m"; command = "show_media_library"; }
+			{
+				key = "h";
+				command = "previous_column";
+			}
+
+			{
+				key = "j";
+				command = "scroll_down";
+			}
+
+			{
+				key = "k";
+				command = "scroll_up";
+			}
+
+			{
+				key = "l";
+				command = "next_column";
+			}
+
+			{
+				key = "l";
+				command = "run_action";
+			}
+
+			{
+				key = "l";
+				command = "play_item";
+			}
+
+			{
+				key = "u";
+				command = "page_up";
+			}
+
+			{
+				key = "d";
+				command = "page_down";
+			}
+
+			{
+				key = "+";
+				command = "show_clock";
+			}
+
+			{
+				key = "v";
+				command = "show_visualizer";
+			}
+
+			{
+				key = "m";
+				command = "show_media_library";
+			}
 		];
 	};
 }

@@ -3,15 +3,12 @@
 	wayland.windowManager.sway.enable = true;
 	gtk.enable = true;
 
-	accounts.email.accounts."${config.home.username}" = let
-		address = "andrieee44@gmail.com";
-	in {
+	accounts.email.accounts."${config.home.username}" = {
 		realName = config.home.username;
-		address = address;
+		address = "andrieee44@gmail.com";
 		passwordCommand = "${pkgs.pass}/bin/pass googleAppPasswords/neomutt";
 		flavor = "gmail.com";
 		primary = true;
-		maildir.path = address;
 		gpg.key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
 
 		signature = {
