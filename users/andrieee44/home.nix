@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
 	wayland.windowManager.sway.enable = true;
-	nixpkgs.config.allowUnfree = true;
 	gtk.enable = true;
 
 	accounts.email.accounts."${config.home.username}" = let

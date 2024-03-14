@@ -1,5 +1,7 @@
 { config, pkgs, inputs, colorscheme, stateVersion, ... }:
 {
+	nixpkgs.config.allowUnfree = true;
+
 	home = {
 		stateVersion = stateVersion;
 		sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
