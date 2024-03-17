@@ -47,7 +47,7 @@
 		font = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
 
 		colors = [
-			colorscheme.palette.base01
+			colorscheme.palette.base00
 			colorscheme.palette.base08
 			colorscheme.palette.base0B
 			colorscheme.palette.base0A
@@ -61,8 +61,8 @@
 			colorscheme.palette.base0A
 			colorscheme.palette.base0D
 			colorscheme.palette.base0E
+			colorscheme.palette.base0C
 			colorscheme.palette.base07
-			colorscheme.palette.base06
 		];
 	};
 
