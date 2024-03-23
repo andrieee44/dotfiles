@@ -1,16 +1,17 @@
-{ config, pkgs, ... }:
+{ config, pkgs, colorscheme, ... }:
 {
 	programs.tmux = {
-		escapeTime = 0;
-		keyMode = "vi";
-		historyLimit = 5000;
-		clock24 = false;
 		baseIndex = 1;
-		shortcut = "a";
+		clock24 = false;
+		escapeTime = 0;
+		historyLimit = 5000;
+		keyMode = "vi";
+		mouse = false;
 		sensibleOnTop = false;
 
 		extraConfig = let
 			tmux = "${pkgs.tmux}/bin/tmux";
+			gui = t: f: "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${t},${f}}";
 
 			mvpane = pane:
 				let
@@ -22,16 +23,18 @@
 					paneStr = builtins.toString pane;
 				in "${tmux} selectw -t ':${paneStr}' || ${tmux} neww -t ':${paneStr}'";
 		in ''
-			set -Fg default-terminal "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},tmux-256color,screen-16color}"
-			set -Fsa terminal-overrides "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},#,${"\${TERM}"}:RGB,}"
-
-			set -g status-interval 1
-			set -g status-right-length 80
+			set -Fg default-terminal "${gui "tmux-256color" "screen-16color"}"
+			set -Fsa terminal-overrides "${gui "#,\${TERM}:RGB" ""}"
 
 			set -g focus-events on
 
-			set -g prefix2 M-a
-			bind M-a send-prefix -2
+			set -g status-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}"
+			set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" ""}"
+			set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #H "
+
+			set -wg window-status-current-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" ""}"
+			set -wg window-status-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" ""}"
+			set -wg window-status-separator ""
 
 			bind -n M-i splitw -h
 			bind -n M-I splitw -v
@@ -85,8 +88,8 @@
 
 			bind -n M-[ copy-mode
 
-			bind -n M-d run -b "exec $(${config.sh.pathmenu}/bin/pathmenu) 1>& - 2> /dev/null || true"
-			bind -n M-BSpace run -b "exec $(${config.sh.sysmenu}/bin/sysmenu) 1>& - 2> /dev/null || true"
+			bind -n M-d run -b "exec $(${config.sh.pathmenu}) 1>& - 2> /dev/null || true"
+			bind -n M-BSpace run -b "${config.sh.sysmenu} 1>& - 2> /dev/null || true"
 
 			bind -n M-r source "${config.xdg.configHome}/tmux/tmux.conf"
 		'';
