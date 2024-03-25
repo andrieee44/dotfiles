@@ -29,11 +29,11 @@
 			set -g focus-events on
 
 			set -g status-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}"
-			set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" ""}"
-			set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #H "
+			set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
+			set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" " "}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #H "
 
-			set -wg window-status-current-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" ""}"
-			set -wg window-status-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" ""}"
+			set -wg window-status-current-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
+			set -wg window-status-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
 			set -wg window-status-separator ""
 
 			bind -n M-i splitw -h
