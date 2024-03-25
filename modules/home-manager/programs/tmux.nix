@@ -12,6 +12,7 @@
 		extraConfig = let
 			tmux = "${pkgs.tmux}/bin/tmux";
 			gui = t: f: "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${t},${f}}";
+			bell = t: f: "#{?window_bell_flag,${t},${f}}";
 
 			mvpane = pane:
 				let
@@ -28,13 +29,22 @@
 
 			set -g focus-events on
 
+			set -g message-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
+			set -g message-command-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
+
+			set -g pane-border-style "fg=#${colorscheme.palette.base03}"
+			set -g pane-active-border-style "fg=#${colorscheme.palette.base0C}"
+
+			set -g mode-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
+
 			set -g status-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}"
 			set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
 			set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" " "}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #H "
 
 			set -wg window-status-current-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
-			set -wg window-status-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
+			set -wg window-status-format "#[fg=#${colorscheme.palette.base00},bg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},nobold,noitalics,nounderscore]${gui "" " "}#[fg=#${colorscheme.palette.base05},bg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},${bell "bold" "nobold"}] #I ${gui "" "|"} #W #[fg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
 			set -wg window-status-separator ""
+			set -wg window-status-bell-style ""
 
 			bind -n M-i splitw -h
 			bind -n M-I splitw -v
