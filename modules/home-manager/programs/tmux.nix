@@ -29,6 +29,8 @@
 
 			set -g focus-events on
 
+			set -g main-pane-width 50%
+
 			set -g message-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
 			set -g message-command-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
 
@@ -46,10 +48,7 @@
 			set -wg window-status-separator ""
 			set -wg window-status-bell-style ""
 
-			bind -n M-i splitw -h
-			bind -n M-I splitw -v
-			bind -n M-o splitw -fh
-			bind -n M-O splitw -fv
+			bind -n M-i run "${tmux} splitw -fhl 50% && ${tmux} select-layout main-vertical"
 
 			bind -n M-l selectp -L
 			bind -n M-h selectp -R
@@ -61,12 +60,7 @@
 			bind -n M-J swapp -s "{up-of}"
 			bind -n M-K swapp -s "{down-of}"
 
-			bind -n M-C-l resizep -R
-			bind -n M-C-h resizep -L
-			bind -n M-C-j resizep -D
-			bind -n M-C-k resizep -U
-
-			bind -n M-q killp
+			bind -n M-q run "${tmux} killp && ${tmux} select-layout main-vertical"
 
 			bind -n M-! run "${mvpane 1}"
 			bind -n M-@ run "${mvpane 2}"
