@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
 	programs.zsh = {
-		enableAutosuggestions = true;
+		autosuggestion.enable = true;
 		enableCompletion = true;
 		syntaxHighlighting.enable = true;
 		autocd = false;
@@ -61,11 +61,6 @@
 				zle -N zle-keymap-select
 				zle -N zle-line-init
 				echo -ne '\e[5 q'
-			'')
-
-			(lib.optionalString config.programs.zsh.enableAutosuggestions ''
-				ZSH_AUTOSUGGEST_MANUAL_REBIND="1"
-				ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=12'
 			'')
 
 			(lib.optionalString config.programs.tmux.enable ''

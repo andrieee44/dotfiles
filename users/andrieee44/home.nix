@@ -30,7 +30,7 @@
 		packages = with pkgs; [
 			ppsspp
 			pcsx2
-			rpcs3
+			#rpcs3
 			dolphin-emu
 			wineWowPackages.full
 			winetricks
@@ -41,6 +41,7 @@
 		alacritty.enable = true;
 		librewolf.enable = true;
 		mangohud.enable = true;
+		nixvim.enable = true;
 
 		gpg.publicKeys = [
 			{
