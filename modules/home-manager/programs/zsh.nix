@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, colorscheme, ... }:
 {
 	programs.zsh = {
 		autosuggestion.enable = true;
@@ -27,6 +27,9 @@
 				zstyle ':completion:*' menu select
 				_comp_options+=(globdots)
 				zmodload zsh/complist
+
+				ZSH_AUTOSUGGEST_MANUAL_REBIND="1"
+				ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#${colorscheme.palette.base0C}"
 			''
 
 			(lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
