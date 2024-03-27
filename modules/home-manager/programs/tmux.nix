@@ -48,7 +48,10 @@
 			set -wg window-status-separator ""
 			set -wg window-status-bell-style ""
 
-			bind -n M-i run "${tmux} splitw -fhl 50% && ${tmux} select-layout main-vertical"
+			bind -n M-i run "${pkgs.writers.writeDash "tmuxpane" ''
+				set -eu
+				[ "$(${tmux} display -p "#{window_panes}")" = "1" ] && ${tmux} splitw -hl 50% || ${tmux} splitw -vl 50% && ${tmux} selectl main-vertical
+			''}"
 
 			bind -n M-l selectp -L
 			bind -n M-h selectp -R
@@ -60,7 +63,7 @@
 			bind -n M-J swapp -s "{up-of}"
 			bind -n M-K swapp -s "{down-of}"
 
-			bind -n M-q run "${tmux} killp && ${tmux} select-layout main-vertical"
+			bind -n M-q run "${tmux} killp && ${tmux} selectl main-vertical"
 
 			bind -n M-! run "${mvpane 1}"
 			bind -n M-@ run "${mvpane 2}"

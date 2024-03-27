@@ -41,7 +41,6 @@
 		alacritty.enable = true;
 		librewolf.enable = true;
 		mangohud.enable = true;
-		nixvim.enable = true;
 
 		gpg.publicKeys = [
 			{

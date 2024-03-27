@@ -128,6 +128,7 @@
 		msmtp.enable = true;
 		ncmpcpp.enable = true;
 		neomutt.enable = true;
+		nixvim.enable = true;
 		notmuch.enable = true;
 		obs-studio.enable = true;
 		password-store.enable = true;
