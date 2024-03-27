@@ -14,15 +14,15 @@
 			gui = t: f: "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${t},${f}}";
 			bell = t: f: "#{?window_bell_flag,${t},${f}}";
 
-			mvpane = pane:
+			mvpane = window:
 				let
-					paneStr = builtins.toString pane;
-				in "${tmux} breakp -t ':${paneStr}' || ${tmux} joinp -t ':${paneStr}' || true";
+					windowStr = builtins.toString window;
+				in "${tmux} breakp -t ':${windowStr}' || ${tmux} joinp -t ':${windowStr}'; ${tmux} selectl main-vertical";
 
-			cdpane = pane:
+			cdwindow = window:
 				let
-					paneStr = builtins.toString pane;
-				in "${tmux} selectw -t ':${paneStr}' || ${tmux} neww -t ':${paneStr}'";
+					windowStr = builtins.toString window;
+				in "${tmux} selectw -t ':${windowStr}' || ${tmux} neww -t ':${windowStr}'";
 		in ''
 			set -Fg default-terminal "${gui "tmux-256color" "screen-16color"}"
 			set -Fsa terminal-overrides "${gui "#,\${TERM}:RGB" ""}"
@@ -77,15 +77,15 @@
 
 			bind -n M-Enter neww
 
-			bind -n M-1 run "${cdpane 1}"
-			bind -n M-2 run "${cdpane 2}"
-			bind -n M-3 run "${cdpane 3}"
-			bind -n M-4 run "${cdpane 4}"
-			bind -n M-5 run "${cdpane 5}"
-			bind -n M-6 run "${cdpane 6}"
-			bind -n M-7 run "${cdpane 7}"
-			bind -n M-8 run "${cdpane 8}"
-			bind -n M-9 run "${cdpane 9}"
+			bind -n M-1 run "${cdwindow 1}"
+			bind -n M-2 run "${cdwindow 2}"
+			bind -n M-3 run "${cdwindow 3}"
+			bind -n M-4 run "${cdwindow 4}"
+			bind -n M-5 run "${cdwindow 5}"
+			bind -n M-6 run "${cdwindow 6}"
+			bind -n M-7 run "${cdwindow 7}"
+			bind -n M-8 run "${cdwindow 8}"
+			bind -n M-9 run "${cdwindow 9}"
 
 			bind -n M-Q killw
 
