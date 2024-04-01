@@ -1,4 +1,3 @@
-{ ... }:
 {
 	programs.librewolf.settings = {
 		"privacy.clearOnShutdown.history" = true;

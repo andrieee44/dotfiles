@@ -1,4 +1,3 @@
-{ ... }:
 {
 	programs.dircolors = {
 		settings.COLOR = "tty";

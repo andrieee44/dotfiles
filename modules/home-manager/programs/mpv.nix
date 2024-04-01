@@ -1,4 +1,3 @@
-{ ... }:
 {
 	programs.mpv.bindings = {
 		h = "seek -5";

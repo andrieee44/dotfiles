@@ -1,4 +1,3 @@
-{ ... }:
 {
 	services.tlp.settings = {
 		BAY_POWEROFF_ON_AC = 1;
