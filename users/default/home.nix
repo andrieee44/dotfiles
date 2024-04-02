@@ -88,7 +88,6 @@
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile.npmrc.target}";
 			W3M_DIR = "${config.xdg.dataHome}/w3m";
 			SSH_ASKPASS_REQUIRE = "force";
-			EDITOR = "${pkgs.neovim}/bin/nvim";
 		};
 
 		language = let

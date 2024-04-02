@@ -1,5 +1,7 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
+	home.sessionVariables.EDITOR = lib.optionalString config.programs.nixvim.enable "${config.home.homeDirectory}/.nix-profile/bin/nvim";
+
 	programs.nixvim = {
 		globals.mapleader = " ";
 
@@ -98,7 +100,7 @@
 			}
 		];
 
-		options = {
+		opts = {
 			mouse = "";
 			showmode = false;
 			tabstop = 4;
@@ -126,6 +128,7 @@
 				config = ''lua require('trim').setup({ patterns = { [=[%s/\(\n\n\)\n\+/\1/]=] } })'';
 			}
 
+			/*
 			{
 				plugin = (pkgs.vimUtils.buildVimPlugin {
 					name = "oishiline";
@@ -140,10 +143,10 @@
 
 				config = ''lua require('oishiline').setup({require('oishiline').modules.mode})'';
 			}
+			*/
 		];
 
 		extraConfigLua = ''
-
 			local signs = {
 				Error = vim.opt.termguicolors and ' ' or '! ',
 				Warn = vim.opt.termguicolors and ' ' or '? ',
