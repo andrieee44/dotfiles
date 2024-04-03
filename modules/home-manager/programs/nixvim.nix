@@ -32,7 +32,32 @@
 				event = [ "VimEnter" ];
 				callback.__raw = ''
 					function()
+						local customColors = {
+							nord = function()
+								vim.api.nvim_set_hl(0, 'LineNr', {
+									ctermfg = 'cyan',
+									fg = '#${colorscheme.palette.base0C}',
+								})
+
+								vim.api.nvim_set_hl(0, 'Visual', {
+									ctermfg = 'darkgray',
+									ctermbg = 'white',
+									bg = '#${colorscheme.palette.base03}',
+								})
+
+								vim.api.nvim_set_hl(0, 'Comment', {
+									ctermfg = 'blue',
+									fg = '#${colorscheme.palette.base0D}',
+									italic = true,
+								})
+							end,
+						}
+
 						vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
+
+						if type(customColors[vim.g.colors_name]) == 'function' then
+							customColors[vim.g.colors_name]()
+						end
 					end
 				'';
 			}
@@ -48,23 +73,6 @@
 		} { ${colorscheme.slug}.enable = true; };
 
 		highlightOverride = {
-			LineNr = {
-				ctermfg = "cyan";
-				fg = "#${colorscheme.palette.base0C}";
-			};
-
-			Visual = {
-				ctermfg = "darkgray";
-				ctermbg = "white";
-				bg = "#${colorscheme.palette.base03}";
-			};
-
-			Comment = {
-				ctermfg = "blue";
-				fg = "#${colorscheme.palette.base0D}";
-				italic = true;
-			};
-
 			DiagnosticSignError = {
 				ctermfg = "red";
 				fg = "#${colorscheme.palette.base08}";
