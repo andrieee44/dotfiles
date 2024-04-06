@@ -17,12 +17,12 @@
 			mvpane = window:
 				let
 					windowStr = builtins.toString window;
-				in "${tmux} breakp -t ':${windowStr}' || ${tmux} joinp -t ':${windowStr}'; ${tmux} selectl main-vertical";
+				in "${tmux} breakp -t ':${windowStr}' || ${tmux} joinp -t ':${windowStr}' && ${tmux} selectl main-vertical";
 
 			cdwindow = window:
 				let
 					windowStr = builtins.toString window;
-				in "${tmux} selectw -t ':${windowStr}' || ${tmux} neww -t ':${windowStr}'";
+				in "${tmux} selectl -t ':${windowStr}' main-vertical && ${tmux} selectw -t ':${windowStr}' || ${tmux} neww -t ':${windowStr}'";
 		in ''
 			set -Fg default-terminal "${gui "tmux-256color" "screen-16color"}"
 			set -Fsa terminal-overrides "${gui "#,\${TERM}:RGB" ""}"
@@ -48,10 +48,7 @@
 			set -wg window-status-separator ""
 			set -wg window-status-bell-style ""
 
-			bind -n M-i run "${pkgs.writers.writeDash "tmuxpane" ''
-				set -eu
-				[ "$(${tmux} display -p "#{window_panes}")" = "1" ] && ${tmux} splitw -hl 50% || ${tmux} splitw -vl 50% && ${tmux} selectl main-vertical
-			''}"
+			bind -n M-i run "[ \"$(${tmux} display -p '#{window_panes}')\" = '1' ] && ${tmux} splitw -hl 50% || ${tmux} splitw -vl 50% && ${tmux} selectl main-vertical"
 
 			bind -n M-l selectp -L
 			bind -n M-h selectp -R
