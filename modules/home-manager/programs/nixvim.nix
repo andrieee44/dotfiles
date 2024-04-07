@@ -1,8 +1,7 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
-	home.sessionVariables.EDITOR = lib.optionalString config.programs.nixvim.enable "${config.home.homeDirectory}/.nix-profile/bin/nvim";
-
 	programs.nixvim = {
+		defaultEditor = true;
 		globals.mapleader = " ";
 
 		autoCmd = [
@@ -55,7 +54,7 @@
 
 						vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
 
-						if type(customColors[vim.g.colors_name]) == 'function' then
+						if customColors[vim.g.colors_name] then
 							customColors[vim.g.colors_name]()
 						end
 					end
