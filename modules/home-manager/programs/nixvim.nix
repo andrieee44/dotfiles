@@ -7,6 +7,7 @@
 		autoCmd = [
 			{
 				event = [ "FileType" ];
+
 				callback.__raw = ''
 					function()
 						vim.bo.formatoptions = vim.bo.formatoptions:gsub('[cro]', ${"''"})
@@ -17,6 +18,7 @@
 			{
 				event = [ "FileType" ];
 				pattern = [ "mail" ];
+
 				callback.__raw = ''
 					function()
 						vim.opt.colorcolumn = 76
@@ -29,6 +31,7 @@
 
 			{
 				event = [ "VimEnter" ];
+
 				callback.__raw = ''
 					function()
 						local customColors = {
@@ -130,6 +133,11 @@
 		};
 
 		extraPlugins = with pkgs.vimPlugins; [
+			{
+				plugin = nvim-web-devicons;
+				config = ''lua require('nvim-web-devicons').setup()'';
+			}
+
 			{
 				plugin = trim-nvim;
 				config = ''lua require('trim').setup({ patterns = { [=[%s/\(\n\n\)\n\+/\1/]=] } })'';
