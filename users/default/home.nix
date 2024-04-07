@@ -53,18 +53,20 @@
 		pointerCursor.gtk.enable = true;
 
 		packages = with pkgs; [
-			mpc-cli
 			bc
-			neofetch
-			powertop
-			xdg-user-dirs
-			hugo
-			go-mtpfs
 			ffmpeg
 			glxinfo
-			grim
-			wl-clipboard
+			go-mtpfs
 			gotools
+			grim
+			hugo
+			mpc-cli
+			neofetch
+			noto-fonts
+			powertop
+			vistafonts
+			wl-clipboard
+			xdg-user-dirs
 		];
 
 		shellAliases = {
@@ -133,6 +135,7 @@
 		obs-studio.enable = true;
 		password-store.enable = true;
 		ssh.enable = true;
+		starship.enable = true;
 		swaylock.enable = config.wayland.windowManager.sway.enable;
 		texlive.enable = true;
 		tmux.enable = true;
