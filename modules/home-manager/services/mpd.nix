@@ -4,7 +4,6 @@
 		dataDir = "${config.xdg.dataHome}/mpd";
 		dbFile = "${config.services.mpd.dataDir}/tag_cache";
 		playlistDirectory = "${config.services.mpd.dataDir}/playlists";
-		musicDirectory = config.xdg.userDirs.music;
 		network.startWhenNeeded = true;
 
 		extraConfig = ''
