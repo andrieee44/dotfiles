@@ -1,6 +1,7 @@
 { config, pkgs, inputs, colorscheme, stateVersion, ... }:
 {
 	nixpkgs.config.allowUnfree = true;
+	fonts.fontconfig.enable = true;
 
 	accounts.email.accounts."${config.home.username}" = {
 		gpg.signByDefault = true;
