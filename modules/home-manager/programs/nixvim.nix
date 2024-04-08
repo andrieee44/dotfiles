@@ -276,7 +276,7 @@
 					gopls.enable = true;
 					ltex.enable = true;
 					lua-ls.enable = true;
-					nixd.enable = true;
+					nil_ls.enable = true;
 				};
 			};
 
