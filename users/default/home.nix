@@ -64,6 +64,12 @@
 			mpc-cli
 			neofetch
 			noto-fonts
+			noto-fonts-cjk-sans
+			noto-fonts-cjk-serif
+			noto-fonts-color-emoji
+			noto-fonts-emoji-blob-bin
+			noto-fonts-lgc-plus
+			noto-fonts-monochrome-emoji
 			powertop
 			vistafonts
 			wl-clipboard
