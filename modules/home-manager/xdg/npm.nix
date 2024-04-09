@@ -1,8 +1,7 @@
 { config, ... }:
 {
-	xdg.configFile.npmrc = {
+	xdg.configFile."npm/npmrc" = {
 		enable = true;
-		target = "npm/npmrc";
 
 		text = ''
 			cache="${config.xdg.cacheHome}/npm"

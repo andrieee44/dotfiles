@@ -1,8 +1,7 @@
 { config, ... }:
 {
-	xdg.configFile.latexmkrc = {
+	xdg.configFile."latexmk/latexmkrc" = {
 		enable = config.programs.texlive.enable;
-		target = "latexmk/latexmkrc";
 
 		text = ''
 			$ENV{'TEXMFHOME'} = "${config.xdg.dataHome}/texlive";
