@@ -10,12 +10,12 @@
 	config.sh = {
 		pathmenu = pkgs.writers.writeDash "pathmenu" ''
 			set -eu
-			tmpfile=$(${pkgs.toybox}/bin/mktemp /tmp/pathmenu.XXXXXX)
-			exec 3> "$tmpfile"
-			exec 4< "$tmpfile"
-			rm "$tmpfile"
+			tmp="$(${pkgs.toybox}/bin/mktemp /tmp/pathmenu.XXXXXX)"
+			exec 3> "$tmp"
+			exec 4< "$tmp"
+			rm "$tmp"
 
-			IFS=:
+			IFS=":"
 			for d in $PATH; do
 				[ ! -d "$d" ] && continue
 				${pkgs.toybox}/bin/find -L "$d" -mindepth 1 -maxdepth 1 -type f -perm -u=x -not -name '.*' -printf "%f\n" >& 3

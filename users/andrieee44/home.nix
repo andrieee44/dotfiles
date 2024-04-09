@@ -28,12 +28,13 @@
 		'';
 
 		packages = with pkgs; [
-			ppsspp
-			pcsx2
-			#rpcs3
 			dolphin-emu
-			wineWowPackages.full
+			pcsx2
+			ppsspp
+			rpcs3
+			#vinegar
 			winetricks
+			wineWowPackages.full
 		];
 	};
 
