@@ -93,6 +93,7 @@
 				bind -n M-R command-prompt -I "#W" "rename-window '%%'"
 
 				bind -n M-[ copy-mode
+				bind -n M-] pasteb
 
 				bind -n M-d run -b "exec $(${config.sh.pathmenu}) 1>& - 2> /dev/null || true"
 				bind -n M-BSpace run -b "${config.sh.sysmenu} 1>& - 2> /dev/null || true"
