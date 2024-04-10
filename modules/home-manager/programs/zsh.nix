@@ -65,16 +65,6 @@
 				zle -N zle-line-init
 				echo -ne '\e[5 q'
 			'')
-
-			(lib.optionalString config.programs.tmux.enable ''
-				case $- in
-					*i*)
-						[ -z "$TMUX" ] && {
-							${pkgs.tmux}/bin/tmux attach || ${pkgs.tmux}/bin/tmux new
-						}
-						;;
-				esac
-			'')
 		];
 	};
 }
