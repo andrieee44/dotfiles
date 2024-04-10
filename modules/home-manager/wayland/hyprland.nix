@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, colorscheme, ... }:
 {
 	wayland.windowManager.hyprland = {
 		enable = true;
@@ -7,6 +7,24 @@
 			"$mod" = "SUPER";
 			"$terminal" = "${pkgs.foot}/bin/footclient";
 			"$browser" = "${pkgs.librewolf}/bin/librewolf";
+			"$base00" = colorscheme.palette.base00;
+			"$base01" = colorscheme.palette.base01;
+			"$base02" = colorscheme.palette.base02;
+			"$base03" = colorscheme.palette.base03;
+			"$base04" = colorscheme.palette.base04;
+			"$base05" = colorscheme.palette.base05;
+			"$base06" = colorscheme.palette.base06;
+			"$base07" = colorscheme.palette.base07;
+			"$base08" = colorscheme.palette.base08;
+			"$base09" = colorscheme.palette.base09;
+			"$base0A" = colorscheme.palette.base0A;
+			"$base0B" = colorscheme.palette.base0B;
+			"$base0C" = colorscheme.palette.base0C;
+			"$base0D" = colorscheme.palette.base0D;
+			"$base0E" = colorscheme.palette.base0E;
+			"$base0F" = colorscheme.palette.base0F;
+
+			monitor = [ ",preferred,auto,1" ];
 
 			bind = [
 				"$mod, Return, exec, $terminal"
@@ -44,15 +62,26 @@
 				"$mod SHIFT, Q, exit,"
 			];
 
+			general = {
+				gaps_out = 5;
+				border_size = 2;
+				"col.inactive_border" = "rgb($base01)";
+				"col.active_border" = "rgb($base0D)";
+				cursor_inactive_timeout = 5;
+				layout = "master";
+				no_cursor_warps = true;
+			};
+
+			decoration = {
+				rounding = 2;
+				blur.enabled = false;
+			};
+
 			input = {
 				kb_options = "caps:escape";
 				repeat_delay = 200;
 				repeat_rate = 70;
 			};
-
-			monitor = [
-				",preferred,auto,1"
-			];
 		};
 	};
 }
