@@ -17,7 +17,7 @@
 	outputs = { ... } @ inputs: let
 			specialArgs = {
 				inherit inputs;
-				stateVersion = "22.11";
+				stateVersion = "24.05";
 				colorscheme = inputs.nix-colors.colorSchemes.nord;
 			};
 
