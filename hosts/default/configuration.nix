@@ -12,6 +12,7 @@
 		dconf.enable = true;
 		zsh.enable = true;
 		light.enable = true;
+		hyprland.enable = true;
 	};
 
 	services = {

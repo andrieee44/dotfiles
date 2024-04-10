@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-	wayland.windowManager.sway.enable = true;
 	gtk.enable = true;
 
 	accounts.email.accounts."${config.home.username}" = {
