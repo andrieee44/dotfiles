@@ -5,7 +5,7 @@
 
 		settings = {
 			"$mod" = "SUPER";
-			"$terminal" = "${pkgs.foot}/bin/foot";
+			"$terminal" = "${pkgs.foot}/bin/footclient";
 			"$browser" = "${pkgs.librewolf}/bin/librewolf";
 
 			bind = [

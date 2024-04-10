@@ -195,7 +195,7 @@
 
 		font = {
 			package = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
-			name = "Sauce Code Pro Nerd Font Mono";
+			name = "SauceCodePro Nerd Font Mono";
 			size = 14;
 		};
 
