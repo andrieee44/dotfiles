@@ -55,6 +55,7 @@
 
 		packages = with pkgs; [
 			bc
+			dolphin-emu
 			ffmpeg
 			glxinfo
 			go-mtpfs
@@ -70,33 +71,39 @@
 			noto-fonts-emoji-blob-bin
 			noto-fonts-lgc-plus
 			noto-fonts-monochrome-emoji
+			pcsx2
 			powertop
+			ppsspp
+			rpcs3
+			#vinegar
 			vistafonts
+			winetricks
+			wineWowPackages.full
 			wl-clipboard
 			xdg-user-dirs
 		];
 
 		shellAliases = {
-			less = "\${PAGER}";
-			cp = "cp -iv";
-			mv = "mv -iv";
-			rm = "rm -iv";
-			mkdir = "mkdir -pv";
-			rmdir = "rmdir -p";
-			ip = "ip -color=auto";
-			df = "df -Pha";
 			bc = "bc ${config.home.homeDirectory}/${config.xdg.configFile."bc/bcrc".target} -ql";
-			ls = "LC_ALL=C ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
-			grep = "grep --color=auto";
+			cp = "cp -iv";
+			df = "df -Pha";
 			diff = "diff --color=auto";
+			grep = "grep --color=auto";
+			ip = "ip -color=auto";
+			less = "\${PAGER}";
+			ls = "LC_ALL=C ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
+			mkdir = "mkdir -pv";
+			mv = "mv -iv";
 			nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history nix-shell";
+			rmdir = "rmdir -p";
+			rm = "rm -iv";
 		};
 
 		sessionVariables = {
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
-			W3M_DIR = "${config.xdg.dataHome}/w3m";
 			SSH_ASKPASS_REQUIRE = "force";
+			W3M_DIR = "${config.xdg.dataHome}/w3m";
 		};
 
 		language = let
@@ -131,7 +138,9 @@
 		htop.enable = true;
 		imv.enable = true;
 		lf.enable = true;
+		librewolf.enable = true;
 		man.enable = true;
+		mangohud.enable = true;
 		mbsync.enable = true;
 		mpv.enable = true;
 		msmtp.enable = true;
@@ -143,10 +152,9 @@
 		password-store.enable = true;
 		ssh.enable = true;
 		starship.enable = true;
-		swaylock.enable = config.wayland.windowManager.sway.enable;
 		texlive.enable = true;
 		tmux.enable = true;
-		waybar.enable = config.wayland.windowManager.sway.enable;
+		wezterm.enable = true;
 		zathura.enable = true;
 		zsh.enable = true;
 	};
@@ -154,7 +162,6 @@
 	services = {
 		gpg-agent.enable = true;
 		mpd.enable = true;
-		swayidle.enable = config.wayland.windowManager.sway.enable;
 	};
 
 	xdg = let
@@ -183,6 +190,7 @@
 	};
 
 	gtk = {
+		enable = true;
 		gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
 		font = {

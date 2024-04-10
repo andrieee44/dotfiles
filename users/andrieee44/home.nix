@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-	gtk.enable = true;
-
 	accounts.email.accounts."${config.home.username}" = {
 		realName = config.home.username;
 		address = "andrieee44@gmail.com";
@@ -25,30 +23,14 @@
 			set -eu
 			${pkgs.pass}/bin/pass "ssh/laptop"
 		'';
-
-		packages = with pkgs; [
-			dolphin-emu
-			pcsx2
-			ppsspp
-			rpcs3
-			#vinegar
-			winetricks
-			wineWowPackages.full
-		];
 	};
 
-	programs = {
-		alacritty.enable = true;
-		librewolf.enable = true;
-		mangohud.enable = true;
-
-		gpg.publicKeys = [
-			{
-				trust = 5;
-				source = ./public.key;
-			}
-		];
-	};
+	programs.gpg.publicKeys = [
+		{
+			trust = 5;
+			source = ./public.key;
+		}
+	];
 
 	xdg.configFile.pam-gnupg = {
 		enable = config.services.gpg-agent.enable;
