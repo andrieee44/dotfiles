@@ -10,21 +10,27 @@
 
 	programs = {
 		dconf.enable = true;
-		zsh.enable = true;
-		light.enable = true;
+		gamemode.enable = true;
 		hyprland.enable = true;
+		light.enable = true;
+		steam.enable = true;
+		zsh.enable = true;
 	};
 
 	services = {
-		thermald.enable = true;
 		pipewire.enable = true;
+		thermald.enable = true;
 		tlp.enable = true;
 	};
 
 	hardware = {
-		steam-hardware.enable = config.programs.steam.enable;
 		enableAllFirmware = true;
-		bluetooth.powerOnBoot = false;
+		steam-hardware.enable = config.programs.steam.enable;
+
+		bluetooth = {
+			enable = true;
+			powerOnBoot = false;
+		};
 
 		opengl = let
 			extraPkgs = with pkgs; [
@@ -36,6 +42,7 @@
 				rocm-opencl-runtime
 			];
 		in {
+			enable = true;
 			driSupport = true;
 			driSupport32Bit = true;
 			extraPackages = extraPkgs;
@@ -44,8 +51,8 @@
 	};
 
 	console = {
-		useXkbConfig = true;
 		font = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
+		useXkbConfig = true;
 
 		colors = [
 			colorscheme.palette.base00
@@ -80,11 +87,7 @@
 		allowUnfree = true;
 
 		packageOverrides = pkgs:
-			{
-				vaapiIntel = pkgs.vaapiIntel.override {
-					enableHybridCodec = true;
-				};
-			};
+			{ vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; };
 	};
 
 	boot = {
@@ -100,7 +103,7 @@
 				enable = true;
 				editor = false;
 				memtest86.enable = true;
-				configurationLimit = 50;
+				configurationLimit = 100;
 			};
 		};
 	};
@@ -152,6 +155,7 @@
 	};
 
 	xdg.portal = {
+		enable = true;
 		wlr.enable = true;
 		config.common.default = [ "gtk" ];
 		extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
