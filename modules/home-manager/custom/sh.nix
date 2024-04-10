@@ -28,11 +28,10 @@
 		sysmenu = pkgs.writers.writeDash "pathmenu" ''
 			set -eu
 			arr='
-				leave desktop session = ${pkgs.systemd}/bin/loginctl kill-session self
 				poweroff computer = ${pkgs.systemd}/bin/poweroff
 				reboot computer = ${pkgs.systemd}/bin/reboot
 				lock desktop session = ${pkgs.systemd}/bin/loginctl lock-session
-				reload window manager = ${lib.optionalString config.wayland.windowManager.sway.enable "${pkgs.sway}/bin/swaymsg reload"}
+				leave desktop session = ${pkgs.systemd}/bin/loginctl kill-session self
 			'
 
 			cmd="$(echo "$arr" | ${pkgs.busybox}/bin/awk -F '=' '
