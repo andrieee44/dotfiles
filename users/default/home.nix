@@ -131,6 +131,7 @@
 	programs = {
 		abook.enable = true;
 		dircolors.enable = true;
+		foot.enable = true;
 		fzf.enable = true;
 		git.enable = true;
 		go.enable = true;
@@ -154,7 +155,6 @@
 		starship.enable = true;
 		texlive.enable = true;
 		tmux.enable = true;
-		wezterm.enable = true;
 		zathura.enable = true;
 		zsh.enable = true;
 	};
