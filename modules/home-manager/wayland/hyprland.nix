@@ -1,4 +1,4 @@
-{ pkgs, colorscheme, ... }:
+{ config, pkgs, colorscheme, ... }:
 {
 	wayland.windowManager.hyprland = {
 		enable = true;
@@ -7,35 +7,21 @@
 			"$mod" = "SUPER";
 			"$terminal" = "${pkgs.foot}/bin/footclient";
 			"$browser" = "${pkgs.librewolf}/bin/librewolf";
-			"$base00" = colorscheme.palette.base00;
-			"$base01" = colorscheme.palette.base01;
-			"$base02" = colorscheme.palette.base02;
-			"$base03" = colorscheme.palette.base03;
-			"$base04" = colorscheme.palette.base04;
-			"$base05" = colorscheme.palette.base05;
-			"$base06" = colorscheme.palette.base06;
-			"$base07" = colorscheme.palette.base07;
-			"$base08" = colorscheme.palette.base08;
-			"$base09" = colorscheme.palette.base09;
-			"$base0A" = colorscheme.palette.base0A;
-			"$base0B" = colorscheme.palette.base0B;
-			"$base0C" = colorscheme.palette.base0C;
-			"$base0D" = colorscheme.palette.base0D;
-			"$base0E" = colorscheme.palette.base0E;
-			"$base0F" = colorscheme.palette.base0F;
 
 			monitor = [ ",preferred,auto,1" ];
+			master.mfact = 0.5;
 
 			bind = [
-				"$mod, Return, exec, $terminal"
-				"$mod, W, exec, $browser"
-				"$mod, Q, killactive,"
-				"$mod, F, togglefloating,"
+				"$mod, Return, execr, $terminal"
+				"$mod, W, execr, $browser"
 
-				"$mod, H, movefocus, l"
-				"$mod, J, movefocus, u"
-				"$mod, K, movefocus, d"
-				"$mod, L, movefocus, r"
+				"$mod, Q, killactive,"
+				"$mod SHIFT, Q, exit,"
+
+				"$mod, J, cyclenext,"
+				"$mod, K, cyclenext, prev"
+				"$mod, f, fullscreen,"
+				"$mod, Space, layoutmsg, swapwithmaster"
 
 				"$mod, 1, workspace, 1"
 				"$mod, 2, workspace, 2"
@@ -59,28 +45,47 @@
 				"$mod SHIFT, 9, movetoworkspace, 9"
 				"$mod SHIFT, 0, movetoworkspace, 10"
 
-				"$mod SHIFT, Q, exit,"
+				", Print, execr, ${pkgs.grimblast}/bin/grimblast copy"
+				"SHIFT, Print, execr, ${pkgs.grimblast}/bin/grimblast copy area"
+
+				", XF86AudioRaiseVolume, execr, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+				", XF86AudioLowerVolume, execr, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+				", XF86AudioMute, execr, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+				", XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc prev"
+				", XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc next"
+				", XF86AudioStop, execr, ${pkgs.mpc-cli}/bin/mpc stop"
+				", XF86AudioPlay, execr, ${pkgs.mpc-cli}/bin/mpc play"
 			];
 
 			general = {
-				gaps_out = 5;
+				gaps_out = 10;
 				border_size = 2;
-				"col.inactive_border" = "rgb($base01)";
-				"col.active_border" = "rgb($base0D)";
+				"col.inactive_border" = "rgb(${colorscheme.palette.base01})";
+				"col.active_border" = "rgb(${colorscheme.palette.base0D})";
 				cursor_inactive_timeout = 5;
 				layout = "master";
 				no_cursor_warps = true;
 			};
 
 			decoration = {
-				rounding = 2;
-				blur.enabled = false;
+				rounding = 1;
+				blur.size = 2;
 			};
 
 			input = {
 				kb_options = "caps:escape";
 				repeat_delay = 200;
 				repeat_rate = 70;
+			};
+
+			misc = {
+				"col.splash" = "rgb(${colorscheme.palette.base05})";
+				splash_font_family = config.gtk.font.name;
+				force_default_wallpaper = 3;
+				mouse_move_enables_dpms = true;
+				key_press_enables_dpms = true;
+				animate_manual_resizes = true;
 			};
 		};
 	};
