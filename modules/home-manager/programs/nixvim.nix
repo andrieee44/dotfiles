@@ -55,8 +55,6 @@
 							end,
 						}
 
-						vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
-
 						if customColors[vim.g.colors_name] then
 							customColors[vim.g.colors_name]()
 						end
@@ -162,11 +160,13 @@
 		];
 
 		extraConfigLua = ''
+			vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
+
 			local signs = {
-				Error = vim.opt.termguicolors and ' ' or '! ',
-				Warn = vim.opt.termguicolors and ' ' or '? ',
-				Hint = vim.opt.termguicolors and ' ' or '* ',
-				Info = vim.opt.termguicolors and ' ' or 'i ',
+				Error = vim.opt.termguicolors._value and ' ' or '! ',
+				Warn = vim.opt.termguicolors._value and ' ' or '? ',
+				Hint = vim.opt.termguicolors._value and ' ' or '* ',
+				Info = vim.opt.termguicolors._value and ' ' or 'i ',
 			}
 
 			for type, icon in pairs(signs) do
