@@ -2,6 +2,7 @@
 {
 	nixpkgs.config.allowUnfree = true;
 	fonts.fontconfig.enable = true;
+	wayland.windowManager.hyprland.enable = true;
 
 	accounts.email.accounts."${config.home.username}" = {
 		gpg.signByDefault = true;
