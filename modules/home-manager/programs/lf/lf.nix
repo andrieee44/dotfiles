@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
 	programs.lf.settings = let
 		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
@@ -21,4 +21,8 @@
 		wrapscroll = true;
 	};
 
+	xdg.configFile."lf/icons" = {
+		enable = config.programs.lf.enable;
+		source = ./icons;
+	};
 }
