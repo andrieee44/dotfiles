@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, colorscheme, ... }:
 {
 	programs.mangohud = {
 		enableSessionWide = true;
@@ -38,6 +38,17 @@
 			hud_compact = true;
 			position = "middle-left";
 			font_size = config.gtk.font.size * 1.5;
+			background_alpha = 0.3;
+			alpha = 0.9;
+			cpu_load_color = "${colorscheme.palette.base0B},${colorscheme.palette.base0A},${colorscheme.palette.base08}";
+			gpu_load_color = "${colorscheme.palette.base0B},${colorscheme.palette.base0A},${colorscheme.palette.base08}";
+			fps_color = "${colorscheme.palette.base08},${colorscheme.palette.base0A},${colorscheme.palette.base0B}";
+			text_color = colorscheme.palette.base05;
+			gpu_color = colorscheme.palette.base0B;
+			cpu_color = colorscheme.palette.base0D;
+			ram_color = colorscheme.palette.base0E;
+			engine_color = colorscheme.palette.base08;
+			background_color = colorscheme.palette.base00;
 		};
 	};
 }
