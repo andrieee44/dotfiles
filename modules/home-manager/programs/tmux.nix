@@ -13,7 +13,8 @@
 			sensibleOnTop = false;
 
 			extraConfig = let
-				gui = t: f: "#{?#{!=:${"\${XDG_SESSION_TYPE}"},tty},${t},${f}}";
+				guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
+				gui = t: f: "#{?${guiBool},${t},${f}}";
 				bell = t: f: "#{?window_bell_flag,${t},${f}}";
 
 				mvpane = window:
@@ -26,22 +27,33 @@
 						windowStr = builtins.toString window;
 					in "${tmux} selectl -t ':${windowStr}' main-vertical && ${tmux} selectw -t ':${windowStr}' || ${tmux} neww -t ':${windowStr}'";
 			in ''
-				set -Fg default-terminal "${gui "tmux-256color" "screen-16color"}"
-				set -Fsa terminal-features "${gui "#,\${TERM}:RGB" ""}"
+				%if "${guiBool}"
+					set -s default-terminal 'tmux-256color'
+				%else
+					set -s default-terminal 'screen-16color'
+				%endif
+
+				%if "${guiBool}"
+					set -Fsa terminal-features "#,\${"\${TERM}"}:RGB"
+				%endif
 
 				set -g focus-events on
 
 				set -g main-pane-width 50%
 
-				set -g message-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
-				set -g message-command-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}"
+				set -g message-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
+				set -g message-command-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
 
-				set -g pane-border-style "fg=#${colorscheme.palette.base03}"
-				set -g pane-active-border-style "fg=#${colorscheme.palette.base0C}"
+				set -g pane-border-style 'fg=#${colorscheme.palette.base03}'
+				set -g pane-active-border-style 'fg=#${colorscheme.palette.base0C}'
 
-				set -g mode-style "${gui "fg=#${colorscheme.palette.base05}#,bg=#${colorscheme.palette.base03}" "fg=#${colorscheme.palette.base00}#,bg=#${colorscheme.palette.base05}"}"
+				%if "${guiBool}"
+					set -g mode-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
+				%else
+					set -g mode-style 'fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base05}'
+				%endif
 
-				set -g status-style "fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}"
+				set -g status-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}'
 				set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
 				set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #H "
 
