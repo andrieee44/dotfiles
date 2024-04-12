@@ -67,6 +67,7 @@
 				bind -n M-j selectp -t :.+
 				bind -n M-k selectp -t :.-
 				bind -n M-l run 'w="$(${tmux} display -p "#{main-pane-width}")" && ${tmux} set -g main-pane-width "$((${"\${w%%%}"} + 2))%" && ${tmux} selectl main-vertical'
+				bind -n M-Space run '[ "$(${tmux} display -p "#P")" = "${baseIndex}" ] && ${tmux} swapp -s :.${nextIndex} || ${tmux} swapp -s :.${baseIndex}'
 
 				bind -n M-q {
 					killp
