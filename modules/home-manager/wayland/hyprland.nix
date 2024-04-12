@@ -21,7 +21,6 @@
 			"$mod, H, splitratio, -0.02"
 			"$mod, L, splitratio, +0.02"
 			"$mod, Space, layoutmsg, swapwithmaster"
-			"$mod SHIFT, Space, splitratio, exact 0.5"
 
 			"$mod, 1, workspace, 1"
 			"$mod, 2, workspace, 2"
