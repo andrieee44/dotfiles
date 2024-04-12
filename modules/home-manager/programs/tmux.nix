@@ -16,6 +16,8 @@
 				guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
 				gui = t: f: "#{?${guiBool},${t},${f}}";
 				bell = t: f: "#{?window_bell_flag,${t},${f}}";
+				baseIndex = builtins.toString config.programs.tmux.baseIndex;
+				nextIndex = builtins.toString (config.programs.tmux.baseIndex + 1);
 
 				mvpane = window:
 					let
@@ -62,19 +64,21 @@
 				set -wg window-status-separator ${"''"}
 				set -wg window-status-bell-style ${"''"}
 
-				bind -n M-i run '[ "$(${tmux} display -p "#{window_panes}")" = "1" ] && ${tmux} splitw -hl 50% || ${tmux} splitw -vl 50% && ${tmux} selectl main-vertical'
+				bind -n M-i {
+					splitw -t :.${baseIndex}
+    				swapp -s :.${baseIndex} -t :.${nextIndex}
+					selectl main-vertical
+				}
 
-				bind -n M-l selectp -L
-				bind -n M-h selectp -R
-				bind -n M-k selectp -U
-				bind -n M-j selectp -D
+				bind -n M-j selectp -t :.+
+				bind -n M-k selectp -t :.-
 
-				bind -n M-L swapp -s '{left-of}'
-				bind -n M-H swapp -s '{right-of}'
-				bind -n M-J swapp -s '{up-of}'
-				bind -n M-K swapp -s '{down-of}'
+				bind -n M-Space run '[ "$(${tmux} display-message -p "#P")" = "${baseIndex}" ] && ${tmux} swapp -s :.${nextIndex} || ${tmux} swapp -s :.${baseIndex}'
 
-				bind -n M-q run '${tmux} killp && ${tmux} selectl main-vertical'
+				bind -n M-q {
+					killp
+					selectl main-vertical
+				}
 
 				bind -n M-! run '${mvpane 1}'
 				bind -n M-@ run '${mvpane 2}'
