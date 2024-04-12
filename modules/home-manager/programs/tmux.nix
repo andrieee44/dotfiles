@@ -73,22 +73,12 @@
 				bind -n M-j selectp -t :.+
 				bind -n M-k selectp -t :.-
 
-				bind -n M-Space run '[ "$(${tmux} display-message -p "#P")" = "${baseIndex}" ] && ${tmux} swapp -s :.${nextIndex} || ${tmux} swapp -s :.${baseIndex}'
+				bind -n M-Space run '[ "$(${tmux} display -p "#P")" = "${baseIndex}" ] && ${tmux} swapp -s :.${nextIndex} || ${tmux} swapp -s :.${baseIndex}'
 
 				bind -n M-q {
 					killp
 					selectl main-vertical
 				}
-
-				bind -n M-! run '${mvpane 1}'
-				bind -n M-@ run '${mvpane 2}'
-				bind -n M-# run '${mvpane 3}'
-				bind -n M-$ run '${mvpane 4}'
-				bind -n M-% run '${mvpane 5}'
-				bind -n M-^ run '${mvpane 6}'
-				bind -n M-& run '${mvpane 7}'
-				bind -n M-* run '${mvpane 8}'
-				bind -n M-( run '${mvpane 9}'
 
 				bind -n M-1 run '${cdwindow 1}'
 				bind -n M-2 run '${cdwindow 2}'
@@ -99,6 +89,18 @@
 				bind -n M-7 run '${cdwindow 7}'
 				bind -n M-8 run '${cdwindow 8}'
 				bind -n M-9 run '${cdwindow 9}'
+				bind -n M-0 run '${cdwindow 10}'
+
+				bind -n M-! run '${mvpane 1}'
+				bind -n M-@ run '${mvpane 2}'
+				bind -n M-# run '${mvpane 3}'
+				bind -n M-$ run '${mvpane 4}'
+				bind -n M-% run '${mvpane 5}'
+				bind -n M-^ run '${mvpane 6}'
+				bind -n M-& run '${mvpane 7}'
+				bind -n M-* run '${mvpane 8}'
+				bind -n M-( run '${mvpane 9}'
+				bind -n M-) run '${mvpane 10}'
 
 				bind -n M-Q killw
 
