@@ -30,11 +30,11 @@
 					in "${tmux} selectl -t \":${windowStr}\" main-vertical && ${tmux} selectw -t \":${windowStr}\" || ${tmux} neww -t \":${windowStr}\"";
 			in ''
 				%if "${guiBool}"
-					set -g default-terminal 'tmux-256color'
-					set -Fga terminal-features "#,\${"\${TERM}"}:RGB"
+					set -g default-terminal tmux-256color
+					set -sa terminal-features ",${"\${TERM}"}:RGB"
 					set -g mode-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
 				%else
-					set -g default-terminal 'screen-16color'
+					set -g default-terminal screen-16color
 					set -g mode-style 'fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base05}'
 				%endif
 
@@ -57,16 +57,16 @@
 				set -g window-status-separator ${"''"}
 				set -g window-status-bell-style ${"''"}
 
-				bind -n M-i {
+				bind -n M-Enter {
 					splitw -t :.${baseIndex}
     				swapp -s :.${baseIndex} -t :.${nextIndex}
 					selectl main-vertical
 				}
 
+				bind -n M-h run 'w="$(${tmux} display -p "#{main-pane-width}")" && ${tmux} set -g main-pane-width "$((${"\${w%%%}"} - 2))%" && ${tmux} selectl main-vertical'
 				bind -n M-j selectp -t :.+
 				bind -n M-k selectp -t :.-
-
-				bind -n M-Space run '[ "$(${tmux} display -p "#P")" = "${baseIndex}" ] && ${tmux} swapp -s :.${nextIndex} || ${tmux} swapp -s :.${baseIndex}'
+				bind -n M-l run 'w="$(${tmux} display -p "#{main-pane-width}")" && ${tmux} set -g main-pane-width "$((${"\${w%%%}"} + 2))%" && ${tmux} selectl main-vertical'
 
 				bind -n M-q {
 					killp
