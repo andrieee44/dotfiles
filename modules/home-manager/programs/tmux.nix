@@ -90,8 +90,6 @@
 				bind -n M-* run '${mvpane 8}'
 				bind -n M-( run '${mvpane 9}'
 
-				bind -n M-Enter neww
-
 				bind -n M-1 run '${cdwindow 1}'
 				bind -n M-2 run '${cdwindow 2}'
 				bind -n M-3 run '${cdwindow 3}'
