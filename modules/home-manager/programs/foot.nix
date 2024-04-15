@@ -4,10 +4,7 @@
 		server.enable = true;
 
 		settings = {
-			main = {
-				font = "${config.gtk.font.name}:size=${builtins.toString config.gtk.font.size}";
-
-			};
+			main.font = "${config.gtk.font.name}:size=${builtins.toString config.gtk.font.size}";
 
 			colors = {
 				alpha = 0.8;

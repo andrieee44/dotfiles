@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 {
 	options.sh = let
 		pkgOpt = lib.mkOption { type = lib.types.package; };
