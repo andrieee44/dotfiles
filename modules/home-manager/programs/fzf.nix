@@ -3,7 +3,6 @@
 	programs.fzf = {
 		colors = {
 			fg = "#${colorscheme.palette.base04}";
-			bg = "#${colorscheme.palette.base00}";
 			hl = "#${colorscheme.palette.base0D}";
 			"fg+" = "#${colorscheme.palette.base06}";
 			"bg+" = "#${colorscheme.palette.base01}";
