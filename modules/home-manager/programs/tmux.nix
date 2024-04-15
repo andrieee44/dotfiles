@@ -22,12 +22,12 @@
 				mvpane = window:
 					let
 						windowStr = builtins.toString window;
-					in "${tmux} breakp -t \":${windowStr}\" || ${tmux} joinp -t \":${windowStr}\" && ${tmux} selectl main-vertical";
+					in "${tmux} breakp -t :${windowStr} || ${tmux} joinp -bt :${windowStr}.${baseIndex} && ${tmux} selectl main-vertical || true";
 
 				cdwindow = window:
 					let
 						windowStr = builtins.toString window;
-					in "${tmux} selectl -t \":${windowStr}\" main-vertical && ${tmux} selectw -t \":${windowStr}\" || ${tmux} neww -t \":${windowStr}\"";
+					in "${tmux} selectw -t :${windowStr} || ${tmux} neww -t :${windowStr}";
 			in ''
 				%if "${guiBool}"
 					set -g default-terminal tmux-256color
