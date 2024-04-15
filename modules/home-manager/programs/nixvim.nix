@@ -5,8 +5,7 @@
 		globals.mapleader = " ";
 
 		autoCmd = [
-			{
-				event = [ "FileType" ];
+			{ event = [ "FileType" ];
 
 				callback.__raw = ''
 					function()
@@ -141,22 +140,16 @@
 				config = ''lua require('trim').setup({ patterns = { [=[%s/\(\n\n\)\n\+/\1/]=] } })'';
 			}
 
-			/*
-			{
-				plugin = (pkgs.vimUtils.buildVimPlugin {
-					name = "oishiline";
+			(pkgs.vimUtils.buildVimPlugin {
+				name = "oishiline";
 
-					src = pkgs.fetchFromGitHub {
-						owner = "andrieee44";
-						repo = "oishiline";
-						rev = "91643c5750ff065eb3958d9aab0cab6d169e70b5";
-						hash = "sha256-uJznWxq2h3DWrVVn3F/205Pa73rgoFlroQDzvQNZEus=";
-					};
-				});
-
-				config = ''lua require('oishiline').setup({require('oishiline').modules.mode})'';
-			}
-			*/
+				src = pkgs.fetchFromGitHub {
+					owner = "andrieee44";
+					repo = "oishiline";
+					rev = "5b3f34eddfc82690a087e12312462d0527b2e35d";
+					hash = "sha256-WIsr5jNviKtdAisDFSl2LWB9h4/tlPL/wLkMs8amAnE=";
+				};
+			})
 		];
 
 		extraConfigLua = ''
@@ -169,11 +162,13 @@
 				Info = vim.opt.termguicolors._value and ' ' or 'i ',
 			}
 
-			for type, icon in pairs(signs) do
-				vim.fn.sign_define("DiagnosticSign" .. type, {
-					text = icon,
-					texthl = "DiagnosticSign" .. type,
-					numhl = "DiagnosticVirtualText" .. type,
+			for k, v in pairs(signs) do
+				local name = string.format('DiagnosticSign%s', k)
+
+				vim.fn.sign_define(name, {
+					text = v,
+					texthl = name,
+					numhl = string.format('DiagnosticVirtualText%s', k),
 				})
 			end
 
@@ -184,15 +179,40 @@
 					prefix = ${"''"},
 
 					format = function(diagnostic)
+						local severity = vim.diagnostic.severity
+
 						local severityStr = {
-							[vim.diagnostic.severity.ERROR] = 'Error',
-							[vim.diagnostic.severity.WARN] = 'Warn',
-							[vim.diagnostic.severity.HINT] = 'Hint',
-							[vim.diagnostic.severity.INFO] = 'Info',
+							[severity.ERROR] = 'Error',
+							[severity.WARN] = 'Warn',
+							[severity.HINT] = 'Hint',
+							[severity.INFO] = 'Info',
 						}
 
-						return vim.fn.sign_getdefined("DiagnosticSign" .. severityStr[diagnostic.severity])[1].text .. diagnostic.message
+						local sign = vim.fn.sign_getdefined(string.format('DiagnosticSign%s', severityStr[diagnostic.severity]))
+
+						return string.format('%s%s', sign[1].text, diagnostic.message)
 					end,
+				},
+			})
+
+			require('oishiline').setup({
+				colors = {
+					black = '#${colorscheme.palette.base00}',
+					red = '#${colorscheme.palette.base08}',
+					green = '#${colorscheme.palette.base0B}',
+					yellow = '#${colorscheme.palette.base0A}',
+					blue = '#${colorscheme.palette.base0D}',
+					magenta = '#${colorscheme.palette.base0E}',
+					cyan = '#${colorscheme.palette.base0C}',
+					white = '#${colorscheme.palette.base05}',
+					brightBlack = '#${colorscheme.palette.base03}',
+					brightRed = '#${colorscheme.palette.base08}',
+					brightGreen = '#${colorscheme.palette.base0B}',
+					brightYellow = '#${colorscheme.palette.base0A}',
+					brightBlue = '#${colorscheme.palette.base0D}',
+					brightMagenta = '#${colorscheme.palette.base0E}',
+					brightCyan = '#${colorscheme.palette.base0C}',
+					brightWhite = '#${colorscheme.palette.base07}',
 				},
 			})
 		'';
@@ -251,7 +271,7 @@
 
 			lsp = {
 				enable = true;
-				capabilities = lib.optionalString plugins.cmp-nvim-lsp.enable ''capabilities = require('cmp_nvim_lsp').default_capabilities()'';
+				capabilities = lib.optionalString plugins.cmp-nvim-lsp.enable "capabilities = require('cmp_nvim_lsp').default_capabilities()";
 
 				keymaps = {
 					diagnostic = {
