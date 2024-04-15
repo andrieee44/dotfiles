@@ -15,11 +15,7 @@
 			"$mod, Q, killactive,"
 			"$mod SHIFT, Q, exit,"
 
-			"$mod, J, cyclenext,"
-			"$mod, K, cyclenext, prev"
 			"$mod, F, fullscreen,"
-			"$mod, H, splitratio, -0.02"
-			"$mod, L, splitratio, +0.02"
 			"$mod, Space, layoutmsg, swapwithmaster"
 
 			"$mod, 1, workspace, 1"
@@ -46,14 +42,28 @@
 
 			", Print, execr, ${pkgs.grimblast}/bin/grimblast copy"
 			"SHIFT, Print, execr, ${pkgs.grimblast}/bin/grimblast copy area"
+		];
 
-			", XF86AudioRaiseVolume, execr, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-			", XF86AudioLowerVolume, execr, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" ", XF86AudioMute, execr, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+		binde = [
+			"$mod, J, cyclenext,"
+			"$mod, K, cyclenext, prev"
+
+			"$mod, H, splitratio, -0.02"
+			"$mod, L, splitratio, +0.02"
+		];
+
+		bindl = [
+			", XF86AudioMute, execr, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
 			", XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc prev"
 			", XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc next"
 			", XF86AudioStop, execr, ${pkgs.mpc-cli}/bin/mpc stop"
 			", XF86AudioPlay, execr, ${pkgs.mpc-cli}/bin/mpc play"
+		];
+
+		bindel = [
+			", XF86AudioRaiseVolume, execr, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+			", XF86AudioLowerVolume, execr, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
 		];
 
 		general = {
