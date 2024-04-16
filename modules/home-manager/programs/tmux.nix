@@ -49,11 +49,16 @@
 				set -g pane-active-border-style 'fg=#${colorscheme.palette.base0C}'
 
 				set -g status-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}'
+
+				set -g status-left-length 80
 				set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
-				set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #H "
+
+				set -g status-right-length 80
+				set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #{user}@#H "
 
 				set -g window-status-current-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
 				set -g window-status-format "#[fg=#${colorscheme.palette.base00},bg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=${bell "#${colorscheme.palette.base08}#,bold" "#${colorscheme.palette.base03}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
+
 				set -g window-status-separator ${"''"}
 				set -g window-status-bell-style ${"''"}
 
