@@ -138,6 +138,7 @@
 		go.enable = true;
 		gpg.enable = true;
 		htop.enable = true;
+		hyprlock.enable = true;
 		imv.enable = true;
 		lf.enable = true;
 		librewolf.enable = true;
