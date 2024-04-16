@@ -1,6 +1,1 @@
-{
-	xdg.configFile."bc/bcrc" = {
-		enable = true;
-		source = ./bcrc;
-	};
-}
+{ xdg.configFile."bc/bcrc".source = ./bcrc; }
