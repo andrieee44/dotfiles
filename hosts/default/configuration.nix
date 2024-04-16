@@ -135,7 +135,7 @@
 
 		pam = {
 			services = {
-				swaylock.gnupg.enable = true;
+				hyprlock = {};
 
 				login.gnupg = {
 					enable = true;
