@@ -11,16 +11,11 @@
 		exec-once = [
 			(let
 				swww = "${pkgs.swww}/bin";
-
-				img = name:
-					builtins.elemAt (builtins.filter (file:
-						lib.hasSuffix name file
-					) (lib.filesystem.listFilesRecursive ./../custom/wallpapers/${colorscheme.slug})) 0;
 			in pkgs.writers.writeDash "swww.sh" ''
 				set -eu
 
 				${swww}/swww-daemon &
-				${swww}/swww img -t grow --transition-pos bottom-left "${img "home"}"
+				${swww}/swww img -t grow --transition-pos bottom-left "${./../custom/wallpapers/${colorscheme.slug}/home}"
 			'')
 		];
 
