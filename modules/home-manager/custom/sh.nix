@@ -10,6 +10,7 @@
 	config.sh = {
 		pathmenu = pkgs.writers.writeDash "pathmenu" ''
 			set -eu
+
 			tmp="$(${pkgs.toybox}/bin/mktemp /tmp/pathmenu.XXXXXX)"
 			exec 3> "$tmp"
 			exec 4< "$tmp"
@@ -27,6 +28,7 @@
 
 		sysmenu = pkgs.writers.writeDash "pathmenu" ''
 			set -eu
+
 			arr='
 				poweroff computer = ${pkgs.systemd}/bin/poweroff
 				reboot computer = ${pkgs.systemd}/bin/reboot

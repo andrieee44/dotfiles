@@ -1,4 +1,4 @@
-{ config, pkgs, colorscheme, ... }:
+{ config, pkgs, lib, colorscheme, ... }:
 {
 	wayland.windowManager.hyprland.settings = {
 		"$mod" = "SUPER";
@@ -7,6 +7,22 @@
 
 		monitor = [ ",preferred,auto,1" ];
 		master.mfact = 0.5;
+
+		exec-once = [
+			(let
+				swww = "${pkgs.swww}/bin";
+
+				img = name:
+					builtins.elemAt (builtins.filter (file:
+						lib.hasSuffix name file
+					) (lib.filesystem.listFilesRecursive ./../custom/wallpapers/${colorscheme.slug})) 0;
+			in pkgs.writers.writeDash "swww.sh" ''
+				set -eu
+
+				${swww}/swww-daemon &
+				${swww}/swww img -t grow --transition-pos bottom-left "${img "home"}"
+			'')
+		];
 
 		bind = [
 			"$mod, Return, execr, $terminal"
