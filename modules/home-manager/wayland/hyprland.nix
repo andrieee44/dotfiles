@@ -1,23 +1,12 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, pkgs, colorscheme, ... }:
 {
 	wayland.windowManager.hyprland.settings = {
 		"$mod" = "SUPER";
 		"$terminal" = "${pkgs.foot}/bin/footclient";
 		"$browser" = "${pkgs.librewolf}/bin/librewolf";
-
+		exec-once = [ "${pkgs.mpvpaper}/bin/mpvpaper -o 'no-audio loop' '*' '${./../custom/wallpapers/${colorscheme.slug}/home}'" ];
 		monitor = [ ",preferred,auto,1" ];
 		master.mfact = 0.5;
-
-		exec-once = [
-			(let
-				swww = "${pkgs.swww}/bin";
-			in pkgs.writers.writeDash "swww.sh" ''
-				set -eu
-
-				${swww}/swww-daemon &
-				${swww}/swww img -t grow --transition-pos bottom-left "${./../custom/wallpapers/${colorscheme.slug}/home}"
-			'')
-		];
 
 		bind = [
 			"$mod, Return, execr, $terminal"
