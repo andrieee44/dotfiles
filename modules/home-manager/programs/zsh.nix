@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, lib, colorscheme, ... }:
 {
 	programs.zsh = {
 		autosuggestion.enable = true;
