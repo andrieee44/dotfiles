@@ -1,4 +1,4 @@
-{ config, pkgs, colorscheme, ... }:
+{ config, pkgs, lib, colorscheme, ... }:
 {
 	wayland.windowManager.hyprland.settings = {
 		"$mod" = "SUPER";
@@ -97,4 +97,8 @@
 			animate_manual_resizes = true;
 		};
 	};
+
+	programs.zsh.profileExtra = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+		[ "$XDG_SESSION_TYPE" = "tty" ] && exec ${pkgs.hyprland}/bin/Hyprland
+	'';
 }
