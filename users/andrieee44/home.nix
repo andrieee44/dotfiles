@@ -7,7 +7,7 @@
 		flavor = "gmail.com";
 		primary = true;
 		notmuch.enable = config.programs.notmuch.enable;
-		maildir.path = config.accounts.email.accounts."${config.home.username}".address;
+		maildir.path = "andrieee44@gmail.com";
 
 		gpg = {
 			key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
@@ -40,12 +40,16 @@
 		'';
 	};
 
-	programs.gpg.publicKeys = [
-		{
-			trust = 5;
-			source = ./public.key;
-		}
-	];
+	programs = {
+		git.userEmail = "andrieee44@gmail.com";
+
+		gpg.publicKeys = [
+			{
+				trust = 5;
+				source = ./public.key;
+			}
+		];
+	};
 
 	xdg.configFile.pam-gnupg = {
 		enable = config.services.gpg-agent.enable;
