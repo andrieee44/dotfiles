@@ -1,32 +1,27 @@
 { config, pkgs, ... }:
 {
-	accounts.email.accounts."andrieee44@gmail.com" = {
-		realName = "andrieee44";
-		address = "andrieee44@gmail.com";
-		passwordCommand = "${pkgs.pass}/bin/pass googleAppPasswords/neomutt";
-		flavor = "gmail.com";
-		primary = true;
-		notmuch.enable = config.programs.notmuch.enable;
-		maildir.path = "andrieee44@gmail.com";
+	accounts.email = {
+		maildirBasePath = "${config.xdg.dataHome}/maildir";
 
-		gpg = {
-			key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
-			signByDefault = true;
-		};
+		accounts."andrieee44@gmail.com" = {
+			address = "andrieee44@gmail.com";
+			flavor = "gmail.com";
+			passwordCommand = "${pkgs.pass}/bin/pass googleAppPasswords/neomutt";
+			primary = true;
+			realName = "andrieee44";
+			userName = "andrieee44";
+			maildir.path = "andrieee44@gmail.com";
 
-		mbsync = {
-			enable = config.programs.mbsync.enable;
-			create = "both";
-		};
+			gpg = {
+				key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
+				signByDefault = true;
+			};
 
-		neomutt = {
-			enable = config.programs.neomutt.enable;
-		};
-
-		signature = {
-			delimiter = "-----";
-			showSignature = "attach";
-			text = "\"The art of programming is the art of organizing complexity.\" -Edsger Dijkstra";
+			signature = {
+				delimiter = "-----";
+				showSignature = "append";
+				text = "\"The art of programming is the art of organizing complexity.\" -Edsger Dijkstra";
+			};
 		};
 	};
 
@@ -36,6 +31,7 @@
 
 		sessionVariables.SSH_ASKPASS = pkgs.writers.writeDash "ssh_askpass" ''
 			set -eu
+
 			${pkgs.pass}/bin/pass "ssh/laptop"
 		'';
 	};

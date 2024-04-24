@@ -85,7 +85,6 @@
 	};
 
 	programs = {
-		abook.enable = true;
 		dircolors.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
@@ -99,13 +98,9 @@
 		librewolf.enable = true;
 		man.enable = true;
 		mangohud.enable = true;
-		mbsync.enable = true;
 		mpv.enable = true;
-		msmtp.enable = true;
 		ncmpcpp.enable = true;
-		neomutt.enable = true;
 		nixvim.enable = true;
-		notmuch.enable = true;
 		obs-studio.enable = true;
 		password-store.enable = true;
 		ssh.enable = true;
