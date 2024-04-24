@@ -1,12 +1,27 @@
 { config, pkgs, ... }:
 {
-	accounts.email.accounts."${config.home.username}" = {
-		realName = config.home.username;
+	accounts.email.accounts."andrieee44@gmail.com" = {
+		realName = "andrieee44";
 		address = "andrieee44@gmail.com";
 		passwordCommand = "${pkgs.pass}/bin/pass googleAppPasswords/neomutt";
 		flavor = "gmail.com";
 		primary = true;
-		gpg.key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
+		notmuch.enable = config.programs.notmuch.enable;
+		maildir.path = config.accounts.email.accounts."${config.home.username}".address;
+
+		gpg = {
+			key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
+			signByDefault = true;
+		};
+
+		mbsync = {
+			enable = config.programs.mbsync.enable;
+			create = "both";
+		};
+
+		neomutt = {
+			enable = config.programs.neomutt.enable;
+		};
 
 		signature = {
 			delimiter = "-----";
