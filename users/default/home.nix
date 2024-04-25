@@ -85,6 +85,7 @@
 	};
 
 	programs = {
+		aerc.enable = true;
 		dircolors.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
