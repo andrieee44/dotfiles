@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
 	services.mbsync = {
-		frequency = "*:00:00";
+		frequency = "*:0/15";
 		postExec = "${pkgs.notmuch}/bin/notmuch new";
 	};
 }
