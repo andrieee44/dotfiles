@@ -100,6 +100,7 @@
 		man.enable = true;
 		mangohud.enable = true;
 		mpv.enable = true;
+		msmtp.enable = true;
 		ncmpcpp.enable = true;
 		nixvim.enable = true;
 		obs-studio.enable = true;
