@@ -99,6 +99,7 @@
 		librewolf.enable = true;
 		man.enable = true;
 		mangohud.enable = true;
+		mbsync.enable = true;
 		mpv.enable = true;
 		msmtp.enable = true;
 		ncmpcpp.enable = true;

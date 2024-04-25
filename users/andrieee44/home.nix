@@ -17,6 +17,13 @@
 				enable = true;
 			};
 
+			mbsync = {
+				enable = true;
+				create = "maildir";
+				expunge = "maildir";
+				subFolders = "Maildir++";
+			};
+
 			gpg = {
 				key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
 				signByDefault = true;
