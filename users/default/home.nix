@@ -116,6 +116,7 @@
 
 	services = {
 		gpg-agent.enable = true;
+		mbsync.enable = true;
 		mpd.enable = true;
 	};
 
