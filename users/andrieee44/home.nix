@@ -12,9 +12,15 @@
 			userName = "andrieee44";
 			maildir.path = "andrieee44@gmail.com";
 			msmtp.enable = true;
+			notmuch.enable = true;
 
 			aerc = {
 				enable = true;
+			};
+
+			gpg = {
+				key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
+				signByDefault = true;
 			};
 
 			mbsync = {
@@ -22,11 +28,6 @@
 				create = "maildir";
 				expunge = "maildir";
 				subFolders = "Maildir++";
-			};
-
-			gpg = {
-				key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
-				signByDefault = true;
 			};
 
 			signature = {

@@ -104,6 +104,7 @@
 		msmtp.enable = true;
 		ncmpcpp.enable = true;
 		nixvim.enable = true;
+		notmuch.enable = true;
 		obs-studio.enable = true;
 		password-store.enable = true;
 		ssh.enable = true;
