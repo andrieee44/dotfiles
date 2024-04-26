@@ -1,4 +1,7 @@
 { config, ... }:
 {
-	programs.git.userName = config.home.username;
+	programs.git = {
+		userName = config.home.username;
+		extraConfig.color.pager = false;
+	};
 }

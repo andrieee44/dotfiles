@@ -1,5 +1,7 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
+	home.sessionVariables.PAGER = lib.optionalString config.programs.nixvim.enable "nvim -R";
+
 	programs.nixvim = {
 		defaultEditor = true;
 		globals.mapleader = " ";
