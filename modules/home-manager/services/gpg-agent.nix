@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
 	services.gpg-agent = {
-		defaultCacheTtl = 0;
+		defaultCacheTtl = 34560000;
 		extraConfig = "allow-preset-passphrase";
 		pinentryPackage = pkgs.pinentry-tty;
 	};
