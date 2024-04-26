@@ -322,18 +322,4 @@
 			};
 		};
 	};
-
-	xdg = {
-		mimeApps.defaultApplications."text/plain" = [ "nvim.desktop" ];
-
-		dataFile."applications/nvim.desktop" = {
-			enable = config.programs.nixvim.enable;
-
-			text = ''
-[Desktop Entry]
-Type = Application
-Name = Text Editor
-Exec = ${pkgs.foot}/bin/foot -e nvim %u'';
-		};
-	};
 }
