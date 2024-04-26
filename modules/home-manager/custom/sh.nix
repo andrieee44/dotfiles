@@ -26,7 +26,7 @@
 			exec 3>& -
 		'';
 
-		sysmenu = pkgs.writers.writeDash "pathmenu" ''
+		sysmenu = pkgs.writers.writeDash "sysmenu" ''
 			set -eu
 
 			arr='
