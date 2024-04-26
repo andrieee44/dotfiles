@@ -1,6 +1,9 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
-	home.sessionVariables.PAGER = lib.optionalString config.programs.nixvim.enable "nvim -R";
+	home = lib.mkIf config.programs.nixvim.enable {
+		sessionVariables.PAGER = "nvim -c ':set nomodifiable'";
+		sessionVariables.MANPAGER = "nvim +Man!";
+	};
 
 	programs.nixvim = {
 		defaultEditor = true;
@@ -22,8 +25,8 @@
 
 				callback.__raw = ''
 					function()
-						vim.opt.colorcolumn = '75'
-						vim.opt.textwidth = 75
+						vim.opt.colorcolumn = '72'
+						vim.opt.textwidth = 72
 						vim.opt.spell = true
 						vim.opt.spelllang = 'en'
 					end

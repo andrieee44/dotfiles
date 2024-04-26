@@ -46,7 +46,7 @@
 			diff = "diff --color=auto";
 			grep = "grep --color=auto";
 			ip = "ip -color=auto";
-			less = "\${PAGER}";
+			less = config.home.sessionVariables.PAGER;
 			ls = "LC_ALL=C ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
 			mkdir = "mkdir -pv";
 			mv = "mv -iv";
