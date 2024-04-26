@@ -3,7 +3,9 @@
 	accounts.email = {
 		maildirBasePath = "${config.xdg.dataHome}/maildir";
 
-		accounts."andrieee44@gmail.com" = {
+		accounts."andrieee44@gmail.com" = let
+			signatureText = "-- \n\"The art of programming is the art of organizing complexity.\" -Edsger Dijkstra";
+		in {
 			address = "andrieee44@gmail.com";
 			flavor = "gmail.com";
 			passwordCommand = "${pkgs.pass}/bin/pass googleAppPasswords/neomutt";
@@ -12,9 +14,13 @@
 			userName = "andrieee44";
 			maildir.path = "andrieee44@gmail.com";
 
-			aerc.enable = true;
 			msmtp.enable = true;
 			notmuch.enable = true;
+
+			aerc = {
+				enable = true;
+				extraAccounts.signature-file = builtins.toFile "signature.txt" signatureText;
+			};
 
 			gpg = {
 				key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
@@ -29,9 +35,8 @@
 			};
 
 			signature = {
-				delimiter = "-----";
+				text = signatureText;
 				showSignature = "append";
-				text = "\"The art of programming is the art of organizing complexity.\" -Edsger Dijkstra";
 			};
 		};
 	};
