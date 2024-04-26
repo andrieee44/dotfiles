@@ -1,6 +1,6 @@
 {
 	programs.aerc.extraConfig = {
 		general.unsafe-accounts-conf = true;
-		filters."text/plain" = "cat";
+		filters."text/plain" = "colorize";
 	};
 }
