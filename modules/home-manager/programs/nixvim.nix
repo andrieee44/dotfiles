@@ -1,7 +1,7 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
 	home = lib.mkIf config.programs.nixvim.enable {
-		sessionVariables.PAGER = "nvim -c ':set nomodifiable'";
+		sessionVariables.PAGER = "nvim -c ':lua vim.bo.modifiable = true'";
 		sessionVariables.MANPAGER = "nvim +Man!";
 	};
 
