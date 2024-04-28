@@ -51,7 +51,7 @@
 									bg = '#${colorscheme.palette.base03}',
 								})
 
-								vim.api.nvim_set_hl(0, 'Comment', {
+								vim.api.nvim_set_hl(0, '@comment', {
 									ctermfg = 'blue',
 									fg = '#${colorscheme.palette.base0D}',
 									italic = true,
