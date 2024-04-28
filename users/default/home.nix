@@ -12,6 +12,7 @@
 		packages = with pkgs; [
 			bc
 			dolphin-emu
+			eww
 			ffmpeg
 			glxinfo
 			go-mtpfs
@@ -87,7 +88,7 @@
 	programs = {
 		aerc.enable = true;
 		dircolors.enable = true;
-		eww.enable = true;
+		#eww.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
 		git.enable = true;
