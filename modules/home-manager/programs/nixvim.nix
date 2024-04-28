@@ -1,7 +1,7 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
 	home.sessionVariables = lib.mkIf config.programs.nixvim.enable {
-		PAGER = "nvim -c ':lua vim.bo.modifiable = false; vim.opt_local.filetype = \"'\"terminal\"'\"; vim.wo.concealcursor = \"'\"ncv\"'\"'";
+		PAGER = "nvim '+lua vim.bo.modifiable = false' '+lua vim.opt_local.filetype = \"'\"terminal\"'\"' '+lua vim.wo.concealcursor = \"'\"ncv\"'\"'";
 		MANPAGER = "nvim +Man!";
 	};
 
