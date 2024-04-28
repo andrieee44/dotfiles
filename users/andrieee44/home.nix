@@ -48,7 +48,7 @@
 		sessionVariables.SSH_ASKPASS = pkgs.writers.writeDash "ssh_askpass" ''
 			set -eu
 
-			${pkgs.pass}/bin/pass "ssh/laptop"
+			${pkgs.pass}/bin/pass "key/ssh"
 		'';
 	};
 
