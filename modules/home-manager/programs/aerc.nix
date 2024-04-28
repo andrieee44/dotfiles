@@ -1,10 +1,14 @@
-{ config, colorscheme, ... }:
+{ config, pkgs, lib, colorscheme, ... }:
 {
 	programs.aerc = {
 		extraConfig = {
 			filters."text/plain" = "colorize";
-			general.unsafe-accounts-conf = true;
 			viewer.pager = config.home.sessionVariables.PAGER;
+
+			general = {
+				term = "linux";
+				unsafe-accounts-conf = true;
+			};
 
 			ui = {
 				border-char-vertical = "│";
@@ -116,5 +120,20 @@
 			statusline_success.fg = #${colorscheme.palette.base00}
 			statusline_success.bg = #${colorscheme.palette.base0B}
 		'';
+	};
+
+	home = lib.mkIf config.programs.aerc.enable {
+		file."${config.xdg.configHome}/aerc/aerc.conf".target = "${config.xdg.configHome}/aerc/base.conf";
+
+		shellAliases.aerc = "${pkgs.writers.writeDash "aercConf" ''
+			set -eu
+
+			${pkgs.busybox}/bin/awk -v term="${"\${TERM}"}" '{
+				gsub("term = .*", "term = " term)
+				print($0)
+			}' '${config.home.homeDirectory}/${config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target}' > '${config.xdg.configHome}/aerc/aerc.conf'
+
+			${pkgs.aerc}/bin/aerc
+		''}";
 	};
 }
