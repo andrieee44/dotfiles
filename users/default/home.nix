@@ -87,6 +87,7 @@
 	programs = {
 		aerc.enable = true;
 		dircolors.enable = true;
+		eww.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
 		git.enable = true;
