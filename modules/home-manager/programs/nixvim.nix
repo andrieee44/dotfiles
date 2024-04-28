@@ -1,8 +1,8 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
-	home = lib.mkIf config.programs.nixvim.enable {
-		sessionVariables.PAGER = "nvim -c ':lua vim.bo.modifiable = true'";
-		sessionVariables.MANPAGER = "nvim +Man!";
+	home.sessionVariables = lib.mkIf config.programs.nixvim.enable {
+		PAGER = "nvim -c ':lua vim.bo.modifiable = false; vim.opt_local.filetype = \"'\"terminal\"'\"; vim.wo.concealcursor = \"'\"ncv\"'\"'";
+		MANPAGER = "nvim +Man!";
 	};
 
 	programs.nixvim = {
@@ -135,6 +135,11 @@
 		};
 
 		extraPlugins = with pkgs.vimPlugins; [
+			{
+				plugin = nvim-terminal-lua;
+				config = ''lua require('terminal').setup()'';
+			}
+
 			{
 				plugin = nvim-web-devicons;
 				config = ''lua require('nvim-web-devicons').setup()'';
