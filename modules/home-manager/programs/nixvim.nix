@@ -56,6 +56,8 @@
 									fg = '#${colorscheme.palette.base0D}',
 									italic = true,
 								})
+
+								vim.api.nvim_set_hl(0, 'Comment', { link = '@comment' })
 							end,
 						}
 
