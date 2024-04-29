@@ -53,6 +53,8 @@
 			PromptForDownloadLocation = true;
 			SanitizeOnShutdown = true;
 			SearchBar = "unified";
+			SearchSuggestEnabled = false;
+			StartDownloadsInTempDirectory = false;
 
 			DisableSecurityBypass = {
 				InvalidCertificate = true;
@@ -133,6 +135,9 @@
 			};
 
 			SearchEngines = {
+				Default = "SearXNG";
+				PreventInstalls = true;
+
 				Add = [
 					{
 						Alias = "searxng";
@@ -145,8 +150,16 @@
 						URLTemplate = "https://search.bus-hit.me/search?q={searchTerms}";
 					}
 				];
+			};
 
-				Default = "SearXNG";
+			UserMessaging = {
+				ExtensionRecommendations = false;
+				FeatureRecommendations = false;
+				Locked = true;
+				MoreFromMozilla = false;
+				SkipOnboarding = true;
+				UrlbarInterventions = false;
+				WhatsNew = false;
 			};
 		};
 	};
