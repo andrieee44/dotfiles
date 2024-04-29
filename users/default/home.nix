@@ -89,6 +89,7 @@
 		aerc.enable = true;
 		dircolors.enable = true;
 		#eww.enable = true;
+		firefox.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
 		git.enable = true;
