@@ -39,6 +39,7 @@
 			cmd="$(echo "$arr" | ${pkgs.busybox}/bin/awk -F '=' '
 				NF == 2 {
 					gsub("^[[:space:]]*", "", $1)
+					gsub("[[:space:]]*$", "", $1)
 					print($1)
 				}
 			' | ${pkgs.fzf}/bin/fzf-tmux --header "System action:" -p 45%,60% --border=sharp)"
