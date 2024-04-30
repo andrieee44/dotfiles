@@ -55,6 +55,7 @@
 			SearchBar = "unified";
 			SearchSuggestEnabled = false;
 			StartDownloadsInTempDirectory = false;
+			UseSystemPrintDialog = true;
 
 			DisableSecurityBypass = {
 				InvalidCertificate = true;
@@ -132,6 +133,38 @@
 			PopupBlocking = {
 				Default = true;
 				Locked = true;
+			};
+
+			Preferences = {
+				"security.disable_button.openCertManager" = {
+					Status = "locked";
+					Value = true;
+				};
+
+				"security.disable_button.openDeviceManager" = {
+					Status = "locked";
+					Value = true;
+				};
+
+				"security.insecure_connection_text.enabled" = {
+					Status = "locked";
+					Value = true;
+				};
+
+				"security.insecure_connection_text.pbmode.enabled" = {
+					Status = "locked";
+					Value = true;
+				};
+
+				"security.OCSP.require" = {
+					Status = "locked";
+					Value = true;
+				};
+
+				"security.ssl.require_safe_negotiation" = {
+					Status = "locked";
+					Value = true;
+				};
 			};
 
 			SearchEngines = {
