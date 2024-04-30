@@ -8,7 +8,7 @@
 			AutofillAddressEnabled = false;
 			AutofillCreditCardEnabled = false;
 			BlockAboutAddons = true;
-			BlockAboutConfig = true;
+			BlockAboutConfig = false;
 			BlockAboutProfiles = true;
 			BlockAboutSupport = false;
 			CaptivePortal = true;
