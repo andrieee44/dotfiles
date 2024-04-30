@@ -4,9 +4,14 @@
 		"$mod" = "SUPER";
 		"$terminal" = "${pkgs.foot}/bin/footclient";
 		"$browser" = "${pkgs.librewolf}/bin/librewolf";
-		exec-once = [ "${pkgs.mpvpaper}/bin/mpvpaper -o 'no-audio loop' '*' '${./../custom/wallpapers/${colorscheme.slug}/home}'" ];
+
 		monitor = [ ",preferred,auto,1" ];
 		master.mfact = 0.5;
+
+		exec-once = [
+			"${pkgs.mpvpaper}/bin/mpvpaper -o 'no-audio loop' '*' '${./../custom/wallpapers/${colorscheme.slug}/home}'"
+			"${pkgs.hypridle}/bin/hypridle"
+		];
 
 		bind = [
 			"$mod, Return, execr, $terminal"

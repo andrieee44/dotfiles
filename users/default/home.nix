@@ -120,6 +120,7 @@
 
 	services = {
 		gpg-agent.enable = true;
+		hypridle.enable = true;
 		mbsync.enable = true;
 		mpd.enable = true;
 	};
