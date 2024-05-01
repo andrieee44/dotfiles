@@ -104,6 +104,8 @@
 	};
 
 	programs.zsh.profileExtra = lib.mkIf config.wayland.windowManager.hyprland.enable ''
-		[ "$XDG_SESSION_TYPE" = "tty" ] && exec ${pkgs.hyprland}/bin/Hyprland
+		[ "$SHLVL" -eq 1 ] && {
+			${pkgs.systemd}/bin/systemctl --user status hyprland-session.target > /dev/null 2>& 1 && export XDG_SESSION_TYPE="tty" || exec ${pkgs.hyprland}/bin/Hyprland
+		}
 	'';
 }
