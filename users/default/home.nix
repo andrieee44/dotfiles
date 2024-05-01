@@ -88,6 +88,7 @@
 	programs = {
 		aerc.enable = true;
 		dircolors.enable = true;
+		direnv.enable = true;
 		#eww.enable = true;
 		firefox.enable = true;
 		foot.enable = true;
