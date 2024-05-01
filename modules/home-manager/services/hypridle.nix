@@ -2,7 +2,7 @@
 {
 	services.hypridle.settings = ''
 		general {
-			lock_cmd = ${pkgs.toybox}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock
+			lock_cmd = ${pkgs.toybox}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --immediate
 			before_sleep_cmd = ${pkgs.systemd}/bin/loginctl lock-session
 			after_sleep_cmd = ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
 		}
