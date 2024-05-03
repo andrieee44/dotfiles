@@ -1,7 +1,7 @@
 { config, pkgs, inputs, colorscheme, stateVersion, ... }:
 {
-	nixpkgs.config.allowUnfree = true;
 	fonts.fontconfig.enable = true;
+	nixpkgs.config.allowUnfree = true;
 	wayland.windowManager.hyprland.enable = true;
 
 	home = {

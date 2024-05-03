@@ -7,7 +7,7 @@
 			AppAutoUpdate = false;
 			AutofillAddressEnabled = false;
 			AutofillCreditCardEnabled = false;
-			BlockAboutAddons = true;
+			BlockAboutAddons = false;
 			BlockAboutConfig = true;
 			BlockAboutProfiles = true;
 			BlockAboutSupport = false;
@@ -40,7 +40,7 @@
 			EncryptedMediaExtensions.Locked = false;
 			ExtensionUpdate = false;
 			HardwareAcceleration = true;
-			InstallAddonsPermission.Default = false;
+			InstallAddonsPermission.Default = true;
 			LegacySameSiteCookieBehaviorEnabled = false;
 			ManualAppUpdateOnly = true;
 			NetworkPrediction = false;
@@ -358,7 +358,7 @@
 
 				"keyword.enabled" = {
 					Status = "locked";
-					Value = false;
+					Value = true;
 				};
 
 				"media.autoplay.default" = {
@@ -524,7 +524,12 @@
 		profiles.default = {
 			id = 0;
 			isDefault = true;
-			search.force = true;
+
+			extensions = with config.nur.repos.rycee.firefox-addons; [
+				darkreader
+				ublock-origin
+				vimium
+			];
 
 			settings = {
 				"app.normandy.api_url" = "";
@@ -543,6 +548,7 @@
  				"experiments.enabled" = false;
  				"experiments.manifest.uri" = "";
  				"experiments.supported" = false;
+				"extensions.autoDisableScopes" = 0;
  				"general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0 Win64; x64 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.3";
  				"privacy.donottrackheader.enabled" = true;
  				"privacy.donottrackheader.value" = 1;

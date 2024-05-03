@@ -2,6 +2,7 @@
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		nix-colors.url = "github:misterio77/nix-colors";
+		nur.url = "github:nix-community/NUR";
 
 		home-manager = {
 			url = "github:nix-community/home-manager";
@@ -44,6 +45,7 @@
 					./users/default/home.nix
 					./users/andrieee44/home.nix
 					inputs.nixvim.homeManagerModules.nixvim
+					inputs.nur.hmModules.nur
 				] ++ modules ./modules/home-manager;
 			};
 		};
