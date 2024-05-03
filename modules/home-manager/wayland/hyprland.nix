@@ -3,7 +3,7 @@
 	wayland.windowManager.hyprland.settings = {
 		"$mod" = "SUPER";
 		"$terminal" = "${pkgs.foot}/bin/footclient";
-		"$browser" = "${pkgs.librewolf}/bin/librewolf";
+		"$browser" = "firefox-esr";
 
 		monitor = [ ",preferred,auto,1" ];
 		master.mfact = 0.5;

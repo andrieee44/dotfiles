@@ -100,7 +100,6 @@
 		hyprlock.enable = true;
 		imv.enable = true;
 		lf.enable = true;
-		librewolf.enable = true;
 		man.enable = true;
 		mangohud.enable = true;
 		mbsync.enable = true;
