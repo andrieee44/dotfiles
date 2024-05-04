@@ -497,16 +497,17 @@
 				PreventInstalls = true;
 
 				Add = [
-					{
+					(let
+						url = "https://search.bus-hit.me";
+						preferences = builtins.readFile ./preferences.txt;
+					in {
 						Alias = "searxng";
 						Description = "SearXNG - a privacy-respecting, open metasearch engine";
-						IconURL = "https://search.bus-hit.me/search?q={searchTerms}";
+						IconURL = "${url}/favicon.ico";
 						Method = "POST";
-						PostData = "q={searchTerms}";
 						Name = "SearXNG";
-						SuggestURLTemplate = "https://search.bus-hit.me/suggest?q={searchTerms}";
-						URLTemplate = "https://search.bus-hit.me/search?q={searchTerms}";
-					}
+						URLTemplate = "${url}/search?${preferences}&q={searchTerms}";
+					})
 				];
 			};
 
