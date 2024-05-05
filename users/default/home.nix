@@ -110,6 +110,7 @@
 		notmuch.enable = true;
 		obs-studio.enable = true;
 		password-store.enable = true;
+		spotdl.enable = true;
 		ssh.enable = true;
 		starship.enable = true;
 		texlive.enable = true;
