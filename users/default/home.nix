@@ -59,6 +59,7 @@
 		sessionVariables = {
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
+			PAGER = "${pkgs.less}/bin/less";
 			SSH_ASKPASS_REQUIRE = "force";
 			W3M_DIR = "${config.xdg.dataHome}/w3m";
 		};
