@@ -8,7 +8,7 @@
 			AutofillAddressEnabled = false;
 			AutofillCreditCardEnabled = false;
 			BlockAboutAddons = false;
-			BlockAboutConfig = false;
+			BlockAboutConfig = true;
 			BlockAboutProfiles = true;
 			BlockAboutSupport = false;
 			CaptivePortal = true;
@@ -155,6 +155,7 @@
 				"browser.startup.homepage_override.mstone".Value = "ignore";
 				"browser.tabs.crashReporting.sendReport".Value = false;
 				"browser.urlbar.groupLabels.enabled".Value = false;
+				"browser.urlbar.maxRichResults".Value = 0;
 				"browser.urlbar.quicksuggest.enabled".Value = false;
 				"browser.urlbar.speculativeConnect.enabled".Value = false;
 				"browser.urlbar.trimURLs".Value = false;
