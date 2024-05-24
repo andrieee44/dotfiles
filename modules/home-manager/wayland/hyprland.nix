@@ -63,7 +63,7 @@
 			", XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc prev"
 			", XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc next"
 			", XF86AudioStop, execr, ${pkgs.mpc-cli}/bin/mpc stop"
-			", XF86AudioPlay, execr, ${pkgs.mpc-cli}/bin/mpc play"
+			", XF86AudioPlay, execr, ${pkgs.mpc-cli}/bin/mpc toggle"
 		];
 
 		bindel = [
