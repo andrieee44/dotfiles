@@ -79,11 +79,6 @@
 			telephone = locale;
 			time = locale;
 		};
-
-		pointerCursor = {
-			package = pkgs.vanilla-dmz;
-			name = "Vanilla-DMZ";
-		};
 	};
 
 	programs = {
@@ -156,17 +151,6 @@
 	gtk = {
 		enable = true;
 		gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-
-		font = {
-			package = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
-			name = "SauceCodePro Nerd Font Mono";
-			size = 14;
-		};
-
-		theme = {
-			name = colorscheme.slug;
-			package = (inputs.nix-colors.lib.contrib { inherit pkgs; }).gtkThemeFromScheme { scheme = colorscheme; };
-		};
 	};
 
 	qt = {

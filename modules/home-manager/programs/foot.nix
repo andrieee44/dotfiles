@@ -4,10 +4,7 @@
 		server.enable = true;
 
 		settings = {
-			main.font = "${config.gtk.font.name}:size=${builtins.toString config.gtk.font.size}";
-
 			colors = {
-				alpha = 0.8;
 				foreground = colorscheme.palette.base05;
 				background = colorscheme.palette.base00;
 				regular0 = colorscheme.palette.base00;

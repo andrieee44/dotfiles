@@ -74,8 +74,6 @@
 		general = {
 			gaps_out = 20;
 			border_size = 5;
-			"col.inactive_border" = "rgb(${colorscheme.palette.base01})";
-			"col.active_border" = "rgb(${colorscheme.palette.base0D})";
 			cursor_inactive_timeout = 5;
 			layout = "master";
 			no_cursor_warps = true;
