@@ -74,9 +74,12 @@
 		general = {
 			gaps_out = 20;
 			border_size = 5;
-			cursor_inactive_timeout = 5;
 			layout = "master";
-			no_cursor_warps = true;
+		};
+
+		cursor = {
+			inactive_timeout = 5;
+			no_warps = true;
 		};
 
 		decoration = {
