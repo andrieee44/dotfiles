@@ -1,12 +1,5 @@
 { config, pkgs, lib, colorscheme, ... }:
 {
-	/*
-		home.sessionVariables = lib.mkIf config.programs.nixvim.enable {
-			PAGER = "nvim '+lua vim.bo.modifiable = false' '+lua vim.opt_local.filetype = \"'\"terminal\"'\"' '+lua vim.wo.concealcursor = \"'\"ncv\"'\"'";
-			MANPAGER = "nvim +Man!";
-		};
-	*/
-
 	programs.nixvim = {
 		defaultEditor = true;
 		globals.mapleader = " ";
@@ -34,70 +27,11 @@
 					end
 				'';
 			}
-
-			{
-				event = [ "VimEnter" ];
-
-				callback.__raw = ''
-					function()
-						local customColors = {
-							nord = function()
-								vim.api.nvim_set_hl(0, 'LineNr', {
-									ctermfg = 'cyan',
-									fg = '#${colorscheme.palette.base0C}',
-								})
-
-								vim.api.nvim_set_hl(0, 'Visual', {
-									ctermfg = 'darkgray',
-									ctermbg = 'white',
-									bg = '#${colorscheme.palette.base03}',
-								})
-
-								vim.api.nvim_set_hl(0, '@comment', {
-									ctermfg = 'blue',
-									fg = '#${colorscheme.palette.base0D}',
-									italic = true,
-								})
-
-								vim.api.nvim_set_hl(0, 'Comment', { link = '@comment' })
-							end,
-						}
-
-						if customColors[vim.g.colors_name] then
-							customColors[vim.g.colors_name]()
-						end
-					end
-				'';
-			}
 		];
 
 		clipboard = {
 			providers.wl-copy.enable = true;
 			register = "unnamedplus";
-		};
-
-		colorschemes = lib.attrsets.recursiveUpdate {
-			nord.settings.disable_background = true;
-		} { ${colorscheme.slug}.enable = true; };
-
-		highlightOverride = {
-			DiagnosticSignError = {
-				ctermfg = "red";
-				fg = "#${colorscheme.palette.base08}";
-				bold = true;
-			};
-
-			DiagnosticVirtualTextError.link = "DiagnosticSignError";
-			DiagnosticFloatingError.link = "DiagnosticSignError";
-
-			DiagnosticSignWarn = {
-				ctermfg = "yellow";
-				fg = "#${colorscheme.palette.base0A}";
-				bold = true;
-			};
-
-			DiagnosticVirtualTextWarn.link = "DiagnosticSignWarn";
-			DiagnosticFloatingWarn.link = "DiagnosticSignWarn";
 		};
 
 		keymaps = [
