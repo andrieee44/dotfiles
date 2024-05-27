@@ -4,7 +4,6 @@
 		image = ./../home-manager/custom/wallpapers/nord/lock;
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
 
-		/*
 		fonts = let
 			monospace = {
 				package = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
@@ -29,6 +28,14 @@
 				terminal = size;
 			};
 		};
-		*/
+
+		opacity = let
+			opacity = 0.9;
+		in {
+			applications = opacity;
+			desktop = opacity;
+			popups = 1.0;
+			terminal = opacity;
+		};
 	};
 }

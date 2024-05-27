@@ -22,6 +22,7 @@
 		nixvim.transparent_bg = {
 			main = true;
 			sign_column = true;
+			lineNumbers = true;
 		};
 	};
 }

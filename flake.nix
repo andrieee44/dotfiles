@@ -35,9 +35,8 @@
 				modules = [
 					./hosts/default/configuration.nix
 					./hosts/lenovoIdeapadSlim3/configuration.nix
-					./modules/stylix/stylix.nix
 					inputs.stylix.nixosModules.stylix
-				] ++ modules ./modules/nixos;
+				] ++ modules ./modules/nixos ++ modules ./modules/stylix;
 			};
 
 			homeConfigurations.andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {
@@ -47,11 +46,10 @@
 				modules = [
 					./users/default/home.nix
 					./users/andrieee44/home.nix
-					./modules/stylix/stylix.nix
 					inputs.nixvim.homeManagerModules.nixvim
 					inputs.nur.hmModules.nur
 					inputs.stylix.homeManagerModules.stylix
-				] ++ modules ./modules/home-manager;
+				] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
 			};
 		};
 }
