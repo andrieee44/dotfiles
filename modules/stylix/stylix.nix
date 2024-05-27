@@ -2,8 +2,7 @@
 {
 	stylix = {
 		image = ./../home-manager/custom/wallpapers/nord/lock;
-		base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-		polarity = "dark";
+		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
 
 		/*
 		fonts = let

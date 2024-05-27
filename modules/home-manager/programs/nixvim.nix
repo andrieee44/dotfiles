@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, pkgs, lib, ... }:
 {
 	programs.nixvim = {
 		defaultEditor = true;
@@ -100,7 +100,9 @@
 			})
 		];
 
-		extraConfigLua = ''
+		extraConfigLua = let
+			colors = config.lib.stylix.colors.withHashtag;
+		in ''
 			vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
 
 			local signs = {
@@ -145,22 +147,22 @@
 
 			require('oishiline').setup({
 				colors = {
-					black = '#${colorscheme.palette.base00}',
-					red = '#${colorscheme.palette.base08}',
-					green = '#${colorscheme.palette.base0B}',
-					yellow = '#${colorscheme.palette.base0A}',
-					blue = '#${colorscheme.palette.base0D}',
-					magenta = '#${colorscheme.palette.base0E}',
-					cyan = '#${colorscheme.palette.base0C}',
-					white = '#${colorscheme.palette.base05}',
-					brightBlack = '#${colorscheme.palette.base03}',
-					brightRed = '#${colorscheme.palette.base08}',
-					brightGreen = '#${colorscheme.palette.base0B}',
-					brightYellow = '#${colorscheme.palette.base0A}',
-					brightBlue = '#${colorscheme.palette.base0D}',
-					brightMagenta = '#${colorscheme.palette.base0E}',
-					brightCyan = '#${colorscheme.palette.base0C}',
-					brightWhite = '#${colorscheme.palette.base07}',
+					black = '${colors.base00}',
+					red = '${colors.base08}',
+					green = '${colors.base0B}',
+					yellow = '${colors.base0A}',
+					blue = '${colors.base0D}',
+					magenta = '${colors.base0E}',
+					cyan = '${colors.base0C}',
+					white = '${colors.base05}',
+					brightBlack = '${colors.base03}',
+					brightRed = '${colors.base08}',
+					brightGreen = '${colors.base0B}',
+					brightYellow = '${colors.base0A}',
+					brightBlue = '${colors.base0D}',
+					brightMagenta = '${colors.base0E}',
+					brightCyan = '${colors.base0C}',
+					brightWhite = '${colors.base07}',
 				},
 			})
 		'';
