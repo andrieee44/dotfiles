@@ -1,6 +1,6 @@
-{ ... }:
+{ lib, ... }:
 {
-	programs.fzf.defaultOptions = [
+	programs.fzf.defaultOptions = lib.mkForce [
 		"--exact"
 		"--reverse"
 		"--info inline"
