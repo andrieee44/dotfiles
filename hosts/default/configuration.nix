@@ -1,4 +1,4 @@
-{ config, pkgs, colorscheme, stateVersion, ... }:
+{ config, pkgs, stateVersion, ... }:
 {
 	time.timeZone = "Asia/Manila";
 	system.stateVersion = stateVersion;
