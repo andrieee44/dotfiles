@@ -94,8 +94,8 @@
 				src = pkgs.fetchFromGitHub {
 					owner = "andrieee44";
 					repo = "oishiline";
-					rev = "a3c138c100584ac570397bc1e4b7859a75826c12";
-					hash = "sha256-2hFi7Rxo7c7qeZ7Z0l5TXFFFnpIQ39bRJq2ML8PQiNI=";
+					rev = "5326d9addcfac6e23b464b3cb8652ba2e68178a5";
+					hash = "sha256-nIKX7mSOAyXuJUD8PHxFBO4cmUIpUtWJDWtk1ChOgeM=";
 				};
 			})
 		];
@@ -147,22 +147,17 @@
 
 			require('oishiline').setup({
 				colors = {
-					black = '${colors.base00}',
-					red = '${colors.base08}',
-					green = '${colors.base0B}',
-					yellow = '${colors.base0A}',
-					blue = '${colors.base0D}',
-					magenta = '${colors.base0E}',
-					cyan = '${colors.base0C}',
-					white = '${colors.base05}',
-					brightBlack = '${colors.base03}',
-					brightRed = '${colors.base08}',
-					brightGreen = '${colors.base0B}',
-					brightYellow = '${colors.base0A}',
-					brightBlue = '${colors.base0D}',
-					brightMagenta = '${colors.base0E}',
-					brightCyan = '${colors.base0C}',
-					brightWhite = '${colors.base07}',
+					bg = '${colors.base01}',
+					altBg = '${colors.base02}',
+					darkFg = '${colors.base03}',
+					fg = '${colors.base04}',
+					lightFg = '${colors.base05}',
+					normal = '${colors.base0D}',
+					insert = '${colors.base0B}',
+					visual = '${colors.base0E}',
+					replace = '${colors.base09}',
+					command = '${colors.base0D}',
+					terminal = '${colors.base0B}',
 				},
 			})
 		'';
