@@ -23,6 +23,7 @@
 			main = true;
 			sign_column = true;
 			lineNumbers = true;
+			otherWindows = true;
 		};
 	};
 }
