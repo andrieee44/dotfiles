@@ -65,23 +65,18 @@ in {
 			guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
 			gui = t: f: "#{?${guiBool},${t},${f}}";
 			bell = t: f: "#{?window_bell_flag,${t},${f}}";
-			normalFg = gui hashColors.base05 "white";
-			normalBg = gui hashColors.base0D "blue";
-			bellBg = gui hashColors.base08 "red";
 		in ''
-			set -g window-status-activity-style "fg=${normalFg},bg=${hashColors.base01}"
-			set -g message-command-style 'fg=${hashColors.base06},bg=${hashColors.base02}'
-			set -g pane-border-style 'fg=${hashColors.base03}'
-			set -g pane-active-border-style "fg=${normalBg}"
-			set -g mode-style "fg=${hashColors.base01},bg=${normalFg}"
-
-			set -g status-left "#[fg=${hashColors.base01},bg=${normalBg},bold] #S #[fg=${normalBg},bg=${hashColors.base01}]${gui "" " "}"
-
-			set -g status-right "#[fg=${hashColors.base02},bg=${hashColors.base01}]${gui "" ""}#[fg=${normalFg},bg=${hashColors.base02}] ${gui "󰥔 " ""}%b %e %Y (%a) %l:%M %p #[fg=${normalBg},bg=${hashColors.base02}]${gui "" ""}#[fg=${hashColors.base01},bg=${normalBg},bold] ${gui " " ""}#{user}@#H "
-
-			set -g window-status-current-format "#[fg=${hashColors.base01},bg=${normalBg}]${gui "" ""}#[fg=${hashColors.base01},bg=${normalBg},bold] #I ${gui "" "|"} #W #[fg=${normalBg},bg=${hashColors.base01}]${gui "" " "}"
-
-			set -g window-status-format "#[fg=${hashColors.base01},bg=${bell bellBg hashColors.base02}]${gui "" ""}#[fg=${bell hashColors.base01 normalFg},bg=${bell "${bellBg}#,bold" "${hashColors.base02}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell bellBg hashColors.base02},bg=${hashColors.base01}]${gui "" " "}"
+			set -g status-style 'fg=white,bg=black'
+			set -g pane-border-style 'fg=brightblack'
+			set -g pane-active-border-style 'fg=blue'
+			set -g mode-style 'fg=black,bg=white'
+			set -g message-style 'fg=white,bg=black'
+			set -g message-command-style 'fg=white,bg=brightblack'
+			set -g clock-mode-colour 'green'
+			set -g status-left "#[fg=black,bg=blue,bold] #S #[fg=blue,bg=black]${gui "" " "}"
+			set -g status-right "#[fg=brightblack,bg=black]${gui "" ""}#[fg=white,bg=brightblack] ${gui "󰥔 " ""}%b %e %Y (%a) %l:%M %p #[fg=blue,bg=brightblack]${gui "" ""}#[fg=black,bg=blue,bold] ${gui " " ""}#{user}@#H "
+			set -g window-status-current-format "#[fg=black,bg=blue]${gui "" ""}#[fg=black,bg=blue,bold] #I ${gui "" "|"} #W #[fg=blue,bg=black]${gui "" " "}"
+			set -g window-status-format "#[fg=black,bg=${bell "red" "brightblack"}]${gui "" ""}#[fg=${bell "black" "white"},bg=${bell "red#,bold" "brightblack#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "red" "brightblack"},bg=black]${gui "" " "}"
 		'';
 
 		aerc.stylesets.default = ''
@@ -134,6 +129,7 @@ in {
 
 	stylix.targets = {
 		firefox.profileNames = [ "default" ];
+		tmux.enable = false;
 
 		nixvim.transparent_bg = {
 			main = true;
