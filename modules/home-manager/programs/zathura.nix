@@ -1,4 +1,4 @@
-{ colorscheme, ... }:
+{ ... }:
 {
 	programs.zathura = {
 		options = {

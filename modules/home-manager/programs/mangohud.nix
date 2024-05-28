@@ -1,4 +1,4 @@
-{ config, colorscheme, ... }:
+{ config, ... }:
 {
 	programs.mangohud = {
 		enableSessionWide = true;
