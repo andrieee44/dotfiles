@@ -47,6 +47,8 @@
 				set -g status on
 				set -g status-left-length 80
 				set -g status-right-length 80
+				set -g pane-border-style 'fg=${colors.base03}'
+				set -g pane-active-border-style 'fg=${colors.base0D}'
 
 				set -g status-left "#[fg=${colors.base01},bg=${colors.base0D},bold] #S #[fg=${colors.base0D},bg=${colors.base01}]${gui "" ""}"
 
