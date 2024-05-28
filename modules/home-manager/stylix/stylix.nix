@@ -5,13 +5,7 @@ let
 in {
 	programs = {
 		mpv.scriptOpts.uosc.color = "foreground=${colors.base05},foreground_text=${colors.base01},background=${colors.base02},background_text=${colors.base05},curtain=${colors.base03},success=${colors.base0B},error=${colors.base08}";
-
-		zsh.autosuggestion.highlight = ''
-			$([ "$XDG_SESSION_TYPE" = "tty" ] && \
-				printf '%s' 'fg=magenta' || \
-				printf '%s' 'fg=${hashColors.base0E}'
-			)
-		'';
+		zsh.autosuggestion.highlight = "fg=5";
 
 		fzf.colors = {
 			fg = hashColors.base04;
