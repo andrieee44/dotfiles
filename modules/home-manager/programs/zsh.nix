@@ -1,12 +1,16 @@
-{ config, lib, colorscheme, ... }:
+{ config, lib, ... }:
 {
 	programs.zsh = {
-		autosuggestion.enable = true;
 		enableCompletion = true;
 		syntaxHighlighting.enable = true;
 		autocd = false;
 		dotDir = lib.removePrefix "${config.home.homeDirectory}/" "${config.xdg.configHome}/zsh";
 		defaultKeymap = "viins";
+
+		autosuggestion = {
+			enable = true;
+			highlight = "fg=${config.lib.stylix.colors.withHashtag.base04}";
+		};
 
 		history = {
 			expireDuplicatesFirst = true;
@@ -29,7 +33,6 @@
 				zmodload zsh/complist
 
 				ZSH_AUTOSUGGEST_MANUAL_REBIND="1"
-				ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#${colorscheme.palette.base0C}"
 			''
 
 			(lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
