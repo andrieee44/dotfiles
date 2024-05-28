@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, pkgs, lib, ... }:
 {
 	programs = let
 		tmux = "${pkgs.tmux}/bin/tmux";
@@ -18,6 +18,7 @@
 				bell = t: f: "#{?window_bell_flag,${t},${f}}";
 				baseIndex = builtins.toString config.programs.tmux.baseIndex;
 				nextIndex = builtins.toString (config.programs.tmux.baseIndex + 1);
+				colors = config.lib.stylix.colors.withHashtag;
 
 				mvpane = window:
 					let
@@ -32,39 +33,32 @@
 				%if "${guiBool}"
 					set -g default-terminal tmux-256color
 					set -sa terminal-features ",${"\${TERM}"}:RGB"
-					set -g mode-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
 				%else
 					set -g default-terminal screen-16color
-					set -g mode-style 'fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base05}'
 				%endif
 
 				set -g focus-events on
 
 				set -g main-pane-width 50%
 
-				set -g message-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
-				set -g message-command-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}'
-
-				set -g pane-border-style 'fg=#${colorscheme.palette.base03}'
-				set -g pane-active-border-style 'fg=#${colorscheme.palette.base0C}'
-
-				set -g status-style 'fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base00}'
-
-				set -g status-left-length 80
-				set -g status-left "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #S #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
-
-				set -g status-right-length 80
-				set -g status-right "#[fg=#${colorscheme.palette.base03},bg=#${colorscheme.palette.base00},nobold,nounderscore,noitalics]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=#${colorscheme.palette.base03}] ${gui "󰥔" ""} %b %e %Y (%a) %l:%M %p #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base03},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] ${gui "" ""} #{user}@#H "
-
-				set -g window-status-current-format "#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base00},bg=#${colorscheme.palette.base0C},bold] #I ${gui "" "|"} #W #[fg=#${colorscheme.palette.base0C},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
-				set -g window-status-format "#[fg=#${colorscheme.palette.base00},bg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},nobold,noitalics,nounderscore]${gui "" ""}#[fg=#${colorscheme.palette.base05},bg=${bell "#${colorscheme.palette.base08}#,bold" "#${colorscheme.palette.base03}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "#${colorscheme.palette.base08}" "#${colorscheme.palette.base03}"},bg=#${colorscheme.palette.base00},nobold,noitalics,nounderscore]${gui "" " "}"
-
+				set -g window-status-activity-style 'fg=${colors.base05},bg=${colors.base01}'
+				set -g message-command-style 'fg=${colors.base06},bg=${colors.base02}'
 				set -g window-status-separator ${"''"}
-				set -g window-status-bell-style ${"''"}
+				set -g status on
+				set -g status-left-length 80
+				set -g status-right-length 80
+
+				set -g status-left "#[fg=${colors.base01},bg=${colors.base0D},bold] #S #[fg=${colors.base0D},bg=${colors.base01}]${gui "" ""}"
+
+				set -g status-right "#[fg=${colors.base02},bg=${colors.base01}]${gui "" ""}#[fg=${colors.base05},bg=${colors.base02}] ${gui "󰥔" ""} %b %e %Y (%a) %l:%M %p #[fg=${colors.base0D},bg=${colors.base02}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] ${gui "" ""} #{user}@#H "
+
+				set -g window-status-current-format "#[fg=${colors.base01},bg=${colors.base0D}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] #I ${gui "" "|"} #W #[fg=${colors.base0D},bg=${colors.base01}]${gui "" " "}"
+
+				set -g window-status-format "#[fg=${colors.base01},bg=${bell "${colors.base08}" "${colors.base02}"}]${gui "" ""}#[fg=${bell "${colors.base01}" "${colors.base05}"},bg=${bell "${colors.base08}#,bold" "${colors.base02}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "${colors.base08}" "${colors.base02}"},bg=${colors.base01}]${gui "" " "}"
 
 				bind -n M-Enter {
 					splitw -t :.${baseIndex}
-    				swapp -s :.${baseIndex} -t :.${nextIndex}
+					swapp -s :.${baseIndex} -t :.${nextIndex}
 					selectl main-vertical
 				}
 
