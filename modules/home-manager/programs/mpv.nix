@@ -1,6 +1,8 @@
-{ pkgs, colorscheme, ... }:
+{ pkgs, ... }:
 {
 	programs.mpv = {
+		scriptOpts.thumbfast.network = true;
+
 		bindings = {
 			h = "seek -5";
 			j = "seek -60";
@@ -17,11 +19,6 @@
 			uosc
 			thumbfast
 		];
-
-		scriptOpts = {
-			uosc.color = "foreground=${colorscheme.palette.base05},foreground_text=${colorscheme.palette.base00},background=${colorscheme.palette.base00},background_text=${colorscheme.palette.base05},curtain=${colorscheme.palette.base03},success=${colorscheme.palette.base0B},error=${colorscheme.palette.base08}";
-			thumbfast.network = true;
-		};
 
 		config = {
 			osd-bar = false;

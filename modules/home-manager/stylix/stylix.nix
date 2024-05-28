@@ -4,6 +4,7 @@ let
 	hashColors = colors.withHashtag;
 in {
 	programs = {
+		mpv.scriptOpts.uosc.color = "foreground=${colors.base05},foreground_text=${colors.base01},background=${colors.base02},background_text=${colors.base05},curtain=${colors.base03},success=${colors.base0B},error=${colors.base08}";
 		zsh.autosuggestion.highlight = "fg=${hashColors.base0E}";
 
 		fzf.colors = {
