@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, colorscheme, stateVersion, ... }:
+{ config, pkgs, stateVersion, ... }:
 {
 	fonts.fontconfig.enable = true;
 	nixpkgs.config.allowUnfree = true;
