@@ -1,16 +1,12 @@
 { config, lib, ... }:
 {
 	programs.zsh = {
+		autosuggestion.enable = true;
 		enableCompletion = true;
 		syntaxHighlighting.enable = true;
 		autocd = false;
 		dotDir = lib.removePrefix "${config.home.homeDirectory}/" "${config.xdg.configHome}/zsh";
 		defaultKeymap = "viins";
-
-		autosuggestion = {
-			enable = true;
-			highlight = "fg=${config.lib.stylix.colors.withHashtag.base0E}";
-		};
 
 		history = {
 			expireDuplicatesFirst = true;

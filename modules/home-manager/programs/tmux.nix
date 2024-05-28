@@ -14,12 +14,8 @@
 
 			extraConfig = let
 				guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
-				gui = t: f: "#{?${guiBool},${t},${f}}";
-				bell = t: f: "#{?window_bell_flag,${t},${f}}";
 				baseIndex = builtins.toString config.programs.tmux.baseIndex;
 				nextIndex = builtins.toString (config.programs.tmux.baseIndex + 1);
-				colors = config.lib.stylix.colors.withHashtag;
-
 				mvpane = window:
 					let
 						windowStr = builtins.toString window;
@@ -38,25 +34,11 @@
 				%endif
 
 				set -g focus-events on
-
 				set -g main-pane-width 50%
-
-				set -g window-status-activity-style 'fg=${colors.base05},bg=${colors.base01}'
-				set -g message-command-style 'fg=${colors.base06},bg=${colors.base02}'
 				set -g window-status-separator ${"''"}
 				set -g status on
 				set -g status-left-length 80
 				set -g status-right-length 80
-				set -g pane-border-style 'fg=${colors.base03}'
-				set -g pane-active-border-style 'fg=${colors.base0D}'
-
-				set -g status-left "#[fg=${colors.base01},bg=${colors.base0D},bold] #S #[fg=${colors.base0D},bg=${colors.base01}]${gui "" " "}"
-
-				set -g status-right "#[fg=${colors.base02},bg=${colors.base01}]${gui "" ""}#[fg=${colors.base05},bg=${colors.base02}] ${gui "󰥔" ""} %b %e %Y (%a) %l:%M %p #[fg=${colors.base0D},bg=${colors.base02}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] ${gui " " ""}#{user}@#H "
-
-				set -g window-status-current-format "#[fg=${colors.base01},bg=${colors.base0D}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] #I ${gui "" "|"} #W #[fg=${colors.base0D},bg=${colors.base01}]${gui "" " "}"
-
-				set -g window-status-format "#[fg=${colors.base01},bg=${bell "${colors.base08}" "${colors.base02}"}]${gui "" ""}#[fg=${bell "${colors.base01}" "${colors.base05}"},bg=${bell "${colors.base08}#,bold" "${colors.base02}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "${colors.base08}" "${colors.base02}"},bg=${colors.base01}]${gui "" " "}"
 
 				bind -n M-Enter {
 					splitw -t :.${baseIndex}

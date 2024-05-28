@@ -100,9 +100,7 @@
 			})
 		];
 
-		extraConfigLua = let
-			colors = config.lib.stylix.colors.withHashtag;
-		in ''
+		extraConfigLua = ''
 			vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
 
 			local signs = {
@@ -142,22 +140,6 @@
 
 						return string.format('%s%s', sign[1].text, diagnostic.message)
 					end,
-				},
-			})
-
-			require('oishiline').setup({
-				colors = {
-					bg = '${colors.base01}',
-					altBg = '${colors.base02}',
-					darkFg = '${colors.base03}',
-					fg = '${colors.base04}',
-					lightFg = '${colors.base05}',
-					normal = '${colors.base0D}',
-					insert = '${colors.base0B}',
-					visual = '${colors.base0E}',
-					replace = '${colors.base09}',
-					command = '${colors.base0D}',
-					terminal = '${colors.base0B}',
 				},
 			})
 		'';
