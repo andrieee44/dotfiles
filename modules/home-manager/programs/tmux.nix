@@ -50,9 +50,9 @@
 				set -g pane-border-style 'fg=${colors.base03}'
 				set -g pane-active-border-style 'fg=${colors.base0D}'
 
-				set -g status-left "#[fg=${colors.base01},bg=${colors.base0D},bold] #S #[fg=${colors.base0D},bg=${colors.base01}]${gui "" ""}"
+				set -g status-left "#[fg=${colors.base01},bg=${colors.base0D},bold] #S #[fg=${colors.base0D},bg=${colors.base01}]${gui "" " "}"
 
-				set -g status-right "#[fg=${colors.base02},bg=${colors.base01}]${gui "" ""}#[fg=${colors.base05},bg=${colors.base02}] ${gui "󰥔" ""} %b %e %Y (%a) %l:%M %p #[fg=${colors.base0D},bg=${colors.base02}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] ${gui "" ""} #{user}@#H "
+				set -g status-right "#[fg=${colors.base02},bg=${colors.base01}]${gui "" ""}#[fg=${colors.base05},bg=${colors.base02}] ${gui "󰥔" ""} %b %e %Y (%a) %l:%M %p #[fg=${colors.base0D},bg=${colors.base02}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] ${gui " " ""}#{user}@#H "
 
 				set -g window-status-current-format "#[fg=${colors.base01},bg=${colors.base0D}]${gui "" ""}#[fg=${colors.base01},bg=${colors.base0D},bold] #I ${gui "" "|"} #W #[fg=${colors.base0D},bg=${colors.base01}]${gui "" " "}"
 

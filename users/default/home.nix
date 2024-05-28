@@ -117,7 +117,7 @@
 
 	services = {
 		gpg-agent.enable = true;
-		hypridle.enable = true;
+		hypridle.enable = false;
 		mako.enable = true;
 		mbsync.enable = true;
 		mpd.enable = true;

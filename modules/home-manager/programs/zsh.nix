@@ -9,7 +9,7 @@
 
 		autosuggestion = {
 			enable = true;
-			highlight = "fg=${config.lib.stylix.colors.withHashtag.base04}";
+			highlight = "fg=${config.lib.stylix.colors.withHashtag.base0E}";
 		};
 
 		history = {
