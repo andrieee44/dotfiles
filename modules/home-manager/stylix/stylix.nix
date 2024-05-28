@@ -31,8 +31,8 @@ in {
 
 				Visual = {
 					bg = hashColors.base02;
-					ctermfg = "white";
-					ctermbg = "black";
+					ctermfg = "black";
+					ctermbg = "white";
 				};
 			};
 
@@ -74,7 +74,7 @@ in {
 
 			set -g status-left "#[fg=${hashColors.base01},bg=${hashColors.base0D},bold] #S #[fg=${hashColors.base0D},bg=${hashColors.base01}]${gui "" " "}"
 
-			set -g status-right "#[fg=${hashColors.base02},bg=${hashColors.base01}]${gui "" ""}#[fg=${hashColors.base05},bg=${hashColors.base02}] ${gui "󰥔" ""} %b %e %Y (%a) %l:%M %p #[fg=${hashColors.base0D},bg=${hashColors.base02}]${gui "" ""}#[fg=${hashColors.base01},bg=${hashColors.base0D},bold] ${gui " " ""}#{user}@#H "
+			set -g status-right "#[fg=${hashColors.base02},bg=${hashColors.base01}]${gui "" ""}#[fg=${hashColors.base05},bg=${hashColors.base02}] ${gui "󰥔 " ""}%b %e %Y (%a) %l:%M %p #[fg=${hashColors.base0D},bg=${hashColors.base02}]${gui "" ""}#[fg=${hashColors.base01},bg=${hashColors.base0D},bold] ${gui " " ""}#{user}@#H "
 
 			set -g window-status-current-format "#[fg=${hashColors.base01},bg=${hashColors.base0D}]${gui "" ""}#[fg=${hashColors.base01},bg=${hashColors.base0D},bold] #I ${gui "" "|"} #W #[fg=${hashColors.base0D},bg=${hashColors.base01}]${gui "" " "}"
 
