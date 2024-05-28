@@ -5,7 +5,13 @@ let
 in {
 	programs = {
 		mpv.scriptOpts.uosc.color = "foreground=${colors.base05},foreground_text=${colors.base01},background=${colors.base02},background_text=${colors.base05},curtain=${colors.base03},success=${colors.base0B},error=${colors.base08}";
-		zsh.autosuggestion.highlight = "fg=${hashColors.base0E}";
+
+		zsh.autosuggestion.highlight = ''
+			$([ "$XDG_SESSION_TYPE" = "tty" ] && \
+				printf '%s' 'fg=magenta' || \
+				printf '%s' 'fg=${hashColors.base0E}'
+			)
+		'';
 
 		fzf.colors = {
 			fg = hashColors.base04;
@@ -85,62 +91,50 @@ in {
 		'';
 
 		aerc.stylesets.default = ''
-			*.default=true
+			*.selected.bg=8
+			*.selected.bold=true
+			statusline_default.bold=true
+			border.reverse=false
+			part_mimetype.dim=false
 
-			default.bg=#20212b
-
-			title.reverse=true
-			header.bold=true
-			header.fg=#8be9fd
-
-			*error.bold=true
-			error.fg=#ff5555
-			warning.fg=#f1fa8c
-			success.fg=#50fa7b
-
-			statusline*.default=true
-			statusline_default.reverse=true
-			statusline_error.fg=#ff5555
-			statusline_error.reverse=true
-			statusline_default.fg=#303030
-			statusline_default.bg=#af87ff
-
-			dirlist_default.selected.fg=#f8f8f2
-			dirlist_default.selected.bg=#44475a
-			dirlist_recent.selected.fg=#44475a
-			dirlist_recent.selected.bg=#f8f8f2
-			dirlist_unread.fg=#50fa7b
-			dirlist_unread.selected.fg=#50fa7b
-			dirlist_unread.selected.bg=#44475a
-
-			msglist_default.selected.fg=#44475a
-			msglist_default.selected.bg=#f8f8f2
-			msglist_unread.bold=true
-			msglist_unread.fg=#50fa7b
-			msglist_unread.selected.bg=#44475a
-			msglist_read.selected.fg=#f8f8f2
-			msglist_read.selected.bg=#44475a
-			msglist_marked.fg=#f1fa8c
-			msglist_marked.selected.fg=#f1fa8c
-			msglist_marked.selected.bg=#44475a
-			msglist_deleted.fg=#ff5555
-			msglist_result.fg=#8be9fd
-			msglist_result.selected.bg=#44475a
-
-			msglist_deleted.selected.reverse=toggle
-
-			completion_pill.reverse=true
-
-			tab.reverse=true
-			border.reverse = true
-			tab.bg=#9c7adf
-			tab.fg=#303030
-			tab.selected.bg=#303030
-			tab.selected.fg=#9c7adf
-			border.fg=#20212b
-
-			selector_focused.reverse=true
-			selector_chooser.bold=true
+			border.fg=3
+			error.fg=1
+			warning.fg=3
+			success.fg=2
+			statusline_default.bg=0
+			statusline_default.fg=4
+			statusline_error.fg=1
+			statusline_warning.fg=3
+			msglist_deleted.fg=8
+			msglist_deleted.selected.fg=8
+			msglist_deleted.selected.bg=0
+			msglist_result.fg=2
+			msglist_result.selected.fg=2
+			msglist_result.selected.bg=0
+			msglist_marked.fg=4
+			msglist_marked.selected.fg=4
+			msglist_marked.selected.bg=0
+			msglist_flagged.fg=2
+			msglist_flagged.selected.fg=2
+			msglist_flagged.selected.bg=0
+			msglist_unread.fg=6
+			msglist_unread.selected.fg=6
+			msglist_unread.selected.bg=0
+			tab.fg=8
+			tab.bg=7
+			tab.selected.bg=4
+			tab.selected.fg=0
+			dirlist_unread.fg=4
+			dirlist_unread.selected.fg=4
+			dirlist_unread.selected.bg=0
+			dirlist_recent.fg=4
+			dirlist_recent.selected.fg=4
+			dirlist_recent.selected.bg=0
+			part_mimetype.fg=7
+			part_mimetype.selected.fg=4
+			part_mimetype.selected.bg=0
+			part_switcher.bg=0
+			part_switcher.selected.fg=4
 		'';
 	};
 
