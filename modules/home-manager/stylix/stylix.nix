@@ -22,10 +22,18 @@ in {
 		};
 
 		nixvim = {
-			highlightOverride.TSComment = {
-				fg = hashColors.base04;
-				ctermfg = "white";
-				italic = true;
+			highlightOverride = {
+				TSComment = {
+					fg = hashColors.base04;
+					ctermfg = "white";
+					italic = true;
+				};
+
+				Visual = {
+					bg = hashColors.base02;
+					ctermfg = "white";
+					ctermbg = "black";
+				};
 			};
 
 			extraConfigLua = ''
@@ -62,6 +70,7 @@ in {
 			set -g message-command-style 'fg=${hashColors.base06},bg=${hashColors.base02}'
 			set -g pane-border-style 'fg=${hashColors.base03}'
 			set -g pane-active-border-style 'fg=${hashColors.base0D}'
+			set -g mode-style 'fg=${hashColors.base01},bg=${hashColors.base05}'
 
 			set -g status-left "#[fg=${hashColors.base01},bg=${hashColors.base0D},bold] #S #[fg=${hashColors.base0D},bg=${hashColors.base01}]${gui "" " "}"
 
@@ -69,7 +78,7 @@ in {
 
 			set -g window-status-current-format "#[fg=${hashColors.base01},bg=${hashColors.base0D}]${gui "" ""}#[fg=${hashColors.base01},bg=${hashColors.base0D},bold] #I ${gui "" "|"} #W #[fg=${hashColors.base0D},bg=${hashColors.base01}]${gui "" " "}"
 
-			set -g window-status-format "#[fg=${hashColors.base01},bg=${bell "${hashColors.base08}" "${hashColors.base02}"}]${gui "" ""}#[fg=${bell "${hashColors.base01}" "${hashColors.base05}"},bg=${bell "${hashColors.base08}#,bold" "${hashColors.base02}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "${hashColors.base08}" "${hashColors.base02}"},bg=${hashColors.base01}]${gui "" " "}"
+			set -g window-status-format "#[fg=${hashColors.base01},bg=${bell hashColors.base08 hashColors.base02}]${gui "" ""}#[fg=${bell hashColors.base01 hashColors.base05},bg=${bell "${hashColors.base08}#,bold" "${hashColors.base02}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell hashColors.base08 hashColors.base02},bg=${hashColors.base01}]${gui "" " "}"
 		'';
 	};
 
