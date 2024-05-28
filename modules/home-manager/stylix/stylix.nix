@@ -8,17 +8,17 @@ in {
 		zsh.autosuggestion.highlight = "$([ \"$XDG_SESSION_TYPE\" = \"tty\" ] && echo 'fg=magenta' || echo 'fg=${hashColors.base0E}')";
 
 		fzf.colors = {
-			fg = hashColors.base04;
-			hl = hashColors.base0D;
-			"fg+" = hashColors.base06;
-			"bg+" = hashColors.base00;
-			info = hashColors.base0A;
-			border = hashColors.base0D;
-			prompt = hashColors.base0A;
-			pointer = hashColors.base0C;
-			marker = hashColors.base0C;
-			spinner = hashColors.base0C;
-			header = hashColors.base0D;
+			fg = "white";
+			hl = "blue";
+			"fg+" = "bright-white";
+			"bg+" = "black";
+			info = "yellow";
+			border = "blue";
+			prompt = "yellow";
+			pointer = "cyan";
+			marker = "cyan";
+			spinner = "cyan";
+			header = "blue";
 		};
 
 		nixvim = {
