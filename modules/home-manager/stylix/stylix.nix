@@ -4,7 +4,7 @@ let
 	hashColors = colors.withHashtag;
 in {
 	programs = {
-		zsh.autosuggestion.highlight = "fg=${config.lib.stylix.colors.withHashtag.base0E}";
+		zsh.autosuggestion.highlight = "fg=${hashColors.base0E}";
 
 		fzf.colors = {
 			fg = hashColors.base04;
@@ -20,25 +20,33 @@ in {
 			header = hashColors.base0D;
 		};
 
-		nixvim.extraConfigLua = ''
-			require('oishiline').setup({
-				colors = {
-					bg = '${hashColors.base01}',
-					altBg = '${hashColors.base02}',
-					darkFg = '${hashColors.base03}',
-					fg = '${hashColors.base04}',
-					lightFg = '${hashColors.base05}',
-					normal = '${hashColors.base0D}',
-					insert = '${hashColors.base0B}',
-					visual = '${hashColors.base0E}',
-					replace = '${hashColors.base09}',
-					command = '${hashColors.base0D}',
-					terminal = '${hashColors.base0B}',
-				},
-			})
-		'';
+		nixvim = {
+			highlightOverride.TSComment = {
+				fg = hashColors.base04;
+				ctermfg = "white";
+				italic = true;
+			};
 
-		imv.settings = {
+			extraConfigLua = ''
+				require('oishiline').setup({
+					colors = {
+						bg = '${hashColors.base01}',
+						altBg = '${hashColors.base02}',
+						darkFg = '${hashColors.base03}',
+						fg = '${hashColors.base04}',
+						lightFg = '${hashColors.base05}',
+						normal = '${hashColors.base0D}',
+						insert = '${hashColors.base0B}',
+						visual = '${hashColors.base0E}',
+						replace = '${hashColors.base09}',
+						command = '${hashColors.base0D}',
+						terminal = '${hashColors.base0B}',
+					},
+				})
+			'';
+		};
+
+		imv.settings.options = {
 			overlay_text_color = hashColors.base05;
 			overlay_background_color = hashColors.base02;
 			background = hashColors.base01;

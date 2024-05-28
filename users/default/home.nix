@@ -32,7 +32,7 @@
 			powertop
 			ppsspp
 			rpcs3
-			vinegar
+			#vinegar
 			vistafonts
 			winetricks
 			wineWowPackages.full
