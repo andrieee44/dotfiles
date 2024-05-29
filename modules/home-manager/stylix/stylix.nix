@@ -1,11 +1,9 @@
 { config, ... }:
 let
 	colors = config.lib.stylix.colors;
-	hashColors = colors.withHashtag;
 in {
 	programs = {
 		mpv.scriptOpts.uosc.color = "foreground=${colors.base05},foreground_text=${colors.base01},background=${colors.base02},background_text=${colors.base05},curtain=${colors.base03},success=${colors.base0B},error=${colors.base08}";
-		zsh.autosuggestion.highlight = "$([ \"$XDG_SESSION_TYPE\" = \"tty\" ] && echo 'fg=magenta' || echo 'fg=${hashColors.base0E}')";
 	};
 
 	stylix.targets = {
@@ -14,6 +12,7 @@ in {
 		custom = {
 			aerc.enable = true;
 			imv.enable = true;
+			zsh.enable = true;
 
 			nixvim = {
 				enable = true;

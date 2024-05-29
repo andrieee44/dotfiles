@@ -2,13 +2,13 @@
 {
 	programs.spotdl.settings = {
 		audio_providers = [
-		    "youtube-music"
+			"youtube-music"
 		];
 
 		lyrics_providers = [
-		    "genius"
-		    "azlyrics"
-		    "musixmatch"
+			"genius"
+			"azlyrics"
+			"musixmatch"
 		];
 
 		add_unavailable = false;
