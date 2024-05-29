@@ -132,11 +132,16 @@ in {
 		firefox.profileNames = [ "default" ];
 		tmux.enable = false;
 
-		nixvim.transparent_bg = {
-			main = true;
-			sign_column = true;
-			lineNumbers = true;
-			otherWindows = true;
+		nixvim = {
+			transparent_bg = {
+				main = true;
+				sign_column = true;
+			};
+
+			custom.transparent_bg = {
+				lineNumbers = true;
+				otherWindows = true;
+			};
 		};
 	};
 }
