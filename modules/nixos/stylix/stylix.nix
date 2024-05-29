@@ -1,4 +1,3 @@
-{ ... }:
 {
 	stylix.targets = {
 		custom.console.enable = true;

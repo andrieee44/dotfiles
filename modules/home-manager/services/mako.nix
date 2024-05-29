@@ -1,4 +1,3 @@
-{ ... }:
 {
 	services.mako = {
 		borderRadius = 5;
