@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-	options.stylix.targets.custom.aerc.enable = lib.mkEnableOption "custom implementation for stylix.targets.aerc";
+	options.stylix.targets.custom.aerc.enable = lib.mkEnableOption "custom implementation of styling aerc";
 
 	config.programs.aerc.stylesets.default = lib.mkIf config.stylix.targets.custom.aerc.enable ''
 		*.selected.bg=8

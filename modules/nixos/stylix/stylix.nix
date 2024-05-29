@@ -1,7 +1,7 @@
 { ... }:
 {
-	stylix.targets.console = {
-		enable = false;
-		custom.enable = true;
+	stylix.targets = {
+		custom.console.enable = true;
+		console.enable = false;
 	};
 }

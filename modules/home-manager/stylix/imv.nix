@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-	options.stylix.targets.custom.imv.enable = lib.mkEnableOption "custom implementation of stylix.targets.imv";
+	options.stylix.targets.custom.imv.enable = lib.mkEnableOption "custom implementation of styling imv";
 
 	config.programs.imv.settings.options = let
 		colors = config.lib.stylix.colors.withHashtag;

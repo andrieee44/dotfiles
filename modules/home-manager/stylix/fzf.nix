@@ -1,8 +1,8 @@
 { config, lib, ... }:
 {
-	options.stylix.targets.fzf.custom.enable = lib.mkEnableOption "custom implementation of stylix.targets.fzf";
+	options.stylix.targets.custom.fzf.enable = lib.mkEnableOption "custom implementation of styling fzf";
 
-	config.programs.fzf.colors = lib.mkIf config.stylix.targets.fzf.custom.enable {
+	config.programs.fzf.colors = lib.mkIf config.stylix.targets.custom.fzf.enable {
 		fg = "white";
 		hl = "blue";
 		"fg+" = "bright-white";

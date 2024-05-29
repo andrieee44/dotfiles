@@ -1,12 +1,12 @@
 { config, lib, ... }:
 {
-	options.stylix.targets.tmux.custom.enable = lib.mkEnableOption "custom implementation of stylix.targets.tmux";
+	options.stylix.targets.custom.tmux.enable = lib.mkEnableOption "custom implementation of styling tmux";
 
 	config.programs.tmux.extraConfig = let
 		guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
 		gui = t: f: "#{?${guiBool},${t},${f}}";
 		bell = t: f: "#{?window_bell_flag,${t},${f}}";
-	in lib.mkIf config.stylix.targets.tmux.custom.enable ''
+	in lib.mkIf config.stylix.targets.custom.tmux.enable ''
 		set -g status-style 'fg=white,bg=black'
 		set -g pane-border-style 'fg=brightblack'
 		set -g pane-active-border-style 'fg=blue'
