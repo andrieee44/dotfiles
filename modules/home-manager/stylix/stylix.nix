@@ -42,12 +42,6 @@ in {
 			'';
 		};
 
-		imv.settings.options = {
-			overlay_text_color = hashColors.base05;
-			overlay_background_color = hashColors.base02;
-			background = hashColors.base01;
-		};
-
 		tmux.extraConfig = let
 			guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
 			gui = t: f: "#{?${guiBool},${t},${f}}";
@@ -68,9 +62,13 @@ in {
 	};
 
 	stylix.targets = {
-		custom.aerc.enable = true;
 		firefox.profileNames = [ "default" ];
 		tmux.enable = false;
+
+		custom = {
+			aerc.enable = true;
+			imv.enable = true;
+		};
 
 		fzf = {
 			enable = false;
