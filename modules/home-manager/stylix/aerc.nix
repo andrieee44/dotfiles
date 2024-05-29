@@ -43,9 +43,10 @@
 		dirlist_recent.selected.fg=4
 		dirlist_recent.selected.bg=0
 		part_mimetype.fg=7
+		part_mimetype.bg=8
 		part_mimetype.selected.fg=4
 		part_mimetype.selected.bg=0
-		part_switcher.bg=0
+		part_switcher.bg=8
 		part_switcher.selected.fg=4
 	'';
 }
