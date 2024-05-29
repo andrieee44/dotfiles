@@ -8,20 +8,6 @@ in {
 		zsh.autosuggestion.highlight = "$([ \"$XDG_SESSION_TYPE\" = \"tty\" ] && echo 'fg=magenta' || echo 'fg=${hashColors.base0E}')";
 		mangohud.settings.background_alpha = lib.mkForce 0.5;
 
-		fzf.colors = {
-			fg = "white";
-			hl = "blue";
-			"fg+" = "bright-white";
-			"bg+" = "black";
-			info = "yellow";
-			border = "blue";
-			prompt = "yellow";
-			pointer = "cyan";
-			marker = "cyan";
-			spinner = "cyan";
-			header = "blue";
-		};
-
 		nixvim = {
 			highlightOverride = {
 				TSComment = {
@@ -85,6 +71,11 @@ in {
 		custom.aerc.enable = true;
 		firefox.profileNames = [ "default" ];
 		tmux.enable = false;
+
+		fzf = {
+			enable = false;
+			custom.enable = true;
+		};
 
 		nixvim = {
 			transparent_bg = {
