@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colorscheme, ... }:
+{ config, pkgs, lib, ... }:
 {
 	wayland.windowManager.hyprland.settings = {
 		"$mod" = "SUPER";
@@ -7,11 +7,7 @@
 
 		monitor = [ ",preferred,auto,1" ];
 		master.mfact = 0.5;
-
-		exec-once = [
-			"${pkgs.mpvpaper}/bin/mpvpaper -o 'no-audio loop' '*' '${./../custom/wallpapers/${colorscheme.slug}/home}'"
-			"${pkgs.hypridle}/bin/hypridle"
-		];
+		exec-once = [ "${pkgs.hypridle}/bin/hypridle" ];
 
 		bind = [
 			"$mod, Return, execr, $terminal"
