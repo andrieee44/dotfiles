@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
 	stylix = {
-		image = ./../home-manager/custom/wallpapers/nord/lock;
+		image = ./wallpaper;
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
 
 		fonts = let

@@ -1,35 +1,6 @@
-{ config, pkgs, colorscheme, ... }:
 {
 	programs.hyprlock.settings = {
-		general = {
-			grace = 100;
-		};
-
-		background = [
-			{
-				path = "${./../custom/wallpapers/${colorscheme.slug}/lock}";
-			}
-		];
-
-		label = [
-			{
-				text = ''cmd[update:1000] echo "<span color='##${colorscheme.palette.base05}' bgcolor='##${colorscheme.palette.base00}'><b> 󰃰 $(${pkgs.toybox}/bin/date '+%b %e %Y (%a) %l:%M %p') </b></span>'';
-				font_family = config.gtk.font.name;
-				font_size = 28;
-				position = "0, 200";
-				halign = "center";
-				valign = "center";
-			}
-
-			{
-				text = ''cmd[update:1000] echo "<span color='##${colorscheme.palette.base0C}' bgcolor='##${colorscheme.palette.base00}'><b>  $USER </b></span>"'';
-				font_family = config.gtk.font.name;
-				font_size = 28;
-				position = "0, 152";
-				halign = "center";
-				valign = "center";
-			}
-		];
+		general.grace = 100;
 
 		input-field = [
 			{

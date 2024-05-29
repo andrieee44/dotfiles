@@ -1,16 +1,17 @@
 {
 	stylix.targets = {
 		firefox.profileNames = [ "default" ];
-		tmux.enable = false;
 		fzf.enable = false;
+		tmux.enable = false;
 
 		custom = {
 			aerc.enable = true;
+			fzf.enable = true;
+			hyprlock.enable = true;
 			imv.enable = true;
 			mpv.enable = true;
-			zsh.enable = true;
 			tmux.enable = true;
-			fzf.enable = true;
+			zsh.enable = true;
 
 			nixvim = {
 				enable = true;
