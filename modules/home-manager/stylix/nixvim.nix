@@ -42,17 +42,22 @@
 		extraConfigLua = ''
 			require('oishiline').setup({
 				colors = {
-					bg = '${colors.base01}',
-					altBg = '${colors.base02}',
-					darkFg = '${colors.base03}',
-					fg = '${colors.base04}',
-					lightFg = '${colors.base05}',
-					normal = '${colors.base0D}',
-					insert = '${colors.base0B}',
-					visual = '${colors.base0E}',
-					replace = '${colors.base09}',
-					command = '${colors.base0D}',
-					terminal = '${colors.base0B}',
+					black = "${colors.base00}",
+					red = "${colors.base08}",
+					green = "${colors.base0B}",
+					yellow = "${colors.base0A}",
+					blue = "${colors.base0D}",
+					magenta = "${colors.base0E}",
+					cyan = "${colors.base0C}",
+					white = "${colors.base05}",
+					brightblack = "${colors.base03}",
+					brightred = "${colors.base08}",
+					brightgreen = "${colors.base0B}",
+					brightyellow = "${colors.base0A}",
+					brightblue = "${colors.base0D}",
+					brightmagenta = "${colors.base0E}",
+					brightcyan = "${colors.base0C}",
+					brightwhite = "${colors.base07}",
 				},
 			})
 		'';

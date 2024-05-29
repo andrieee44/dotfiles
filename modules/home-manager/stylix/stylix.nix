@@ -1,6 +1,5 @@
 { ... }:
 {
-
 	stylix.targets = {
 		firefox.profileNames = [ "default" ];
 		tmux.enable = false;
