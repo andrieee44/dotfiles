@@ -28,14 +28,14 @@
 		highlightOverride = {
 			TSComment = {
 				fg = colors.base04;
-				ctermfg = "white";
+				ctermfg = "lightgray";
 				italic = true;
 			};
 
 			Visual = {
-				bg = colors.base02;
+				bg = colors.base03;
 				ctermfg = "black";
-				ctermbg = "white";
+				ctermbg = "lightgray";
 			};
 		};
 
