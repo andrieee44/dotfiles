@@ -11,7 +11,6 @@
 
 		packages = with pkgs; [
 			bc
-			dolphin-emu
 			eww
 			ffmpeg
 			glxinfo
@@ -28,11 +27,7 @@
 			noto-fonts-emoji-blob-bin
 			noto-fonts-lgc-plus
 			noto-fonts-monochrome-emoji
-			pcsx2
 			powertop
-			ppsspp
-			rpcs3
-			#vinegar
 			vistafonts
 			winetricks
 			wineWowPackages.full
