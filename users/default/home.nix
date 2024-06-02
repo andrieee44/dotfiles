@@ -101,6 +101,7 @@
 		notmuch.enable = true;
 		obs-studio.enable = true;
 		password-store.enable = true;
+		rofi.enable = true;
 		ssh.enable = true;
 		starship.enable = true;
 		texlive.enable = true;
