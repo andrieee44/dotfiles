@@ -18,6 +18,7 @@
 			"$mod SHIFT, Q, exit,"
 
 			"$mod, F, fullscreen,"
+			"$mod, T, togglefloating,"
 			"$mod, Space, layoutmsg, swapwithmaster"
 
 			"$mod, 1, workspace, 1"
