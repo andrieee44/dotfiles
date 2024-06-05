@@ -1,1 +1,0 @@
-{ programs.eww.configDir = ./.; }

@@ -1,0 +1,85 @@
+(defvar limit 20)
+
+(defvar batStatus `{
+	"Charging": "+",
+	"Discharging": "-",
+	"Full": "=",
+	"Not charging": "!"
+}`)
+
+(deflisten status `jsonstatus`)
+
+(defwidget sep []
+	(label :class `sep` :unindent false :text ` | `))
+
+(defwidget hyprlandWindow []
+	(box :space-evenly false
+		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : " | "}`)
+		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, limit)}`)))
+
+(defwidget hyprlandWorkspaces []
+	(box :space-evenly false
+		(for workspace in `${jq(status.Hyprland.Workspaces, "sort_by(.Id)")}`
+			(label :class `${workspace.Id == status.Hyprland.Active ? "activeWorkspace" : ""}` :unindent false :text ` ${workspace.Name}`))))
+
+(defwidget date []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `${status.Date.Icon} `)
+		(label :unindent false :text `${status.Date.Date}`)))
+
+(defwidget vol []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `${status.Vol.Mute ? "󰝟" : "${status.Vol.Icon}"} `)
+		(label :unindent false :text `${status.Vol.Mute ? "muted" : "${round(status.Vol.Perc, 0)}%"}`)))
+
+(defwidget swap []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `󰓡 ${status.Swap.Icon} `)
+		(label :unindent false :text `${round(status.Swap.UsedPerc, 0)}%`)))
+
+(defwidget ram []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text ` ${status.Ram.Icon} `)
+		(label :unindent false :text `${round(status.Ram.UsedPerc, 0)}%`)))
+
+(defwidget cpu []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `󰍛 ${status.Cpu.Icon} `)
+		(label :unindent false :text `${round(status.Cpu.AveragePerc, 0)}%`)))
+
+(defwidget bri []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `${status.Bri.Icon} `)
+		(label :unindent false :text `${round(status.Bri.Perc, 0)}%`)))
+
+(defwidget bat []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `${status.Bat[0].Icon} `)
+		(label :unindent false :text `${batStatus["${status.Bat[0].Status}"]}${round(status.Bat[0].Capacity, 0)}%`)))
+
+(defwidget music []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `${status.Music.State == "play" ? "󰝚" : "${status.Music.State == "pause" ? "󰏤" : "󰝛"}"} `)
+		(label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Music, status.Music.Scroll, limit)}"}`)))
+
+(defwidget net []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `${status.Net.Icon} `)
+		(label :unindent false :text `${status.Net.Name}`)))
+
+(defwindow bar :monitor 0 :stacking `fg` :exclusive true
+	:geometry (geometry :width `98%` :height `35px` :y `20px` :anchor `top center`)
+	(box :space-evenly false
+		(box :hexpand true :space-evenly false :halign `start`
+			(hyprlandWorkspaces)
+			(hyprlandWindow))
+		(box :hexpand true :space-evenly false :halign `end`
+			(music)
+			(sep) (net)
+			(sep) (vol)
+			(sep) (bri)
+			(sep) (cpu)
+			(sep) (ram)
+			(sep) (bat)
+			(sep) (date)
+			(label :unindent false :text ` `))))

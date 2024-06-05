@@ -4,6 +4,11 @@
 	nixpkgs.config.allowUnfree = true;
 	wayland.windowManager.hyprland.enable = true;
 
+	custom.programs = {
+		spotdl.enable = true;
+		eww.enable = true;
+	};
+
 	home = {
 		stateVersion = stateVersion;
 		sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
@@ -11,7 +16,6 @@
 
 		packages = with pkgs; [
 			bc
-			eww
 			ffmpeg
 			glxinfo
 			go-mtpfs
@@ -80,7 +84,6 @@
 		aerc.enable = true;
 		dircolors.enable = true;
 		direnv.enable = true;
-		#eww.enable = true;
 		firefox.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
