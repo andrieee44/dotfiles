@@ -13,8 +13,19 @@
 		gamemode.enable = true;
 		hyprland.enable = true;
 		light.enable = true;
-		steam.enable = true;
 		zsh.enable = true;
+
+		steam = {
+			enable = true;
+			extest.enable = true;
+			extraCompatPackages = with pkgs; [ proton-ge-bin ];
+			gamescopeSession.enable = true;
+		};
+
+		gamescope = {
+			enable = true;
+			capSysNice = true;
+		};
 	};
 
 	services = {
