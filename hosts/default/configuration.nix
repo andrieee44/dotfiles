@@ -17,14 +17,8 @@
 
 		steam = {
 			enable = true;
-			extest.enable = true;
 			extraCompatPackages = with pkgs; [ proton-ge-bin ];
 			gamescopeSession.enable = true;
-		};
-
-		gamescope = {
-			enable = true;
-			capSysNice = true;
 		};
 	};
 
@@ -43,21 +37,10 @@
 			powerOnBoot = false;
 		};
 
-		opengl = let
-			extraPkgs = with pkgs; [
-				intel-media-driver
-				vaapiIntel
-				vaapiVdpau
-				libvdpau-va-gl
-				rocm-opencl-icd
-				rocm-opencl-runtime
-			];
-		in {
+		opengl = {
 			enable = true;
 			driSupport = true;
 			driSupport32Bit = true;
-			extraPackages = extraPkgs;
-			extraPackages32 = extraPkgs;
 		};
 	};
 

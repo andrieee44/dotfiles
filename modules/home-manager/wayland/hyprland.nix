@@ -6,8 +6,9 @@
 		"$browser" = "firefox-esr";
 
 		monitor = [ ",preferred,auto,1" ];
-		master.mfact = 0.5;
 		exec-once = [ "${pkgs.hypridle}/bin/hypridle" ];
+		master.mfact = 0.5;
+		debug.disable_logs = false;
 
 		bind = [
 			"$mod, Return, execr, $terminal"
@@ -73,10 +74,12 @@
 			layout = "master";
 		};
 
+		/*
 		cursor = {
 			inactive_timeout = 5;
 			no_warps = true;
 		};
+		*/
 
 		decoration = {
 			rounding = 5;
