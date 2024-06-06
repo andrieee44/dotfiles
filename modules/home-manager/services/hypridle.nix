@@ -9,24 +9,24 @@
 
 		listener = [
 			{
-				timeout = 30;
+				timeout = 60;
 				on-timeout = "${pkgs.light}/bin/light -O && ${pkgs.light}/bin/light -S 5";
 				on-resume = "${pkgs.light}/bin/light -I";
 			}
 
 			{
-				timeout = 60;
+				timeout = 120;
 				on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
 			}
 
 			{
-				timeout = 90;
+				timeout = 300;
 				on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
 				on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
 			}
 
 			{
-				timeout = 120;
+				timeout = 600;
 				on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
 			}
 		];

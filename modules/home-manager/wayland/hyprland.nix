@@ -5,8 +5,8 @@
 		"$terminal" = "${pkgs.foot}/bin/footclient";
 		"$browser" = "firefox-esr";
 
-		monitor = [ ",preferred,auto,1" ];
-		bezier = [ "easeOutBack,0.34,1.56,0.64,1" ];
+		monitor = [ ", preferred, auto, 1" ];
+		bezier = [ "easeOutBack, 0.34, 1.56, 0.64, 1" ];
 		master.mfact = 0.5;
 		debug.disable_logs = false;
 
@@ -16,9 +16,9 @@
 		];
 
 		animation = [
-			"workspaces,1,7,easeOutBack,slide"
-			"layers,1,7,easeOutBack,slide"
-			"windows,1,7,easeOutBack,slide"
+			"workspaces, 1, 7, easeOutBack, slide"
+			"layers, 1, 7, easeOutBack, slide"
+			"windows, 1, 7, easeOutBack, slide"
 		];
 
 		bind = [
@@ -56,6 +56,8 @@
 
 			", Print, execr, ${pkgs.grimblast}/bin/grimblast copy"
 			"SHIFT, Print, execr, ${pkgs.grimblast}/bin/grimblast copy area"
+
+			", F9, execr, ${pkgs.systemd}/bin/loginctl lock-session"
 		];
 
 		binde = [
