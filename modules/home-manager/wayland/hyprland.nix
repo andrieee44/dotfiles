@@ -6,9 +6,13 @@
 		"$browser" = "firefox-esr";
 
 		monitor = [ ",preferred,auto,1" ];
-		exec-once = [ "${pkgs.hypridle}/bin/hypridle" ];
 		master.mfact = 0.5;
 		debug.disable_logs = false;
+
+		exec-once = [
+			"${pkgs.hypridle}/bin/hypridle"
+			"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 1; done; ${pkgs.eww}/bin/eww open bar"
+		];
 
 		bind = [
 			"$mod, Return, execr, $terminal"

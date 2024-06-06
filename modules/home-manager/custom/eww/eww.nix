@@ -7,7 +7,7 @@ let
 		src = pkgs.fetchFromGitHub {
 			owner = "andrieee44";
 			repo = "jsonstatus";
-			rev = "0d7967e4af6cdb0e14115f48d0fb57c2ca8ec573";
+			rev = "2ce684d4b1a8f5e0826cac5626fc5cc44714010c";
 			hash = "sha256-fnrS07PNJ4De551DrillpNsfCJ6X17ZjqxBKJnMfLfE=";
 		};
 	};
