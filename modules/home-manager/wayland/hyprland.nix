@@ -6,12 +6,19 @@
 		"$browser" = "firefox-esr";
 
 		monitor = [ ",preferred,auto,1" ];
+		bezier = [ "easeOutBack,0.34,1.56,0.64,1" ];
 		master.mfact = 0.5;
 		debug.disable_logs = false;
 
 		exec-once = [
 			"${pkgs.hypridle}/bin/hypridle"
-			"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 1; done; ${pkgs.eww}/bin/eww open bar"
+			"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.5; done; ${pkgs.eww}/bin/eww open bar"
+		];
+
+		animation = [
+			"workspaces,1,7,easeOutBack,slide"
+			"layers,1,7,easeOutBack,slide"
+			"windows,1,7,easeOutBack,slide"
 		];
 
 		bind = [
