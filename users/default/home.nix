@@ -5,8 +5,9 @@
 	wayland.windowManager.hyprland.enable = true;
 
 	custom.programs = {
-		spotdl.enable = true;
 		eww.enable = true;
+		jsonstatus.enable = true;
+		spotdl.enable = true;
 	};
 
 	home = {

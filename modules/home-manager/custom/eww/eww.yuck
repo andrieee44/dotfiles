@@ -1,10 +1,10 @@
 (defvar limit 20)
 
 (defvar batStatus `{
-	"Charging": "+",
-	"Discharging": "-",
-	"Full": "=",
-	"Not charging": "!"
+	"Charging": "󱐋",
+	"Discharging": "",
+	"Full": "",
+	"Not charging": "󰈅"
 }`)
 
 (deflisten status `jsonstatus`)
@@ -54,8 +54,8 @@
 
 (defwidget bat []
 	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Bat[0].Icon} `)
-		(label :unindent false :text `${batStatus["${status.Bat[0].Status}"]}${round(status.Bat[0].Capacity, 0)}%`)))
+		(label :class `icon` :unindent false :text `${status.Bat[0].Icon}${batStatus["${status.Bat[0].Status}"]} `)
+		(label :unindent false :text `${round(status.Bat[0].Capacity, 0)}%`)))
 
 (defwidget music []
 	(box :space-evenly false
