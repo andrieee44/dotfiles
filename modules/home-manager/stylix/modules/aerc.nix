@@ -3,7 +3,7 @@
 	options.stylix.targets.custom.aerc.enable = lib.mkEnableOption "custom implementation of styling aerc";
 
 	config.programs.aerc.stylesets.default = lib.mkIf config.stylix.targets.custom.aerc.enable ''
-		*.selected.bg=8
+		*.selected.bg=0
 		*.selected.bold=true
 		statusline_default.bold=true
 		border.reverse=false
