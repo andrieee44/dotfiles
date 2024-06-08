@@ -1,8 +1,10 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
 	options.stylix.targets.custom.ncmpcpp.enable = lib.mkEnableOption "custom implementation of styling ncmpcpp";
 
-	config = lib.mkIf config.stylix.targets.custom.ncmpcpp.enable {
+	config = let
+		cfg = config.programs.ncmpcpp;
+	in lib.mkIf (cfg.enable && config.stylix.targets.custom.ncmpcpp.enable) {
 		programs.ncmpcpp.settings = let
 			fmt = "{%A - %n - %b - %t}|{%f}";
 			mpd = config.services.mpd;
@@ -60,9 +62,7 @@
 			active_window_border = "blue";
 		};
 
-		services.mpd.extraConfig = let
-			cfg = config.programs.ncmpcpp;
-		in lib.mkIf cfg.enable ''
+		services.mpd.extraConfig = ''
 			audio_output {
 				type "fifo"
 				name "${cfg.settings.visualizer_output_name}"
@@ -70,5 +70,16 @@
 				format "${if cfg.settings.visualizer_in_stereo then "44100:16:2" else "44100:16:1"}"
 			}
 		'';
+
+		xdg.configFile."ncmpcpp/config".target = "${config.xdg.configHome}/ncmpcpp/baseConfig";
+
+		home.shellAliases.ncmpcpp = "${pkgs.writers.writeDash "ncmpcppConf" ''
+			set -eu
+
+			[ "$XDG_SESSION_TYPE" = "tty" ] && bool="no" || bool="yes"
+			echo "visualizer_spectrum_smooth_look=${"\${bool}"}" | ${pkgs.busybox}/bin/cat - '${config.xdg.configFile."ncmpcpp/config".target}' > '${config.xdg.configHome}/ncmpcpp/config'
+
+			${config.programs.ncmpcpp.package}/bin/ncmpcpp
+		''}";
 	};
 }
