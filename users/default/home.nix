@@ -155,6 +155,6 @@
 
 	qt = {
 		enable = config.gtk.enable;
-		platformTheme.name = "gtk";
+		platformTheme.name = "gtk3";
 	};
 }
