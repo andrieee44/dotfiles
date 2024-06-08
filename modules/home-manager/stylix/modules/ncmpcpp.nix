@@ -18,7 +18,6 @@
 			browser_display_mode = "columns";
 			search_engine_display_mode = "columns";
 			playlist_editor_display_mode = "columns";
-			autocenter_mode = true;
 			user_interface = "alternative";
 			display_bitrate = true;
 			empty_tag_marker = "<empty>";

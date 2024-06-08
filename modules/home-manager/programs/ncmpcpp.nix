@@ -15,7 +15,7 @@
 			random_exclude_pattern = "^(temp|midi_songs).*";
 			playlist_disable_highlight_delay = 0;
 			message_delay_time = 2;
-			browser_sort_mode = "type";
+			browser_sort_mode = "format";
 			seek_time = 5;
 			volume_change_step = 5;
 			default_place_to_search_in = "database";
@@ -28,10 +28,10 @@
 			mouse_support = false;
 			tag_editor_extended_numeration = true;
 			search_engine_default_search_mode = 2;
-			external_editor = "$EDITOR";
+			external_editor = config.home.sessionVariables.EDITOR;
+			media_library_primary_tag = "album_artist";
 		};
 
-		/*
 		bindings = [
 			{ key = "h"; command = "previous_column"; }
 			{ key = "j"; command = "scroll_down"; }
@@ -41,10 +41,12 @@
 			{ key = "l"; command = "play_item"; }
 			{ key = "u"; command = "page_up"; }
 			{ key = "d"; command = "page_down"; }
-			{ key = "+"; command = "show_clock"; }
 			{ key = "v"; command = "show_visualizer"; }
 			{ key = "m"; command = "show_media_library"; }
+			{ key = "g"; command = "move_home"; }
+			{ key = "G"; command = "move_end"; }
+			{ key = "n"; command = "next_found_item"; }
+			{ key = "N"; command = "previous_found_item"; }
 		];
-		*/
 	};
 }
