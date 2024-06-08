@@ -2,8 +2,8 @@
 {
 	wayland.windowManager.hyprland.settings = {
 		"$mod" = "SUPER";
-		"$terminal" = "${pkgs.foot}/bin/footclient";
-		"$browser" = "firefox-esr";
+		"$terminal" = config.home.sessionVariables.TERMINAL;
+		"$browser" = config.home.sessionVariables.BROWSER;
 
 		monitor = [ ", preferred, auto, 1" ];
 		bezier = [ "easeOutBack, 0.34, 1.56, 0.64, 1" ];
