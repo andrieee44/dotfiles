@@ -8,6 +8,7 @@
 		bell = t: f: "#{?window_bell_flag,${t},${f}}";
 	in lib.mkIf config.stylix.targets.custom.tmux.enable ''
 		set -g status-style 'fg=white,bg=black'
+		set -g window-status-bell-style 'fg=black,bg=red'
 		set -g pane-border-style 'fg=brightblack'
 		set -g pane-active-border-style 'fg=blue'
 		set -g mode-style 'fg=black,bg=white'
