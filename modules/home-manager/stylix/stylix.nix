@@ -12,6 +12,7 @@
 			hyprlock.enable = true;
 			imv.enable = true;
 			mpv.enable = true;
+			ncmpcpp.enable = true;
 			rofi.enable = true;
 			tmux.enable = true;
 			zsh.enable = true;
