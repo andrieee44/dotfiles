@@ -78,5 +78,12 @@
 			ethIcon = "󰈀";
 			wifiIcons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
 		};
+
+		bluetooth = {
+			enable = true;
+			scrollInterval = "1s";
+			limit = 20;
+			icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+		};
 	};
 }

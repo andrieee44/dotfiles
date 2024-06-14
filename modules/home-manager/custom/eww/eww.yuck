@@ -67,6 +67,18 @@
 		(label :class `icon` :unindent false :text `${status.Net.Icon} `)
 		(label :unindent false :text `${status.Net.Name}`)))
 
+(defwidget bluetooth []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `󰂯 `)
+		(label :unindent false :text `${status.Bluetooth["/org/bluez/hci0"].Powered ? "on" : "off"}`)
+		(sep)
+		(for device in `${jq(status.Bluetooth["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")}`
+			(box :space-evenly false
+				(label :class `icon` :unindent false :text `󰂯${device.HasBattery ? "${device.Icon}" : ""} `)
+				(label :unindent false :text `${device.HasBattery ? "${device.Battery}% " : ""}`)
+				(label :unindent false :text `${substring(device.Name, device.Scroll, limit)}`)
+				(sep)))))
+
 (defwindow bar :monitor 0 :stacking `fg` :exclusive true
 	:geometry (geometry :width `98%` :height `35px` :y `20px` :anchor `top center`)
 	(box :space-evenly false
@@ -74,6 +86,7 @@
 			(hyprlandWorkspaces)
 			(hyprlandWindow))
 		(box :hexpand true :space-evenly false :halign `end`
+			(bluetooth)
 			(music)
 			(sep) (net)
 			(sep) (vol)
