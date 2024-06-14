@@ -8,6 +8,10 @@
 		label { color: ${colors.base05} }
 		.sep { color: ${colors.base0D} }
 		.icon { color: ${colors.base0C} }
-		.activeWorkspace { color: ${colors.base0C} }
+
+		.activeWorkspace {
+			color: ${colors.base0C};
+			background-color: ${colors.base03};
+		}
 	'';
 }

@@ -14,13 +14,13 @@
 
 (defwidget hyprlandWindow []
 	(box :space-evenly false
-		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : " | "}`)
+		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : "| "}`)
 		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, limit)}`)))
 
 (defwidget hyprlandWorkspaces []
 	(box :space-evenly false
 		(for workspace in `${jq(status.Hyprland.Workspaces, "sort_by(.Id)")}`
-			(label :class `${workspace.Id == status.Hyprland.Active ? "activeWorkspace" : ""}` :unindent false :text ` ${workspace.Name}`))))
+			(label :class `${workspace.Id == status.Hyprland.Active ? "activeWorkspace" : ""}` :unindent false :text ` ${workspace.Name} `))))
 
 (defwidget date []
 	(box :space-evenly false
