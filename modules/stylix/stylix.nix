@@ -1,8 +1,15 @@
 { pkgs, ... }:
 {
 	stylix = {
+		enable = true;
 		image = ./wallpaper;
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+
+		cursor = {
+			package = pkgs.vanilla-dmz;
+			name = "Vanilla-DMZ";
+			size = 32;
+		};
 
 		fonts = let
 			monospace = {

@@ -1,9 +1,7 @@
-{ config, ... }:
 {
 	programs.imv.settings = {
 		options = {
 			overlay = true;
-			overlay_font = "${config.gtk.font.name}:${builtins.toString config.gtk.font.size}";
 			overlay_position_bottom = true;
 		};
 

@@ -13,7 +13,6 @@
 	home = {
 		stateVersion = stateVersion;
 		sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
-		pointerCursor.gtk.enable = true;
 
 		packages = with pkgs; [
 			bc
@@ -58,6 +57,7 @@
 
 		sessionVariables = {
 			BROWSER = "firefox-esr";
+			EDITOR = "nvim";
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
 			PAGER = "${pkgs.less}/bin/less";

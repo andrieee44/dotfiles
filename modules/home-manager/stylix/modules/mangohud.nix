@@ -10,7 +10,10 @@
 		};
 	};
 
-	config.programs.mangohud.settings.background_alpha = let
+	config.programs.mangohud.settings = let
 		cfg = config.stylix.targets.custom.mangohud;
-	in lib.mkIf cfg.enable (lib.mkForce cfg.background_alpha);
+	in {
+		background_alpha = lib.mkIf cfg.enable (lib.mkForce cfg.background_alpha);
+		font_file_text = config.stylix.fonts.monospace.name;
+	};
 }

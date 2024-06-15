@@ -1,4 +1,3 @@
-{ config, ... }:
 {
 	programs.mangohud = {
 		enableSessionWide = true;
@@ -15,8 +14,6 @@
 			device_battery = "gamepad,mouse";
 			device_battery_icon = "󰂯";
 			exec_name = true;
-			font_file_text = config.gtk.font.name;
-			font_size = config.gtk.font.size;
 			fps_color_change = true;
 			fps_limit = 60;
 			fps_sampling_period = 1000;
