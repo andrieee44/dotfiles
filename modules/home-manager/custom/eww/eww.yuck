@@ -1,5 +1,3 @@
-(defvar limit 20)
-
 (defvar batStatus `{
 	"Charging": "󱐋",
 	"Discharging": "",
@@ -15,7 +13,7 @@
 (defwidget hyprlandWindow []
 	(box :space-evenly false
 		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : "| "}`)
-		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, limit)}`)))
+		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, status.Hyprland.Limit)}`)))
 
 (defwidget hyprlandWorkspaces []
 	(box :space-evenly false
@@ -60,7 +58,7 @@
 (defwidget music []
 	(box :space-evenly false
 		(label :class `icon` :unindent false :text `${status.Music.State == "play" ? "󰝚" : "${status.Music.State == "pause" ? "󰏤" : "󰝛"}"} `)
-		(label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Music, status.Music.Scroll, limit)}"}`)))
+		(label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Music, status.Music.Scroll, status.Music.Limit)}"}`)))
 
 (defwidget net []
 	(box :space-evenly false
@@ -70,13 +68,13 @@
 (defwidget bluetooth []
 	(box :space-evenly false
 		(label :class `icon` :unindent false :text `󰂯 `)
-		(label :unindent false :text `${status.Bluetooth["/org/bluez/hci0"].Powered ? "on" : "off"}`)
+		(label :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered ? "on" : "off"}`)
 		(sep)
-		(for device in `${jq(status.Bluetooth["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")}`
+		(for device in `${jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")}`
 			(box :space-evenly false
 				(label :class `icon` :unindent false :text `󰂯${device.HasBattery ? "${device.Icon}" : ""} `)
 				(label :unindent false :text `${device.HasBattery ? "${device.Battery}% " : ""}`)
-				(label :unindent false :text `${substring(device.Name, device.Scroll, limit)}`)
+				(label :unindent false :text `${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
 				(sep)))))
 
 (defwindow bar :monitor 0 :stacking `fg` :exclusive true

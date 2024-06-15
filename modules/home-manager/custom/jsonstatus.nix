@@ -4,7 +4,7 @@
 
 		date = {
 			enable = true;
-			interval = "1m";
+			interval = "1s";
 			format = "Jan _2 2006 (Mon) 3:04 PM";
 			icons = [ "󱑊" "󱐿" "󱑀" "󱑁" "󱑂" "󱑃" "󱑄" "󱑅" "󱑆" "󱑇" "󱑈" "󱑉" ];
 		};
@@ -34,13 +34,13 @@
 
 		bat = {
 			enable = true;
-			interval = "1m";
+			interval = "1s";
 			icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
 		};
 
 		music = {
 			enable = true;
-			scrollInterval = "1s";
+			scrollInterval = "0.5s";
 			format = "%AlbumArtist% - %Track% - %Album% - %Title%";
 			limit = 20;
 		};
@@ -53,7 +53,7 @@
 
 		uptime = {
 			enable = false;
-			interval = "1m";
+			interval = "1s";
 		};
 
 		disk = {
@@ -65,14 +65,14 @@
 
 		hyprland = {
 			enable = true;
-			scrollInterval = "1s";
+			scrollInterval = "0.5s";
 			limit = 20;
 		};
 
 		net = {
 			enable = true;
-			interval = "1m";
-			scrollInterval = "1s";
+			interval = "1s";
+			scrollInterval = "0.5s";
 			limit = 20;
 			offIcon = "󰤭";
 			ethIcon = "󰈀";
@@ -81,8 +81,8 @@
 
 		bluetooth = {
 			enable = true;
-			scrollInterval = "1s";
-			limit = 20;
+			scrollInterval = "0.5s";
+			limit = 5;
 			icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
 		};
 	};

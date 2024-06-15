@@ -2,6 +2,7 @@
 {
 	wayland.windowManager.hyprland = {
 		systemd.variables = [ "XDG_SESSION_TYPE" "QT_QPA_PLATFORMTHEME" ];
+
 		settings = {
 			"$mod" = "SUPER";
 			"$terminal" = config.home.sessionVariables.TERMINAL;
@@ -9,12 +10,13 @@
 
 			monitor = [ ", preferred, auto, 1" ];
 			bezier = [ "easeOutBack, 0.34, 1.56, 0.64, 1" ];
+			windowrule = [ "tile, ^(.*)$" ];
 			master.mfact = 0.5;
 			debug.disable_logs = false;
 
 			exec-once = [
 				"${pkgs.hypridle}/bin/hypridle"
-				"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.5; done; ${pkgs.eww}/bin/eww open bar"
+				"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.2; done; ${pkgs.eww}/bin/eww open bar"
 			];
 
 			animation = [
