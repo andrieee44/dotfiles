@@ -67,9 +67,8 @@
 
 (defwidget bluetooth []
 	(box :space-evenly false
-		(label :class `icon` :unindent false :text `󰂯 `)
-		(label :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered ? "on" : "off"}`)
-		(sep)
+		(label :class `icon` :unindent false :text `${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "󰂯 " : ""}`)
+		(label :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered ? "${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "on | " : ""}" : "off | "}`)
 		(for device in `${jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")}`
 			(box :space-evenly false
 				(label :class `icon` :unindent false :text `󰂯${device.HasBattery ? "${device.Icon}" : ""} `)
