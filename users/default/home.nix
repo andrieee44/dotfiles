@@ -135,6 +135,11 @@
 		dataHome = "${config.home.homeDirectory}/.local/share";
 		stateHome = "${config.home.homeDirectory}/.local/state";
 
+		portal = {
+			enable = true;
+			config.common.default = "*";
+		};
+
 		userDirs = 	{
 			enable = true;
 			createDirectories = true;

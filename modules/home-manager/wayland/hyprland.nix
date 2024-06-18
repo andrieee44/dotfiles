@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 {
+	xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+
 	wayland.windowManager.hyprland = {
 		systemd.variables = [ "XDG_SESSION_TYPE" "QT_QPA_PLATFORMTHEME" ];
 
