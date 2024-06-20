@@ -4,6 +4,7 @@
 		enable = true;
 		image = ./wallpaper;
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+		polarity = "dark";
 
 		cursor = {
 			package = pkgs.vanilla-dmz;

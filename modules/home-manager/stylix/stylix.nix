@@ -1,3 +1,4 @@
+{ config, ... }:
 {
 	stylix.targets = {
 		firefox.profileNames = [ "default" ];
@@ -6,7 +7,6 @@
 
 		custom = {
 			aerc.enable = true;
-			eww.enable = true;
 			fzf.enable = true;
 			hyprland.enable = true;
 			hyprlock.enable = true;
@@ -16,6 +16,16 @@
 			rofi.enable = true;
 			tmux.enable = true;
 			zsh.enable = true;
+
+			eww = {
+				enable = true;
+
+				border = {
+					radius = config.wayland.windowManager.hyprland.settings.decoration.rounding;
+					width = config.wayland.windowManager.hyprland.settings.general.border_size;
+					color = config.lib.stylix.colors.withHashtag.base0D;
+				};
+			};
 
 			nixvim = {
 				enable = true;

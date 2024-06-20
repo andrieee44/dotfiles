@@ -8,11 +8,11 @@
 (deflisten status `jsonstatus`)
 
 (defwidget sep []
-	(label :class `sep` :unindent false :text ` | `))
+	(label :class `sep` :unindent false :text ` ▏`))
 
 (defwidget hyprlandWindow []
 	(box :space-evenly false
-		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : "| "}`)
+		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : "▏"}`)
 		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, status.Hyprland.Limit)}`)))
 
 (defwidget hyprlandWorkspaces []
@@ -68,7 +68,8 @@
 (defwidget bluetooth []
 	(box :space-evenly false
 		(label :class `icon` :unindent false :text `${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "󰂯 " : ""}`)
-		(label :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered ? "${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "on | " : ""}" : "off | "}`)
+		(label :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered ? "${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "on" : ""}" : "off"}`)
+		(label :class `sep` :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered && arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) != 0 ? "" : " ▏"}`)
 		(for device in `${jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")}`
 			(box :space-evenly false
 				(label :class `icon` :unindent false :text `󰂯${device.HasBattery ? "${device.Icon}" : ""} `)
@@ -78,7 +79,7 @@
 
 (defwindow bar :monitor 0 :stacking `fg` :exclusive true
 	:geometry (geometry :width `98%` :height `35px` :y `20px` :anchor `top center`)
-	(box :space-evenly false
+	(box :class `window` :space-evenly false
 		(box :hexpand true :space-evenly false :halign `start`
 			(hyprlandWorkspaces)
 			(hyprlandWindow))

@@ -73,6 +73,8 @@
 		};
 
 		extraPlugins = with pkgs.vimPlugins; [
+			vim-be-good
+
 			{
 				plugin = nvim-terminal-lua;
 				config = ''lua require('terminal').setup()'';
