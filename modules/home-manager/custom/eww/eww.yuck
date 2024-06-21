@@ -17,8 +17,8 @@
 
 (defwidget hyprlandWorkspaces []
 	(box :space-evenly false
-		(for workspace in `${jq(status.Hyprland.Workspaces, "sort_by(.Id)")}`
-			(label :class `${workspace.Id == status.Hyprland.Active ? "activeWorkspace" : ""}` :unindent false :text ` ${workspace.Name} `))))
+		(for workspace in `${jq(status.Hyprland.Monitors.eDP-1.Workspaces, "sort_by(.Id)")}`
+			(label :class `${workspace.Id == status.Hyprland.Monitors.eDP-1.Active ? "activeWorkspace" : ""}` :unindent false :text ` ${workspace.Name} `))))
 
 (defwidget date []
 	(box :space-evenly false
