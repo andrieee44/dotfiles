@@ -1,7 +1,6 @@
 {
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-		nix-colors.url = "github:misterio77/nix-colors";
 		nur.url = "github:nix-community/NUR";
 		stylix.url = "github:danth/stylix";
 
@@ -12,7 +11,7 @@
 
 		nixvim = {
 			url = "github:nix-community/nixvim";
-			#inputs.nixpkgs.follows = "nixpkgs";
+			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
 
@@ -20,7 +19,6 @@
 			specialArgs = {
 				inherit inputs;
 				stateVersion = "24.05";
-				colorscheme = inputs.nix-colors.colorSchemes.nord;
 			};
 
 			modules = path:
