@@ -15,8 +15,8 @@ in {
 				src = pkgs.fetchFromGitHub {
 					owner = "andrieee44";
 					repo = "jsonstatus";
-					rev = "bf489b5c317f12e7e9e1406935a6122cbd43dab7";
-					hash = "sha256-pzmUm1Toh6CrkAKugHYD0uDohOPLBLJqxdlPy/jEPIw=";
+					rev = "006154cf37fe972965f7c91b39e591c1c2f7b497";
+					hash = "sha256-ESnb0QZAF9QQPDnXMwWqMzJkq/AtiamJ3dn+6hQ4FyY=";
 				};
 			};
 		};
