@@ -5,6 +5,7 @@
 	wayland.windowManager.hyprland.enable = true;
 
 	custom.programs = {
+		cmenu.enable = true;
 		eww.enable = true;
 		jsonstatus.enable = true;
 		spotdl.enable = true;

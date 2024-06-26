@@ -22,7 +22,10 @@ in {
 		};
 	};
 
-	config.xdg.configFile."jsonstatus/jsonstatus.toml".source = let
+	config = let
 		cfg = config.custom.programs.jsonstatus;
-	in lib.mkIf cfg.enable (toml.generate "jsonstatus.toml" cfg.settings);
+	in {
+		home.packages = [ cfg.package ];
+		xdg.configFile."jsonstatus/jsonstatus.toml".source = lib.mkIf cfg.enable (toml.generate "jsonstatus.toml" cfg.settings);
+	};
 }
