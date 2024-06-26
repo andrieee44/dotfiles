@@ -12,8 +12,8 @@
 				src = pkgs.fetchFromGitHub {
 					owner = "andrieee44";
 					repo = "cmenu";
-					rev = "94149f39cdb99d69be3137f0cf0a68565d9a36cf";
-					hash = "sha256-wHRZGkJf0MzLYOlXanXuMDrgqxEfYDksj7ravPXLTr0=";
+					rev = "15958b4fc703ede1166d051f5fa5c800de43e2a7";
+					hash = "sha256-RXB69O6GRxFwkHzi+iOvpHQolK5vg3SPI0uX/GomMZU=";
 				};
 			};
 		};
