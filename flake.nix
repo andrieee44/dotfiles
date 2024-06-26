@@ -16,10 +16,7 @@
 	};
 
 	outputs = { ... } @ inputs: let
-			specialArgs = {
-				inherit inputs;
-				stateVersion = "24.05";
-			};
+			specialArgs.stateVersion = "24.05";
 
 			modules = path:
 				builtins.filter (file:
@@ -31,8 +28,8 @@
 				specialArgs = specialArgs;
 
 				modules = [
-					./hosts/default/configuration.nix
 					./hosts/lenovoIdeapadSlim3/configuration.nix
+					./hosts/default/configuration.nix
 					inputs.stylix.nixosModules.stylix
 				] ++ modules ./modules/nixos ++ modules ./modules/stylix;
 			};
