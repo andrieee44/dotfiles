@@ -221,7 +221,7 @@
 				};
 
 				servers = {
-					#bashls.enable = true;
+					bashls.enable = true;
 					gopls.enable = true;
 					ltex.enable = true;
 					lua-ls.enable = true;
