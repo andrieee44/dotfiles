@@ -16,6 +16,7 @@
 				guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
 				baseIndex = builtins.toString config.programs.tmux.baseIndex;
 				nextIndex = builtins.toString (config.programs.tmux.baseIndex + 1);
+
 				mvpane = window:
 					let
 						windowStr = builtins.toString window;
@@ -34,6 +35,7 @@
 				%endif
 
 				set -g focus-events on
+				set -g set-clipboard on
 				set -g main-pane-width 50%
 				set -g window-status-separator ${"''"}
 				set -g status on
@@ -85,6 +87,8 @@
 				bind -n M-[ copy-mode
 				bind -n M-] pasteb
 				bind -n M-t clock-mode
+
+				bind -n M-d run ' '
 			'';
 		};
 

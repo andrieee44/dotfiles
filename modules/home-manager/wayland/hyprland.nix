@@ -3,7 +3,7 @@
 	xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 
 	wayland.windowManager.hyprland = {
-		systemd.variables = [ "XDG_SESSION_TYPE" "QT_QPA_PLATFORMTHEME" ];
+		systemd.variables = [ "XDG_SESSION_TYPE" "QT_QPA_PLATFORMTHEME" "FZF_DEFAULT_OPTS" ];
 
 		settings = {
 			"$mod" = "SUPER";
@@ -18,7 +18,7 @@
 
 			exec-once = [
 				"${pkgs.hypridle}/bin/hypridle"
-				"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.2; done; ${pkgs.eww}/bin/eww open bar"
+				"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.1; done; ${pkgs.eww}/bin/eww open bar"
 			];
 
 			animation = [
@@ -28,6 +28,8 @@
 			];
 
 			bind = [
+				"$mod, D, execr, $terminal -e ${config.custom.sh.bookmarks}/bin/bookmarks"
+
 				"$mod, Return, execr, $terminal"
 				"$mod, W, execr, $browser"
 
