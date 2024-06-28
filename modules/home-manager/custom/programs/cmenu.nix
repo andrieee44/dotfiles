@@ -22,6 +22,7 @@
 			"󱄅 Noogle - Simply find Nix API reference documentation. 󰈙" = "https://noogle.dev/";
 			"󱄅 NixOS Search - Packages 󰏔" = "https://search.nixos.org/packages/";
 			"󱄅 NixOS Search - Options " = "https://search.nixos.org/options?";
+			"󰖌 Hyprland Wiki " = "https://wiki.hyprland.org/";
 		};
 	};
 }

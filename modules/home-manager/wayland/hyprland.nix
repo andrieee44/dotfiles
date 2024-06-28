@@ -3,7 +3,11 @@
 	xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 
 	wayland.windowManager.hyprland = {
-		systemd.variables = [ "XDG_SESSION_TYPE" "QT_QPA_PLATFORMTHEME" "FZF_DEFAULT_OPTS" ];
+		systemd.variables = [
+			"XDG_SESSION_TYPE"
+			"QT_QPA_PLATFORMTHEME"
+			"FZF_DEFAULT_OPTS"
+		];
 
 		settings = {
 			"$mod" = "SUPER";
@@ -12,9 +16,15 @@
 
 			monitor = [ ", preferred, auto, 1" ];
 			bezier = [ "easeOutBack, 0.34, 1.56, 0.64, 1" ];
-			windowrule = [ "tile, ^(.*)$" ];
 			master.mfact = 0.5;
 			debug.disable_logs = false;
+
+			windowrule = [
+				"tile, ^(.*)$"
+				"float, title:^(fzfMenu)$"
+				"size 50% 50%, title:^(fzfMenu)$"
+				"move 25% 25%, title:^(fzfMenu)$"
+			];
 
 			exec-once = [
 				"${pkgs.hypridle}/bin/hypridle"
@@ -28,7 +38,7 @@
 			];
 
 			bind = [
-				"$mod, D, execr, $terminal -e ${config.custom.sh.bookmarks}/bin/bookmarks"
+				"$mod, D, execr, $terminal -T 'fzfMenu' -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.bookmarks}/bin/bookmarks 2> /dev/null'"
 
 				"$mod, Return, execr, $terminal"
 				"$mod, W, execr, $browser"

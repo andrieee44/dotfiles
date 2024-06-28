@@ -9,7 +9,7 @@
 			set -eu
 
 			${config.custom.programs.cmenu.package}/bin/cmenu \
-			'${pkgs.fzf}/bin/fzf --header "󰃀 Bookmarks 󰃀"' \
+			'${pkgs.fzf}/bin/fzf-tmux -p "50%,50%" --header "󰃀 Bookmarks 󰃀"' \
 			${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/bookmarks.json".target} \
 			| {
 				[ -n "$WAYLAND_DISPLAY" ] && ${pkgs.wl-clipboard}/bin/wl-copy -n && return

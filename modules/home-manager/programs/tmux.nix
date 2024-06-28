@@ -88,7 +88,7 @@
 				bind -n M-] pasteb
 				bind -n M-t clock-mode
 
-				bind -n M-d run ' '
+				bind -n M-d run '${config.custom.sh.bookmarks}/bin/bookmarks'
 			'';
 		};
 
