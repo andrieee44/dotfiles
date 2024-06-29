@@ -8,8 +8,8 @@
 			src = pkgs.fetchFromGitHub {
 				owner = "andrieee44";
 				repo = "cmenu";
-				rev = "39535fa5dc6cc88435d7b6d572e37fecba8949d4";
-				hash = "sha256-estt7CFQOyrPYHjLhcJs4IbFSYtFIOBBV7L5mXP4rak=";
+				rev = "8383a70c4b70308803f0bb6dcd10b5a7a59b4917";
+				hash = "sha256-ZxhGAxPPjE3WkziGBtTBm6UC16h0uhG/cSyf0AEdLxc=";
 			};
 		};
 	};
@@ -23,6 +23,7 @@
 			"󱄅 NixOS Search - Packages 󰏔" = "https://search.nixos.org/packages?";
 			"󱄅 NixOS Search - Options " = "https://search.nixos.org/options?";
 			"󰖌 Hyprland Wiki " = "https://wiki.hyprland.org/";
+			"󰊤 GitHub 󰊤" = "https://github.com/";
 		};
 	};
 }
