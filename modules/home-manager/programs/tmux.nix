@@ -32,6 +32,7 @@
 					set -sa terminal-features ",${"\${TERM}"}:RGB"
 				%else
 					set -g default-terminal screen-16color
+					bind -n C-V pasteb
 				%endif
 
 				set -g focus-events on
@@ -88,7 +89,7 @@
 				bind -n M-] pasteb
 				bind -n M-t clock-mode
 
-				bind -n M-d run '${config.custom.sh.bookmarks}/bin/bookmarks'
+				bind -n M-d run '${config.custom.sh.bookmarks}/bin/bookmarks || true'
 			'';
 		};
 

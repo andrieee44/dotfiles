@@ -77,7 +77,7 @@
 			set -eu
 
 			[ "$XDG_SESSION_TYPE" = "tty" ] && bool="no" || bool="yes"
-			echo "visualizer_spectrum_smooth_look=${"\${bool}"}" | ${pkgs.busybox}/bin/cat - '${config.xdg.configFile."ncmpcpp/config".target}' > '${config.xdg.configHome}/ncmpcpp/config'
+			printf 'visualizer_spectrum_smooth_look=%s\n' "$bool" | ${pkgs.toybox}/bin/cat - '${config.home.homeDirectory}/${config.xdg.configFile."ncmpcpp/config".target}' > '${config.xdg.configHome}/ncmpcpp/config'
 
 			${config.programs.ncmpcpp.package}/bin/ncmpcpp
 		''}";
