@@ -8,8 +8,8 @@
 			src = pkgs.fetchFromGitHub {
 				owner = "andrieee44";
 				repo = "cmenu";
-				rev = "8383a70c4b70308803f0bb6dcd10b5a7a59b4917";
-				hash = "sha256-ZxhGAxPPjE3WkziGBtTBm6UC16h0uhG/cSyf0AEdLxc=";
+				rev = "9cf508979cdb4d0a55c4ee75fb1e5366afd6ae53";
+				hash = "sha256-epXzk7JVSybGPGqzpG3y6/2urblMWC9L+dgaUy6uy7s=";
 			};
 		};
 	};
