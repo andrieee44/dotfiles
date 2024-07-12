@@ -20,7 +20,6 @@
 			debug.disable_logs = false;
 
 			windowrule = [
-				"tile, ^(.*)$"
 				"float, title:^(fzfMenu)$"
 				"size 50% 50%, title:^(fzfMenu)$"
 				"move 25% 25%, title:^(fzfMenu)$"
