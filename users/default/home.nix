@@ -154,6 +154,19 @@
 		};
 	};
 
+	nix = {
+		package = pkgs.nix;
+
+		settings = {
+			auto-optimise-store = true;
+
+			experimental-features = [
+				"nix-command"
+				"flakes"
+			];
+		};
+	};
+
 	gtk = {
 		enable = true;
 		gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
