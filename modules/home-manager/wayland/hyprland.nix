@@ -21,6 +21,8 @@
 
 			windowrule = [
 				"float, title:^(fzfMenu)$"
+				"tile, title:^(Steam Big Picture Mode)$"
+				"tile, title:^(Battle.net)$"
 				"size 50% 50%, title:^(fzfMenu)$"
 				"move 25% 25%, title:^(fzfMenu)$"
 			];
