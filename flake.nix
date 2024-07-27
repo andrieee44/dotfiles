@@ -15,7 +15,7 @@
 		};
 	};
 
-	outputs = { ... } @ inputs: let
+	outputs = inputs: let
 			specialArgs.stateVersion = "24.05";
 
 			modules = path:
