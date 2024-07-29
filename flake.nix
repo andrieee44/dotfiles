@@ -13,6 +13,12 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		
+		nix-on-droid = {
+			url = "github:nix-community/nix-on-droid";
+			inputs.nixpkgs.follows = "nixpkgs";
+			
+		};
 	};
 
 	outputs = inputs: let
@@ -28,8 +34,8 @@
 				specialArgs = specialArgs;
 
 				modules = [
-					./hosts/lenovoIdeapadSlim3/configuration.nix
 					./hosts/default/configuration.nix
+					./hosts/lenovoIdeapadSlim3/configuration.nix
 					inputs.stylix.nixosModules.stylix
 				] ++ modules ./modules/nixos ++ modules ./modules/stylix;
 			};
@@ -45,6 +51,13 @@
 					inputs.nur.hmModules.nur
 					inputs.stylix.homeManagerModules.stylix
 				] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
+			};
+			
+			nixOnDroidConfigurations.oppoReno8Z = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+				pkgs = import inputs.nixpkgs { system = "aarch64-linux"; };
+				extraSpecialArgs = specialArgs;
+				
+				modules = [ ./android/default/nix-on-droid.nix ];
 			};
 		};
 }
