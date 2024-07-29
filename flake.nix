@@ -2,7 +2,11 @@
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 		nur.url = "github:nix-community/NUR";
-		stylix.url = "github:danth/stylix";
+		
+		stylix = {
+			url = "github:danth/stylix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 
 		home-manager = {
 			url = "github:nix-community/home-manager";
@@ -17,7 +21,6 @@
 		nix-on-droid = {
 			url = "github:nix-community/nix-on-droid";
 			inputs.nixpkgs.follows = "nixpkgs";
-			
 		};
 	};
 
@@ -54,9 +57,8 @@
 			};
 			
 			nixOnDroidConfigurations.oppoReno8Z = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-				pkgs = import inputs.nixpkgs { system = "aarch64-linux"; };
+				pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
 				extraSpecialArgs = specialArgs;
-				
 				modules = [ ./android/default/nix-on-droid.nix ];
 			};
 		};
