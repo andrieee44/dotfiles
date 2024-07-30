@@ -1,6 +1,7 @@
 {
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 		nur.url = "github:nix-community/NUR";
 		
 		stylix = {
@@ -57,7 +58,7 @@
 			};
 			
 			nixOnDroidConfigurations.oppoReno8Z = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-				pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
+				pkgs = inputs.nixpkgs-stable.legacyPackages."aarch64-linux";
 				extraSpecialArgs = specialArgs;
 				modules = [ ./android/default/nix-on-droid.nix ];
 			};

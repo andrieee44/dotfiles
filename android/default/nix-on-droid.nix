@@ -22,7 +22,7 @@
 	};
 	
 	terminal = {
-		font = "${pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }}/share/fonts/truetype/SauceCodeProNerdFontMono.ttf";
+		font = "${pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 		
 		colors = {
 			background = "#2e3440";
