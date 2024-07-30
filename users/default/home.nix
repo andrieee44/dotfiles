@@ -94,6 +94,7 @@
 		git.enable = true;
 		go.enable = true;
 		gpg.enable = true;
+		home-manager.enable = true;
 		htop.enable = true;
 		hyprlock.enable = true;
 		imv.enable = true;

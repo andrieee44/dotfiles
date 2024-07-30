@@ -2,11 +2,7 @@
 {
 	time.timeZone = "Asia/Manila";
 	system.stateVersion = stateVersion;
-
-	environment = {
-		systemPackages = with pkgs; [ home-manager ];
-		pathsToLink = [ "/share/zsh" ];
-	};
+	environment.pathsToLink = [ "/share/zsh" ];
 
 	programs = {
 		dconf.enable = true;
