@@ -5,14 +5,14 @@
 	"Not charging": "󰈅"
 }`)
 
-(deflisten status `jsonstatus`)
+(deflisten status `jstat`)
 
-(defwidget sep []
-	(label :class `sep` :unindent false :text ` ▏`))
+(defwidget sep [unindent cond]
+	(label :class `sep` :unindent unindent :text `${cond ? " ▏" : ""}`))
 
 (defwidget hyprlandWindow []
 	(box :space-evenly false
-		(label :class `sep` :unindent false :text `${status.Hyprland.Window == "" ? "" : "▏"}`)
+		(sep :unindent true :cond `${status.Hyprland.Window != ""}`)
 		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, status.Hyprland.Limit)}`)))
 
 (defwidget hyprlandWorkspaces []
@@ -24,6 +24,13 @@
 	(box :space-evenly false
 		(label :class `icon` :unindent false :text `${status.Date.Icon} `)
 		(label :unindent false :text `${status.Date.Date}`)))
+
+(defwidget netSpd []
+	(box :space-evenly false
+		(label :class `icon` :unindent false :text `󰶣 `)
+		(label :unindent false :text `${round(status.NetSpd.Up / 1000000, 1)} MB `)
+		(label :class `icon` :unindent false :text `󰶡 `)
+		(label :unindent false :text `${round(status.NetSpd.Down / 1000000, 1)} MB`)))
 
 (defwidget vol []
 	(box :space-evenly false
@@ -43,7 +50,7 @@
 (defwidget cpu []
 	(box :space-evenly false
 		(label :class `icon` :unindent false :text `󰍛 ${status.Cpu.Icon} `)
-		(label :unindent false :text `${round(status.Cpu.AveragePerc, 0)}%`)))
+		(label :unindent false :text `${round(status.Cpu.AvgUsage, 0)}%`)))
 
 (defwidget bri []
 	(box :space-evenly false
@@ -52,33 +59,44 @@
 
 (defwidget bat []
 	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Bat[0].Icon}${batStatus["${status.Bat[0].Status}"]} `)
-		(label :unindent false :text `${round(status.Bat[0].Capacity, 0)}%`)))
+		(for bat in `${status.Bat}`
+			(box :space-evenly false
+				(label :class `icon` :unindent false :text `${bat.Icon}${batStatus["${bat.Status}"]} `)
+				(label :unindent false :text `${round(bat.Capacity, 0)}%`)))))
 
 (defwidget music []
 	(box :space-evenly false
 		(label :class `icon` :unindent false :text `${status.Music.State == "play" ? "󰝚" : "${status.Music.State == "pause" ? "󰏤" : "󰝛"}"} `)
-		(label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Music, status.Music.Scroll, status.Music.Limit)}"}`)))
+		(label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Song, status.Music.Scroll, status.Music.Limit)}"}`)))
 
-(defwidget net []
+(defwidget internet []
 	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Net.Icon} `)
-		(label :unindent false :text `${status.Net.Name}`)))
+		(for eth in `${jq(status.Internet.Ethernet, "to_entries | map(select(.value.Powered).value)")}`
+			(box :space-evenly false
+				(label :class `icon` :unindent false :text `󰈀 `)
+				(label :unindent false :text `${substring(eth.Name, eth.Scroll, status.Internet.Limit)}`)
+				(sep :unindent false :cond true)))
+		(for wifi in `${jq(status.Internet.Wifi, "to_entries | map(.value)")}`
+			(box :space-evenly false
+				(label :class `icon` :unindent false :text `${wifi.Powered ? "${wifi.Icon} " : "${wifi.Scanning ? " " : ""}"}`)
+				(label :unindent false :text `${wifi.Powered ? "${substring(wifi.Name, wifi.Scroll, status.Internet.Limit)}" : "${wifi.Scanning ? "scanning" : ""}"}`)
+				(sep :unindent false :cond `${wifi.Scanning || wifi.Powered}`)))))
 
 (defwidget bluetooth []
 	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "󰂯 " : ""}`)
-		(label :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered ? "${arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) == 0 ? "on" : ""}" : "off"}`)
-		(label :class `sep` :unindent false :text `${status.Bluetooth.Adapters["/org/bluez/hci0"].Powered && arraylength(jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")) != 0 ? "" : " ▏"}`)
-		(for device in `${jq(status.Bluetooth.Adapters["/org/bluez/hci0"].Devices, "to_entries | map(select(.value.Connected).value)")}`
+		(for adapter in `${jq(status.Bluetooth.Adapters, "to_entries | map(select(.value.Powered).value)")}`
 			(box :space-evenly false
-				(label :class `icon` :unindent false :text `󰂯${device.HasBattery ? "${device.Icon}" : ""} `)
-				(label :unindent false :text `${device.HasBattery ? "${device.Battery}% " : ""}`)
-				(label :unindent false :text `${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
-				(sep)))))
+				(label :class `icon` :unindent false :text `󰂯 `)
+				(label :unindent false :text `${adapter.Discovering ? "scanning" : "${adapter.Name}"}`)
+				(sep :unindent false :cond true)
+				(for device in `${jq(adapter.Devices, "to_entries | map(select(.value.Connected).value)")}`
+					(box :space-evenly false
+						(label :class `icon` :unindent false :text `󰂯${device.Icon} `)
+						(label :unindent false :text `${device.Battery}% ${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
+						(sep :unindent false :cond true)))))))
 
 (defwindow bar :monitor 0 :stacking `fg` :exclusive true
-	:geometry (geometry :width `98%` :height `35px` :y `20px` :anchor `top center`)
+	:geometry (geometry :width `98%` :height `60px` :y `20px` :anchor `top center`)
 	(box :class `window` :space-evenly false
 		(box :hexpand true :space-evenly false :halign `start`
 			(hyprlandWorkspaces)
@@ -86,11 +104,12 @@
 		(box :hexpand true :space-evenly false :halign `end`
 			(bluetooth)
 			(music)
-			(sep) (net)
-			(sep) (vol)
-			(sep) (bri)
-			(sep) (cpu)
-			(sep) (ram)
-			(sep) (bat)
-			(sep) (date)
+			(sep :unindent false :cond true) (internet)
+			(vol)
+			(sep :unindent false :cond true) (bri)
+			(sep :unindent false :cond true) (bat)
+			(sep :unindent false :cond true) (cpu)
+			(sep :unindent false :cond true) (ram)
+			(sep :unindent false :cond true) (netSpd)
+			(sep :unindent false :cond true) (date)
 			(label :unindent false :text ` `))))
