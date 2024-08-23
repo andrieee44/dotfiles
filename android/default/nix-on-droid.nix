@@ -4,7 +4,7 @@
 	time.timeZone = "Asia/Manila";
 	system.stateVersion = stateVersion;
 	nix.extraOptions = "experimental-features = nix-command flakes";
-	
+
 	android-integration = {
 		termux-open.enable = true;
 		termux-open-url.enable = true;
@@ -14,16 +14,16 @@
 		termux-wake-unlock.enable = true;
 		xdg-open.enable = true;
 	};
-	
+
 	home-manager = {
 		config = ./home.nix;
 		extraSpecialArgs = { stateVersion = stateVersion; };
 		useUserPackages = true;
 	};
-	
+
 	terminal = {
 		font = "${pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
-		
+
 		colors = {
 			background = "#2e3440";
 			foreground = "#d8dee9";
