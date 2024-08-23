@@ -3,7 +3,7 @@
 	options.stylix.targets.custom.nixvim = {
 		enable = lib.mkEnableOption "custom implementation of styling nixvim";
 
-		transparent_bg = {
+		transparentBackground = {
 			lineNumbers = lib.mkEnableOption "background transparency for neovim line numbers";
 			otherWindows = lib.mkEnableOption "background transparency for inactive neovim windows";
 		};
@@ -14,12 +14,12 @@
 		colors = config.lib.stylix.colors.withHashtag;
 	in lib.mkIf cfg.enable {
 		highlight = {
-			LineNr = lib.mkIf cfg.transparent_bg.lineNumbers {
+			LineNr = lib.mkIf cfg.transparentBackground.lineNumbers {
 				bg = "none";
 				ctermbg = "none";
 			};
 
-			NormalNC = lib.mkIf cfg.transparent_bg.otherWindows {
+			NormalNC = lib.mkIf cfg.transparentBackground.otherWindows {
 				bg = "none";
 				ctermbg = "none";
 			};

@@ -29,7 +29,7 @@
 			nixvim = {
 				enable = true;
 
-				transparent_bg = {
+				transparentBackground = {
 					lineNumbers = true;
 					otherWindows = true;
 				};
@@ -41,9 +41,9 @@
 			};
 		};
 
-		nixvim.transparent_bg = {
+		nixvim.transparentBackground = {
 			main = true;
-			sign_column = true;
+			signColumn = true;
 		};
 	};
 }
