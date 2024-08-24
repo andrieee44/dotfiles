@@ -26,6 +26,12 @@
 		};
 
 		highlightOverride = {
+			Comment	 = {
+				fg = colors.base04;
+				ctermfg = "lightgray";
+				italic = true;
+			};
+
 			TSComment = {
 				fg = colors.base04;
 				ctermfg = "lightgray";
