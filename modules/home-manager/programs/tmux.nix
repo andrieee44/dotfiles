@@ -90,6 +90,7 @@
 				bind -n M-t clock-mode
 
 				bind -n M-d run '${config.custom.sh.bookmarks}/bin/bookmarks || true'
+				bind -n M-BSpace run '${config.custom.sh.system}/bin/system >/dev/null || true'
 			'';
 		};
 

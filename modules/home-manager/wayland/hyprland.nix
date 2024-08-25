@@ -38,8 +38,12 @@
 				"windows, 1, 7, easeOutBack, slide"
 			];
 
-			bind = [
-				"$mod, D, execr, $terminal -T 'fzfMenu' -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.bookmarks}/bin/bookmarks 2> /dev/null'"
+			bind = let
+				shMenu = key: script:
+					"$mod, ${key}, execr, $terminal -T 'fzfMenu' -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.${script}}/bin/${script}'";
+			in [
+				(shMenu "D" "bookmarks")
+				(shMenu "Backspace" "system")
 
 				"$mod, Return, execr, $terminal"
 				"$mod, W, execr, $browser"

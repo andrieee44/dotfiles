@@ -26,5 +26,14 @@
 			"󰊤 GitHub 󰊤" = "https://github.com/";
 			"󰱫 Nerd Fonts - Iconic font aggregator, glyphs/icons collection, & fonts patcher 󰱫" = "https://www.nerdfonts.com/cheat-sheet";
 		};
+
+		"cmenu/system.json".text = builtins.toJSON {
+			"󰐥 Power off 󰐥" = "${pkgs.systemd}/bin/poweroff";
+			"󰜉 Reboot 󰜉" = "${pkgs.systemd}/bin/reboot";
+			"󰌾 Lock 󰌾" = "${pkgs.systemd}/bin/loginctl lock-session";
+			"󰤄 Sleep 󰤄" = "${pkgs.systemd}/bin/systemctl suspend";
+			" Reload Hyprland " = "${pkgs.hyprland}/bin/hyprctl reload";
+			" Kill Hyprland " = "${pkgs.systemd}/bin/loginctl kill-user \"$(whoami)\"";
+		};
 	};
 }
