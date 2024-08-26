@@ -44,6 +44,7 @@
 			in [
 				(shMenu "D" "bookmarks")
 				(shMenu "Backspace" "system")
+				(shMenu "P" "pass")
 
 				"$mod, Return, execr, $terminal"
 				"$mod, W, execr, $browser"
