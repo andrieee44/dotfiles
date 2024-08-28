@@ -14,6 +14,7 @@
 			mpv.enable = true;
 			ncmpcpp.enable = true;
 			tmux.enable = true;
+			zathura.enable = true;
 			zsh.enable = true;
 
 			eww = {

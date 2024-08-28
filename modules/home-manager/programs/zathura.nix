@@ -1,14 +1,10 @@
 {
 	programs.zathura = {
 		options = {
+			guioptions = "cshv";
 			database = "sqlite";
-			page-padding = 1;
-			recolor = true;
-			render-loading = "true";
-			sandbox = "normal";
 			selection-clipboard = "clipboard";
-			statusbar-h-padding = 0;
-			statusbar-v-padding = 0;
+			show-hidden = true;
 		};
 
 		mappings = {
