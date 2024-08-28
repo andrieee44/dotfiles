@@ -19,7 +19,11 @@
 
 			aerc = {
 				enable = true;
-				extraAccounts.signature-file = builtins.toFile "signature.txt" signatureText;
+				extraAccounts = {
+					signature-file = builtins.toFile "signature.txt" signatureText;
+					pgp-auto-sign = true;
+					pgp-attach-key = true;
+				};
 			};
 
 			gpg = {
