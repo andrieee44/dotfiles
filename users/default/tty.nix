@@ -1,13 +1,55 @@
 { config, pkgs, stateVersion, ... }:
 {
-	fonts.fontconfig.enable = true;
 	nixpkgs.config.allowUnfree = true;
-	wayland.windowManager.hyprland.enable = true;
 
 	custom.programs = {
 		cmenu.enable = true;
-		eww.enable = true;
 		spotdl.enable = true;
+	};
+
+	accounts.email = {
+		maildirBasePath = "${config.xdg.dataHome}/maildir";
+
+		accounts."andrieee44@gmail.com" = let
+			signatureText = "-- \n\"The art of programming is the art of organizing complexity.\" -Edsger Dijkstra";
+		in {
+			address = "andrieee44@gmail.com";
+			flavor = "gmail.com";
+			passwordCommand = "${pkgs.pass}/bin/pass web/gmailApp";
+			primary = true;
+			realName = "andrieee44";
+			userName = "andrieee44";
+			maildir.path = "andrieee44@gmail.com";
+
+			msmtp.enable = true;
+			notmuch.enable = true;
+
+			aerc = {
+				enable = true;
+				extraAccounts = {
+					signature-file = builtins.toFile "signature.txt" signatureText;
+					pgp-auto-sign = true;
+					pgp-attach-key = true;
+				};
+			};
+
+			gpg = {
+				key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
+				signByDefault = true;
+			};
+
+			mbsync = {
+				enable = true;
+				create = "maildir";
+				expunge = "maildir";
+				subFolders = "Maildir++";
+			};
+
+			signature = {
+				text = signatureText;
+				showSignature = "append";
+			};
+		};
 	};
 
 	home = {
@@ -17,25 +59,12 @@
 		packages = with pkgs; [
 			bc
 			ffmpeg
-			glxinfo
 			go-mtpfs
 			gotools
-			grim
 			hugo
 			mpc-cli
 			neofetch
-			noto-fonts
-			noto-fonts-cjk-sans
-			noto-fonts-cjk-serif
-			noto-fonts-color-emoji
-			noto-fonts-emoji-blob-bin
-			noto-fonts-lgc-plus
-			noto-fonts-monochrome-emoji
 			powertop
-			vistafonts
-			winetricks
-			wineWowPackages.full
-			wl-clipboard
 			xdg-user-dirs
 		];
 
@@ -56,13 +85,11 @@
 		};
 
 		sessionVariables = {
-			BROWSER = "firefox-esr";
 			EDITOR = "nvim";
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
 			PAGER = "${pkgs.less}/bin/less";
 			SSH_ASKPASS_REQUIRE = "force";
-			TERMINAL = "${pkgs.foot}/bin/footclient";
 			W3M_DIR = "${config.xdg.dataHome}/w3m";
 		};
 
@@ -87,39 +114,44 @@
 		aerc.enable = true;
 		dircolors.enable = true;
 		direnv.enable = true;
-		firefox.enable = true;
 		foot.enable = true;
 		fzf.enable = true;
-		git.enable = true;
 		go.enable = true;
-		gpg.enable = true;
 		home-manager.enable = true;
 		htop.enable = true;
-		hyprlock.enable = true;
-		imv.enable = true;
 		lf.enable = true;
 		man.enable = true;
-		mangohud.enable = true;
 		mbsync.enable = true;
-		mpv.enable = true;
 		msmtp.enable = true;
 		ncmpcpp.enable = true;
 		nixvim.enable = true;
 		notmuch.enable = true;
-		obs-studio.enable = true;
 		password-store.enable = true;
 		ssh.enable = true;
 		starship.enable = true;
 		texlive.enable = true;
 		tmux.enable = true;
-		zathura.enable = true;
 		zsh.enable = true;
+
+		git = {
+			enable = true;
+			userEmail = "andrieee44@gmail.com";
+		};
+
+		gpg = {
+			enable = true;
+
+			publicKeys = [
+				{
+					trust = 5;
+					source = ./public.key;
+				}
+			];
+		};
 	};
 
 	services = {
 		gpg-agent.enable = true;
-		hypridle.enable = true;
-		mako.enable = true;
 		mbsync.enable = true;
 		mpd.enable = true;
 	};
@@ -152,6 +184,15 @@
 			templates = "${baseDir}/templates";
 			videos = "${baseDir}/videos";
 		};
+
+		configFile.pam-gnupg = {
+			enable = config.services.gpg-agent.enable;
+
+			text = ''
+				${config.programs.gpg.homedir}
+				4761373E4C1DF3223D5D82B64B2B4D7665A3138B
+			'';
+		};
 	};
 
 	nix = {
@@ -165,10 +206,5 @@
 				"flakes"
 			];
 		};
-	};
-
-	gtk = {
-		enable = true;
-		gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 	};
 }

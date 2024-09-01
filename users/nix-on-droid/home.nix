@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
 {
 	home = {
-		username = "andrieee44";
-		homeDirectory = "/home/${config.home.username}";
+		username = "nix-on-droid";
+		homeDirectory = "/data/data/com.termux.nix/files/home";
 
 		sessionVariables.SSH_ASKPASS = pkgs.writers.writeDash "ssh_askpass" ''
 			set -eu
 
-			${pkgs.pass}/bin/pass "ssh/lenovoIdeapadSlim3"
+			${pkgs.pass}/bin/pass "ssh/oppoReno8Z"
 		'';
 	};
 }

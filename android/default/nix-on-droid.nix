@@ -15,12 +15,6 @@
 		xdg-open.enable = true;
 	};
 
-	home-manager = {
-		config = ./home.nix;
-		extraSpecialArgs = { stateVersion = stateVersion; };
-		useUserPackages = true;
-	};
-
 	terminal = {
 		font = "${pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 

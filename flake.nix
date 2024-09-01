@@ -1,7 +1,6 @@
 {
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 		nur.url = "github:nix-community/NUR";
 
 		stylix = {
@@ -44,21 +43,37 @@
 				] ++ modules ./modules/nixos ++ modules ./modules/stylix;
 			};
 
-			homeConfigurations.andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {
-				pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-				extraSpecialArgs = specialArgs;
+			homeConfigurations = {
+				andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {
+					pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+					extraSpecialArgs = specialArgs;
 
-				modules = [
-					./users/default/home.nix
-					./users/andrieee44/home.nix
-					inputs.nixvim.homeManagerModules.nixvim
-					inputs.nur.hmModules.nur
-					inputs.stylix.homeManagerModules.stylix
-				] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
+					modules = [
+						./users/andrieee44/home.nix
+						./users/default/gui.nix
+						./users/default/tty.nix
+						inputs.nixvim.homeManagerModules.nixvim
+						inputs.nur.hmModules.nur
+						inputs.stylix.homeManagerModules.stylix
+					] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
+				};
+
+				oppoReno8Z = inputs.home-manager.lib.homeManagerConfiguration {
+					pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
+					extraSpecialArgs = specialArgs;
+
+					modules = [
+						./users/nix-on-droid/home.nix
+						./users/default/tty.nix
+						inputs.nixvim.homeManagerModules.nixvim
+						inputs.nur.hmModules.nur
+						inputs.stylix.homeManagerModules.stylix
+					] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
+				};
 			};
 
 			nixOnDroidConfigurations.oppoReno8Z = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-				pkgs = inputs.nixpkgs-stable.legacyPackages."aarch64-linux";
+				pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
 				extraSpecialArgs = specialArgs;
 				modules = [ ./android/default/nix-on-droid.nix ];
 			};
