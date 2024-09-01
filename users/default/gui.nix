@@ -1,10 +1,11 @@
+{ config, pkgs, ... }:
 {
 	fonts.fontconfig.enable = true;
 	wayland.windowManager.hyprland.enable = true;
-	custom.eww.enable = true;
+	custom.programs.eww.enable = true;
 
 	home = {
-		packages = [
+		packages = with pkgs; [
 			glxinfo
 			grim
 			noto-fonts
