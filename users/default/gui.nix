@@ -27,6 +27,7 @@
 
 	programs = {
 		firefox.enable = true;
+		foot.enable = true;
 		hyprlock.enable = true;
 		imv.enable = true;
 		mangohud.enable = true;
