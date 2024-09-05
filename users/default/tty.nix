@@ -20,7 +20,6 @@
 			realName = "andrieee44";
 			userName = "andrieee44";
 			maildir.path = "andrieee44@gmail.com";
-
 			msmtp.enable = true;
 			notmuch.enable = true;
 
