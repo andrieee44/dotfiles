@@ -58,7 +58,7 @@
 					] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
 				};
 
-				oppoReno8Z = inputs.home-manager.lib.homeManagerConfiguration {
+				nix-on-droid = inputs.home-manager.lib.homeManagerConfiguration {
 					pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
 					extraSpecialArgs = specialArgs;
 
@@ -72,10 +72,10 @@
 				};
 			};
 
-			nixOnDroidConfigurations.oppoReno8Z = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+			nixOnDroidConfigurations.nix-on-droid = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
 				pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
 				extraSpecialArgs = specialArgs;
-				modules = [ ./android/default/nix-on-droid.nix ];
+				modules = [ ./hosts/nix-on-droid/nix-on-droid.nix ];
 			};
 		};
 }
