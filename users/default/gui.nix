@@ -45,4 +45,9 @@
 		enable = true;
 		gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 	};
+
+	xdg.portal = {
+		enable = true;
+		config.common.default = "*";
+	};
 }
