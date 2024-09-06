@@ -111,12 +111,15 @@
 	};
 
 	programs = {
+		/*
 		aerc.enable = true;
 		dircolors.enable = true;
 		direnv.enable = true;
 		fzf.enable = true;
 		go.enable = true;
+		*/
 		home-manager.enable = true;
+		/*
 		htop.enable = true;
 		lf.enable = true;
 		man.enable = true;
@@ -131,6 +134,7 @@
 		texlive.enable = true;
 		tmux.enable = true;
 		zsh.enable = true;
+		*/
 
 		git = {
 			enable = true;
