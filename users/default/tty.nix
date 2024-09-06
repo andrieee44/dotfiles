@@ -7,6 +7,7 @@
 		spotdl.enable = true;
 	};
 
+	/*
 	accounts.email = {
 		maildirBasePath = "${config.xdg.dataHome}/maildir";
 
@@ -51,6 +52,7 @@
 			};
 		};
 	};
+	*/
 
 	home = {
 		stateVersion = stateVersion;
@@ -136,6 +138,7 @@
 		zsh.enable = true;
 		*/
 
+		/*
 		git = {
 			enable = true;
 			userEmail = "andrieee44@gmail.com";
@@ -151,6 +154,7 @@
 				}
 			];
 		};
+		*/
 	};
 
 	/*
@@ -161,6 +165,7 @@
 	};
 	*/
 
+	/*
 	xdg = let
 		baseDir = "${config.home.homeDirectory}/xdg";
 	in {
@@ -194,4 +199,5 @@
 			'';
 		};
 	};
+	*/
 }
