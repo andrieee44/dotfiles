@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
 	stylix = {
-		enable = true;
+		enable = false;
 		image = ./wallpaper;
 		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
 		polarity = "dark";
