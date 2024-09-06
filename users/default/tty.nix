@@ -153,11 +153,13 @@
 		};
 	};
 
+	/*
 	services = {
 		gpg-agent.enable = true;
 		mbsync.enable = true;
 		mpd.enable = true;
 	};
+	*/
 
 	xdg = let
 		baseDir = "${config.home.homeDirectory}/xdg";
