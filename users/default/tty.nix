@@ -56,7 +56,7 @@
 
 	home = {
 		stateVersion = stateVersion;
-		sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+		# sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
 		/*
 		packages = with pkgs; [
