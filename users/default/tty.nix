@@ -2,14 +2,11 @@
 {
 	nixpkgs.config.allowUnfree = true;
 
-	/*
 	custom.programs = {
 		cmenu.enable = true;
 		spotdl.enable = true;
 	};
-	*/
 
-	/*
 	accounts.email = {
 		maildirBasePath = "${config.xdg.dataHome}/maildir";
 
@@ -54,13 +51,11 @@
 			};
 		};
 	};
-	*/
 
 	home = {
 		stateVersion = stateVersion;
-		# sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+		sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
-		/*
 		packages = with pkgs; [
 			bc
 			ffmpeg
@@ -88,10 +83,8 @@
 			rmdir = "rmdir -p";
 			rm = "rm -iv";
 		};
-		*/
 
 		sessionVariables = {
-			BROWSER = lib.mkDefault "";
 			EDITOR = "nvim";
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
@@ -101,7 +94,6 @@
 			W3M_DIR = "${config.xdg.dataHome}/w3m";
 		};
 
-		/*
 		language = let
 			locale = "fil_PH";
 			defaultLocale = "en_PH.UTF-8";
@@ -117,19 +109,15 @@
 			telephone = locale;
 			time = locale;
 		};
-		*/
 	};
 
 	programs = {
-		/*
 		aerc.enable = true;
 		dircolors.enable = true;
 		direnv.enable = true;
 		fzf.enable = true;
 		go.enable = true;
-		*/
 		home-manager.enable = true;
-		/*
 		htop.enable = true;
 		lf.enable = true;
 		man.enable = true;
@@ -144,9 +132,7 @@
 		texlive.enable = true;
 		tmux.enable = true;
 		zsh.enable = true;
-		*/
 
-		/*
 		git = {
 			enable = true;
 			userEmail = "andrieee44@gmail.com";
@@ -162,18 +148,14 @@
 				}
 			];
 		};
-		*/
 	};
 
-	/*
 	services = {
 		gpg-agent.enable = true;
 		mbsync.enable = true;
 		mpd.enable = true;
 	};
-	*/
 
-	/*
 	xdg = let
 		baseDir = "${config.home.homeDirectory}/xdg";
 	in {
@@ -207,5 +189,4 @@
 			'';
 		};
 	};
-	*/
 }
