@@ -1,4 +1,4 @@
-{ config, pkgs, stateVersion, ... }:
+{ config, pkgs, lib, stateVersion, ... }:
 {
 	nixpkgs.config.allowUnfree = true;
 
@@ -88,16 +88,20 @@
 			rmdir = "rmdir -p";
 			rm = "rm -iv";
 		};
+		*/
 
 		sessionVariables = {
+			BROWSER = lib.mkDefault "";
 			EDITOR = "nvim";
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
 			PAGER = "${pkgs.less}/bin/less";
 			SSH_ASKPASS_REQUIRE = "force";
+			TERMINAL = lib.mkDefault "";
 			W3M_DIR = "${config.xdg.dataHome}/w3m";
 		};
 
+		/*
 		language = let
 			locale = "fil_PH";
 			defaultLocale = "en_PH.UTF-8";
