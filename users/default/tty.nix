@@ -58,6 +58,7 @@
 		stateVersion = stateVersion;
 		sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
+		/*
 		packages = with pkgs; [
 			bc
 			ffmpeg
@@ -110,6 +111,7 @@
 			telephone = locale;
 			time = locale;
 		};
+		*/
 	};
 
 	programs = {
