@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
 	home = {
 		username = "nix-on-droid";
@@ -9,17 +9,5 @@
 
 			${pkgs.pass}/bin/pass "ssh/oppoReno8Z"
 		'';
-	};
-
-	programs = {
-		mbsync.enable = lib.mkForce false;
-		msmtp.enable = lib.mkForce false;
-		notmuch.enable = lib.mkForce false;
-	};
-
-	services = {
-		gpg-agent.enable = lib.mkForce false;
-		mbsync.enable = lib.mkForce false;
-		mpd.enable = lib.mkForce false;
 	};
 }
