@@ -2,10 +2,12 @@
 {
 	nixpkgs.config.allowUnfree = true;
 
+	/*
 	custom.programs = {
 		cmenu.enable = true;
 		spotdl.enable = true;
 	};
+	*/
 
 	/*
 	accounts.email = {
