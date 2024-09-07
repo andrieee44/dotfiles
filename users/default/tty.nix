@@ -85,6 +85,7 @@
 		};
 
 		sessionVariables = {
+			BROWSER = lib.mkDefault "";
 			EDITOR = "nvim";
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
