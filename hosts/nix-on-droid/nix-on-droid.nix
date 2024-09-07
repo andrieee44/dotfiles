@@ -4,6 +4,7 @@
 	time.timeZone = "Asia/Manila";
 	system.stateVersion = stateVersion;
 	nix.extraOptions = "experimental-features = nix-command flakes";
+	user.shell = "${pkgs.zsh}/bin/zsh"
 
 	android-integration = {
 		termux-open.enable = true;
