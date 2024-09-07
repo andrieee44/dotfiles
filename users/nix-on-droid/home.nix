@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+	stylix.targets.gtk.enable = false;
+
 	home = {
 		username = "nix-on-droid";
 		homeDirectory = "/data/data/com.termux.nix/files/home";
