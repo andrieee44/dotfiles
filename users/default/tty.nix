@@ -108,7 +108,6 @@
 			numeric = locale;
 			paper = locale;
 			telephone = locale;
-			time = locale;
 		};
 	};
 
