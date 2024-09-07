@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-	stylix.targets.gtk.enable = false;
+	stylix.targets = {
+		gnome.enable = false;
+		gtk.enable = false;
+	};
 
 	home = {
 		username = "nix-on-droid";
