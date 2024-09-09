@@ -3,7 +3,7 @@
 	stylix = {
 		enable = true;
 		image = ./wallpaper;
-		base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+		base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
 		polarity = "dark";
 
 		cursor = {
