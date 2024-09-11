@@ -68,20 +68,23 @@
 			xdg-user-dirs
 		];
 
-		shellAliases = {
-			bc = "bc ${config.home.homeDirectory}/${config.xdg.configFile."bc/bcrc".target} -ql";
-			cp = "cp -iv";
-			df = "df -Pha";
-			diff = "diff --color=auto";
-			grep = "grep --color=auto";
-			ip = "ip -color=auto";
+		shellAliases = let
+			toybox = "${pkgs.toybox}/bin/";
+			coreutils = "${pkgs.coreutils}/bin/";
+		in {
+			bc = "${pkgs.bc}/bin/bc ${config.home.homeDirectory}/${config.xdg.configFile."bc/bcrc".target} -ql";
+			cp = "${toybox}/cp -iv";
+			df = "${toybox}/df -Pha";
+			diff = "${pkgs.diffutils}/bin/diff --color=auto";
+			grep = "${pkgs.gnugrep}/bin/grep --color=auto";
+			ip = "${pkgs.iproute2}/bin/ip -color=auto";
 			less = config.home.sessionVariables.PAGER;
-			ls = "LC_ALL=C ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
-			mkdir = "mkdir -pv";
-			mv = "mv -iv";
-			nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history nix-shell";
-			rmdir = "rmdir -p";
-			rm = "rm -iv";
+			ls = "LC_ALL=C ${coreutils}/ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
+			mkdir = "${toybox}/mkdir -pv";
+			mv = "${toybox}/mv -iv";
+			nix-shell = "HISTFILE=${config.xdg.dataHome}/nix-shell.history ${pkgs.nix}/bin/nix-shell";
+			rmdir = "${toybox}/rmdir -p";
+			rm = "${toybox}/rm -iv";
 		};
 
 		sessionVariables = {
