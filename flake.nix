@@ -65,6 +65,7 @@
 					modules = [
 						./users/nix-on-droid/home.nix
 						./users/default/tty.nix
+						./modules/nix-on-droid/stylix.nix
 						inputs.nixvim.homeManagerModules.nixvim
 						inputs.nur.hmModules.nur
 						inputs.stylix.homeManagerModules.stylix
