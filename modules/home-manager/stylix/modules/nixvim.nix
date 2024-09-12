@@ -25,18 +25,19 @@
 			};
 		};
 
-		highlightOverride = {
-			Comment	 = {
-				fg = colors.base04;
-				ctermfg = "lightgray";
+		highlightOverride = let
+			comment = {
+				fg = colors.base0C;
+				ctermfg = "cyan";
 				italic = true;
 			};
-
-			TSComment = {
-				fg = colors.base04;
-				ctermfg = "lightgray";
-				italic = true;
-			};
+			
+			gitComment = comment // { italic = false; };
+		in {
+			Comment = comment;
+			TSComment = comment;
+			gitcommitComment = gitComment;
+			gitcommitOnBranch = gitComment;
 
 			Visual = {
 				bg = colors.base03;
