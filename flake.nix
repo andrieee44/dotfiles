@@ -65,7 +65,6 @@
 					modules = [
 						./users/nix-on-droid/home.nix
 						./users/default/tty.nix
-						./modules/nix-on-droid/stylix.nix
 						inputs.nixvim.homeManagerModules.nixvim
 						inputs.nur.hmModules.nur
 						inputs.stylix.homeManagerModules.stylix
@@ -76,7 +75,10 @@
 			nixOnDroidConfigurations.nix-on-droid = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
 				pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
 				extraSpecialArgs = specialArgs;
-				modules = [ ./hosts/nix-on-droid/nix-on-droid.nix ];
+				modules = [
+					./hosts/nix-on-droid/nix-on-droid.nix
+					./modules/nix-on-droid/stylix.nix
+				] ++ modules ./modules/stylix;
 			};
 		};
 }

@@ -1,23 +1,19 @@
-{ lib, ... }:
+{ config, pkgs, lib, ... }:
 {
 	options.stylix = {
-		enable = lib.mkEnable "whether to enable stylix with dummy options for nix-on-droid";
-		polarity = { type = lib.types.enum [ "either" "light" "dark" ]; };
+		enable = lib.mkEnableOption "whether to enable stylix with dummy options for nix-on-droid";
+		polarity = lib.mkOption { type = lib.types.enum [ "either" "light" "dark" ]; };
+		base16Scheme = lib.mkOption { type = lib.types.path; };
 
-		base16Scheme = {
-			type = with lib.types;
-				oneOf [ path lines attrs ];
-		};
-
-		wallpaper = lib.mkOption {
+		image = lib.mkOption {
 			type = with lib.types;
 				coercedTo package toString path;
 		};
 
 		cursor = {
-			name = { type = lib.types.str; };
-			package = { type = lib.types.package; };
-			size = { type = lib.types.int; };
+			name = lib.mkOption { type = lib.types.str; };
+			package = lib.mkOption { type = lib.types.package; };
+			size = lib.mkOption { type = lib.types.int; };
 		};
 
 		fonts = let
@@ -28,24 +24,53 @@
 				};
 			};
 		in {
-			serif = lib.mkOption { types = fontType; };
-			sansSerif = lib.mkOption { types = fontType; };
-			monospace = lib.mkOption { types = fontType; };
-			emoji = lib.mkOption { types = fontType; };
+			serif = lib.mkOption { type = fontType; };
+			sansSerif = lib.mkOption { type = fontType; };
+			monospace = lib.mkOption { type = fontType; };
+			emoji = lib.mkOption { type = fontType; };
 
 			sizes = {
-				applications = lib.mkOption { types = lib.types.ints.unsigned; };
-				desktop = lib.mkOption { types = lib.types.ints.unsigned; };
-				popups = lib.mkOption { types = lib.types.ints.unsigned; };
-				terminal = lib.mkOption { types = lib.types.ints.unsigned; };
+				applications = lib.mkOption { type = lib.types.ints.unsigned; };
+				desktop = lib.mkOption { type = lib.types.ints.unsigned; };
+				popups = lib.mkOption { type = lib.types.ints.unsigned; };
+				terminal = lib.mkOption { type = lib.types.ints.unsigned; };
 			};
 		};
 
 		opacity = {
-			applications = { type = lib.types.float; };
-			desktop = { type = lib.types.float; };
-			popups 	= { type = lib.types.float; };
-			terminal = { type = lib.types.float; };
+			applications = lib.mkOption { type = lib.types.float; };
+			desktop = lib.mkOption { type = lib.types.float; };
+			popups = lib.mkOption { type = lib.types.float; };
+			terminal = lib.mkOption { type = lib.types.float; };
+		};
+	};
+
+	config.terminal = let
+		colors = builtins.mapAttrs (name: value: "#${value}")
+			(builtins.fromJSON (builtins.readFile
+				(pkgs.runCommand "fromYAML" {}
+					"${pkgs.remarshal}/bin/yaml2json \"${config.stylix.base16Scheme}\" \"$out\""))).palette;
+	in lib.mkIf config.stylix.enable {
+		colors = {
+			background = colors.base00;
+			foreground = colors.base05;
+			cursor = colors.base05;
+			color0 = colors.base00;
+			color1 = colors.base08;
+			color2 = colors.base0B;
+			color3 = colors.base0A;
+			color4 = colors.base0D;
+			color5 = colors.base0E;
+			color6 = colors.base0C;
+			color7 = colors.base05;
+			color8 = colors.base03;
+			color9 = colors.base08;
+			color10 = colors.base0B;
+			color11 = colors.base0A;
+			color12 = colors.base0D;
+			color13 = colors.base0E;
+			color14 = colors.base0C;
+			color15 = colors.base07;
 		};
 	};
 }

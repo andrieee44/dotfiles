@@ -5,6 +5,7 @@
 	system.stateVersion = stateVersion;
 	nix.extraOptions = "experimental-features = nix-command flakes";
 	user.shell = "${pkgs.zsh}/bin/zsh";
+	terminal.font = "${pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 
 	android-integration = {
 		termux-open.enable = true;
@@ -14,31 +15,5 @@
 		termux-wake-lock.enable = true;
 		termux-wake-unlock.enable = true;
 		xdg-open.enable = true;
-	};
-
-	terminal = {
-		font = "${pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
-
-		colors = {
-			background = "#2e3440";
-			foreground = "#d8dee9";
-			cursor = "#d8dee9";
-			color0 = "#3b4252";
-			color1 = "#bf616a";
-			color2 = "#a3be8c";
-			color3 = "#ebcb8b";
-			color4 = "#81a1c1";
-			color5 = "#b48ead";
-			color6 = "#88c0d0";
-			color7 = "#e5e9f0";
-			color8 = "#4c566a";
-			color9 = "#bf616a";
-			color10 = "#a3be8c";
-			color11 = "#ebcb8b";
-			color12 = "#81a1c1";
-			color13 = "#b48ead";
-			color14 = "#8fbcbb";
-			color15 = "#eceff4";
-		};
 	};
 }
