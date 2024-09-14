@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
 	programs.lf.settings = let
 		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
@@ -21,8 +21,29 @@
 		wrapscroll = true;
 	};
 
-	xdg.configFile."lf/icons" = {
-		enable = config.programs.lf.enable;
-		source = ./icons;
+	xdg.configFile = {
+		"lf/guiIcons" = {
+			enable = config.programs.lf.enable;
+			source = ./guiIcons;
+		};
+
+		"lf/ttyIcons" = {
+			enable = config.programs.lf.enable;
+			source = ./ttyIcons;
+		};
+	};
+
+	home = lib.mkIf config.programs.lf.enable {
+		packages = [ pkgs.ncurses ];
+
+		shellAliases.lf = "${pkgs.writers.writeDash "lfConf" ''
+			set -eu
+
+			[ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] && \
+				${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${config.xdg.configFile."lf/ttyIcons".target}" > "${config.xdg.configHome}/lf/icons" || \
+				${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${config.xdg.configFile."lf/guiIcons".target}" > "${config.xdg.configHome}/lf/icons"
+
+			${pkgs.lf}/bin/lf
+		''}";
 	};
 }
