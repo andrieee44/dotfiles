@@ -19,6 +19,6 @@
 		set -g status-left "#[fg=${colors.base00},bg=${colors.base0D},bold] #S #[fg=${colors.base0D},bg=${colors.base00}]${gui "" " "}"
 		set -g status-right "#[fg=${colors.base03},bg=${colors.base00}]${gui "" ""}#[fg=${colors.base05},bg=${colors.base03}] ${gui "󰥔 " ""}%b %e %Y (%a) %l:%M %p #[fg=${colors.base0D},bg=${colors.base03}]${gui "" ""}#[fg=${colors.base00},bg=${colors.base0D},bold] ${gui " " ""}#{user}@#H "
 		set -g window-status-current-format "#[fg=${colors.base00},bg=${colors.base0D}]${gui "" ""}#[fg=${colors.base00},bg=${colors.base0D},bold] #I ${gui "" "|"} #W #[fg=${colors.base0D},bg=${colors.base00}]${gui "" " "}"
-		set -g window-status-format "#[fg=${colors.base00},bg=${bell "${colors.base08}" "${colors.base03}"}]${gui "" ""}#[fg=${bell "${colors.base00}" "white"},bg=${bell "${colors.base08}#,bold" "${colors.base03}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "${colors.base08}" "${colors.base03}"},bg=${colors.base00}]${gui "" " "}"
+		set -g window-status-format "#[fg=${colors.base00},bg=${bell "${colors.base08}" "${colors.base03}"}]${gui "" ""}#[fg=${bell "${colors.base00}" "${colors.base05}"},bg=${bell "${colors.base08}#,bold" "${colors.base03}#,nobold"}] #I ${gui "" "|"} #W #[fg=${bell "${colors.base08}" "${colors.base03}"},bg=${colors.base00}]${gui "" " "}"
 	'';
 }

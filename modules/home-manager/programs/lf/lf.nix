@@ -4,7 +4,6 @@
 		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
 	in {
 		autoquit = true;
-		dircache = true;
 		drawbox = true;
 		globsearch = true;
 		hidden = true;

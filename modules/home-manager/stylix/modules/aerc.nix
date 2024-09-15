@@ -13,9 +13,9 @@
 		success.fg=2
 		title.fg=4
 		title.bg=default
-		statusline_default.bg=4
 		statusline_default.fg=0
-		statusline_error.fg=1
+		statusline_default.bg=4
+		statusline_error.bg=0
 		statusline_warning.fg=3
 		msglist_default.fg=7
 		msglist_default.selected.fg=0
