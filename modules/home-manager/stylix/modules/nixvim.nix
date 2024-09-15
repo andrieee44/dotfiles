@@ -31,7 +31,7 @@
 				ctermfg = "cyan";
 				italic = true;
 			};
-			
+
 			gitComment = comment // { italic = false; };
 		in {
 			Comment = comment;
