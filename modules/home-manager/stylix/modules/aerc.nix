@@ -59,5 +59,9 @@
 		part_mimetype.selected.bg=${colors.base0D}
 		part_switcher.bg=${colors.base03}
 		part_switcher.selected.bg=${colors.base0D}
+		completion_default.fg=${colors.base05}
+		completion_default.bg=${colors.base03}
+		completion_default.selected.fg=${colors.base00}
+		completion_default.selected.bg=${colors.base0D}
 	'';
 }

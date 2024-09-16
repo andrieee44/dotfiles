@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
 	programs.lf.settings = let
-		dateGoFmt = "Jan _2 2006 (Mon) _3:04 PM";
+		dateGoFmt = "Jan _2 2006 (Mon) 3:04 PM";
 	in {
 		autoquit = true;
 		drawbox = true;
@@ -9,14 +9,16 @@
 		hidden = true;
 		icons = true;
 		incfilter = true;
-		infotimefmtnew = "${dateGoFmt}";
-		infotimefmtold = "${dateGoFmt}";
+		infotimefmtnew = dateGoFmt;
+		infotimefmtold = dateGoFmt;
 		number = true;
 		relativenumber = true;
 		shell = "${pkgs.dash}/bin/dash";
 		shellopts = "-eu";
 		sixel = true;
 		tabstop = 4;
+		timefmt = dateGoFmt;
+		waitmsg = "Press any key to continue...";
 		wrapscroll = true;
 	};
 
