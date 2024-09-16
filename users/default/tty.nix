@@ -122,6 +122,7 @@
 		go.enable = true;
 		home-manager.enable = true;
 		htop.enable = true;
+		irssi.enable = true;
 		lf.enable = true;
 		man.enable = true;
 		mbsync.enable = true;
