@@ -15,7 +15,9 @@
 	in lib.mkIf cfg.enable {
 		highlight = {
 			LineNr = lib.mkIf cfg.transparentBackground.lineNumbers {
+				fg = colors.base0A;
 				bg = "none";
+				ctermfg = "yellow";
 				ctermbg = "none";
 			};
 
@@ -25,24 +27,46 @@
 			};
 		};
 
-		highlightOverride = let
-			comment = {
+		highlightOverride = {
+			TSComment = { link = "Comment"; };
+			gitcommitOnBranch = { link = "gitcommitComment"; };
+			PmenuThumb = { link = "Pmenu"; };
+
+			Comment = {
 				fg = colors.base0C;
 				ctermfg = "cyan";
 				italic = true;
 			};
 
-			gitComment = comment // { italic = false; };
-		in {
-			Comment = comment;
-			TSComment = comment;
-			gitcommitComment = gitComment;
-			gitcommitOnBranch = gitComment;
+			gitcommitComment = {
+				fg = colors.base0C;
+				ctermfg = "cyan";
+			};
 
 			Visual = {
 				bg = colors.base03;
 				ctermfg = "black";
 				ctermbg = "lightgray";
+			};
+
+			Pmenu = {
+				bg = colors.base03;
+				ctermbg = "lightgray";
+			};
+
+			CmpItemAbbr = {
+				fg = colors.base05;
+				bg = colors.base03;
+				ctermfg = "white";
+				ctermbg = "lightgray";
+			};
+
+			PmenuSel = {
+				fg = colors.base00;
+				bg = colors.base0D;
+				ctermfg = "black";
+				ctermbg = "cyan";
+				bold = true;
 			};
 		};
 

@@ -19,6 +19,7 @@
 	};
 
 	services = {
+		flatpak.enable = true;
 		pipewire.enable = true;
 		thermald.enable = true;
 		tlp.enable = true;
