@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
 	programs = let
-		tmux = "${pkgs.tmux}/bin/tmux";
+		tmux = "${config.programs.tmux.package}/bin/tmux";
 	in {
 		tmux = {
 			baseIndex = 1;

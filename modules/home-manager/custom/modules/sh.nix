@@ -15,7 +15,7 @@
 			${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/bookmarks.json".target})"
 
 			[ -n "${"\${WAYLAND_DISPLAY:-}"}" ] && ${pkgs.wl-clipboard}/bin/wl-copy "$value" && return
-			[ -n "${"\${TMUX:-}"}" ] && ${pkgs.tmux}/bin/tmux setb "$value" && return
+			[ -n "${"\${TMUX:-}"}" ] && ${config.programs.tmux.package}/bin/tmux setb "$value" && return
 			printf "%s" "$value"
 		'';
 
