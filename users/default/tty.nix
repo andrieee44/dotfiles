@@ -59,6 +59,8 @@
 		packages = with pkgs; [
 			bc
 			ffmpeg
+			findutils
+			gnused
 			go-mtpfs
 			gotools
 			hugo
