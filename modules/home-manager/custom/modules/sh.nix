@@ -11,7 +11,7 @@
 			set -eu
 
 			value="$(${config.custom.programs.cmenu.package}/bin/cmenu \
-			'${pkgs.fzf}/bin/fzf-tmux -p "50%,50%" --header "󰃀 Bookmarks 󰃀"' \
+			'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰃀 Bookmarks 󰃀"' \
 			${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/bookmarks.json".target})"
 
 			[ -n "${"\${WAYLAND_DISPLAY:-}"}" ] && ${pkgs.wl-clipboard}/bin/wl-copy "$value" && return
@@ -23,7 +23,7 @@
 			set -eu
 
 			eval "$(${config.custom.programs.cmenu.package}/bin/cmenu \
-			'${pkgs.fzf}/bin/fzf-tmux -p "50%,50%" --header "󰍹 System Actions 󰍹"' \
+			'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰍹 System Actions 󰍹"' \
 			${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/system.json".target})"
 		'';
 
@@ -34,7 +34,7 @@
 				-c "$(${pkgs.toybox}/bin/find "${config.programs.password-store.settings.PASSWORD_STORE_DIR}" -type f -name '*.gpg' -printf '%P\n' \
 					| ${pkgs.jaq}/bin/jaq -Rs 'gsub("\\.gpg\n"; "\n") | split("\n") | del(.[-1]) | map({(.): .}) | add' \
 					| ${config.custom.programs.cmenu.package}/bin/cmenu \
-						'${pkgs.fzf}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Password Store 󰌆"')"
+						'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Password Store 󰌆"')"
 		'';
 	};
 }
