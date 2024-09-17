@@ -25,9 +25,9 @@
 			${pkgs.gawk}/bin/awk -v term="${"\${TERM}"}" '{
 				sub("term = .*", "term = " term)
 				print($0)
-			}' '${config.home.homeDirectory}/${config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target}' > '${config.xdg.configHome}/aerc/aerc.conf'
+			}' "${config.home.homeDirectory}/${config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target}" > "${config.xdg.configHome}/aerc/aerc.conf"
 
-			${pkgs.aerc}/bin/aerc
+			${config.programs.aerc.package}/bin/aerc "$@"
 		''}";
 	};
 }

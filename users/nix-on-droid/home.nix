@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+	home.packages = [ pkgs.gnused ];
+
 	stylix.targets = {
 		gnome.enable = false;
 		gtk.enable = false;
