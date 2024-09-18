@@ -28,7 +28,7 @@
 			];
 
 			exec-once = [
-				"${pkgs.hypridle}/bin/hypridle"
+				"${config.services.hypridle.package}/bin/hypridle"
 				"while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.1; done; ${pkgs.eww}/bin/eww open bar"
 			];
 

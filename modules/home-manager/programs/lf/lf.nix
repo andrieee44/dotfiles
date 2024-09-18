@@ -44,7 +44,7 @@
 				${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${config.xdg.configFile."lf/ttyIcons".target}" > "${config.xdg.configHome}/lf/icons" || \
 				${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${config.xdg.configFile."lf/guiIcons".target}" > "${config.xdg.configHome}/lf/icons"
 
-			${pkgs.lf}/bin/lf
+			${config.programs.lf.package}/bin/lf
 		''}";
 	};
 }
