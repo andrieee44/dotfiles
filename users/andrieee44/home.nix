@@ -7,7 +7,7 @@
 		sessionVariables.SSH_ASKPASS = pkgs.writers.writeDash "ssh_askpass" ''
 			set -eu
 
-			${pkgs.pass}/bin/pass "ssh/lenovoIdeapadSlim3"
+			${config.programs.password-store.package}/bin/pass "ssh/lenovoIdeapadSlim3"
 		'';
 	};
 }

@@ -15,7 +15,7 @@
 		in {
 			address = "andrieee44@gmail.com";
 			flavor = "gmail.com";
-			passwordCommand = "${pkgs.pass}/bin/pass web/gmailApp";
+			passwordCommand = "${config.programs.password-store.package}/bin/pass web/gmailApp";
 			primary = true;
 			realName = "andrieee44";
 			userName = "andrieee44";
