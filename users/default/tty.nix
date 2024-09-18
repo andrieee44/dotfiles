@@ -5,6 +5,7 @@
 	custom.programs = {
 		cmenu.enable = true;
 		spotdl.enable = true;
+		tview.enable = true;
 	};
 
 	accounts.email = {
