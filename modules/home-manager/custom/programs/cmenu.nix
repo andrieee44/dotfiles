@@ -32,7 +32,7 @@
 			"󰜉 Reboot 󰜉" = "${pkgs.systemd}/bin/reboot";
 			"󰌾 Lock 󰌾" = "${pkgs.systemd}/bin/loginctl lock-session";
 			"󰤄 Sleep 󰤄" = "${pkgs.systemd}/bin/systemctl suspend";
-			" Reload Hyprland " = "${pkgs.hyprland}/bin/hyprctl reload";
+			" Reload Hyprland " = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl reload";
 			" Kill Hyprland " = "${pkgs.systemd}/bin/loginctl kill-user \"$(whoami)\"";
 		};
 	};

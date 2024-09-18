@@ -135,7 +135,7 @@
 
 	programs.zsh.profileExtra = lib.mkIf config.wayland.windowManager.hyprland.enable ''
 		[ "$SHLVL" -eq 1 ] && {
-			${pkgs.systemd}/bin/systemctl --user status hyprland-session.target > /dev/null 2>& 1 || exec ${pkgs.hyprland}/bin/Hyprland
+			${pkgs.systemd}/bin/systemctl --user status hyprland-session.target > /dev/null 2>& 1 || exec ${config.wayland.windowManager.hyprland.package}/bin/Hyprland
 		}
 	'';
 }

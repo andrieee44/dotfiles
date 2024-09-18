@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
 	services.hypridle.settings = {
 		general = {
 			lock_cmd = "${pkgs.toybox}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock --immediate";
 			before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
-			after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+			after_sleep_cmd = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
 		};
 
 		listener = [
@@ -21,8 +21,8 @@
 
 			{
 				timeout = 300;
-				on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-				on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+				on-timeout = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
+				on-resume = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
 			}
 
 			{
