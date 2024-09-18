@@ -20,6 +20,10 @@
 		timefmt = dateGoFmt;
 		waitmsg = "Press any key to continue...";
 		wrapscroll = true;
+
+		previewer = lib.mkIf config.custom.programs.tview.enable ''${pkgs.writers.writeDashBin "tviewlf" ''
+			${config.custom.programs.tview.package}/bin/tview -w "$2" -h "$3" -x "$4" -y "$5" "$1" 2> /tmp/tviewFAIL.tmp
+		''}/bin/tviewlf'';
 	};
 
 	xdg.configFile = {
