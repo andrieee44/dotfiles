@@ -8,8 +8,8 @@
 			src = pkgs.fetchFromGitHub {
 				owner = "andrieee44";
 				repo = "tview";
-				rev = "4367b59a0820a6e3e93fb31c1e8f76eea5dd2bd8";
-				hash = "sha256-ZLMDAKabUSMrq1isO9yRGjMjATRhKaoEg46kfLCCjI0=";
+				rev = "5b0b35fa6bbae3a7b07db4159817cf8f996bd7d0";
+				hash = "sha256-URrWzryO4jMo2H5C5BR0q1V/gBtc1dxO/AIzhrbVi3g=";
 			};
 		};
 
@@ -29,7 +29,7 @@
 			];
 
 			text = [
-				''${pkgs.bat}/bin/bat --color always --paging never --termiinal-width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
+				''${pkgs.bat}/bin/bat --color always --paging never --terminal-width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
 				''${pkgs.highlight}/bin/highlight --force -- "$TVIEW_FILE"''
 				''${pkgs.sourceHighlight}/bin/source-highlight --failsafe -i "$TVIEW_FILE"''
 				''${pkgs.toybox}/bin/cat -- "$TVIEW_FILE"''
@@ -112,7 +112,7 @@
 			"application/x-7z-compressed" = archive;
 			"text/x-diff" = diff;
 			"text/x-patch" = diff;
-			"application/x-bittorrent" = [ ''${pkgs.transmission}/bin/transmission-show -- "$TVIEW_FILE"'' ];
+			"application/x-bittorrent" = [ ''${pkgs.transmission_4}/bin/transmission-show -- "$TVIEW_FILE"'' ];
 			"inode/directory" = [ ''${pkgs.coreutils}/bin/ls --color --group-directories-first -w "$TVIEW_WIDTH" -- "$TVIEW_FILE"'' ];
 
 			"application/octet-stream" = [
