@@ -119,6 +119,7 @@
 
 	programs = {
 		aerc.enable = true;
+		bat.enable = true;
 		dircolors.enable = true;
 		direnv.enable = true;
 		fzf.enable = true;

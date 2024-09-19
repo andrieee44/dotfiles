@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
 	custom.programs.tview = {
 		package = pkgs.buildGoModule {
@@ -29,7 +29,7 @@
 			];
 
 			text = [
-				''${pkgs.bat}/bin/bat --color always --paging never --terminal-width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
+				''${config.programs.bat.package}/bin/bat --color always --paging never --terminal-width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
 				''${pkgs.highlight}/bin/highlight --force -- "$TVIEW_FILE"''
 				''${pkgs.sourceHighlight}/bin/source-highlight --failsafe -i "$TVIEW_FILE"''
 				''${pkgs.toybox}/bin/cat -- "$TVIEW_FILE"''
