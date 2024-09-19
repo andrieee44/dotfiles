@@ -7,5 +7,5 @@
 
 	config.home.packages = let
 		cfg = config.custom.programs.cmenu;
-	in [ cfg.package ];
+	in lib.mkIf cfg.enable [ cfg.package ];
 }
