@@ -8,9 +8,7 @@
 	config = let
 		cfg = config.custom.programs.spotdl;
 	in lib.mkIf cfg.enable {
-		home = {
-			file.".spotdl/config.json".text = builtins.toJSON cfg.settings;
-			packages = [ pkgs.spotdl ];
-		};
+		home.packages = [ pkgs.spotdl ];
+		xdg.dataFile."spotdl/config.json".text = builtins.toJSON cfg.settings;
 	};
 }
