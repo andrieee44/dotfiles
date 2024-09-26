@@ -10,6 +10,7 @@
 			"<Shift+J>" = "zoom -5%";
 			"<Shift+K>" = "zoom 5%";
 			"<Shift+L>" = "next";
+			"<Shift+R>" = "rotate by 90";
 		};
 	};
 }
