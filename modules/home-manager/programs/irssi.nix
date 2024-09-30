@@ -19,6 +19,11 @@
 					sasl_mechanism = "PLAIN";
 				};
 			};
+
+			dcc = {
+				dcc_download_path = "${config.xdg.userDirs.download}";
+				dcc_upload_path = "${config.xdg.userDirs.publicShare}";
+			};
 		'';
 	};
 
