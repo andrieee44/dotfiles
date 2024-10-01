@@ -50,4 +50,19 @@
 		enable = true;
 		config.common.default = "*";
 	};
+
+	systemd.user.services = {
+		afk.Service = {
+			Type = "exec";
+
+			ExecStart = pkgs.writers.writeDash "afkservice" ''
+				set -eu
+
+				while ${pkgs.toybox}/bin/true; do
+					${pkgs.wtype}/bin/wtype "               "
+					${pkgs.toybox}/bin/sleep 300
+				done
+			'';
+		};
+	};
 }
