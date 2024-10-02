@@ -8,8 +8,8 @@
 			src = pkgs.fetchFromGitHub {
 				owner = "andrieee44";
 				repo = "tview";
-				rev = "5b0b35fa6bbae3a7b07db4159817cf8f996bd7d0";
-				hash = "sha256-URrWzryO4jMo2H5C5BR0q1V/gBtc1dxO/AIzhrbVi3g=";
+				rev = "9fef304ca2569ba7db4fd54bcab9e00b0181c4e5";
+				hash = "sha256-gPKld3fIGsEQfOA7mmsqPMZhbZHTEenudNQrbQTiX1k=";
 			};
 		};
 
@@ -19,7 +19,7 @@
 			office =  [ ''${pkgs.libreoffice}/bin/libreoffice --cat "$TVIEW_FILE"'' ];
 
 			image = [
-				''${pkgs.chafa}/bin/chafa -s "$[TVIEW_WIDTH];x${"\${TVIEW_HEIGHT}"}" -- "$TVIEW_FILE"''
+				''${pkgs.chafa}/bin/chafa -f sixels -s "$[TVIEW_WIDTH];x${"\${TVIEW_HEIGHT}"}" -- "$TVIEW_FILE"''
 				''${pkgs.mediainfo}/bin/mediainfo -- "$TVIEW_FILE"''
 			];
 
