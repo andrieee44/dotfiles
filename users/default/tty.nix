@@ -92,7 +92,7 @@
 
 		sessionVariables = {
 			BROWSER = lib.mkDefault "";
-			EDITOR = "nvim";
+			EDITOR = lib.mkForce "${config.programs.nixvim.build.package}/bin/nvim";
 			LESSHISTFILE = "-";
 			NPM_CONFIG_USERCONFIG = "${config.home.homeDirectory}/${config.xdg.configFile."npm/npmrc".target}";
 			PAGER = "${pkgs.less}/bin/less";

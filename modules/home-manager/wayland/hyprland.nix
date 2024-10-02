@@ -48,7 +48,6 @@
 
 				"$mod, A, execr, ${pkgs.writers.writeDash "afk" ''
 					set -eu && systemctl --user status afk.service > /dev/null && systemctl --user stop afk.service || systemctl --user start afk.service
-
 				''}"
 
 				"$mod, Return, execr, $terminal"

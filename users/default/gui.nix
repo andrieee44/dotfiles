@@ -20,7 +20,7 @@
 		];
 
 		sessionVariables = {
-			BROWSER = "firefox-esr";
+			BROWSER = "${config.programs.firefox.finalPackage}/bin/firefox-esr";
 			TERMINAL = "${config.programs.foot.package}/bin/footclient";
 		};
 	};

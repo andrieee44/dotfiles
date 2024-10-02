@@ -251,4 +251,31 @@
 			};
 		};
 	};
+
+	xdg.desktopEntries = let
+		mimeType = [
+			"application/x-csh"
+			"text/css"
+			"text/csv"
+			"text/javascript"
+			"application/x-httpd-php"
+			"application/rtf"
+			"application/x-sh"
+			"text/plain"
+			"application/xml"
+		];
+	in lib.mkIf config.programs.nixvim.enable {
+		nvim = {
+			name = "Neovim";
+			exec = "${config.programs.nixvim.build.package}/bin/nvim %U";
+			terminal = true;
+			mimeType = mimeType;
+		};
+
+		nvimGUI = {
+			name = "Neovim GUI";
+			exec = "${config.home.sessionVariables.TERMINAL} -e ${config.programs.nixvim.build.package}/bin/nvim %U";
+			mimeType = mimeType;
+		};
+	};
 }
