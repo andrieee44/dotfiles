@@ -8,8 +8,8 @@
 			src = pkgs.fetchFromGitHub {
 				owner = "andrieee44";
 				repo = "tview";
-				rev = "9fef304ca2569ba7db4fd54bcab9e00b0181c4e5";
-				hash = "sha256-gPKld3fIGsEQfOA7mmsqPMZhbZHTEenudNQrbQTiX1k=";
+				rev = "7ccd697fd0fae92728f501f5c89ad3e2013a6430";
+				hash = "sha256-DV7iHSizGXtaoJz6MnVDsCsDKHyG4RwsoiRRx5JQpI0=";
 			};
 		};
 
@@ -30,7 +30,6 @@
 
 			text = [
 				''${config.programs.bat.package}/bin/bat --color always --paging never --terminal-width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
-				''${pkgs.highlight}/bin/highlight --force -- "$TVIEW_FILE"''
 				''${pkgs.sourceHighlight}/bin/source-highlight --failsafe -i "$TVIEW_FILE"''
 				''${pkgs.toybox}/bin/cat -- "$TVIEW_FILE"''
 			];

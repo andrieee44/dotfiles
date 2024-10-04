@@ -46,9 +46,17 @@
 		gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 	};
 
-	xdg.portal = {
-		enable = true;
-		config.common.default = "*";
+	xdg = {
+		mimeApps.associations.added = let
+			text = [ "nvim.desktop" "nvimGUI.desktop" ];
+		in {
+			"text/x-bibtex" = text;
+		};
+
+		portal = {
+			enable = true;
+			config.common.default = "*";
+		};
 	};
 
 	systemd.user.services = {
