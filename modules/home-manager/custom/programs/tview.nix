@@ -19,7 +19,7 @@
 			office =  [ ''${pkgs.libreoffice}/bin/libreoffice --cat "$TVIEW_FILE"'' ];
 
 			image = [
-				''${pkgs.chafa}/bin/chafa -f sixels -s "$[TVIEW_WIDTH];x${"\${TVIEW_HEIGHT}"}" -- "$TVIEW_FILE"''
+				''${pkgs.chafa}/bin/chafa -f sixels -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" -- "$TVIEW_FILE"''
 				''${pkgs.mediainfo}/bin/mediainfo -- "$TVIEW_FILE"''
 			];
 
