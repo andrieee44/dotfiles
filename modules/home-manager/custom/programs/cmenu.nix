@@ -1,16 +1,14 @@
 { config, pkgs, lib, ... }:
 {
-	custom.programs.cmenu = {
-		package = pkgs.buildGoModule {
-			name = "cmenu";
-			vendorHash = null;
+	custom.programs.cmenu.package = pkgs.buildGoModule {
+		name = "cmenu";
+		vendorHash = null;
 
-			src = pkgs.fetchFromGitHub {
-				owner = "andrieee44";
-				repo = "cmenu";
-				rev = "298cf33e46625189f8ee9ea9adbdf493101affa9";
-				hash = "sha256-hUsRrr2NwTyLNM0PgVE0AvyQ1ELu6BFYNPvP3tKOeEk=";
-			};
+		src = pkgs.fetchFromGitHub {
+			owner = "andrieee44";
+			repo = "cmenu";
+			rev = "298cf33e46625189f8ee9ea9adbdf493101affa9";
+			hash = "sha256-hUsRrr2NwTyLNM0PgVE0AvyQ1ELu6BFYNPvP3tKOeEk=";
 		};
 	};
 
