@@ -4,6 +4,7 @@
 		bookmarks = lib.mkOption { type = lib.types.package; };
 		system = lib.mkOption { type = lib.types.package; };
 		pass = lib.mkOption { type = lib.types.package; };
+		man = lib.mkOption { type = lib.types.package; };
 	};
 
 	config.custom.sh = {
@@ -11,8 +12,8 @@
 			set -eu
 
 			value="$(${config.custom.programs.cmenu.package}/bin/cmenu \
-			'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰃀 Bookmarks 󰃀"' \
-			${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/bookmarks.json".target})"
+				'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰃀 Bookmarks 󰃀"' \
+				${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/bookmarks.json".target})"
 
 			[ -n "${"\${WAYLAND_DISPLAY:-}"}" ] && ${pkgs.wl-clipboard}/bin/wl-copy "$value" && return
 			[ -n "${"\${TMUX:-}"}" ] && ${config.programs.tmux.package}/bin/tmux setb "$value" && return
@@ -23,8 +24,8 @@
 			set -eu
 
 			eval "$(${config.custom.programs.cmenu.package}/bin/cmenu \
-			'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰍹 System Actions 󰍹"' \
-			${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/system.json".target})"
+				'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰍹 System Actions 󰍹"' \
+				${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/system.json".target})"
 		'';
 
 		pass = pkgs.writers.writeDashBin "pass" ''
@@ -35,6 +36,15 @@
 					| ${pkgs.jaq}/bin/jaq -Rs 'gsub("\\.gpg\n"; "\n") | split("\n") | del(.[-1]) | map({(.): .}) | add' \
 					| ${config.custom.programs.cmenu.package}/bin/cmenu \
 						'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Password Store 󰌆"')"
+		'';
+
+		man = pkgs.writers.writeDashBin "man" ''
+			set -eu
+
+			eval "$(${pkgs.man}/bin/man -k '.' \
+				| ${config.custom.programs.line2json.package}/bin/line2json -o -V '^(.+) \((.+)\)[[:space:]]*-.*$' -v 'man $2 $1' \
+				| ${config.custom.programs.cmenu.package}/bin/cmenu \
+					'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Man Pages 󰌆"')"
 		'';
 	};
 }
