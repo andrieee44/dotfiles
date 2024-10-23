@@ -3,13 +3,13 @@
 	custom.programs.tview = {
 		package = pkgs.buildGoModule {
 			name = "tview";
-			vendorHash = "sha256-cPo/dHJfJX1TanmH/FK+I5tpOdbapFs1MC5WIkDQwqE=";
+			vendorHash = "sha256-j85u8Af390ZH4XsYK1uIB5G2mH0prupUAT7yWTfjOiw=";
 
 			src = pkgs.fetchFromGitHub {
 				owner = "andrieee44";
 				repo = "tview";
-				rev = "d70465e5ca3644208ef4456385aa9f3d59d36c36";
-				hash = "sha256-qlvWADyO7CcNBiutWa9VL3gKHEsJOhm9jDLKP0c8OpY=";
+				rev = "9afbc0ab986be2da7bcc2db5dcfe517e3cb5de3c";
+				hash = "sha256-k+zZAZAlyiIhSCpx1UWqCEyQvnwyKbMGGvq5/cFx4lc=";
 			};
 		};
 
