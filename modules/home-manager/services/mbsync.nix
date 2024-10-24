@@ -13,6 +13,12 @@
 
 	services.mbsync = {
 		frequency = "*:0/15";
-		postExec = "${pkgs.notmuch}/bin/notmuch new";
+		postExec = "-${pkgs.writers.writeDash "postdelivery" ''
+			set -eu
+
+			unread="$(${pkgs.mu}/bin/mu find 'flag:unread' | ${pkgs.toybox}/bin/wc -l)"
+			${pkgs.notmuch}/bin/notmuch new
+			[ "$unread" -ne 0 ] && ${pkgs.notify-desktop}/bin/notify-desktop "You have ${"\${unread}"} unread emails" "wip"
+		''}";
 	};
 }
