@@ -54,6 +54,7 @@
 				"$mod, Return, execr, $terminal"
 				"$mod, W, execr, $browser"
 				"$mod, S, execr, ${pkgs.steam}/bin/steam"
+				"$mod, R, execr, ${pkgs.flatpak}/bin/flatpak run org.vinegarhq.Sober"
 
 				"$mod, Q, killactive,"
 				"$mod SHIFT, Q, exit,"
