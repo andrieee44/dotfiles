@@ -23,6 +23,7 @@
 			"󰖌 Hyprland Wiki " = "https://wiki.hyprland.org/";
 			"󰊤 GitHub 󰊤" = "https://github.com/";
 			"󰱫 Nerd Fonts - Iconic font aggregator, glyphs/icons collection, & fonts patcher 󰱫" = "https://www.nerdfonts.com/cheat-sheet";
+			" Discord " = "https://discord.com/channels/@me";
 		};
 
 		"cmenu/system.json".text = builtins.toJSON {
