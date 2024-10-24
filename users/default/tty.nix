@@ -44,7 +44,8 @@
 			mbsync = {
 				enable = true;
 				create = "maildir";
-				expunge = "maildir";
+				expunge = "both";
+				remove = "both";
 				subFolders = "Maildir++";
 			};
 
