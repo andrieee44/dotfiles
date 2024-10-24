@@ -23,6 +23,7 @@
 			userName = "andrieee44";
 			maildir.path = "andrieee44@gmail.com";
 			msmtp.enable = true;
+			mu.enable = true;
 			notmuch.enable = true;
 
 			aerc = {
@@ -132,6 +133,7 @@
 		man.enable = true;
 		mbsync.enable = true;
 		msmtp.enable = true;
+		mu.enable = true;
 		ncmpcpp.enable = true;
 		nixvim.enable = true;
 		notmuch.enable = true;
