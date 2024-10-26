@@ -22,8 +22,14 @@
 		shellAliases.aerc = "${pkgs.writers.writeDash "aercConf" ''
 			set -eu
 
-			${pkgs.gawk}/bin/awk -v term="${"\${TERM}"}" '{
+			${pkgs.gawk}/bin/awk -v term="${"\${TERM}"}" -v tty="${"\${XDG_SESSION_TYPE:-}"}" '{
 				sub("term = .*", "term = " term)
+
+				if (tty != "tty") {
+					tty = "gui"
+				}
+
+				sub("styleset-name = .*", "styleset-name = ", tty)
 				print($0)
 			}' "${config.home.homeDirectory}/${config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target}" > "${config.xdg.configHome}/aerc/aerc.conf"
 

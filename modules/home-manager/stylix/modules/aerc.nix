@@ -2,7 +2,7 @@
 {
 	options.stylix.targets.custom.aerc.enable = lib.mkEnableOption "custom implementation of styling aerc";
 
-	config.programs.aerc.stylesets.default = let
+	config.programs.aerc.stylesets.gui = let
 		colors = config.lib.stylix.colors.withHashtag;
 	in lib.mkIf config.stylix.targets.custom.aerc.enable ''
 		*.selected.bold=true
