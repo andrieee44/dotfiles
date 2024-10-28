@@ -9,9 +9,16 @@
 			unsafe-accounts-conf = true;
 		};
 
-		ui = {
+		ui = let
+			dateGoFmt = "Jan _2 2006 (Mon) 3:04 PM";
+		in {
 			border-char-vertical = "│";
 			border-char-horizontal = "─";
+			timestamp-format = dateGoFmt;
+			this-day-time-format = "";
+			this-week-time-format = "";
+			this-year-time-format = "";
+			message-view-timestamp-format = dateGoFmt;
 			styleset-name = "gui";
 		};
 	};
