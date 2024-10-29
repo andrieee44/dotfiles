@@ -19,7 +19,11 @@
 			this-week-time-format = "";
 			this-year-time-format = "";
 			message-view-timestamp-format = dateGoFmt;
+			dirlist-delay = "0s";
 			styleset-name = "gui";
+			fuzzy-complete = true;
+			threading-enabled = true;
+			show-thread-context = true;
 		};
 	};
 
