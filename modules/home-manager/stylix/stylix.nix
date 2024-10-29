@@ -43,9 +43,13 @@
 			};
 		};
 
-		nixvim.transparentBackground = {
-			main = true;
-			signColumn = true;
+		nixvim = {
+			plugin = "base16-nvim";
+
+			transparentBackground = {
+				main = true;
+				signColumn = true;
+			};
 		};
 	};
 }
