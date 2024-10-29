@@ -2,7 +2,6 @@
 {
 	programs.aerc.extraConfig = {
 		filters."text/plain" = "colorize";
-		viewer.pager = config.home.sessionVariables.PAGER;
 
 		general = {
 			term = "linux";
@@ -24,6 +23,18 @@
 			fuzzy-complete = true;
 			threading-enabled = true;
 			show-thread-context = true;
+		};
+
+		viewer = {
+			pager = config.home.sessionVariables.PAGER;
+			show-headers = true;
+			always-show-mime = true;
+		};
+
+		compose = {
+			editor = config.home.sessionVariables.EDITOR;
+			empty-subject-warning = true;
+			format-flowed = true;
 		};
 	};
 
