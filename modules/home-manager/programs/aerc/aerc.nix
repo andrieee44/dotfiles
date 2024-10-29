@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 {
+	xdg.configFile."aerc/gui.conf".source = lib.mkIf config.programs.aerc.enable ./gui.conf;
+
 	programs.aerc.extraConfig = {
 		filters."text/plain" = "colorize";
 
@@ -23,6 +25,7 @@
 			fuzzy-complete = true;
 			threading-enabled = true;
 			show-thread-context = true;
+			icon-attachment = "a";
 		};
 
 		viewer = {
@@ -39,7 +42,7 @@
 	};
 
 	home = lib.mkIf config.programs.aerc.enable {
-		file."${config.xdg.configHome}/aerc/aerc.conf".target = "${config.xdg.configHome}/aerc/base.conf";
+		file."${config.xdg.configHome}/aerc/aerc.conf".target = "${config.xdg.configHome}/aerc/tty.conf";
 
 		shellAliases.aerc = "${pkgs.writers.writeDash "aercConf" ''
 			set -eu
@@ -53,6 +56,9 @@
 
 				print($0)
 			}' "${config.home.homeDirectory}/${config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target}" > "${config.xdg.configHome}/aerc/aerc.conf"
+
+			[ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || \
+				${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${config.xdg.configFile."aerc/gui.conf".target}" >> "${config.xdg.configHome}/aerc/aerc.conf"
 
 			${config.programs.aerc.package}/bin/aerc "$@"
 		''}";
