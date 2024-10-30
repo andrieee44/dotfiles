@@ -25,7 +25,24 @@
 			fuzzy-complete = true;
 			threading-enabled = true;
 			show-thread-context = true;
-			icon-attachment = "a";
+			icon-unencrypted = "e?";
+			icon-encrypted = "e";
+			icon-signed = "s";
+			icon-signed-encrypted = "se";
+			icon-unknown = "?";
+			icon-invalid = "X";
+			thread-prefix-tip = "";
+			thread-prefix-indent = "";
+			thread-prefix-stem = "│";
+			thread-prefix-limb = "─";
+			thread-prefix-folded = "+";
+			thread-prefix-unfolded = "";
+			thread-prefix-first-child = "┬";
+			thread-prefix-has-siblings = "├";
+			thread-prefix-orphan = "┌";
+			thread-prefix-dummy = "┬";
+			thread-prefix-lone = " ";
+			thread-prefix-last-sibling = "╰";
 		};
 
 		viewer = {
