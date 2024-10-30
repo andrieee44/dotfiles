@@ -34,9 +34,10 @@
 			msglist_result.fg=${colors.base0B}
 			msglist_result.selected.fg=${colors.base00}
 			msglist_result.selected.bg=${colors.base0B}
-			msglist_marked.fg=${colors.base0D}
+			msglist_marked.fg=${colors.base0E}
+			msglist_marked.bg=${colors.base00}
 			msglist_marked.selected.fg=${colors.base00}
-			msglist_marked.selected.bg=${colors.base0D}
+			msglist_marked.selected.bg=${colors.base0E}
 			msglist_flagged.fg=${colors.base0B}
 			msglist_flagged.selected.fg=${colors.base00}
 			msglist_flagged.selected.bg=${colors.base0B}
@@ -102,9 +103,10 @@
 			msglist_result.fg=2
 			msglist_result.selected.fg=0
 			msglist_result.selected.bg=2
-			msglist_marked.fg=4
+			msglist_marked.fg=5
+			msglist_marked.bg=0
 			msglist_marked.selected.fg=0
-			msglist_marked.selected.bg=4
+			msglist_marked.selected.bg=5
 			msglist_flagged.fg=2
 			msglist_flagged.selected.fg=0
 			msglist_flagged.selected.bg=2
