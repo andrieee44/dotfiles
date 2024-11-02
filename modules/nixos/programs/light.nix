@@ -1,6 +1,6 @@
 {
-	programs.light.brightnessKeys = {
-		enable = true;
-		step = 5;
-	};
+  programs.light.brightnessKeys = {
+    enable = true;
+    step = 5;
+  };
 }

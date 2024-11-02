@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-	programs.htop.package = pkgs.htop-vim;
+  programs.htop.package = pkgs.htop-vim;
 }

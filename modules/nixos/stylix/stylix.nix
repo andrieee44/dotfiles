@@ -1,6 +1,6 @@
 {
-	stylix.targets = {
-		custom.console.enable = true;
-		console.enable = false;
-	};
+  stylix.targets = {
+    custom.console.enable = true;
+    console.enable = false;
+  };
 }

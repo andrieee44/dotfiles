@@ -1,7 +1,7 @@
 {
-	programs.ssh = {
-		startAgent = true;
-		agentTimeout = null;
-		extraConfig = "AddKeysToAgent yes";
-	};
+  programs.ssh = {
+    startAgent = true;
+    agentTimeout = null;
+    extraConfig = "AddKeysToAgent yes";
+  };
 }
