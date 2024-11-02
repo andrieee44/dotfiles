@@ -5,8 +5,8 @@
     pinentryPackage = pkgs.pinentry-tty;
 
     extraConfig = ''
-      	allow-preset-passphrase
-      	max-cache-ttl ${builtins.toString config.services.gpg-agent.defaultCacheTtl}
+      allow-preset-passphrase
+      max-cache-ttl ${builtins.toString config.services.gpg-agent.defaultCacheTtl}
     '';
   };
 }

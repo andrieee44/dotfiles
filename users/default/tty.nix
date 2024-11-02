@@ -2,11 +2,13 @@
   config,
   pkgs,
   lib,
+  inputs,
   stateVersion,
   ...
 }:
 {
   nixpkgs.config.allowUnfree = true;
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   custom.programs = {
     cmenu.enable = true;
@@ -210,8 +212,8 @@
         enable = config.services.gpg-agent.enable;
 
         text = ''
-          	${config.programs.gpg.homedir}
-          	4761373E4C1DF3223D5D82B64B2B4D7665A3138B
+          ${config.programs.gpg.homedir}
+          4761373E4C1DF3223D5D82B64B2B4D7665A3138B
         '';
       };
     };

@@ -56,7 +56,7 @@
           (shMenu "M" "man")
 
           "$mod, A, execr, ${pkgs.writers.writeDash "afk" ''
-            	set -eu && systemctl --user status afk.service > /dev/null && systemctl --user stop afk.service || systemctl --user start afk.service
+            set -eu && systemctl --user status afk.service > /dev/null && systemctl --user stop afk.service || systemctl --user start afk.service
           ''}"
 
           "$mod, Return, execr, $terminal"
@@ -149,8 +149,8 @@
   };
 
   programs.zsh.profileExtra = lib.mkIf config.wayland.windowManager.hyprland.enable ''
-    	[ "$SHLVL" -eq 1 ] && {
-    		${pkgs.systemd}/bin/systemctl --user status hyprland-session.target > /dev/null 2>& 1 || exec ${config.wayland.windowManager.hyprland.package}/bin/Hyprland
-    	}
+    [ "$SHLVL" -eq 1 ] && {
+    	${pkgs.systemd}/bin/systemctl --user status hyprland-session.target > /dev/null 2>& 1 || exec ${config.wayland.windowManager.hyprland.package}/bin/Hyprland
+    }
   '';
 }

@@ -11,16 +11,16 @@
       network.startWhenNeeded = true;
 
       extraConfig = ''
-        	log_file "${mpd.dataDir}/log"
-        	pid_file "${mpd.dataDir}/pid"
-        	restore_paused "yes"
-        	log_level "verbose"
-        	auto_update "yes"
+        log_file "${mpd.dataDir}/log"
+        pid_file "${mpd.dataDir}/pid"
+        restore_paused "yes"
+        log_level "verbose"
+        auto_update "yes"
 
-        	audio_output {
-        		type "pipewire"
-        		name "Pipewire Sound Server"
-        	}
+        audio_output {
+        	type "pipewire"
+        	name "Pipewire Sound Server"
+        }
       '';
     };
 }

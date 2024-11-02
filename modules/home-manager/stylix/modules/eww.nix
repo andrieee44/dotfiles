@@ -30,19 +30,19 @@
       colors = config.lib.stylix.colors.withHashtag;
     in
     lib.mkIf config.stylix.targets.custom.eww.enable ''
-      	label { color: ${colors.base05}; }
-      	.sep { color: ${colors.base0D}; }
-      	.icon { color: ${colors.base0C}; }
+      label { color: ${colors.base05}; }
+      .sep { color: ${colors.base0D}; }
+      .icon { color: ${colors.base0C}; }
 
-      	.window {
-      		border-radius: ${builtins.toString (cfg.border.radius + cfg.border.width)}px;
-      		border: ${builtins.toString cfg.border.width}px solid ${cfg.border.color};
-      	}
+      .window {
+      	border-radius: ${builtins.toString (cfg.border.radius + cfg.border.width)}px;
+      	border: ${builtins.toString cfg.border.width}px solid ${cfg.border.color};
+      }
 
-      	.activeWorkspace {
-      		border-radius: ${builtins.toString (cfg.border.radius)}px;
-      		background-color: ${colors.base03};
-      		color: ${colors.base0C};
-      	}
+      .activeWorkspace {
+      	border-radius: ${builtins.toString (cfg.border.radius)}px;
+      	background-color: ${colors.base03};
+      	color: ${colors.base0C};
+      }
     '';
 }

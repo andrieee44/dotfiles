@@ -27,7 +27,10 @@
   outputs =
     inputs:
     let
-      specialArgs.stateVersion = "24.05";
+      specialArgs = {
+        inputs = inputs;
+        stateVersion = "24.05";
+      };
 
       modules =
         path:
@@ -79,6 +82,7 @@
       nixOnDroidConfigurations.nix-on-droid = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
         extraSpecialArgs = specialArgs;
+
         modules = [
           ./hosts/nix-on-droid/nix-on-droid.nix
           ./modules/nix-on-droid/stylix.nix
