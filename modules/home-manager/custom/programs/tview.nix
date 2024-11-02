@@ -17,10 +17,7 @@
       let
         audio = [ ''${pkgs.mediainfo}/bin/mediainfo -- "$TVIEW_FILE"'' ];
         archive = [ ''${pkgs.atool}/bin/atool -l -- "$TVIEW_FILE"'' ];
-
-        office = [
-          ''${pkgs.libreoffice}/bin/libreoffice --cat "$TVIEW_FILE"''
-        ];
+        office = [ ''${pkgs.libreoffice}/bin/libreoffice --cat "$TVIEW_FILE"'' ];
 
         video = [
           ''${pkgs.ffmpegthumbnailer}/bin/ffmpegthumbnailer -i "$TVIEW_FILE" -s 0 -o /dev/stdout | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''

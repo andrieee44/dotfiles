@@ -7,17 +7,15 @@
 {
   options.stylix = {
     enable = lib.mkEnableOption "whether to enable stylix with dummy options for nix-on-droid";
+    base16Scheme = lib.mkOption { type = lib.types.path; };
+    image = lib.mkOption { type = with lib.types; coercedTo package toString path; };
+
     polarity = lib.mkOption {
       type = lib.types.enum [
         "either"
         "light"
         "dark"
       ];
-    };
-    base16Scheme = lib.mkOption { type = lib.types.path; };
-
-    image = lib.mkOption {
-      type = with lib.types; coercedTo package toString path;
     };
 
     cursor = {

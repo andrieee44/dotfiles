@@ -238,9 +238,9 @@
 
               settings = {
                 options = {
-					nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.andrieee44.options'';
-					home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.andrieee44.options'';
-				};
+                  nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.andrieee44.options'';
+                  home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.andrieee44.options'';
+                };
 
                 formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
                 nixpkgs.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").inputs.nixpkgs {}'';
