@@ -191,7 +191,10 @@
 
           "/" = {
             mapping.__raw = "cmp.mapping.preset.cmdline()";
-            sources = [ { name = "buffer"; } ];
+            sources = [
+              { name = "buffer"; }
+              { name = "nvim_lsp_document_symbol"; }
+            ];
           };
 
           "?" = {
@@ -216,6 +219,8 @@
           '';
 
           sources = [
+            { name = "nvim_lua"; }
+            { name = "nvim_lsp_signature_help"; }
             { name = "nvim_lsp"; }
             { name = "luasnip"; }
             { name = "path"; }
