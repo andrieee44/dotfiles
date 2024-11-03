@@ -156,139 +156,139 @@
       })
     '';
 
-    plugins =
-      let
-        plugins = config.programs.nixvim.plugins;
-      in
-      {
-        cmp-nvim-lsp.enable = true;
-        cmp-nvim-lsp-document-symbol.enable = true;
-        cmp-nvim-lsp-signature-help.enable = true;
-        cmp-nvim-lua.enable = true;
-        cmp-path.enable = true;
-        cmp-tmux.enable = true;
-        cmp-treesitter.enable = true;
-        cmp-vsnip.enable = true;
-        cmp-zsh.enable = true;
-        cmp_luasnip.enable = true;
-        lsp-format.enable = true;
-        lsp-lines.enable = true;
-        luasnip.enable = true;
+    plugins = {
+      cmp-nvim-lsp.enable = true;
+      cmp-nvim-lsp-document-symbol.enable = true;
+      cmp-nvim-lsp-signature-help.enable = true;
+      cmp-nvim-lua.enable = true;
+      cmp-nvim-ultisnips.enable = true;
+      cmp-path.enable = true;
+      cmp-tmux.enable = true;
+      cmp-treesitter.enable = true;
+      cmp-vsnip.enable = true;
+      cmp-zsh.enable = true;
+      cmp_luasnip.enable = true;
+      cmp-buffer.enable = true;
+      cmp-calc.enable = true;
+      cmp-clippy.enable = true;
+      cmp-cmdline.enable = true;
+      lsp-format.enable = true;
+      lsp-lines.enable = true;
+      luasnip.enable = true;
 
-        cmp = {
-          enable = true;
+      cmp = {
+        enable = true;
 
-          cmdline = {
-            ":" = {
-              mapping.__raw = "cmp.mapping.preset.cmdline()";
-
-              sources = [
-                { name = "path"; }
-                { name = "cmdline"; }
-              ];
-            };
-
-            "/" = {
-              mapping.__raw = "cmp.mapping.preset.cmdline()";
-              sources = [ { name = "buffer"; } ];
-            };
-
-            "?" = {
-              mapping.__raw = "cmp.mapping.preset.cmdline()";
-              sources = [ { name = "buffer"; } ];
-            };
-          };
-
-          settings = {
-            mapping = {
-              "<C-j>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })";
-              "<C-k>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })";
-              "<C-Space>" = "cmp.mapping.complete()";
-              "<C-e>" = "cmp.mapping.abort()";
-              "<CR>" = "cmp.mapping.confirm({ select = true })";
-            };
-
-            snippet.expand = ''
-              function(args)
-              	require('luasnip').lsp_expand(args.body)
-              end
-            '';
+        cmdline = {
+          ":" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
 
             sources = [
-              { name = "nvim_lsp"; }
-              { name = "luasnip"; }
               { name = "path"; }
-              { name = "buffer"; }
+              { name = "cmdline"; }
             ];
           };
-        };
 
-        lsp = {
-          enable = true;
-          capabilities = lib.optionalString plugins.cmp-nvim-lsp.enable "capabilities = require('cmp_nvim_lsp').default_capabilities()";
-          inlayHints = true;
-
-          keymaps = {
-            diagnostic = {
-              "<leader>j" = "goto_next";
-              "<leader>k" = "goto_prev";
-            };
-
-            lspBuf = {
-              "<Leader>d" = "definition";
-              "<Leader>D" = "type_definition";
-              "<Leader>i" = "implementation";
-              "<Leader>h" = "hover";
-              "<Leader>R" = "references";
-              "<Leader>r" = "rename";
-              "<Leader>a" = "code_action";
-              "<Leader>f" = "format";
-            };
+          "/" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
+            sources = [ { name = "buffer"; } ];
           };
 
-          servers = {
-            nixd = {
-              enable = true;
-
-              settings = {
-                options = {
-                  nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.andrieee44.options'';
-                  home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.andrieee44.options'';
-                };
-
-                formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-                nixpkgs.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").inputs.nixpkgs {}'';
-              };
-            };
-
-            bashls.enable = true;
-            gopls.enable = true;
-            ltex.enable = true;
-            lua_ls.enable = true;
+          "?" = {
+            mapping.__raw = "cmp.mapping.preset.cmdline()";
+            sources = [ { name = "buffer"; } ];
           };
         };
 
-        nvim-colorizer = {
-          enable = true;
-
-          userDefaultOptions = {
-            RGB = true;
-            RRGGBB = true;
-            names = true;
-            RRGGBBAA = true;
-            rgb_fn = true;
-            hsl_fn = true;
-            css = true;
-            css_fn = true;
-            mode = "background";
+        settings = {
+          mapping = {
+            "<C-j>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })";
+            "<C-k>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })";
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-e>" = "cmp.mapping.abort()";
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
           };
-        };
 
-        treesitter = {
-          enable = true;
-          nixvimInjections = true;
+          snippet.expand = ''
+            function(args)
+            	require('luasnip').lsp_expand(args.body)
+            end
+          '';
+
+          sources = [
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "buffer"; }
+          ];
         };
       };
+
+      lsp = {
+        enable = true;
+        inlayHints = true;
+
+        keymaps = {
+          diagnostic = {
+            "<leader>j" = "goto_next";
+            "<leader>k" = "goto_prev";
+          };
+
+          lspBuf = {
+            "<Leader>d" = "definition";
+            "<Leader>D" = "type_definition";
+            "<Leader>i" = "implementation";
+            "<Leader>h" = "hover";
+            "<Leader>R" = "references";
+            "<Leader>r" = "rename";
+            "<Leader>a" = "code_action";
+            "<Leader>f" = "format";
+          };
+        };
+
+        servers = {
+          nixd = {
+            enable = true;
+
+            settings = {
+              options = {
+                nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.andrieee44.options'';
+                home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.andrieee44.options'';
+              };
+
+              formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              nixpkgs.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").inputs.nixpkgs {}'';
+            };
+          };
+
+          bashls.enable = true;
+          gopls.enable = true;
+          ltex.enable = true;
+          lua_ls.enable = true;
+        };
+      };
+
+      nvim-colorizer = {
+        enable = true;
+
+        userDefaultOptions = {
+          RGB = true;
+          RRGGBB = true;
+          names = true;
+          RRGGBBAA = true;
+          rgb_fn = true;
+          hsl_fn = true;
+          css = true;
+          css_fn = true;
+          mode = "background";
+        };
+      };
+
+      treesitter = {
+        enable = true;
+        nixvimInjections = true;
+      };
+    };
   };
 
   xdg.desktopEntries =
