@@ -162,6 +162,18 @@
       in
       {
         cmp-nvim-lsp.enable = true;
+        cmp-nvim-lsp-document-symbol.enable = true;
+        cmp-nvim-lsp-signature-help.enable = true;
+        cmp-nvim-lua.enable = true;
+        cmp-path.enable = true;
+        cmp-tmux.enable = true;
+        cmp-treesitter.enable = true;
+        cmp-vsnip.enable = true;
+        cmp-zsh.enable = true;
+        cmp_luasnip.enable = true;
+        lsp-format.enable = true;
+        lsp-lines.enable = true;
+        luasnip.enable = true;
 
         cmp = {
           enable = true;
@@ -203,8 +215,9 @@
             '';
 
             sources = [
-              { name = "nvim-lspconfig"; }
+              { name = "nvim_lsp"; }
               { name = "luasnip"; }
+              { name = "path"; }
               { name = "buffer"; }
             ];
           };
@@ -213,6 +226,7 @@
         lsp = {
           enable = true;
           capabilities = lib.optionalString plugins.cmp-nvim-lsp.enable "capabilities = require('cmp_nvim_lsp').default_capabilities()";
+          inlayHints = true;
 
           keymaps = {
             diagnostic = {

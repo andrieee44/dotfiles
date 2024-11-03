@@ -30,26 +30,8 @@
       };
 
       highlightOverride = {
-        TSComment = {
-          link = "Comment";
-        };
-        gitcommitOnBranch = {
-          link = "gitcommitComment";
-        };
-        PmenuThumb = {
-          link = "Pmenu";
-        };
-
-        Comment = {
-          fg = colors.base0C;
-          ctermfg = "cyan";
-          italic = true;
-        };
-
-        gitcommitComment = {
-          fg = colors.base0C;
-          ctermfg = "cyan";
-        };
+        TSComment.link = "Comment";
+        PmenuThumb.link = "Pmenu";
 
         Visual = {
           bg = colors.base03;
