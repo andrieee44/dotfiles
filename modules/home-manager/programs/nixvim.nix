@@ -176,58 +176,69 @@
       lsp-lines.enable = true;
       luasnip.enable = true;
 
-      cmp = {
-        enable = true;
+      cmp =
+        let
+          plugins = config.programs.nixvim.plugins;
+          source = plugin: name: lib.mkIf plugin.enable { name = name; };
+        in
+        {
+          enable = true;
+          autoEnableSources = false;
 
-        cmdline = {
-          ":" = {
-            mapping.__raw = "cmp.mapping.preset.cmdline()";
+          cmdline = {
+            ":" = {
+              mapping.__raw = "cmp.mapping.preset.cmdline()";
+
+              sources = [
+                (source plugins.cmp-path "path")
+                (source plugins.cmp-cmdline "cmdline")
+              ];
+            };
+
+            "/" = {
+              mapping.__raw = "cmp.mapping.preset.cmdline()";
+
+              sources = [
+                (source plugins.cmp-buffer "buffer")
+                (source plugins.cmp-nvim-lsp-document-symbol "nvim_lsp_document_symbol")
+              ];
+            };
+
+            "?" = {
+              mapping.__raw = "cmp.mapping.preset.cmdline()";
+
+              sources = [
+                (source plugins.cmp-buffer "buffer")
+                (source plugins.cmp-nvim-lsp-document-symbol "nvim_lsp_document_symbol")
+              ];
+            };
+          };
+
+          settings = {
+            mapping = {
+              "<C-j>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })";
+              "<C-k>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })";
+              "<C-Space>" = "cmp.mapping.complete()";
+              "<C-e>" = "cmp.mapping.abort()";
+              "<CR>" = "cmp.mapping.confirm({ select = true })";
+            };
+
+            snippet.expand = lib.mkIf plugins.luasnip.enable ''
+              function(args)
+              	require('luasnip').lsp_expand(args.body)
+              end
+            '';
 
             sources = [
-              { name = "path"; }
-              { name = "cmdline"; }
+              (source plugins.cmp-nvim-lua "nvim_lua")
+              (source plugins.cmp-nvim-lsp-signature-help "nvim_lsp_signature_help")
+              (source plugins.cmp-nvim-lsp "nvim_lsp")
+              (source plugins.cmp_luasnip "luasnip")
+              (source plugins.cmp-path "path")
+              (source plugins.cmp-buffer "buffer")
             ];
           };
-
-          "/" = {
-            mapping.__raw = "cmp.mapping.preset.cmdline()";
-            sources = [
-              { name = "buffer"; }
-              { name = "nvim_lsp_document_symbol"; }
-            ];
-          };
-
-          "?" = {
-            mapping.__raw = "cmp.mapping.preset.cmdline()";
-            sources = [ { name = "buffer"; } ];
-          };
         };
-
-        settings = {
-          mapping = {
-            "<C-j>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })";
-            "<C-k>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })";
-            "<C-Space>" = "cmp.mapping.complete()";
-            "<C-e>" = "cmp.mapping.abort()";
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
-          };
-
-          snippet.expand = ''
-            function(args)
-            	require('luasnip').lsp_expand(args.body)
-            end
-          '';
-
-          sources = [
-            { name = "nvim_lua"; }
-            { name = "nvim_lsp_signature_help"; }
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "path"; }
-            { name = "buffer"; }
-          ];
-        };
-      };
 
       lsp = {
         enable = true;
