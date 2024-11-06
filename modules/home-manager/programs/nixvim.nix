@@ -174,6 +174,7 @@
       cmp-calc.enable = true;
       cmp-clippy.enable = true;
       cmp-cmdline.enable = true;
+      cmp-git.enable = true;
       lsp-format.enable = true;
       lsp-lines.enable = true;
       luasnip.enable = true;
@@ -186,6 +187,11 @@
         {
           enable = true;
           autoEnableSources = false;
+
+          filetype.gitcommit.sources = [
+            (source plugins.cmp-buffer "buffer")
+            (source plugins.cmp-git "git")
+          ];
 
           cmdline = {
             ":" = {
@@ -232,6 +238,12 @@
             '';
 
             sources = [
+              (source plugins.cmp-calc "calc")
+              (source plugins.cmp-zsh "zsh")
+              (source plugins.cmp-treesitter "treesitter")
+              (source plugins.cmp-tmux "tmux")
+              (source plugins.cmp-nvim-ultisnips "ultisnips")
+              (source plugins.cmp-vsnip "vsnip")
               (source plugins.cmp-nvim-lua "nvim_lua")
               (source plugins.cmp-nvim-lsp-signature-help "nvim_lsp_signature_help")
               (source plugins.cmp-nvim-lsp "nvim_lsp")
