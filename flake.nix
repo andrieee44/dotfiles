@@ -30,6 +30,8 @@
       specialArgs = {
         inputs = inputs;
         stateVersion = "24.05";
+        host = "lenovoIdeapadSlim3";
+        user = "andrieee44";
       };
 
       modules =
@@ -67,7 +69,9 @@
 
         nix-on-droid = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
-          extraSpecialArgs = specialArgs;
+          extraSpecialArgs = specialArgs // {
+            user = "nix-on-droid";
+          };
 
           modules = [
             ./users/nix-on-droid/home.nix

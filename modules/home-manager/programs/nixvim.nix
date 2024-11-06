@@ -2,6 +2,8 @@
   config,
   pkgs,
   lib,
+  host,
+  user,
   ...
 }:
 {
@@ -268,11 +270,12 @@
 
             settings = {
               options = {
-                nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.andrieee44.options'';
-                home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.andrieee44.options'';
+                nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.${host}.options'';
+                home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.${user}.options'';
+                nix_on_droid.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixOnDroidConfigurations.nix-on-droid.options'';
               };
 
-              formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt -s" ];
               nixpkgs.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").inputs.nixpkgs {}'';
             };
           };
