@@ -159,8 +159,15 @@
     '';
 
     plugins = {
-      cmp-nvim-lsp.enable = true;
+      cmp-buffer.enable = true;
+      cmp-calc.enable = true;
+      cmp-cmdline.enable = true;
+      cmp-cmdline-history.enable = true;
+      cmp-emoji = true;
+      cmp-git.enable = true;
+      cmp_luasnip.enable = true;
       cmp-nvim-lsp-document-symbol.enable = true;
+      cmp-nvim-lsp.enable = true;
       cmp-nvim-lsp-signature-help.enable = true;
       cmp-nvim-lua.enable = true;
       cmp-nvim-ultisnips.enable = true;
@@ -168,13 +175,8 @@
       cmp-tmux.enable = true;
       cmp-treesitter.enable = true;
       cmp-vsnip.enable = true;
+      cmp-yanky.enable = true;
       cmp-zsh.enable = true;
-      cmp_luasnip.enable = true;
-      cmp-buffer.enable = true;
-      cmp-calc.enable = true;
-      cmp-clippy.enable = true;
-      cmp-cmdline.enable = true;
-      cmp-git.enable = true;
       lsp-format.enable = true;
       lsp-lines.enable = true;
       luasnip.enable = true;
@@ -184,7 +186,7 @@
           plugins = config.programs.nixvim.plugins;
           source =
             plugin: name: opts:
-            lib.mkIf plugin.enable (lib.recursiveUpdate ({ name = name; }) opts);
+            lib.mkIf plugin.enable (lib.recursiveUpdate { name = name; } opts);
         in
         {
           enable = true;
@@ -200,8 +202,15 @@
               mapping = config.lib.nixvim.mkRaw "cmp.mapping.preset.cmdline()";
 
               sources = [
+                (source plugins.cmp-cmdline-history "cmdline_history" { })
                 (source plugins.cmp-path "path" { })
-                (source plugins.cmp-cmdline "cmdline" { })
+
+                (source plugins.cmp-cmdline "cmdline" {
+                  option.ignore_cmds = [
+                    "Man"
+                    "!"
+                  ];
+                })
               ];
             };
 
@@ -240,18 +249,19 @@
             '';
 
             sources = [
-              (source plugins.cmp-calc "calc" { })
-              (source plugins.cmp-zsh "zsh" { options.zshrc = true; })
-              (source plugins.cmp-treesitter "treesitter" { })
-              (source plugins.cmp-tmux "tmux" { })
-              (source plugins.cmp-nvim-ultisnips "ultisnips" { })
-              (source plugins.cmp-vsnip "vsnip" { })
-              (source plugins.cmp-nvim-lua "nvim_lua" { })
-              (source plugins.cmp-nvim-lsp-signature-help "nvim_lsp_signature_help" { })
-              (source plugins.cmp-nvim-lsp "nvim_lsp" { })
-              (source plugins.cmp_luasnip "luasnip" { })
-              (source plugins.cmp-path "path" { })
               (source plugins.cmp-buffer "buffer" { })
+              (source plugins.cmp-calc "calc" { })
+              (source plugins.cmp-emoji "emoji" { })
+              (source plugins.cmp_luasnip "luasnip" { })
+              (source plugins.cmp-nvim-lsp "nvim_lsp" { })
+              (source plugins.cmp-nvim-lsp-signature-help "nvim_lsp_signature_help" { })
+              (source plugins.cmp-nvim-lua "nvim_lua" { })
+              (source plugins.cmp-nvim-ultisnips "ultisnips" { })
+              (source plugins.cmp-path "path" { })
+              (source plugins.cmp-tmux "tmux" { })
+              (source plugins.cmp-treesitter "treesitter" { })
+              (source plugins.cmp-vsnip "vsnip" { })
+              (source plugins.cmp-zsh "zsh" { options.zshrc = true; })
             ];
           };
         };
