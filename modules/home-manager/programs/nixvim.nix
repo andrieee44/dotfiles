@@ -15,7 +15,7 @@
       {
         event = [ "FileType" ];
 
-        callback.__raw = ''
+        callback = config.lib.nixvim.mkRaw ''
           function()
           	vim.bo.formatoptions = vim.bo.formatoptions:gsub('[cro]', ${"''"})
           end
@@ -26,7 +26,7 @@
         event = [ "FileType" ];
         pattern = [ "mail" ];
 
-        callback.__raw = ''
+        callback = config.lib.nixvim.mkRaw ''
           function()
           	vim.opt.colorcolumn = '72'
           	vim.opt.textwidth = 72
@@ -182,42 +182,44 @@
       cmp =
         let
           plugins = config.programs.nixvim.plugins;
-          source = plugin: name: lib.mkIf plugin.enable { name = name; };
+          source =
+            plugin: name: opts:
+            lib.mkIf plugin.enable (lib.recursiveUpdate ({ name = name; }) opts);
         in
         {
           enable = true;
           autoEnableSources = false;
 
           filetype.gitcommit.sources = [
-            (source plugins.cmp-buffer "buffer")
-            (source plugins.cmp-git "git")
+            (source plugins.cmp-buffer "buffer" { })
+            (source plugins.cmp-git "git" { })
           ];
 
           cmdline = {
             ":" = {
-              mapping.__raw = "cmp.mapping.preset.cmdline()";
+              mapping = config.lib.nixvim.mkRaw "cmp.mapping.preset.cmdline()";
 
               sources = [
-                (source plugins.cmp-path "path")
-                (source plugins.cmp-cmdline "cmdline")
+                (source plugins.cmp-path "path" { })
+                (source plugins.cmp-cmdline "cmdline" { })
               ];
             };
 
             "/" = {
-              mapping.__raw = "cmp.mapping.preset.cmdline()";
+              mapping = config.lib.nixvim.mkRaw "cmp.mapping.preset.cmdline()";
 
               sources = [
-                (source plugins.cmp-buffer "buffer")
-                (source plugins.cmp-nvim-lsp-document-symbol "nvim_lsp_document_symbol")
+                (source plugins.cmp-buffer "buffer" { })
+                (source plugins.cmp-nvim-lsp-document-symbol "nvim_lsp_document_symbol" { })
               ];
             };
 
             "?" = {
-              mapping.__raw = "cmp.mapping.preset.cmdline()";
+              mapping = config.lib.nixvim.mkRaw "cmp.mapping.preset.cmdline()";
 
               sources = [
-                (source plugins.cmp-buffer "buffer")
-                (source plugins.cmp-nvim-lsp-document-symbol "nvim_lsp_document_symbol")
+                (source plugins.cmp-buffer "buffer" { })
+                (source plugins.cmp-nvim-lsp-document-symbol "nvim_lsp_document_symbol" { })
               ];
             };
           };
@@ -238,18 +240,18 @@
             '';
 
             sources = [
-              (source plugins.cmp-calc "calc")
-              (source plugins.cmp-zsh "zsh")
-              (source plugins.cmp-treesitter "treesitter")
-              (source plugins.cmp-tmux "tmux")
-              (source plugins.cmp-nvim-ultisnips "ultisnips")
-              (source plugins.cmp-vsnip "vsnip")
-              (source plugins.cmp-nvim-lua "nvim_lua")
-              (source plugins.cmp-nvim-lsp-signature-help "nvim_lsp_signature_help")
-              (source plugins.cmp-nvim-lsp "nvim_lsp")
-              (source plugins.cmp_luasnip "luasnip")
-              (source plugins.cmp-path "path")
-              (source plugins.cmp-buffer "buffer")
+              (source plugins.cmp-calc "calc" { })
+              (source plugins.cmp-zsh "zsh" { options.zshrc = true; })
+              (source plugins.cmp-treesitter "treesitter" { })
+              (source plugins.cmp-tmux "tmux" { })
+              (source plugins.cmp-nvim-ultisnips "ultisnips" { })
+              (source plugins.cmp-vsnip "vsnip" { })
+              (source plugins.cmp-nvim-lua "nvim_lua" { })
+              (source plugins.cmp-nvim-lsp-signature-help "nvim_lsp_signature_help" { })
+              (source plugins.cmp-nvim-lsp "nvim_lsp" { })
+              (source plugins.cmp_luasnip "luasnip" { })
+              (source plugins.cmp-path "path" { })
+              (source plugins.cmp-buffer "buffer" { })
             ];
           };
         };
