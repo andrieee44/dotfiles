@@ -56,7 +56,7 @@
          config.xdg.configFile."lf/guiIcons".target
        }" > "${config.xdg.configHome}/lf/icons"
 
-      ${config.programs.lf.package}/bin/lf
+      ${config.programs.lf.package}/bin/lf "$@"
     ''}";
   };
 }
