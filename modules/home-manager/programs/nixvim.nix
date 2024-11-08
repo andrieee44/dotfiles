@@ -163,7 +163,7 @@
       cmp-calc.enable = true;
       cmp-cmdline.enable = true;
       cmp-cmdline-history.enable = true;
-      cmp-emoji = true;
+      cmp-emoji.enable = true;
       cmp-git.enable = true;
       cmp_luasnip.enable = true;
       cmp-nvim-lsp-document-symbol.enable = true;
@@ -175,7 +175,7 @@
       cmp-tmux.enable = true;
       cmp-treesitter.enable = true;
       cmp-vsnip.enable = true;
-      cmp-yanky.enable = true;
+      cmp_yanky.enable = true;
       cmp-zsh.enable = true;
       lsp-format.enable = true;
       lsp-lines.enable = true;
