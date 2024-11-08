@@ -273,7 +273,7 @@
               (source plugins.cmp-tmux "tmux" { })
               (source plugins.cmp-treesitter "treesitter" { })
               (source plugins.cmp-vsnip "vsnip" { })
-              (source plugins.cmp-zsh "zsh" { options.zshrc = true; })
+              (source plugins.cmp-zsh "zsh" { })
             ];
           };
         };
