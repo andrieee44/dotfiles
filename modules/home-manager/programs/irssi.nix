@@ -42,7 +42,7 @@
     shellAliases.irssi = "${pkgs.writers.writeDash "irssiPass" ''
       set -eu
 
-      ${pkgs.gawk}/bin/awk -v pass="$(${config.programs.password-store.package}/bin/pass web/liberachat)" '{
+      ${pkgs.gawk}/bin/awk -v pass="$(${config.programs.password-store.package}/bin/pass liberachat/andrieee44)" '{
       		sub("sasl_password = .*", "sasl_password = \"" pass "\";")
       		print($0)
       	}' "${config.home.homeDirectory}/${
