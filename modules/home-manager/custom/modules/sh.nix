@@ -33,15 +33,23 @@
       	${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/system.json".target})"
     '';
 
-    pass = pkgs.writers.writeDashBin "pass" ''
-      set -eu
+    pass =
+      let
+        pass = "${config.programs.password-store.package}/bin/pass";
+      in
+      pkgs.writers.writeDashBin "pass" ''
+        set -eu
 
-      PASSWORD_STORE_DIR="${config.programs.password-store.settings.PASSWORD_STORE_DIR}" GNUPGHOME="${config.programs.gpg.homedir}" ${config.programs.password-store.package}/bin/pass \
-      	-c "$(${pkgs.toybox}/bin/find "${config.programs.password-store.settings.PASSWORD_STORE_DIR}" -type f -name '*.gpg' -printf '%P\n' \
-      		| ${pkgs.jaq}/bin/jaq -Rs 'gsub("\\.gpg\n"; "\n") | split("\n") | del(.[-1]) | map({(.): .}) | add' \
-      		| ${config.custom.programs.cmenu.package}/bin/cmenu \
-      			'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Password Store 󰌆"')"
-    '';
+        PASSWORD_STORE_DIR="${config.programs.password-store.settings.PASSWORD_STORE_DIR}"
+        GNUPGHOME="${config.programs.gpg.homedir}"
+
+        pass="$(${pkgs.toybox}/bin/find "${config.programs.password-store.settings.PASSWORD_STORE_DIR}" -type f -name '*.gpg' -printf '%P\n' \
+        	| ${pkgs.jaq}/bin/jaq -Rs 'gsub("\\.gpg\n"; "\n") | split("\n") | del(.[-1]) | map({(.): .}) | add' \
+        	| ${config.custom.programs.cmenu.package}/bin/cmenu \
+        		'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Password Store 󰌆"')"
+
+        ${pass} otp validate "$(${pass} otp uri "$pass" || ${pkgs.toybox}/bin/echo)" 2 > /dev/null && ${pass} otp -c "$pass" || ${pass} -c "$pass"
+      '';
 
     man = pkgs.writers.writeDashBin "man" ''
       set -eu
