@@ -49,20 +49,27 @@
   home = lib.mkIf config.programs.lf.enable {
     packages = [ pkgs.ncurses ];
 
-    shellAliases.lf = builtins.toString (
-      pkgs.writers.writeDash "lfConf" ''
-        set -eu
+    shellAliases =
+      let
+        lf = builtins.toString (
+          pkgs.writers.writeDash "lfConf" ''
+            set -eu
 
-        [ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] && \
-        	${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${
-           config.xdg.configFile."lf/ttyIcons".target
-         }" > "${config.xdg.configHome}/lf/icons" || \
-        	${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${
-           config.xdg.configFile."lf/guiIcons".target
-         }" > "${config.xdg.configHome}/lf/icons"
+            [ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] && \
+            	${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${
+               config.xdg.configFile."lf/ttyIcons".target
+             }" > "${config.xdg.configHome}/lf/icons" || \
+            	${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${
+               config.xdg.configFile."lf/guiIcons".target
+             }" > "${config.xdg.configHome}/lf/icons"
 
-        ${config.programs.lf.package}/bin/lf "$@"
-      ''
-    );
+            ${config.programs.lf.package}/bin/lf "$@"
+          ''
+        );
+      in
+      {
+        lf = lf;
+        lfcd = ''lfcd() { cd "$(${lf} -print-last-dir "$@")" }; lfcd'';
+      };
   };
 }
