@@ -68,27 +68,29 @@
   home = lib.mkIf config.programs.aerc.enable {
     file."${config.xdg.configHome}/aerc/aerc.conf".target = "${config.xdg.configHome}/aerc/tty.conf";
 
-    shellAliases.aerc = "${pkgs.writers.writeDash "aercConf" ''
-      set -eu
+    shellAliases.aerc = builtins.toString (
+      pkgs.writers.writeDash "aercConf" ''
+        set -eu
 
-      ${pkgs.gawk}/bin/awk -v term="${"\${TERM}"}" -v tty="${"\${XDG_SESSION_TYPE:-}"}" '{
-      	sub("term = .*", "term = " term)
+        ${pkgs.gawk}/bin/awk -v term="${"\${TERM}"}" -v tty="${"\${XDG_SESSION_TYPE:-}"}" '{
+        	sub("term = .*", "term = " term)
 
-      	if (tty == "tty") {
-      		sub("styleset-name = gui", "styleset-name = tty")
-      	}
+        	if (tty == "tty") {
+        		sub("styleset-name = gui", "styleset-name = tty")
+        	}
 
-      	print($0)
-      }' "${config.home.homeDirectory}/${
-        config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target
-      }" > "${config.xdg.configHome}/aerc/aerc.conf"
+        	print($0)
+        }' "${config.home.homeDirectory}/${
+          config.home.file."${config.xdg.configHome}/aerc/aerc.conf".target
+        }" > "${config.xdg.configHome}/aerc/aerc.conf"
 
-      [ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || \
-      	${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${
-         config.xdg.configFile."aerc/gui.conf".target
-       }" >> "${config.xdg.configHome}/aerc/aerc.conf"
+        [ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || \
+        	${pkgs.toybox}/bin/cat "${config.home.homeDirectory}/${
+           config.xdg.configFile."aerc/gui.conf".target
+         }" >> "${config.xdg.configHome}/aerc/aerc.conf"
 
-      ${config.programs.aerc.package}/bin/aerc "$@"
-    ''}";
+        ${config.programs.aerc.package}/bin/aerc "$@"
+      ''
+    );
   };
 }

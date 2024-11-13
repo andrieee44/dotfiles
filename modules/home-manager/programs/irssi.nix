@@ -39,19 +39,21 @@
   home = {
     file.".irssi/config".target = "${config.xdg.configHome}/irssi/base.config";
 
-    shellAliases.irssi = "${pkgs.writers.writeDash "irssiPass" ''
-      set -eu
+    shellAliases.irssi = builtins.toString (
+      pkgs.writers.writeDash "irssiPass" ''
+        set -eu
 
-      ${pkgs.gawk}/bin/awk -v pass="$(${config.programs.password-store.package}/bin/pass liberachat/andrieee44)" '{
-      		sub("sasl_password = .*", "sasl_password = \"" pass "\";")
-      		print($0)
-      	}' "${config.home.homeDirectory}/${
-         config.home.file.".irssi/config".target
-       }" > "${config.xdg.configHome}/irssi/config"
+        ${pkgs.gawk}/bin/awk -v pass="$(${config.programs.password-store.package}/bin/pass liberachat/andrieee44)" '{
+        		sub("sasl_password = .*", "sasl_password = \"" pass "\";")
+        		print($0)
+        	}' "${config.home.homeDirectory}/${
+           config.home.file.".irssi/config".target
+         }" > "${config.xdg.configHome}/irssi/config"
 
-      ${pkgs.irssi}/bin/irssi --home "${config.xdg.configHome}/irssi" "$@"
+        ${pkgs.irssi}/bin/irssi --home "${config.xdg.configHome}/irssi" "$@"
 
-      ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/irssi/config"
-    ''}";
+        ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/irssi/config"
+      ''
+    );
   };
 }

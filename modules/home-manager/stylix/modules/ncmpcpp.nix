@@ -82,15 +82,17 @@
 
       xdg.configFile."ncmpcpp/config".target = "${config.xdg.configHome}/ncmpcpp/baseConfig";
 
-      home.shellAliases.ncmpcpp = "${pkgs.writers.writeDash "ncmpcppConf" ''
-        set -eu
+      home.shellAliases.ncmpcpp = builtins.toString (
+        pkgs.writers.writeDash "ncmpcppConf" ''
+          set -eu
 
-        [ "${"$\{XDG_SESSION_TYPE:-}"}" = "tty" ] && bool="no" || bool="yes"
-        printf 'visualizer_spectrum_smooth_look=%s\n' "$bool" | ${pkgs.toybox}/bin/cat - "${config.home.homeDirectory}/${
-          config.xdg.configFile."ncmpcpp/config".target
-        }" > "${config.xdg.configHome}/ncmpcpp/config"
+          [ "${"$\{XDG_SESSION_TYPE:-}"}" = "tty" ] && bool="no" || bool="yes"
+          printf 'visualizer_spectrum_smooth_look=%s\n' "$bool" | ${pkgs.toybox}/bin/cat - "${config.home.homeDirectory}/${
+            config.xdg.configFile."ncmpcpp/config".target
+          }" > "${config.xdg.configHome}/ncmpcpp/config"
 
-        ${config.programs.ncmpcpp.package}/bin/ncmpcpp "$@"
-      ''}";
+          ${config.programs.ncmpcpp.package}/bin/ncmpcpp "$@"
+        ''
+      );
     };
 }
