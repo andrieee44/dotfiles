@@ -1,4 +1,7 @@
 { pkgs, ... }:
 {
-  programs.ssh.package = pkgs.openssh;
+  programs.ssh = {
+    package = pkgs.openssh;
+    compression = true;
+  };
 }
