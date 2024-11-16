@@ -34,6 +34,10 @@
       nix-on-droid = {
         group = "nix-on-droid";
         isSystemUser = true;
+
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDJtUQ3XeEdvcpvQp4DkLPiskGmNzW4+STtNOM1k4aGZ andrieee44@gmail.com"
+        ];
       };
     };
   };
