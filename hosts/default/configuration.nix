@@ -92,6 +92,7 @@
 
   nix.settings = {
     auto-optimise-store = true;
+    secret-key-files = [ /home/nix-on-droid/lenovoIdeapadSlim3 ];
 
     experimental-features = [
       "nix-command"
