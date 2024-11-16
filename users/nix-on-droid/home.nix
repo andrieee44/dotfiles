@@ -5,11 +5,6 @@
   ...
 }:
 {
-  programs = {
-    ncmpcpp.enable = lib.mkForce false;
-    texlive.enable = lib.mkForce false;
-  };
-
   stylix.targets = {
     gnome.enable = false;
     gtk.enable = false;
