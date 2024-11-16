@@ -28,6 +28,13 @@
           "video"
           "wheel"
         ];
+      };
+
+      nix-on-droid = {
+        createHome = true;
+        group = "users";
+        isNormalUser = true;
+        shell = pkgs.zsh;
 
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDJtUQ3XeEdvcpvQp4DkLPiskGmNzW4+STtNOM1k4aGZ andrieee44@gmail.com"
@@ -99,6 +106,7 @@
   };
 
   boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     plymouth.enable = true;
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
