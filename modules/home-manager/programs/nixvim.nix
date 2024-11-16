@@ -323,8 +323,10 @@
 
           bashls.enable = true;
           gopls.enable = true;
+          jsonls.enable = true;
           ltex.enable = true;
           lua_ls.enable = true;
+          yamlls.enable = true;
         };
       };
 

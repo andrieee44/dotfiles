@@ -9,6 +9,40 @@
   system.stateVersion = stateVersion;
   environment.pathsToLink = [ "/share/zsh" ];
 
+  users = {
+    defaultUserShell = pkgs.zsh;
+    groups.nix-on-droid = { };
+
+    users = {
+      andrieee44 = {
+        createHome = true;
+        group = "users";
+        isNormalUser = true;
+        shell = pkgs.zsh;
+
+        extraGroups = [
+          "audio"
+          "floppy"
+          "input"
+          "networkmanager"
+          "render"
+          "video"
+          "wheel"
+        ];
+      };
+
+      nix-on-droid = {
+        group = "nix-on-droid";
+        isSystemUser = true;
+      };
+    };
+  };
+
+  security.sudo = {
+    execWheelOnly = true;
+    wheelNeedsPassword = false;
+  };
+
   programs = {
     dconf.enable = true;
     gamemode.enable = true;
@@ -25,6 +59,7 @@
 
   services = {
     flatpak.enable = true;
+    openssh.enable = true;
     pipewire.enable = true;
     thermald.enable = true;
     tlp.enable = true;

@@ -24,11 +24,6 @@
         on-timeout = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
         on-resume = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
       }
-
-      {
-        timeout = 600;
-        on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
-      }
     ];
   };
 }
