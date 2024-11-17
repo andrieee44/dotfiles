@@ -85,7 +85,16 @@
         builder = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = specialArgs;
-          modules = [ { nix.settings.secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ]; } ];
+
+          modules = [
+            (
+              { stateVersion, ... }:
+              {
+                home.stateVersion = stateVersion;
+                nix.settings.secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ];
+              }
+            )
+          ];
         };
       };
 
