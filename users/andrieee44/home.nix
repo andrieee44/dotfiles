@@ -5,7 +5,7 @@
     homeDirectory = "/home/${config.home.username}";
 
     sessionVariables.SSH_ASKPASS = pkgs.writers.writeDash "ssh_askpass" ''
-      set -eu; ${config.programs.password-store.package}/bin/pass ssh/andrieee44/lenovoIdeapadSlim3
+      set -eu; ${config.programs.password-store.package}/bin/pass ssh/lenovoIdeapadSlim3/andrieee44
     '';
   };
 }
