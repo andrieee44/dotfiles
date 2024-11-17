@@ -81,6 +81,12 @@
             inputs.stylix.homeManagerModules.stylix
           ] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
         };
+
+        builder = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = specialArgs;
+          modules = [ { nix.settings.secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ]; } ];
+        };
       };
 
       nixOnDroidConfigurations.nix-on-droid = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
