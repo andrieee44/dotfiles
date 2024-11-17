@@ -8,13 +8,13 @@
   }/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 
   nix = {
-  	trustedPublicKeys = [ "lenovoIdeapadSlim3-1:jPjST7szBXoyJvzvm1UxhxT0nd2u6Qk/BTsNrhRspw0H2Akl8ggZE2SMEX5cP6ql85bDTxi55amNsXdIJ27M2w==%" ];
-  	
-  extraOptions = ''
-    builders-use-substitutes = true
-    builders = ssh-ng://nix-on-droid@192.168.100.7
-    experimental-features = nix-command flakes
-  '';
+    trustedPublicKeys = [ "lenovoIdeapadSlim3-1:z14dN9bLlnEC4q5SvLy9WtT943EZyldenCvhYwJ4P2M=" ];
+
+    extraOptions = ''
+      builders-use-substitutes = true
+      builders = ssh-ng://nix-on-droid@192.168.100.7
+      experimental-features = nix-command flakes
+    '';
   };
 
   environment = {

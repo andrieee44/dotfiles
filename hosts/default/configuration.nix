@@ -30,7 +30,7 @@
         ];
       };
 
-      nix-on-droid = {
+      builder = {
         createHome = true;
         group = "users";
         isNormalUser = true;
@@ -92,7 +92,7 @@
 
   nix.settings = {
     auto-optimise-store = true;
-    secret-key-files = [ /home/nix-on-droid/lenovoIdeapadSlim3 ];
+    secret-key-files = [ /root/lenovoIdeapadSlim3-1 ];
 
     experimental-features = [
       "nix-command"
