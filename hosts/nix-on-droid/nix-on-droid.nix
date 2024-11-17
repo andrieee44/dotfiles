@@ -12,7 +12,7 @@
 
     extraOptions = ''
       builders-use-substitutes = true
-      builders = ssh-ng://nix-on-droid@192.168.100.7
+      builders = ssh-ng://builders@192.168.100.7
       experimental-features = nix-command flakes
     '';
   };
