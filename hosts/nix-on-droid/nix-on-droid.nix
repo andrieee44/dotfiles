@@ -8,7 +8,7 @@
   }/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 
   nix = {
-    trustedPublicKeys = [ "lenovoIdeapadSlim3-1:z14dN9bLlnEC4q5SvLy9WtT943EZyldenCvhYwJ4P2M=" ];
+    trustedPublicKeys = [ "builder@lenovoIdeapadSlim3:10R8vJSvZD0ICBaSdLiMGgjY7rJ8f48/zxsWBhgDrkU=" ];
 
     extraOptions = ''
       builders-use-substitutes = true

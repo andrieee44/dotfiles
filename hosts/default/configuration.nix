@@ -92,7 +92,7 @@
 
   nix.settings = {
     auto-optimise-store = true;
-    secret-key-files = [ /root/lenovoIdeapadSlim3-1 ];
+    secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ];
 
     experimental-features = [
       "nix-command"
