@@ -38,6 +38,7 @@
 
   services = {
     hypridle.enable = true;
+    hyprpaper.enable = true;
     mako.enable = true;
   };
 
