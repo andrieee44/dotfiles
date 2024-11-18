@@ -88,11 +88,12 @@
 
           modules = [
             (
-              { stateVersion, ... }:
+              { config, stateVersion, ... }:
               {
                 home = {
                   stateVersion = stateVersion;
                   username = "builder";
+                  homeDirectory = "/home/${config.home.username}";
                 };
 
                 nix.settings.secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ];
