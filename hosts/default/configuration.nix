@@ -91,6 +91,7 @@
   };
 
   nix.settings = {
+    trusted-users = [ "builder" ];
     auto-optimise-store = true;
 
     experimental-features = [
