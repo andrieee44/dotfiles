@@ -90,7 +90,11 @@
             (
               { stateVersion, ... }:
               {
-                home.stateVersion = stateVersion;
+                home = {
+                  stateVersion = stateVersion;
+                  username = "builder";
+                };
+
                 nix.settings.secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ];
               }
             )
