@@ -54,10 +54,6 @@
           (shMenu "P" "pass")
           (shMenu "M" "man")
 
-          "$mod, A, execr, ${pkgs.writers.writeDash "afk" ''
-            set -eu; systemctl --user status afk.service > /dev/null && systemctl --user stop afk.service || systemctl --user start afk.service
-          ''}"
-
           "$mod, Return, execr, $terminal"
           "$mod, W, execr, $browser"
           "$mod, S, execr, ${pkgs.steam}/bin/steam"

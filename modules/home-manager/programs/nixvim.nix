@@ -177,14 +177,14 @@
       cmp-nvim-lsp.enable = true;
       cmp-nvim-lsp-signature-help.enable = true;
       cmp-nvim-lua.enable = true;
-      cmp-nvim-ultisnips.enable = true;
+      cmp-nvim-ultisnips.enable = false;
       cmp-path.enable = false;
       cmp-tmux.enable = true;
       cmp-treesitter.enable = true;
-      cmp-vsnip.enable = true;
+      cmp-vsnip.enable = false;
       cmp-zsh.enable = true;
       cmp_luasnip.enable = true;
-      cmp_yanky.enable = true;
+      cmp_yanky.enable = false;
       lsp-format.enable = true;
       lsp-lines.enable = true;
       lsp-signature.enable = true;

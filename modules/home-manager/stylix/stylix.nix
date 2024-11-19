@@ -51,4 +51,15 @@
       };
     };
   };
+
+  fonts.fontconfig.defaultFonts =
+    let
+      fonts = config.stylix.fonts;
+    in
+    {
+      monospace = [ fonts.monospace.name ];
+      serif = [ fonts.serif.name ];
+      sansSerif = [ fonts.sansSerif.name ];
+      emoji = [ fonts.emoji.name ];
+    };
 }

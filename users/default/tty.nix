@@ -9,61 +9,13 @@
 {
   nixpkgs.config.allowUnfree = true;
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
 
   custom.programs = {
     cmenu.enable = true;
     line2json.enable = true;
     spotdl.enable = true;
     tview.enable = true;
-  };
-
-  accounts.email = {
-    maildirBasePath = "${config.xdg.dataHome}/maildir";
-
-    accounts."andrieee44@gmail.com" =
-      let
-        signatureText = "-- \n\"The art of programming is the art of organizing complexity.\" -Edsger Dijkstra";
-      in
-      {
-        address = "andrieee44@gmail.com";
-        flavor = "gmail.com";
-        passwordCommand = "${config.programs.password-store.package}/bin/pass google/andrieee44/app";
-        primary = true;
-        realName = "andrieee44";
-        userName = "andrieee44";
-        maildir.path = "andrieee44@gmail.com";
-        msmtp.enable = true;
-        mu.enable = true;
-        notmuch.enable = true;
-
-        aerc = {
-          enable = true;
-
-          extraAccounts = {
-            signature-file = builtins.toFile "signature.txt" signatureText;
-            pgp-auto-sign = true;
-            pgp-attach-key = true;
-          };
-        };
-
-        gpg = {
-          key = "B936 149C 88D4 64B3 DC0B 9F0D A555 AF06 F5A8 0AB1";
-          signByDefault = true;
-        };
-
-        mbsync = {
-          enable = true;
-          create = "maildir";
-          expunge = "both";
-          remove = "both";
-          subFolders = "Maildir++";
-        };
-
-        signature = {
-          text = signatureText;
-          showSignature = "append";
-        };
-      };
   };
 
   home = {
@@ -140,6 +92,8 @@
     dircolors.enable = true;
     direnv.enable = true;
     fzf.enable = true;
+    git.enable = true;
+    gpg.enable = true;
     go.enable = true;
     home-manager.enable = true;
     htop.enable = true;
@@ -159,21 +113,6 @@
     tmux.enable = true;
     zsh.enable = true;
 
-    git = {
-      enable = true;
-      userEmail = "andrieee44@gmail.com";
-    };
-
-    gpg = {
-      enable = true;
-
-      publicKeys = [
-        {
-          trust = 5;
-          source = ./public.key;
-        }
-      ];
-    };
   };
 
   services = {
@@ -207,15 +146,6 @@
         publicShare = "${baseDir}/public";
         templates = "${baseDir}/templates";
         videos = "${baseDir}/videos";
-      };
-
-      configFile.pam-gnupg = {
-        enable = config.services.gpg-agent.enable;
-
-        text = ''
-          ${config.programs.gpg.homedir}
-          4761373E4C1DF3223D5D82B64B2B4D7665A3138B
-        '';
       };
     };
 }

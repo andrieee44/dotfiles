@@ -89,6 +89,8 @@
            config.xdg.configFile."aerc/gui.conf".target
          }" >> "${config.xdg.configHome}/aerc/aerc.conf"
 
+        ${pkgs.toybox}/bin/chmod 0600 "${config.xdg.configHome}/aerc/aerc.conf"
+
         ${config.programs.aerc.package}/bin/aerc "$@"
       ''
     );

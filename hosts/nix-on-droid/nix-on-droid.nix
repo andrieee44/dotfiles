@@ -1,19 +1,33 @@
-{ pkgs, stateVersion, ... }:
+{
+  pkgs,
+  lib,
+  stateVersion,
+  ...
+}:
 {
   time.timeZone = "Asia/Manila";
   system.stateVersion = stateVersion;
   user.shell = "${pkgs.zsh}/bin/zsh";
+
   terminal.font = "${
     pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }
   }/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 
   nix = {
-    trustedPublicKeys = [ "builder@lenovoIdeapadSlim3:10R8vJSvZD0ICBaSdLiMGgjY7rJ8f48/zxsWBhgDrkU=" ];
+    trustedPublicKeys = [
+      "builder1@lenovoIdeapadSlim3:FhBevAZRvgSE05PQ0FFw2kIuOLqhlNbtM+JcUwjvnK0="
+      "builder2@lenovoIdeapadSlim3:WLWNV313efm+HRaHuF7hNLpESgxUIVmUXeI2Zpeb1sM="
+    ];
 
     extraOptions = ''
       builders-use-substitutes = true
-      builders = ssh-ng://builder@192.168.100.7
       experimental-features = nix-command flakes
+
+      builders = ${
+        builtins.concatStringsSep " " (
+          builtins.map (x: "builder${builtins.toString x}@192.168.100.7") (lib.range 1 2)
+        )
+      }
     '';
   };
 

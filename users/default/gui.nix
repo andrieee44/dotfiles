@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-  fonts.fontconfig.enable = true;
   wayland.windowManager.hyprland.enable = true;
   custom.programs.eww.enable = true;
 
@@ -15,6 +14,7 @@
       noto-fonts-emoji-blob-bin
       noto-fonts-lgc-plus
       noto-fonts-monochrome-emoji
+      vistafonts
       vistafonts
       wl-clipboard
     ];
@@ -62,21 +62,6 @@
     portal = {
       enable = true;
       config.common.default = "*";
-    };
-  };
-
-  systemd.user.services = {
-    afk.Service = {
-      Type = "exec";
-
-      ExecStart = pkgs.writers.writeDash "afkservice" ''
-        set -eu
-
-        while ${pkgs.toybox}/bin/true; do
-        	${pkgs.wtype}/bin/wtype "               "
-        	${pkgs.toybox}/bin/sleep 300
-        done
-      '';
     };
   };
 }

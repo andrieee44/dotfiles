@@ -17,7 +17,7 @@
       set -eu
 
       value="$(${config.custom.programs.cmenu.package}/bin/cmenu \
-      	'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰃀 Bookmarks 󰃀"' \
+      	'${config.programs.fzf.package}/bin/fzf-tmux $FZF_TMUX_OPTS --header "󰃀 Bookmarks 󰃀"' \
       	${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/bookmarks.json".target})"
 
       [ -n "${"\${WAYLAND_DISPLAY:-}"}" ] && ${pkgs.wl-clipboard}/bin/wl-copy "$value" && return
@@ -29,7 +29,7 @@
       set -eu
 
       eval "$(${config.custom.programs.cmenu.package}/bin/cmenu \
-      	'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰍹 System Actions 󰍹"' \
+      	'${config.programs.fzf.package}/bin/fzf-tmux $FZF_TMUX_OPTS --header "󰍹 System Actions 󰍹"' \
       	${config.home.homeDirectory}/${config.xdg.dataFile."cmenu/system.json".target})"
     '';
 
@@ -46,7 +46,7 @@
         pass="$(${pkgs.toybox}/bin/find "${config.programs.password-store.settings.PASSWORD_STORE_DIR}" -type f -name '*.gpg' -printf '%P\n' \
         	| ${pkgs.jaq}/bin/jaq -Rs 'gsub("\\.gpg\n"; "\n") | split("\n") | del(.[-1]) | map({(.): .}) | add' \
         	| ${config.custom.programs.cmenu.package}/bin/cmenu \
-        		'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header "󰌆 Password Store 󰌆"')"
+        		'${config.programs.fzf.package}/bin/fzf-tmux $FZF_TMUX_OPTS --header "󰌆 Password Store 󰌆"')"
 
         ${pass} otp validate "$(${pass} otp uri "$pass" || ${pkgs.toybox}/bin/echo)" 2> /dev/null && ${pass} otp -c "$pass" || ${pass} -c "$pass"
       '';
@@ -57,7 +57,7 @@
       eval "$(${pkgs.man}/bin/man -k '.' \
       	| ${config.custom.programs.line2json.package}/bin/line2json -o -V '^(.+) \((.+)\)[[:space:]]*-.*$' -v 'man $2 $1' \
       	| ${config.custom.programs.cmenu.package}/bin/cmenu \
-      		'${config.programs.fzf.package}/bin/fzf-tmux -p "50%,50%" --header " Man Pages "')"
+      		'${config.programs.fzf.package}/bin/fzf-tmux $FZF_TMUX_OPTS --header " Man Pages "')"
     '';
   };
 }

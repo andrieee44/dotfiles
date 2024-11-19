@@ -34,7 +34,7 @@
         user = "andrieee44";
       };
 
-      modules =
+      importDir =
         path:
         builtins.filter (file: inputs.nixpkgs.lib.hasSuffix ".nix" file) (
           inputs.nixpkgs.lib.filesystem.listFilesRecursive path
@@ -49,67 +49,44 @@
           ./hosts/default/configuration.nix
           ./hosts/lenovoIdeapadSlim3/configuration.nix
           inputs.stylix.nixosModules.stylix
-        ] ++ modules ./modules/nixos ++ modules ./modules/stylix;
+        ] ++ importDir ./modules/nixos ++ importDir ./modules/stylix;
       };
 
-      homeConfigurations = {
-        andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = specialArgs;
-
+      homeConfigurations =
+        let
           modules = [
-            ./users/andrieee44/home.nix
-            ./users/default/gui.nix
-            ./users/default/tty.nix
             inputs.nixvim.homeManagerModules.nixvim
             inputs.nur.hmModules.nur
             inputs.stylix.homeManagerModules.stylix
-          ] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
-        };
+          ] ++ importDir ./modules/home-manager ++ importDir ./modules/stylix;
+        in
+        {
+          andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+            extraSpecialArgs = specialArgs;
 
-        nix-on-droid = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
-          extraSpecialArgs = specialArgs // {
-            user = "nix-on-droid";
+            modules = [
+              ./users/andrieee44/home.nix
+              ./users/andrieee44/account.nix
+              ./users/default/gui.nix
+              ./users/default/tty.nix
+            ] ++ modules;
           };
 
-          modules = [
-            ./users/nix-on-droid/home.nix
-            ./users/default/tty.nix
-            inputs.nixvim.homeManagerModules.nixvim
-            inputs.nur.hmModules.nur
-            inputs.stylix.homeManagerModules.stylix
-          ] ++ modules ./modules/home-manager ++ modules ./modules/stylix;
+          nix-on-droid = inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
+
+            extraSpecialArgs = specialArgs // {
+              user = "nix-on-droid";
+            };
+
+            modules = [
+              ./users/nix-on-droid/home.nix
+              ./users/andrieee44/account.nix
+              ./users/default/tty.nix
+            ] ++ modules;
+          };
         };
-
-        builder = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = specialArgs;
-
-          modules = [
-            (
-              {
-                config,
-                pkgs,
-                stateVersion,
-                ...
-              }:
-              {
-                home = {
-                  stateVersion = stateVersion;
-                  username = "builder";
-                  homeDirectory = "/home/${config.home.username}";
-                };
-
-                nix = {
-                  package = pkgs.nix;
-                  settings.secret-key-files = [ "/home/builder/builder@lenovoIdeapadSlim3" ];
-                };
-              }
-            )
-          ];
-        };
-      };
 
       nixOnDroidConfigurations.nix-on-droid = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages."aarch64-linux";
@@ -118,7 +95,7 @@
         modules = [
           ./hosts/nix-on-droid/nix-on-droid.nix
           ./modules/nix-on-droid/stylix.nix
-        ] ++ modules ./modules/stylix;
+        ] ++ importDir ./modules/stylix;
       };
     };
 }

@@ -8,40 +8,7 @@
   time.timeZone = "Asia/Manila";
   system.stateVersion = stateVersion;
   environment.pathsToLink = [ "/share/zsh" ];
-
-  users = {
-    defaultUserShell = pkgs.zsh;
-
-    users = {
-      andrieee44 = {
-        createHome = true;
-        group = "users";
-        isNormalUser = true;
-        shell = pkgs.zsh;
-
-        extraGroups = [
-          "audio"
-          "floppy"
-          "input"
-          "networkmanager"
-          "render"
-          "video"
-          "wheel"
-        ];
-      };
-
-      builder = {
-        createHome = true;
-        group = "users";
-        isNormalUser = true;
-        shell = pkgs.zsh;
-
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDJtUQ3XeEdvcpvQp4DkLPiskGmNzW4+STtNOM1k4aGZ andrieee44@gmail.com"
-        ];
-      };
-    };
-  };
+  users.defaultUserShell = pkgs.zsh;
 
   security.sudo = {
     execWheelOnly = true;
@@ -53,13 +20,8 @@
     gamemode.enable = true;
     hyprland.enable = true;
     light.enable = true;
+    steam.enable = true;
     zsh.enable = true;
-
-    steam = {
-      enable = true;
-      extraCompatPackages = with pkgs; [ proton-ge-bin ];
-      gamescopeSession.enable = true;
-    };
   };
 
   services = {
@@ -91,7 +53,6 @@
   };
 
   nix.settings = {
-    trusted-users = [ "builder" ];
     auto-optimise-store = true;
 
     experimental-features = [
@@ -102,12 +63,10 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-
     packageOverrides = pkgs: { vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; };
   };
 
   boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
     plymouth.enable = true;
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 

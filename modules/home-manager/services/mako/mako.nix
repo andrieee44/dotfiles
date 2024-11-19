@@ -11,7 +11,7 @@
 
     extraConfig = ''
       []
-      on-notify=exec ${pkgs.mpv}/bin/mpv ${./notif.ogg}
+      on-notify=exec ${pkgs.mpv}/bin/mpv ${./notif.opus}
       text-alignment=center
 
       [urgency=high]

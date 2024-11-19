@@ -3,13 +3,13 @@
   custom.programs.tview = {
     package = pkgs.buildGoModule {
       name = "tview";
-      vendorHash = "sha256-j85u8Af390ZH4XsYK1uIB5G2mH0prupUAT7yWTfjOiw=";
+      vendorHash = "sha256-MFpcnTUFVlD0ZvJFbeqCorXuSBo2Z9u0E0Hs7lxvg6A=";
 
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "tview";
-        rev = "9afbc0ab986be2da7bcc2db5dcfe517e3cb5de3c";
-        hash = "sha256-k+zZAZAlyiIhSCpx1UWqCEyQvnwyKbMGGvq5/cFx4lc=";
+        rev = "bacd3fe795c4153a687d1996b951b35dfa672541";
+        hash = "sha256-gcJWRuuuGE6eyCSFiSWmC7TgwpWUL6IaFcacLUYvwx4=";
       };
     };
 
@@ -122,6 +122,7 @@
           ''${pkgs.poppler_utils}/bin/pdftoppm -jpeg -f 1 -singlefile -- "$TVIEW_FILE" | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
         ];
         "application/x-bittorrent" = [ ''${pkgs.transmission_4}/bin/transmission-show -- "$TVIEW_FILE"'' ];
+
         "inode/directory" = [
           ''${pkgs.coreutils}/bin/ls --color --group-directories-first -w "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
         ];

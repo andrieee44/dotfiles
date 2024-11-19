@@ -7,6 +7,10 @@
       "musixmatch"
     ];
 
+    cache_path = "${config.home.homeDirectory}/${
+      builtins.dirOf config.xdg.dataFile."spotdl/config.json".target
+    }/cache";
+
     add_unavailable = false;
     album_type = null;
     allowed_origins = null;
@@ -14,9 +18,6 @@
     audio_providers = [ "youtube-music" ];
     auth_token = null;
     bitrate = null;
-    cache_path = "${config.home.homeDirectory}/${
-      builtins.dirOf config.xdg.dataFile."spotdl/config.json".target
-    }/cache";
     client_id = "5f573c9620494bae87890c0f08a60293";
     client_secret = "212476d9b0f3472eaa762d90b19b0ba8";
     cookie_file = null;
