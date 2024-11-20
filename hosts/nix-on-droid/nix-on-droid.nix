@@ -13,23 +13,24 @@
     pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }
   }/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
 
-  nix = {
-    trustedPublicKeys = [
-      "builder1@lenovoIdeapadSlim3:FhBevAZRvgSE05PQ0FFw2kIuOLqhlNbtM+JcUwjvnK0="
-      "builder2@lenovoIdeapadSlim3:WLWNV313efm+HRaHuF7hNLpESgxUIVmUXeI2Zpeb1sM="
-    ];
+  nix =
+    let
+      builders = builtins.map (x: "ssh-ng://builder${builtins.toString x}@192.168.100.7") (lib.range 1 1);
+    in
+    {
+      substituters = builders;
 
-    extraOptions = ''
-      builders-use-substitutes = true
-      experimental-features = nix-command flakes
+      trustedPublicKeys = [
+        "builder1@lenovoIdeapadSlim3:FhBevAZRvgSE05PQ0FFw2kIuOLqhlNbtM+JcUwjvnK0="
+        "builder2@lenovoIdeapadSlim3:WLWNV313efm+HRaHuF7hNLpESgxUIVmUXeI2Zpeb1sM="
+      ];
 
-      builders = ${
-        builtins.concatStringsSep " " (
-          builtins.map (x: "builder${builtins.toString x}@192.168.100.7") (lib.range 1 2)
-        )
-      }
-    '';
-  };
+      extraOptions = ''
+        builders-use-substitutes = true
+        experimental-features = nix-command flakes
+        builders = ${builtins.concatStringsSep " " builders}
+      '';
+    };
 
   environment = {
     motd = "";

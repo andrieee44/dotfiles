@@ -21,7 +21,7 @@
           ];
         };
       in
-      (lib.genAttrs (builtins.map (x: "builder${builtins.toString x}") (lib.range 1 2)) (key: builder))
+      (lib.genAttrs (builtins.map (x: "builder${builtins.toString x}") (lib.range 1 1)) (key: builder))
       // {
         andrieee44 = {
           createHome = true;
