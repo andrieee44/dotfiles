@@ -1,6 +1,6 @@
 { pkgs, stateVersion, ... }:
 {
-  time.timeZonZ = "Asia/Manila";
+  time.timeZone = "Asia/Manila";
   system.stateVersion = stateVersion;
   user.shell = "${pkgs.zsh}/bin/zsh";
 
