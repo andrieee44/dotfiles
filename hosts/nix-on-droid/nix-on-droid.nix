@@ -15,7 +15,7 @@
 
   nix =
     let
-      builders = builtins.map (x: "ssh-ng://builder${builtins.toString x}@192.168.100.7") (lib.range 1 1);
+      builders = builtins.map (x: "ssh-ng://builder${builtins.toString x}@192.168.100.7") (lib.range 1 2);
     in
     {
       substituters = builders;
