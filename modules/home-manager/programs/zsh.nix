@@ -18,7 +18,7 @@
       share = true;
     };
 
-    initExtra = lib.mkMerge [
+    initExtra =
       ''
         setopt INC_APPEND_HISTORY
 
@@ -30,8 +30,7 @@
 
         ZSH_AUTOSUGGEST_MANUAL_REBIND="1"
       ''
-
-      (lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
+      + (lib.optionalString (config.programs.zsh.defaultKeymap == "viins") ''
         export KEYTIMEOUT=1
 
         bindkey -M menuselect 'h' vi-backward-char
@@ -63,7 +62,6 @@
         zle -N zle-keymap-select
         zle -N zle-line-init
         echo -ne '\e[5 q'
-      '')
-    ];
+      '');
   };
 }

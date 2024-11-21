@@ -1,8 +1,18 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   stylix.targets = {
     gnome.enable = false;
     gtk.enable = false;
+  };
+
+  programs.nixvim.plugins = {
+    cmp.enable = lib.mkForce false;
+    lsp.enable = lib.mkForce false;
   };
 
   home = {
