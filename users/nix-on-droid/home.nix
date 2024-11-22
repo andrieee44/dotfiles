@@ -10,9 +10,13 @@
     gtk.enable = false;
   };
 
-  programs.nixvim.plugins = {
-    cmp.enable = lib.mkForce false;
-    lsp.enable = lib.mkForce false;
+  programs = {
+    notmuch.enable = lib.mkForce false;
+
+    nixvim.plugins = {
+      cmp.enable = lib.mkForce false;
+      lsp.enable = lib.mkForce false;
+    };
   };
 
   home = {

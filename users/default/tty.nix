@@ -9,11 +9,7 @@
 {
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
-
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [ (final: prev: { notmuch = prev.notmuch.override { withVim = false; }; }) ];
-  };
+  nixpkgs.config.allowUnfree = true;
 
   custom.programs = {
     cmenu.enable = true;
