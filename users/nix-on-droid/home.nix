@@ -15,7 +15,10 @@
 
     nixvim.plugins = {
       cmp.enable = lib.mkForce false;
+      nvim-colorizer.enable = lib.mkForce false;
       lsp.enable = lib.mkForce false;
+      luasnip.enable = lib.mkForce false;
+      treesitter.enable = lib.mkForce false;
     };
   };
 
