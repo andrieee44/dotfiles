@@ -9,19 +9,19 @@
   swapDevices = [ { device = "/dev/disk/by-uuid/f5884c42-e6a7-46fd-bc8d-8c3ea267d1ef"; } ];
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot = {
+    kernelModules = [ "kvm-intel" ];
+    loader.efi.efiSysMountPoint = "/boot/efi";
+
     initrd.availableKernelModules = [
       "xhci_pci"
       "vmd"
       "ahci"
       "nvme"
     ];
-
-    kernelModules = [ "kvm-intel" ];
-    loader.efi.efiSysMountPoint = "/boot/efi";
   };
 
   fileSystems = {

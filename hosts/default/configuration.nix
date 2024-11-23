@@ -76,8 +76,17 @@
     };
 
     loader = {
-      systemd-boot = {
+      efi.canTouchEfiVariables = true;
+
+      grub = {
         enable = true;
+        device = "nodev";
+        efiSupport = true;
+        memtest86.enable = true;
+      };
+
+      systemd-boot = {
+        enable = false;
         editor = false;
         memtest86.enable = true;
         configurationLimit = 100;
