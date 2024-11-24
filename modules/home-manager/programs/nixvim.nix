@@ -367,12 +367,13 @@
       ];
   };
 
-  xdg.desktopEntries =
+  xdg =
     let
       mimeType = [
         "application/x-csh"
         "text/css"
         "text/csv"
+        "text/x-bibtex"
         "text/javascript"
         "application/x-httpd-php"
         "application/rtf"
@@ -381,18 +382,25 @@
         "application/xml"
       ];
     in
-    lib.mkIf config.programs.nixvim.enable {
-      nvim = {
-        name = "Neovim";
-        exec = "${config.programs.nixvim.build.package}/bin/nvim %U";
-        terminal = true;
-        mimeType = mimeType;
-      };
+    {
+      mimeApps.defaultApplications = lib.genAttrs mimeType (key: [
+        "nvim.desktop"
+        "nvimGUI.desktop"
+      ]);
 
-      nvimGUI = {
-        name = "Neovim GUI";
-        exec = "${config.home.sessionVariables.TERMINAL} -e ${config.programs.nixvim.build.package}/bin/nvim %U";
-        mimeType = mimeType;
+      desktopEntries = lib.mkIf config.programs.nixvim.enable {
+        nvim = {
+          name = "Neovim";
+          exec = "${config.programs.nixvim.build.package}/bin/nvim %U";
+          terminal = true;
+          mimeType = mimeType;
+        };
+
+        nvimGUI = {
+          name = "Neovim GUI";
+          exec = "${config.home.sessionVariables.TERMINAL} -e ${config.programs.nixvim.build.package}/bin/nvim %U";
+          mimeType = mimeType;
+        };
       };
     };
 }
