@@ -52,16 +52,8 @@
   };
 
   xdg = {
-    mimeApps.associations.added =
-      let
-        text = [
-          "nvim.desktop"
-          "nvimGUI.desktop"
-        ];
-      in
-      {
-        "text/x-bibtex" = text;
-      };
+    mime.enable = true;
+    mimeApps.enable = true;
 
     portal = {
       enable = true;
