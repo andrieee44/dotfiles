@@ -86,6 +86,7 @@
 
     extraPlugins = with pkgs.vimPlugins; [
       vim-be-good
+      yuck-vim
 
       {
         plugin = nvim-terminal-lua;
@@ -199,6 +200,7 @@
         })
 
         {
+          parinfer-rust.enable = true;
           luasnip.enable = true;
 
           cmp =
