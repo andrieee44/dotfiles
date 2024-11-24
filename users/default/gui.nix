@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 {
   wayland.windowManager.hyprland.enable = true;
-  custom.programs.eww.enable = true;
+
+  custom.programs = {
+    jstat.enable = true;
+    eww.enable = true;
+  };
 
   home = {
     packages = with pkgs; [
