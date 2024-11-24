@@ -44,5 +44,10 @@
       	background-color: ${colors.base03};
       	color: ${colors.base0C};
       }
+
+      button {
+      	font-weight: normal;
+      	background-color: transparent;
+      }
     '';
 }

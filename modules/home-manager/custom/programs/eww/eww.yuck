@@ -1,115 +1,116 @@
 (defvar batStatus `{
-	"Charging": "󱐋",
-	"Discharging": "",
-	"Full": "",
-	"Not charging": "󰈅"
+  "Charging": "󱐋",
+  "Discharging": "",
+  "Full": "",
+  "Not charging": "󰈅"
 }`)
 
 (deflisten status `jstat`)
 
 (defwidget sep [unindent cond]
-	(label :class `sep` :unindent unindent :text `${cond ? " ▏" : ""}`))
+  (label :class `sep` :unindent unindent :text `${cond ? " ▏" : ""}`))
 
 (defwidget hyprlandWindow []
-	(box :space-evenly false
-		(sep :unindent true :cond `${status.Hyprland.Window != ""}`)
-		(label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, status.Hyprland.Limit)}`)))
+  (box :space-evenly false
+    (sep :unindent true :cond `${status.Hyprland.Window != ""}`)
+    (label :unindent false :text `${substring(status.Hyprland.Window, status.Hyprland.Scroll, status.Hyprland.Limit)}`)))
 
 (defwidget hyprlandWorkspaces []
-	(box :space-evenly false
-		(for workspace in `${jq(status.Hyprland.Monitors.eDP-1.Workspaces, "sort_by(.Id)")}`
-			(label :class `${workspace.Id == status.Hyprland.Monitors.eDP-1.Active ? "activeWorkspace" : ""}` :unindent false :text ` ${workspace.Name} `))))
+  (box :space-evenly false
+    (for workspace in `${jq(status.Hyprland.Monitors.eDP-1.Workspaces, "sort_by(.Id)")}`
+      (button :class `${workspace.Id == status.Hyprland.Monitors.eDP-1.Active ? "activeWorkspace" : ""}` :onclick `hyprctl dispatch workspace ${workspace.Name}`
+        (label :class `${workspace.Id == status.Hyprland.Monitors.eDP-1.Active ? "activeWorkspace" : ""}` :unindent false :text `${workspace.Name}`)))))
 
 (defwidget date []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Date.Icon} `)
-		(label :unindent false :text `${status.Date.Date}`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `${status.Date.Icon} `)
+    (label :unindent false :text `${status.Date.Date}`)))
 
 (defwidget netSpd []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `󰶣 `)
-		(label :unindent false :text `${round(status.NetSpd.Up / 1000000, 1)} MB `)
-		(label :class `icon` :unindent false :text `󰶡 `)
-		(label :unindent false :text `${round(status.NetSpd.Down / 1000000, 1)} MB`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `󰶣 `)
+    (label :unindent false :text `${round(status.NetSpd.Up / 1000000, 1)} MB `)
+    (label :class `icon` :unindent false :text `󰶡 `)
+    (label :unindent false :text `${round(status.NetSpd.Down / 1000000, 1)} MB`)))
 
 (defwidget vol []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Vol.Mute ? "󰝟" : "${status.Vol.Icon}"} `)
-		(label :unindent false :text `${status.Vol.Mute ? "muted" : "${round(status.Vol.Perc, 0)}%"}`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `${status.Vol.Mute ? "󰝟" : "${status.Vol.Icon}"} `)
+    (label :unindent false :text `${status.Vol.Mute ? "muted" : "${round(status.Vol.Perc, 0)}%"}`)))
 
 (defwidget swap []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `󰓡 ${status.Swap.Icon} `)
-		(label :unindent false :text `${round(status.Swap.UsedPerc, 0)}%`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `󰓡 ${status.Swap.Icon} `)
+    (label :unindent false :text `${round(status.Swap.UsedPerc, 0)}%`)))
 
 (defwidget ram []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text ` ${status.Ram.Icon} `)
-		(label :unindent false :text `${round(status.Ram.UsedPerc, 0)}%`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text ` ${status.Ram.Icon} `)
+    (label :unindent false :text `${round(status.Ram.UsedPerc, 0)}%`)))
 
 (defwidget cpu []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `󰍛 ${status.Cpu.Icon} `)
-		(label :unindent false :text `${round(status.Cpu.AvgUsage, 0)}%`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `󰍛 ${status.Cpu.Icon} `)
+    (label :unindent false :text `${round(status.Cpu.AvgUsage, 0)}%`)))
 
 (defwidget bri []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Bri.Icon} `)
-		(label :unindent false :text `${round(status.Bri.Perc, 0)}%`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `${status.Bri.Icon} `)
+    (label :unindent false :text `${round(status.Bri.Perc, 0)}%`)))
 
 (defwidget bat []
-	(box :space-evenly false
-		(for bat in `${status.Bat}`
-			(box :space-evenly false
-				(label :class `icon` :unindent false :text `${bat.Icon}${batStatus["${bat.Status}"]} `)
-				(label :unindent false :text `${round(bat.Capacity, 0)}%`)))))
+  (box :space-evenly false
+    (for bat in `${status.Bat}`
+      (box :space-evenly false
+        (label :class `icon` :unindent false :text `${bat.Icon}${batStatus["${bat.Status}"]} `)
+        (label :unindent false :text `${round(bat.Capacity, 0)}%`)))))
 
 (defwidget music []
-	(box :space-evenly false
-		(label :class `icon` :unindent false :text `${status.Music.State == "play" ? "󰝚" : "${status.Music.State == "pause" ? "󰏤" : "󰝛"}"} `)
-		(label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Song, status.Music.Scroll, status.Music.Limit)}"}`)))
+  (box :space-evenly false
+    (label :class `icon` :unindent false :text `${status.Music.State == "play" ? "󰝚" : "${status.Music.State == "pause" ? "󰏤" : "󰝛"}"} `)
+    (label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Song, status.Music.Scroll, status.Music.Limit)}"}`)))
 
 (defwidget internet []
-	(box :space-evenly false
-		(for eth in `${jq(status.Internet.Ethernet, "to_entries | map(select(.value.Powered).value)")}`
-			(box :space-evenly false
-				(label :class `icon` :unindent false :text `󰈀 `)
-				(label :unindent false :text `${substring(eth.Name, eth.Scroll, status.Internet.Limit)}`)
-				(sep :unindent false :cond true)))
-		(for wifi in `${jq(status.Internet.Wifi, "to_entries | map(.value)")}`
-			(box :space-evenly false
-				(label :class `icon` :unindent false :text `${wifi.Powered ? "${wifi.Icon} " : "${wifi.Scanning ? " " : ""}"}`)
-				(label :unindent false :text `${wifi.Powered ? "${substring(wifi.Name, wifi.Scroll, status.Internet.Limit)}" : "${wifi.Scanning ? "scanning" : ""}"}`)
-				(sep :unindent false :cond `${wifi.Scanning || wifi.Powered}`)))))
+  (box :space-evenly false
+    (for eth in `${jq(status.Internet.Ethernet, "to_entries | map(select(.value.Powered).value)")}`
+      (box :space-evenly false
+        (label :class `icon` :unindent false :text `󰈀 `)
+        (label :unindent false :text `${substring(eth.Name, eth.Scroll, status.Internet.Limit)}`)
+        (sep :unindent false :cond true)))
+    (for wifi in `${jq(status.Internet.Wifi, "to_entries | map(.value)")}`
+      (box :space-evenly false
+        (label :class `icon` :unindent false :text `${wifi.Powered ? "${wifi.Icon} " : "${wifi.Scanning ? " " : ""}"}`)
+        (label :unindent false :text `${wifi.Powered ? "${substring(wifi.Name, wifi.Scroll, status.Internet.Limit)}" : "${wifi.Scanning ? "scanning" : ""}"}`)
+        (sep :unindent false :cond `${wifi.Scanning || wifi.Powered}`)))))
 
 (defwidget bluetooth []
-	(box :space-evenly false
-		(for adapter in `${jq(status.Bluetooth.Adapters, "to_entries | map(select(.value.Powered).value)")}`
-			(box :space-evenly false
-				(label :class `icon` :unindent false :text `󰂯 `)
-				(label :unindent false :text `${adapter.Discovering ? "scanning" : "${adapter.Name}"}`)
-				(sep :unindent false :cond true)
-				(for device in `${jq(adapter.Devices, "to_entries | map(select(.value.Connected).value)")}`
-					(box :space-evenly false
-						(label :class `icon` :unindent false :text `󰂯${device.Icon} `)
-						(label :unindent false :text `${device.Battery}% ${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
-						(sep :unindent false :cond true)))))))
+  (box :space-evenly false
+    (for adapter in `${jq(status.Bluetooth.Adapters, "to_entries | map(select(.value.Powered).value)")}`
+      (box :space-evenly false
+        (label :class `icon` :unindent false :text `󰂯 `)
+        (label :unindent false :text `${adapter.Discovering ? "scanning" : "${adapter.Name}"}`)
+        (sep :unindent false :cond true)
+        (for device in `${jq(adapter.Devices, "to_entries | map(select(.value.Connected).value)")}`
+          (box :space-evenly false
+            (label :class `icon` :unindent false :text `󰂯${device.Icon} `)
+            (label :unindent false :text `${device.Battery}% ${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
+            (sep :unindent false :cond true)))))))
 
 (defwindow bar :monitor 0 :stacking `fg` :exclusive true
-	:geometry (geometry :width `98%` :height `60px` :y `20px` :anchor `top center`)
-	(box :class `window` :space-evenly false
-		(box :hexpand true :space-evenly false :halign `start`
-			(hyprlandWorkspaces)
-			(hyprlandWindow))
-		(box :hexpand true :space-evenly false :halign `end`
-			(bluetooth)
-			(music)
-			(sep :unindent false :cond true) (internet)
-			(vol)
-			(sep :unindent false :cond true) (bri)
-			(sep :unindent false :cond true) (bat)
-			(sep :unindent false :cond true) (cpu)
-			(sep :unindent false :cond true) (ram)
-			(sep :unindent false :cond true) (netSpd)
-			(sep :unindent false :cond true) (date)
-			(label :unindent false :text ` `))))
+  :geometry (geometry :width `98%` :height `60px` :y `20px` :anchor `top center`)
+  (box :class `window` :space-evenly false
+    (box :hexpand true :space-evenly false :halign `start`
+      (hyprlandWorkspaces)
+      (hyprlandWindow))
+    (box :hexpand true :space-evenly false :halign `end`
+      (bluetooth)
+      (music)
+      (sep :unindent false :cond true) (internet)
+      (vol)
+      (sep :unindent false :cond true) (bri)
+      (sep :unindent false :cond true) (bat)
+      (sep :unindent false :cond true) (cpu)
+      (sep :unindent false :cond true) (ram)
+      (sep :unindent false :cond true) (netSpd)
+      (sep :unindent false :cond true) (date)
+      (label :unindent false :text ` `))))
