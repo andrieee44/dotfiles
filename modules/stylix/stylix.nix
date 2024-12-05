@@ -15,7 +15,7 @@
     fonts =
       let
         monospace = {
-          package = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
+          package = pkgs.nerd-fonts.sauce-code-pro;
           name = "SauceCodePro Nerd Font Mono";
         };
       in
