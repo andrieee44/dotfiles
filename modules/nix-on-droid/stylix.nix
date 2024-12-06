@@ -58,7 +58,7 @@
   config.terminal =
     let
       colors =
-        builtins.mapAttrs (name: value: "#${value}")
+        builtins.mapAttrs (name: value: value)
           (builtins.fromJSON (
             builtins.readFile (
               pkgs.runCommand "fromYAML" { }

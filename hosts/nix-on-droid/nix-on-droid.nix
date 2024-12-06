@@ -4,7 +4,7 @@
   system.stateVersion = stateVersion;
   user.shell = "${pkgs.zsh}/bin/zsh";
 
-  terminal.font = "${pkgs.nerd-fonts.sauce-code-pro}/share/fonts/truetype/NerdFonts/SauceCodeProNerdFontMono-Regular.ttf";
+  terminal.font = "${pkgs.nerd-fonts.sauce-code-pro}/share/fonts/truetype/NerdFonts/SauceCodePro/SauceCodeProNerdFontMono-Regular.ttf";
 
   nix = {
     trustedPublicKeys = [ "builder@lenovoIdeapadSlim3:FhBevAZRvgSE05PQ0FFw2kIuOLqhlNbtM+JcUwjvnK0=" ];
