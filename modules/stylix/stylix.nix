@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   stylix = {
     enable = true;
@@ -14,15 +14,13 @@
 
     fonts =
       let
-        monospace = {
-          package = pkgs.nerd-fonts.sauce-code-pro;
-          name = "SauceCodePro Nerd Font Mono";
-        };
+        monospace = config.stylix.fonts.monospace;
       in
       {
-        serif = monospace;
-        sansSerif = monospace;
-        monospace = monospace;
+        monospace = {
+          package = pkgs.dejavu_fonts;
+          name = "DejaVu Sans Mono";
+        };
 
         emoji = {
           package = pkgs.noto-fonts-emoji;
@@ -39,6 +37,9 @@
             popups = size;
             terminal = size;
           };
+
+        serif = monospace;
+        sansSerif = monospace;
       };
 
     opacity =

@@ -46,7 +46,7 @@
         cp = "${toybox}/cp -iv";
         df = "${toybox}/df -Pha";
         diff = "${pkgs.diffutils}/bin/diff --color=auto";
-        grep = "${pkgs.gnugrep}/bin/grep --color=auto";
+        grep = "${pkgs.ripgrep}/bin/rg";
         ip = "${pkgs.iproute2}/bin/ip -color=auto";
         less = config.home.sessionVariables.PAGER;
         ls = "LC_ALL=C ${coreutils}/ls -AFhl --time=birth --time-style='+%b %e %Y (%a) %l:%M %p' --color=auto --group-directories-first";
@@ -107,6 +107,7 @@
     nixvim.enable = true;
     notmuch.enable = true;
     password-store.enable = true;
+    ripgrep.enable = true;
     ssh.enable = true;
     starship.enable = true;
     texlive.enable = true;

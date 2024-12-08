@@ -1,0 +1,1 @@
+{ programs.hyprland.withUWSM = true; }
