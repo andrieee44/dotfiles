@@ -32,10 +32,6 @@
         master.mfact = 0.5;
         debug.disable_logs = false;
 
-        exec-once = [
-          "while ! ${pkgs.pamixer}/bin/pamixer; do sleep 0.1; done; ${uwsmRun} ${pkgs.eww}/bin/eww open bar"
-        ];
-
         windowrule = [
           "float, title:^(fzfMenu)$"
           "tile, title:^(Steam Big Picture Mode)$"
@@ -54,7 +50,7 @@
           let
             shMenu =
               key: script:
-              "$mod, ${key}, execr, ${uwsmRun} -T 'fzfMenu' -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.${script}}/bin/${script}'";
+              "$mod, ${key}, execr, ${uwsmRun} $terminal -T 'fzfMenu' -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.${script}}/bin/${script}'";
           in
           [
             (shMenu "D" "bookmarks")
