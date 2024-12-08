@@ -89,6 +89,7 @@
   programs = {
     aerc.enable = true;
     bat.enable = true;
+    bash.enable = true;
     dircolors.enable = true;
     direnv.enable = true;
     fzf.enable = true;
@@ -113,7 +114,6 @@
     texlive.enable = true;
     tmux.enable = true;
     zsh.enable = true;
-
   };
 
   services = {
