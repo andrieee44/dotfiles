@@ -8,16 +8,7 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 
   wayland.windowManager.hyprland = {
-    systemd = {
-      enable = false;
-
-      variables = [
-        "WAYLAND_DISPLAY"
-        "XDG_SESSION_TYPE"
-        "QT_QPA_PLATFORMTHEME"
-        "FZF_DEFAULT_OPTS"
-      ];
-    };
+    systemd.enable = false;
 
     settings =
       let
