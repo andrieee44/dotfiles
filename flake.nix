@@ -1,7 +1,11 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     stylix = {
       url = "github:danth/stylix";
@@ -56,7 +60,7 @@
         let
           modules = [
             inputs.nixvim.homeManagerModules.nixvim
-            inputs.nur.hmModules.nur
+            inputs.nur.modules.homeManager.default
             inputs.stylix.homeManagerModules.stylix
           ] ++ importDir ./modules/home-manager ++ importDir ./modules/stylix;
         in
