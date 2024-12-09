@@ -2,6 +2,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,8 +34,12 @@
   };
 
   outputs =
-    inputs:
+    { systems, ... }@inputs:
     let
+      eachSystem =
+        f: inputs.nixpkgs.lib.genAttrs (import systems) (system: f inputs.nixpkgs.legacyPackages.${system});
+      treefmtConfig = import ./modules/treefmt/treefmt.nix;
+
       specialArgs = {
         inputs = inputs;
         stateVersion = "24.05";
@@ -43,6 +52,7 @@
         builtins.filter (file: inputs.nixpkgs.lib.hasSuffix ".nix" file) (
           inputs.nixpkgs.lib.filesystem.listFilesRecursive path
         );
+
     in
     {
       nixosConfigurations.lenovoIdeapadSlim3 = inputs.nixpkgs.lib.nixosSystem {
@@ -107,5 +117,11 @@
           ./modules/nix-on-droid/stylix.nix
         ] ++ importDir ./modules/stylix;
       };
+
+      checks = eachSystem (pkgs: {
+        formatting = (inputs.treefmt-nix.lib.evalModule pkgs treefmtConfig).config.build.check inputs.self;
+      });
+
+      formatter = eachSystem (pkgs: inputs.treefmt-nix.lib.mkWrapper pkgs treefmtConfig);
     };
 }

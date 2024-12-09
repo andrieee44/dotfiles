@@ -18,6 +18,8 @@
       in
       {
         monospace = {
+          # package = pkgs.nerd-fonts.sauce-code-pro;
+          # name = "SauceCodePro Nerd Font Mono";
           package = pkgs.dejavu_fonts;
           name = "DejaVu Sans Mono";
         };
