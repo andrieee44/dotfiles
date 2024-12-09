@@ -1,6 +1,7 @@
 { config, lib, ... }:
 {
-  options.stylix.targets.custom.aerc.enable = lib.mkEnableOption "custom implementation of styling aerc";
+  options.stylix.targets.custom.aerc.enable =
+    lib.mkEnableOption "custom implementation of styling aerc";
 
   config.programs.aerc.stylesets =
     let

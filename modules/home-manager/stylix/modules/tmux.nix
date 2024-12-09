@@ -1,6 +1,7 @@
 { config, lib, ... }:
 {
-  options.stylix.targets.custom.tmux.enable = lib.mkEnableOption "custom implementation of styling tmux";
+  options.stylix.targets.custom.tmux.enable =
+    lib.mkEnableOption "custom implementation of styling tmux";
 
   config.programs.tmux.extraConfig =
     let

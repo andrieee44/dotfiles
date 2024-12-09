@@ -1,6 +1,7 @@
 { config, lib, ... }:
 {
-  options.stylix.targets.custom.zathura.enable = lib.mkEnableOption "custom implementation of styling zathura";
+  options.stylix.targets.custom.zathura.enable =
+    lib.mkEnableOption "custom implementation of styling zathura";
 
   config.programs.zathura.options =
     let

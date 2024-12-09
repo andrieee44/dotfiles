@@ -49,20 +49,26 @@
         system = "x86_64-linux";
         specialArgs = specialArgs;
 
-        modules = [
-          ./hosts/default/configuration.nix
-          ./hosts/lenovoIdeapadSlim3/configuration.nix
-          inputs.stylix.nixosModules.stylix
-        ] ++ importDir ./modules/nixos ++ importDir ./modules/stylix;
+        modules =
+          [
+            ./hosts/default/configuration.nix
+            ./hosts/lenovoIdeapadSlim3/configuration.nix
+            inputs.stylix.nixosModules.stylix
+          ]
+          ++ importDir ./modules/nixos
+          ++ importDir ./modules/stylix;
       };
 
       homeConfigurations =
         let
-          modules = [
-            inputs.nixvim.homeManagerModules.nixvim
-            inputs.nur.modules.homeManager.default
-            inputs.stylix.homeManagerModules.stylix
-          ] ++ importDir ./modules/home-manager ++ importDir ./modules/stylix;
+          modules =
+            [
+              inputs.nixvim.homeManagerModules.nixvim
+              inputs.nur.modules.homeManager.default
+              inputs.stylix.homeManagerModules.stylix
+            ]
+            ++ importDir ./modules/home-manager
+            ++ importDir ./modules/stylix;
         in
         {
           andrieee44 = inputs.home-manager.lib.homeManagerConfiguration {

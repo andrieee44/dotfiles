@@ -1,6 +1,7 @@
 { config, lib, ... }:
 {
-  options.stylix.targets.custom.mpv.enable = lib.mkEnableOption "custom implementation of styling mpv";
+  options.stylix.targets.custom.mpv.enable =
+    lib.mkEnableOption "custom implementation of styling mpv";
 
   config.programs.mpv.scriptOpts.uosc.color =
     let

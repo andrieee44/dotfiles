@@ -5,7 +5,8 @@
   ...
 }:
 {
-  options.stylix.targets.custom.ncmpcpp.enable = lib.mkEnableOption "custom implementation of styling ncmpcpp";
+  options.stylix.targets.custom.ncmpcpp.enable =
+    lib.mkEnableOption "custom implementation of styling ncmpcpp";
 
   config =
     let

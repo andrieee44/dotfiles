@@ -1,6 +1,7 @@
 { config, lib, ... }:
 {
-  options.stylix.targets.custom.console.enable = lib.mkEnableOption "custom implementation of styling console";
+  options.stylix.targets.custom.console.enable =
+    lib.mkEnableOption "custom implementation of styling console";
 
   config.console.colors =
     let

@@ -11,6 +11,7 @@
   };
 
   programs = {
+    bash.enable = lib.mkForce false;
     notmuch.enable = lib.mkForce false;
 
     nixvim.plugins = {

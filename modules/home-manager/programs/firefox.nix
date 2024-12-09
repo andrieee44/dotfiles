@@ -270,7 +270,8 @@
         "experiments.manifest.uri" = "";
         "experiments.supported" = false;
         "extensions.autoDisableScopes" = 0;
-        "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0 Win64; x64 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.3";
+        "general.useragent.override" =
+          "Mozilla/5.0 (Windows NT 10.0 Win64; x64 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.3";
         "privacy.donottrackheader.enabled" = true;
         "privacy.donottrackheader.value" = 1;
         "privacy.firstparty.isolate" = true;
