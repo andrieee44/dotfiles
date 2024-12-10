@@ -1,1 +1,7 @@
-{ projectRootFile = "flake.nix"; }
+{
+  projectRootFile = "flake.nix";
+
+  programs = {
+    nixfmt.enable = true;
+  };
+}
