@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -34,10 +35,13 @@
   };
 
   outputs =
-    { systems, ... }@inputs:
+    inputs:
     let
       eachSystem =
-        f: inputs.nixpkgs.lib.genAttrs (import systems) (system: f inputs.nixpkgs.legacyPackages.${system});
+        f:
+        inputs.nixpkgs.lib.genAttrs (import inputs.systems) (
+          system: f inputs.nixpkgs.legacyPackages.${system}
+        );
       treefmtConfig = import ./modules/treefmt/treefmt.nix;
 
       specialArgs = {
