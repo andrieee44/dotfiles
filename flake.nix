@@ -37,12 +37,13 @@
   outputs =
     inputs:
     let
+      treefmtConfig = import ./modules/treefmt/treefmt.nix;
+
       eachSystem =
         f:
         inputs.nixpkgs.lib.genAttrs (import inputs.systems) (
-          system: f inputs.nixpkgs.legacyPackages.${system}
+          system: f inputs.nixpkgs.legacyPackages."${system}"
         );
-      treefmtConfig = import ./modules/treefmt/treefmt.nix;
 
       specialArgs = {
         inputs = inputs;
@@ -56,9 +57,10 @@
         builtins.filter (file: inputs.nixpkgs.lib.hasSuffix ".nix" file) (
           inputs.nixpkgs.lib.filesystem.listFilesRecursive path
         );
-
     in
     {
+      formatter = eachSystem (pkgs: inputs.treefmt-nix.lib.mkWrapper pkgs treefmtConfig);
+
       nixosConfigurations.lenovoIdeapadSlim3 = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = specialArgs;
@@ -125,7 +127,5 @@
       checks = eachSystem (pkgs: {
         formatting = (inputs.treefmt-nix.lib.evalModule pkgs treefmtConfig).config.build.check inputs.self;
       });
-
-      formatter = eachSystem (pkgs: inputs.treefmt-nix.lib.mkWrapper pkgs treefmtConfig);
     };
 }
