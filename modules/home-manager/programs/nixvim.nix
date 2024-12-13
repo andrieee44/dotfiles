@@ -325,9 +325,8 @@
                   };
 
                   formatting.command = [
-                    (builtins.toString (
-                      pkgs.writers.writeDash "nixfmtStrict" "set -eu; ${pkgs.nixfmt-rfc-style}/bin/nixfmt -s \"$@\""
-                    ))
+                    "${pkgs.nixfmt-rfc-style}/bin/nixfmt"
+                    "-s"
                   ];
 
                   nixpkgs.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").inputs.nixpkgs {}'';
