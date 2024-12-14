@@ -37,7 +37,7 @@
         Unit = {
           Description = "ElKowars wacky widgets daemon";
           Documentation = "https://elkowar.github.io/eww";
-          PatOf = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
 
           After = [
             "graphical-session.target"
