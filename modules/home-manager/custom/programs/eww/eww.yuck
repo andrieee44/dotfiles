@@ -17,9 +17,9 @@
 
 (defwidget hyprlandWorkspaces []
   (box :space-evenly false
-    (for workspace in `${jq(status.Hyprland.Monitors.eDP-1.Workspaces, "sort_by(.Id)")}`
-      (button :class `${workspace.Id == status.Hyprland.Monitors.eDP-1.Active ? "activeWorkspace" : ""}` :onclick `hyprctl dispatch workspace ${workspace.Name}`
-        (label :class `${workspace.Id == status.Hyprland.Monitors.eDP-1.Active ? "activeWorkspace" : ""}` :unindent false :text `${workspace.Name}`)))))
+    (for workspace in `${jq(status.Hyprland.Monitors[0].Workspaces, "to_entries")}`
+      (button :class `${workspace.key == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :onclick `hyprctl dispatch workspace ${workspace.key}`
+        (label :class `${workspace.Id == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :unindent false :text `${workspace.value}`)))))
 
 (defwidget date []
   (box :space-evenly false
@@ -60,7 +60,7 @@
 
 (defwidget bat []
   (box :space-evenly false
-    (for bat in `${status.Bat}`
+    (for bat in `${jq(status.Bat, "to_entries | map(.value)")}`
       (box :space-evenly false
         (label :class `icon` :unindent false :text `${bat.Icon}${batStatus["${bat.Status}"]} `)
         (label :unindent false :text `${round(bat.Capacity, 0)}%`)))))
@@ -70,14 +70,17 @@
     (label :class `icon` :unindent false :text `${status.Music.State == "play" ? "󰝚" : "${status.Music.State == "pause" ? "󰏤" : "󰝛"}"} `)
     (label :unindent false :text `${status.Music.State == "stop" ? "stop" : "${substring(status.Music.Song, status.Music.Scroll, status.Music.Limit)}"}`)))
 
-(defwidget internet []
+(defwidget ethernet []
   (box :space-evenly false
-    (for eth in `${jq(status.Internet.Ethernet, "to_entries | map(select(.value.Powered).value)")}`
+    (for eth in `${jq(status.Ethernet.Ethernets, "to_entries | map(select(.value.Powered))")}`
       (box :space-evenly false
         (label :class `icon` :unindent false :text `󰈀 `)
-        (label :unindent false :text `${substring(eth.Name, eth.Scroll, status.Internet.Limit)}`)
-        (sep :unindent false :cond true)))
-    (for wifi in `${jq(status.Internet.Wifi, "to_entries | map(.value)")}`
+        (label :unindent false :text `${substring(eth.key, eth.value.Scroll, status.Ethernet.Limit)}`)
+        (sep :unindent false :cond true)))))
+
+(defwidget internet []
+  (box :space-evenly false
+    (for wifi in `${jq(status.Internet.Internets, "to_entries | map(.value)")}`
       (box :space-evenly false
         (label :class `icon` :unindent false :text `${wifi.Powered ? "${wifi.Icon} " : "${wifi.Scanning ? " " : ""}"}`)
         (label :unindent false :text `${wifi.Powered ? "${substring(wifi.Name, wifi.Scroll, status.Internet.Limit)}" : "${wifi.Scanning ? "scanning" : ""}"}`)
@@ -87,9 +90,9 @@
   (box :space-evenly false
     (for adapter in `${jq(status.Bluetooth.Adapters, "to_entries | map(select(.value.Powered).value)")}`
       (box :space-evenly false
-        (label :class `icon` :unindent false :text `󰂯 `)
-        (label :unindent false :text `${adapter.Discovering ? "scanning" : "${adapter.Name}"}`)
-        (sep :unindent false :cond true)
+        (label :class `icon` :unindent false :text `${adapter.Discovering ? "󰂯 " : ""}`)
+        (label :unindent false :text `${adapter.Discovering ? "scanning" : ""}`)
+        (sep :unindent false :cond `${adapter.Discovering}`)
         (for device in `${jq(adapter.Devices, "to_entries | map(select(.value.Connected).value)")}`
           (box :space-evenly false
             (label :class `icon` :unindent false :text `󰂯${device.Icon} `)
@@ -106,6 +109,7 @@
       (bluetooth)
       (music)
       (sep :unindent false :cond true) (internet)
+      (ethernet)
       (vol)
       (sep :unindent false :cond true) (bri)
       (sep :unindent false :cond true) (bat)
