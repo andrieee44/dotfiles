@@ -61,16 +61,7 @@
             ExecStart = "${eww} daemon --no-daemonize";
             ExecStop = "${eww} kill";
             ExecReload = "${eww} reload";
-
-            ExecStartPost = pkgs.writers.writeDash "eww" ''
-              set -eu
-
-              while ! ${pkgs.pamixer}/bin/pamixer; do
-              	sleep 0.1
-              done
-
-              ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.eww}/bin/eww open bar
-            '';
+            ExecStartPost = "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.eww}/bin/eww open bar";
           };
       };
     };
