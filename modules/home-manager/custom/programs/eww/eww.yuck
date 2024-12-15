@@ -99,7 +99,8 @@
             (label :unindent false :text `${device.Battery}% ${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
             (sep :unindent false :cond true)))))))
 
-(defwindow bar :monitor 0 :stacking `fg` :exclusive true
+(defwindow bar [screen]
+  :monitor screen :stacking `fg` :exclusive true
   :geometry (geometry :width `98%` :height `60px` :y `20px` :anchor `top center`)
   (box :class `window` :space-evenly false
     (box :hexpand true :space-evenly false :halign `start`

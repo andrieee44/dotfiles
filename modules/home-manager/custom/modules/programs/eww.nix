@@ -61,7 +61,7 @@
             ExecStart = "${eww} daemon --no-daemonize";
             ExecStop = "${eww} kill";
             ExecReload = "${eww} reload";
-            ExecStartPost = "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.eww}/bin/eww open bar";
+            ExecStartPost = "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.eww}/bin/eww open bar --screen 0";
           };
       };
     };
