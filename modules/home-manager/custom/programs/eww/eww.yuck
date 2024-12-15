@@ -19,7 +19,7 @@
   (box :space-evenly false
     (for workspace in `${jq(status.Hyprland.Monitors[0].Workspaces, "to_entries")}`
       (button :class `${workspace.key == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :onclick `hyprctl dispatch workspace ${workspace.key}`
-        (label :class `${workspace.Id == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :unindent false :text `${workspace.value}`)))))
+        (label :class `${workspace.key == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :unindent false :text `${workspace.value}`)))))
 
 (defwidget date []
   (box :space-evenly false
