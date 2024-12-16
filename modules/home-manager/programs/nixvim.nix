@@ -109,8 +109,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "andrieee44";
           repo = "oishiline";
-          rev = "5aa3c0b608e858bf3c8636ec65f350d889128668";
-          hash = "sha256-Mp4SXx6368GCExNwTWkstLv/C0wq/VhxULrG3X8v5/0=";
+          rev = "3fb5e58a0ad34952076e9c61f6f034b21bb81550";
+          hash = "sha256-6Th3lfLQMuWgJAD0rCZX05IvRTfaYks7fDwKKiWQPXo=";
         };
       })
     ];
