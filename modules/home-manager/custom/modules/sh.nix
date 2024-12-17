@@ -54,7 +54,7 @@
     man = pkgs.writers.writeDashBin "man" ''
       set -eu
 
-      eval "$(${pkgs.man}/bin/man -k '.' \
+      PAGER="less -R" eval "$(${pkgs.man}/bin/man -k '.' \
       	| ${config.custom.programs.line2json.package}/bin/line2json -o -V '^(.+) \((.+)\)[[:space:]]*-.*$' -v 'man $2 $1' \
       	| ${config.custom.programs.cmenu.package}/bin/cmenu \
       		'${config.programs.fzf.package}/bin/fzf-tmux $FZF_TMUX_OPTS --header " Man Pages "')"

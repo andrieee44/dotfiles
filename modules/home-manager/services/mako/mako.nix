@@ -7,7 +7,8 @@
     format = "<b>%a - %s</b>\\n\\n%b";
     height = 150;
     layer = "overlay";
-    margin = "20,20";
+    margin = "20";
+    maxVisible = -1;
 
     extraConfig = ''
       []
