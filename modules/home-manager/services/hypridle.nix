@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   services.hypridle.settings = {
     general = {
@@ -27,5 +32,7 @@
     ];
   };
 
-  systemd.user.services.hypridle.Unit.After = [ "graphical-session.target" ];
+  systemd.user.services.hypridle.Unit.After = lib.mkIf config.services.hypridle.enable [
+    "graphical-session.target"
+  ];
 }

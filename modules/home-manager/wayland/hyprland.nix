@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-{
+lib.mkIf config.wayland.windowManager.hyprland.enable {
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 
   wayland.windowManager.hyprland = {
@@ -129,7 +129,7 @@
       };
   };
 
-  programs.zsh.profileExtra = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+  programs.zsh.profileExtra = ''
     ${pkgs.uwsm}/bin/uwsm check may-start > /dev/null \
     	&& exec ${pkgs.uwsm}/bin/uwsm start -S -- hyprland-uwsm.desktop
   '';

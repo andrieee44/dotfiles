@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-{
+lib.mkIf config.programs.lf.enable {
   programs.lf = {
     commands.open = "$$OPENER \"$f\"";
 
@@ -41,12 +41,12 @@
       };
   };
 
-  xdg.configFile = lib.mkIf config.programs.lf.enable {
+  xdg.configFile = {
     "lf/guiIcons".source = ./guiIcons;
     "lf/ttyIcons".source = ./ttyIcons;
   };
 
-  home = lib.mkIf config.programs.lf.enable {
+  home = {
     packages = [ pkgs.ncurses ];
 
     shellAliases =

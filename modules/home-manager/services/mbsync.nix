@@ -5,7 +5,7 @@
   ...
 }:
 {
-  systemd.user = {
+  systemd.user = lib.mkIf config.services.mbsync.enable {
     timers.mbsync.Unit.After = [ "network-online.target" ];
     services.mbsync.Service.ExecStart = lib.mkForce "-${config.programs.mbsync.package}/bin/mbsync --all --verbose";
   };

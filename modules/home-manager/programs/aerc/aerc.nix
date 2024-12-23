@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-{
+lib.mkIf config.programs.aerc.enable {
   xdg.configFile."aerc/gui.conf".source = lib.mkIf config.programs.aerc.enable ./gui.conf;
 
   programs.aerc.extraConfig = {
@@ -65,7 +65,7 @@
     };
   };
 
-  home = lib.mkIf config.programs.aerc.enable {
+  home = {
     file."${config.xdg.configHome}/aerc/aerc.conf".target = "${config.xdg.configHome}/aerc/tty.conf";
 
     shellAliases.aerc = builtins.toString (
