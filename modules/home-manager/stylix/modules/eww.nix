@@ -37,6 +37,7 @@
       .window {
       	border-radius: ${builtins.toString (cfg.border.radius + cfg.border.width)}px;
       	border: ${builtins.toString cfg.border.width}px solid ${cfg.border.color};
+      	background-color: ${colors.base00};
       }
 
       .activeWorkspace {
