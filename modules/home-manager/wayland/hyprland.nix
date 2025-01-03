@@ -24,11 +24,11 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
         debug.disable_logs = false;
 
         windowrule = [
-          "float, title:fzfMenu"
-          "size 50% 50%, title:fzfMenu"
-          "move 25% 25%, title:fzfMenu"
-          "tile, title:Steam Big Picture Mode"
-          "tile, title:Battle.net"
+          "float,title:fzfMenu"
+          "size 50% 50%,title:fzfMenu"
+          "move 25% 25%,title:fzfMenu"
+          "tile,title:Steam Big Picture Mode"
+          "tile,title:Battle.net"
         ];
 
         animation = [
