@@ -357,22 +357,24 @@
             colorizer = {
               enable = true;
 
-              /*
-                settings.user_default_options = {
-                  AARRGGBB = true;
-                  RGB = true;
-                  RRGGBB = true;
-                  RRGGBBAA = true;
-                  css = true;
-                  css_fn = true;
-                  hsl_fn = true;
-                  mode = "background";
-                  names = true;
-                  rgb_fn = true;
-                  sass.enable = true;
-                  tailwind = "both";
+              settings.user_default_options = {
+                AARRGGBB = true;
+                RGB = true;
+                RRGGBB = true;
+                RRGGBBAA = true;
+                css = true;
+                css_fn = true;
+                hsl_fn = true;
+                mode = "background";
+                names = true;
+                rgb_fn = true;
+                tailwind = "both";
+
+                sass = {
+                  enable = true;
+                  parsers = [ "css" ];
                 };
-              */
+              };
             };
 
             treesitter = {
