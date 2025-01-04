@@ -50,6 +50,15 @@
         msglist_answered.fg=${colors.base0B}
         msglist_answered.selected.fg=${colors.base00}
         msglist_answered.selected.bg=${colors.base0B}
+        msglist_thread_folded.fg=${colors.base05}
+        msglist_thread_folded.selected.fg=${colors.base00}
+        msglist_thread_folded.selected.bg=${colors.base05}
+        msglist_thread_context.fg=${colors.base05}
+        msglist_thread_context.selected.fg=${colors.base00}
+        msglist_thread_context.selected.bg=${colors.base05}
+        msglist_thread_orphan.fg=${colors.base05}
+        msglist_thread_orphan.selected.fg=${colors.base00}
+        msglist_thread_orphan.selected.bg=${colors.base05}
         tab.fg=${colors.base05}
         tab.bg=${colors.base03}
         tab.selected.bg=${colors.base0D}
