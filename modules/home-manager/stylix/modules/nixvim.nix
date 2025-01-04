@@ -62,23 +62,25 @@
 
       extraConfigLua = ''
         require('oishiline').setup({
-        	colors = {
-        		black = "${colors.base00}",
-        		red = "${colors.base08}",
-        		green = "${colors.base0B}",
-        		yellow = "${colors.base0A}",
-        		blue = "${colors.base0D}",
-        		magenta = "${colors.base0E}",
-        		cyan = "${colors.base0C}",
-        		white = "${colors.base05}",
-        		brightblack = "${colors.base03}",
-        		brightred = "${colors.base08}",
-        		brightgreen = "${colors.base0B}",
-        		brightyellow = "${colors.base0A}",
-        		brightblue = "${colors.base0D}",
-        		brightmagenta = "${colors.base0E}",
-        		brightcyan = "${colors.base0C}",
-        		brightwhite = "${colors.base07}",
+        	globalArgs = {
+        		colors = {
+        			black = "${colors.base00}",
+        			red = "${colors.base08}",
+        			green = "${colors.base0B}",
+        			yellow = "${colors.base0A}",
+        			blue = "${colors.base0D}",
+        			magenta = "${colors.base0E}",
+        			cyan = "${colors.base0C}",
+        			white = "${colors.base05}",
+        			brightblack = "${colors.base03}",
+        			brightred = "${colors.base08}",
+        			brightgreen = "${colors.base0B}",
+        			brightyellow = "${colors.base0A}",
+        			brightblue = "${colors.base0D}",
+        			brightmagenta = "${colors.base0E}",
+        			brightcyan = "${colors.base0C}",
+        			brightwhite = "${colors.base07}",
+        		},
         	},
         })
       '';
