@@ -24,11 +24,10 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
         debug.disable_logs = false;
 
         windowrule = [
-          "float, title:(fzfMenu)"
-          "size 50% 50%, title:(fzfMenu)"
-          "move 25% 25%, title:(fzfMenu)"
-          "tile, title:(Steam Big Picture Mode)"
-          "tile, title:(Battle.net)"
+          "float, fzfMenu"
+          "size 50% 50%, fzfMenu"
+          "move 25% 25%, fzfMenu"
+          "tile, steam"
         ];
 
         animation = [
@@ -41,7 +40,7 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
           let
             shMenu =
               key: script:
-              "$mod, ${key}, execr, ${uwsmRun} $terminal -T 'fzfMenu' -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.${script}}/bin/${script}'";
+              "$mod, ${key}, execr, ${uwsmRun} $terminal -a fzfMenu -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.${script}}/bin/${script}'";
           in
           [
             (shMenu "D" "bookmarks")
