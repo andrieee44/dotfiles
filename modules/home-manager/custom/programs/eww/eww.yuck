@@ -119,24 +119,3 @@
       (sep :unindent false :cond true) (netSpd)
       (sep :unindent false :cond true) (date)
       (label :unindent false :text ` `))))
-
-(defwindow lock [screen]
-  :monitor screen :stacking `fg` :exclusive true
-  :geometry (geometry :width `98%` :height `60px` :y `20px` :anchor `top center`)
-  (box :class `window` :space-evenly false
-    (box :hexpand true :space-evenly false :halign `start`
-      (hyprlandWorkspaces)
-      (hyprlandWindow))
-    (box :hexpand true :space-evenly false :halign `end`
-      (bluetooth)
-      (music)
-      (sep :unindent false :cond true) (internet)
-      (ethernet)
-      (vol)
-      (sep :unindent false :cond true) (bri)
-      (sep :unindent false :cond true) (bat)
-      (sep :unindent false :cond true) (cpu)
-      (sep :unindent false :cond true) (ram)
-      (sep :unindent false :cond true) (netSpd)
-      (sep :unindent false :cond true) (date)
-      (label :unindent false :text ` `))))

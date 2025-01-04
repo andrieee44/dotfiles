@@ -34,7 +34,7 @@
       .sep { color: ${colors.base0D}; }
       .icon { color: ${colors.base0C}; }
 
-      .window {
+      .bar {
       	border-radius: ${builtins.toString (cfg.border.radius + cfg.border.width)}px;
       	border: ${builtins.toString cfg.border.width}px solid ${cfg.border.color};
       	background-color: ${colors.base00};
