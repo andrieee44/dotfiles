@@ -204,6 +204,7 @@
           })
 
           {
+            fzf-lua.enable = true;
             parinfer-rust.enable = true;
             luasnip.enable = true;
 
