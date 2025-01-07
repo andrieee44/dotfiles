@@ -17,7 +17,7 @@
         random_exclude_pattern = "^(temp|midi_songs).*";
         playlist_disable_highlight_delay = 0;
         message_delay_time = 2;
-        browser_sort_mode = "format";
+        browser_sort_mode = "name";
         seek_time = 5;
         volume_change_step = 5;
         default_place_to_search_in = "database";
@@ -34,63 +34,29 @@
         media_library_primary_tag = "album_artist";
       };
 
-    bindings = [
-      {
-        key = "h";
-        command = "previous_column";
-      }
-      {
-        key = "j";
-        command = "scroll_down";
-      }
-      {
-        key = "k";
-        command = "scroll_up";
-      }
-      {
-        key = "l";
-        command = "next_column";
-      }
-      {
-        key = "l";
-        command = "run_action";
-      }
-      {
-        key = "l";
-        command = "play_item";
-      }
-      {
-        key = "u";
-        command = "page_up";
-      }
-      {
-        key = "d";
-        command = "page_down";
-      }
-      {
-        key = "v";
-        command = "show_visualizer";
-      }
-      {
-        key = "m";
-        command = "show_media_library";
-      }
-      {
-        key = "g";
-        command = "move_home";
-      }
-      {
-        key = "G";
-        command = "move_end";
-      }
-      {
-        key = "n";
-        command = "next_found_item";
-      }
-      {
-        key = "N";
-        command = "previous_found_item";
-      }
-    ];
+    bindings =
+      let
+        mkBinding =
+          key: commands:
+          builtins.map (command: {
+            key = key;
+            command = command;
+          }) commands;
+      in
+      (mkBinding "h" [ "previous_column" ])
+      ++ (mkBinding "j" [ "scroll_down" ])
+      ++ (mkBinding "k" [ "scroll_up" ])
+      ++ (mkBinding "u" [ "page_up" ])
+      ++ (mkBinding "d" [ "page_down" ])
+      ++ (mkBinding "g" [ "move_home" ])
+      ++ (mkBinding "G" [ "move_end" ])
+      ++ (mkBinding "n" [ "next_found_item" ])
+      ++ (mkBinding "N" [ "previous_found_item" ])
+      ++ (mkBinding "l" [
+        "next_column"
+        "run_action"
+        "play_item"
+      ]);
+
   };
 }
