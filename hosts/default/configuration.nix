@@ -72,8 +72,9 @@
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
     tmp = {
-      useTmpfs = true;
       cleanOnBoot = true;
+      tmpfsSize = "100%";
+      useTmpfs = true;
     };
 
     loader = {
