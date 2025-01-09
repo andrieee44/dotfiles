@@ -32,6 +32,7 @@
         search_engine_default_search_mode = 2;
         external_editor = config.home.sessionVariables.EDITOR;
         media_library_primary_tag = "album_artist";
+        default_find_mode = "wrapped";
       };
 
     bindings =
@@ -43,20 +44,42 @@
             command = command;
           }) commands;
       in
-      (mkBinding "h" [ "previous_column" ])
-      ++ (mkBinding "j" [ "scroll_down" ])
-      ++ (mkBinding "k" [ "scroll_up" ])
-      ++ (mkBinding "u" [ "page_up" ])
-      ++ (mkBinding "d" [ "page_down" ])
-      ++ (mkBinding "g" [ "move_home" ])
-      ++ (mkBinding "G" [ "move_end" ])
-      ++ (mkBinding "n" [ "next_found_item" ])
-      ++ (mkBinding "N" [ "previous_found_item" ])
-      ++ (mkBinding "l" [
-        "next_column"
-        "run_action"
-        "play_item"
-      ]);
+      builtins.concatLists [
+        (mkBinding "9" [ "show_clock" ])
+        (mkBinding "H" [ "master_screen" ])
+        (mkBinding "L" [ "slave_screen" ])
+        (mkBinding "K" [ "show_lyrics" ])
+        (mkBinding "h" [ "previous_column" ])
+        (mkBinding "j" [ "scroll_down" ])
+        (mkBinding "k" [ "scroll_up" ])
+        (mkBinding "ctrl-u" [ "page_up" ])
+        (mkBinding "ctrl-d" [ "page_down" ])
+        (mkBinding "g" [ "move_home" ])
+        (mkBinding "G" [ "move_end" ])
+        (mkBinding "n" [ "next_found_item" ])
+        (mkBinding "N" [ "previous_found_item" ])
 
+        (mkBinding "d" [
+          "delete_playlist_items"
+          "delete_browser_items"
+          "delete_stored_playlist"
+        ])
+
+        (mkBinding "l" [
+          "next_column"
+          "run_action"
+          "play_item"
+        ])
+
+        (mkBinding "J" [
+          "move_sort_order_down"
+          "move_selected_items_down"
+        ])
+
+        (mkBinding "K" [
+          "move_sort_order_up"
+          "move_selected_items_up"
+        ])
+      ];
   };
 }
