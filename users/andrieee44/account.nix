@@ -4,7 +4,7 @@
     gpg.publicKeys = [
       {
         trust = 5;
-        source = ./andrieee44.pub;
+        source = ./andrieee44-pub.key;
       }
     ];
 

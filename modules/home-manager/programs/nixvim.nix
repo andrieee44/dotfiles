@@ -389,24 +389,26 @@
   xdg =
     let
       mimeType = [
+        "application/rtf"
+        "application/vnd.apple.keynote"
         "application/x-csh"
+        "application/x-httpd-php"
+        "application/x-sh"
+        "application/x-wine-extension-ini"
+        "application/xml"
+        "audio/x-mod"
         "text/css"
         "text/csv"
-        "text/x-bibtex"
         "text/javascript"
-        "application/x-httpd-php"
-        "application/rtf"
-        "application/x-sh"
         "text/plain"
-        "application/xml"
+        "text/x-bibtex"
+        "text/x-devicetree-source"
+        "text/x-go"
+        "text/x-lua"
+        "text/x-python"
       ];
     in
     {
-      mimeApps.defaultApplications = lib.genAttrs mimeType (key: [
-        "nvim.desktop"
-        "nvimGUI.desktop"
-      ]);
-
       desktopEntries = lib.mkIf config.programs.nixvim.enable {
         nvim = {
           name = "Neovim";
@@ -417,7 +419,7 @@
 
         nvimGUI = {
           name = "Neovim GUI";
-          exec = "${config.home.sessionVariables.TERMINAL} -e ${config.programs.nixvim.build.package}/bin/nvim %U";
+          exec = "${pkgs.uwsm}/bin/uwsm app -- ${config.home.sessionVariables.TERMINAL} -e ${config.programs.nixvim.build.package}/bin/nvim %U";
           mimeType = mimeType;
         };
       };
