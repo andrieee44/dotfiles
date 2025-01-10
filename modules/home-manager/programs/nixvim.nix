@@ -51,6 +51,7 @@
           mode = [ "n" ];
           key = "ZW";
           action = "<cmd>w<CR>";
+
           options = {
             noremap = true;
           };
@@ -60,6 +61,7 @@
           mode = [ "n" ];
           key = "ZE";
           action = "<cmd>e<CR>";
+
           options = {
             noremap = true;
           };
@@ -67,19 +69,20 @@
       ];
 
       opts = {
+        background = "dark";
+        compatible = false;
         mouse = "";
-        showmode = false;
-        tabstop = 4;
-        shiftwidth = 0;
-        syntax = "enable";
-        smartindent = true;
-        smartcase = true;
         number = true;
         relativenumber = true;
-        compatible = false;
-        wildmode = "longest,list,full";
-        background = "dark";
+        shiftwidth = 0;
+        showmode = false;
+        showtabline = 2;
         signcolumn = "yes";
+        smartcase = true;
+        smartindent = true;
+        syntax = "enable";
+        tabstop = 4;
+        wildmode = "longest,list,full";
 
         completeopt = [
           "menu"
@@ -113,8 +116,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "andrieee44";
             repo = "oishiline";
-            rev = "70c0c8c9d8a25830ed6a6164929e1dc706cf9e2a";
-            hash = "sha256-Si99IwW3MWCQTIoNlHpQoWLsT9Uk83RCYOLaEFcAEQc=";
+            rev = "57828a455940f854278f6413e52b727d5eba7542";
+            hash = "sha256-HTD5scDjxmBpzRJHepEFBK8cg7gvvZLaZpuJAuyecP4=";
           };
         })
       ];
