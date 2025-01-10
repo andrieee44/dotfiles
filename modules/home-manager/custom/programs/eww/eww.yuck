@@ -18,7 +18,7 @@
 (defwidget hyprlandWorkspaces []
   (box :space-evenly false
     (for workspace in `${jq(status.Hyprland.Monitors[0].Workspaces, "to_entries")}`
-      (button :class `${workspace.key == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :onclick `hyprctl dispatch workspace ${workspace.key}`
+      (button :class `${workspace.key == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}`
         (label :class `${workspace.key == status.Hyprland.ActiveWorkspace ? "activeWorkspace" : ""}` :unindent false :text `${workspace.value}`)))))
 
 (defwidget date []
