@@ -8,6 +8,8 @@
   };
 
   home = {
+    shellAliases.idleGames = "steam steam://rungameid/346900 && steam steam://rungameid/2763740 && steam steam://rungameid/1399720";
+
     packages = with pkgs; [
       glxinfo
       grim
