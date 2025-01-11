@@ -30,6 +30,7 @@
       gnused
       go-mtpfs
       gotools
+      groff
       hugo
       mpc-cli
       neofetch
