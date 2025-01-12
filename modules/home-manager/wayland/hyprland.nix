@@ -31,6 +31,8 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
           "tile, steam_app_346900"
           "tile, steam_app_2763740"
           "tile, steam_app_1399720"
+          "tile, steam_app_1011510"
+          "tile, steam_app_1535560"
         ];
 
         animation = [
