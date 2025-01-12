@@ -5,10 +5,7 @@
   ...
 }:
 {
-  stylix.targets = {
-    gnome.enable = false;
-    gtk.enable = false;
-  };
+  dconf.enable = false;
 
   programs = {
     bash.enable = lib.mkForce false;
