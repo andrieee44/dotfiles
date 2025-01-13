@@ -8,8 +8,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "tview";
-        rev = "95f3d4289bc236e62d80153f30ce1a5bd7e6d192";
-        hash = "sha256-qz1TAvW9vZGNOcCW+BLHb/fUFo8mOM6H6RtbC0OHIo8=";
+        rev = "f42d1f7583db2212d3d503541f433f98b1079058";
+        hash = "sha256-LZQxztxBFfiuCr3bQepyLZ6wkMKDzh0s6OckRyJ7UFM=";
       };
     };
 
