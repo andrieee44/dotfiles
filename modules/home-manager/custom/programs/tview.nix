@@ -8,8 +8,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "tview";
-        rev = "cecc76bebdd90bcbbf20351860eb0fe5031a3787";
-        hash = "sha256-3rYZzY/8O+84rTYoHW2UgUEfn05/xA4KDpjro0AH2M0=";
+        rev = "95f3d4289bc236e62d80153f30ce1a5bd7e6d192";
+        hash = "sha256-qz1TAvW9vZGNOcCW+BLHb/fUFo8mOM6H6RtbC0OHIo8=";
       };
     };
 
@@ -20,30 +20,30 @@
         office = [ ''${pkgs.libreoffice}/bin/libreoffice --cat "$TVIEW_FILE"'' ];
 
         video = [
-          ''${pkgs.ffmpegthumbnailer}/bin/ffmpegthumbnailer -i "$TVIEW_FILE" -s 0 -o /dev/stdout | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
+          ''${pkgs.ffmpegthumbnailer}/bin/ffmpegthumbnailer -i "$TVIEW_FILE" -s 0 -o /dev/stdout | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_COLUMNS}"}x${"\${TVIEW_ROWS}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
           ''${pkgs.mediainfo}/bin/mediainfo -- "$TVIEW_FILE"''
         ];
 
         image = [
-          ''${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels") "$TVIEW_FILE"''
-          ''${pkgs.imagemagick}/bin/magick "$TVIEW_FILE" jpg:- | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
+          ''${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_COLUMNS}"}x${"\${TVIEW_ROWS}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels") "$TVIEW_FILE"''
+          ''${pkgs.imagemagick}/bin/magick "$TVIEW_FILE" jpg:- | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_COLUMNS}"}x${"\${TVIEW_ROWS}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
           ''${pkgs.mediainfo}/bin/mediainfo -- "$TVIEW_FILE"''
         ];
 
         jq = [
-          ''${pkgs.jaq}/bin/jaq --color always . "$TVIEW_FILE"''
+          ''${pkgs.jaq}/bin/jaq -C always . "$TVIEW_FILE"''
           ''${pkgs.jq}/bin/jq -C . "$TVIEW_FILE"''
         ];
 
         text = [
-          ''${config.programs.bat.package}/bin/bat --color always --paging never --terminal-width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
+          ''${config.programs.bat.package}/bin/bat --color always --paging never --terminal-width "$TVIEW_COLUMNS" -- "$TVIEW_FILE"''
           ''${pkgs.sourceHighlight}/bin/source-highlight --failsafe -i "$TVIEW_FILE"''
           ''${pkgs.toybox}/bin/cat -- "$TVIEW_FILE"''
         ];
 
         html = [
-          ''${pkgs.elinks}/bin/elinks -dump 1 -no-references -no-numbering -dump-width "$TVIEW_WIDTH" "$TVIEW_FILE"''
-          ''${pkgs.lynx}/bin/lynx -dump -nonumbers -nolist -width "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
+          ''${pkgs.elinks}/bin/elinks -dump 1 -no-references -no-numbering -dump-width "$TVIEW_COLUMNS" "$TVIEW_FILE"''
+          ''${pkgs.lynx}/bin/lynx -dump -nonumbers -nolist -width "$TVIEW_COLUMNS" -- "$TVIEW_FILE"''
           ''${pkgs.w3m}/bin/w3m -dump "$TVIEW_FILE"''
         ];
 
@@ -128,16 +128,16 @@
         ];
 
         "application/pdf" = [
-          ''${pkgs.poppler_utils}/bin/pdftoppm -jpeg -f 1 -singlefile -- "$TVIEW_FILE" | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_WIDTH}"}x${"\${TVIEW_HEIGHT}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
+          ''${pkgs.poppler_utils}/bin/pdftoppm -jpeg -f 1 -singlefile -- "$TVIEW_FILE" | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_COLUMNS}"}x${"\${TVIEW_ROWS}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
         ];
 
         "inode/directory" = [
-          ''${pkgs.coreutils}/bin/ls --color --group-directories-first -w "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
+          ''${pkgs.coreutils}/bin/ls --color --group-directories-first -w "$TVIEW_COLUMNS" -- "$TVIEW_FILE"''
         ];
 
         "text/markdown" = [
-          ''${pkgs.glow}/bin/glow -w "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
-          ''${pkgs.mdcat}/bin/mdcat --columns "$TVIEW_WIDTH" -- "$TVIEW_FILE"''
+          ''${pkgs.glow}/bin/glow -w "$TVIEW_COLUMNS" -- "$TVIEW_FILE"''
+          ''${pkgs.mdcat}/bin/mdcat --columns "$TVIEW_COLUMNS" -- "$TVIEW_FILE"''
         ];
       };
   };

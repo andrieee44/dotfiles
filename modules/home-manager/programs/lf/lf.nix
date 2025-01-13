@@ -34,7 +34,7 @@ lib.mkIf config.programs.lf.enable {
         previewer = lib.mkIf config.custom.programs.tview.enable (
           builtins.toString (
             pkgs.writers.writeDash "tviewlf" ''
-              set -eu; ${config.custom.programs.tview.package}/bin/tview -w "$2" -h "$3" "$1"
+              set -eu; ${config.custom.programs.tview.package}/bin/tview --columns "$2" --rows "$3" -- "$1"
             ''
           )
         );
