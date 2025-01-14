@@ -8,7 +8,7 @@
   };
 
   home = {
-    shellAliases.idleGames = "steam steam://rungameid/346900 && steam steam://rungameid/2763740 && steam steam://rungameid/1399720";
+    shellAliases.idleGames = "steam steam://rungameid/346900 && steam steam://rungameid/2763740 && steam steam://rungameid/1399720 && steam steam://rungameid/1011510 && steam steam://rungameid/1535560";
 
     packages = with pkgs; [
       glxinfo
