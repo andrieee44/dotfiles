@@ -5,17 +5,25 @@
   ...
 }:
 {
-  custom.programs.cmenu.package = pkgs.buildGoModule {
-    name = "cmenu";
-    vendorHash = null;
+  custom.programs.cmenu.package =
+    let
+      src = pkgs.fetchFromGitHub {
+        owner = "andrieee44";
+        repo = "cmenu";
+        rev = "3cffb65cdfc5918f8ed84683b83f2bfdf42fb613";
+        hash = "sha256-sZA3iaC6VHe7fr61+EaeNtRKfLlcoCp4p01lS/Piisw=";
+      };
+    in
+    pkgs.buildGoModule {
+      name = "cmenu";
+      vendorHash = null;
+      src = src;
 
-    src = pkgs.fetchFromGitHub {
-      owner = "andrieee44";
-      repo = "cmenu";
-      rev = "b6faeef19ef55b95bc88795ac3774bf450d263be";
-      hash = "sha256-n87EL+KCzazANeqhfRPIsGVQdRFTv0EN8miflV1eOUs=";
+      postInstall = ''
+        mkdir -p $out/share/man/man1
+        gzip -c ${src}/cmenu.1 > $out/share/man/man1/cmenu.1.gz
+      '';
     };
-  };
 
   xdg.dataFile = lib.mkIf config.custom.programs.cmenu.enable {
     "cmenu/bookmarks.json".text = builtins.toJSON {
