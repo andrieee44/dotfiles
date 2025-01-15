@@ -15,13 +15,9 @@
       sourcePath = "${src.name}/cmd/jstat";
       src = src;
 
-      installPhase = ''
-        	runHook preInstall
-        	
-        	mkdir -p $out/share/man/man1
-        	gzip -c ${src}/jstat.1 > $out/share/man/man1/jstat.1.gz
-        	
-        	runHook postInstall
+      postInstall = ''
+        mkdir -p $out/share/man/man1
+        gzip -c ${src}/jstat.1 > $out/share/man/man1/jstat.1.gz
       '';
     };
 }
