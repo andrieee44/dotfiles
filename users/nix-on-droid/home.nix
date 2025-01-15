@@ -5,7 +5,6 @@
   ...
 }:
 {
-  custom.programs.jstat.enable = true;
   dconf.enable = false;
 
   programs = {
