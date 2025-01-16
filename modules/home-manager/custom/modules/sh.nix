@@ -22,7 +22,7 @@
 
       [ -n "${"\${WAYLAND_DISPLAY:-}"}" ] && ${pkgs.wl-clipboard}/bin/wl-copy "$value" && return
       [ -n "${"\${TMUX:-}"}" ] && ${config.programs.tmux.package}/bin/tmux setb "$value" && return
-      printf "%s" "$value"
+      ${pkgs.toybox}/bin/printf "%s" "$value"
     '';
 
     system = pkgs.writers.writeDashBin "system" ''

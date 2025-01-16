@@ -88,7 +88,7 @@
           set -eu
 
           [ "${"$\{XDG_SESSION_TYPE:-}"}" = "tty" ] && bool="no" || bool="yes"
-          printf 'visualizer_spectrum_smooth_look=%s\n' "$bool" | ${pkgs.toybox}/bin/cat - "${config.home.homeDirectory}/${
+          ${pkgs.toybox}/bin/printf 'visualizer_spectrum_smooth_look=%s\n' "$bool" | ${pkgs.toybox}/bin/cat - "${config.home.homeDirectory}/${
             config.xdg.configFile."ncmpcpp/config".target
           }" > "${config.xdg.configHome}/ncmpcpp/config"
 
