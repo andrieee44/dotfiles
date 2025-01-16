@@ -5,8 +5,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "jstat";
-        rev = "fc3d301f672d0ca5524905ca22244e6b0813986f";
-        hash = "sha256-m9fXlaKeEIhpgj2drILvN1Wc2pFSrCrp2pzyY4u6Wck=";
+        rev = "f59762ee1a5c4d17478db165dea0721f4e327186";
+        hash = "sha256-Opq5SG9/ooOJtnQvz0vSKQoLQ4ru7tQN03LVhM3Dmko=";
       };
     in
     pkgs.buildGoModule {
