@@ -10,8 +10,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "cmenu";
-        rev = "3cffb65cdfc5918f8ed84683b83f2bfdf42fb613";
-        hash = "sha256-sZA3iaC6VHe7fr61+EaeNtRKfLlcoCp4p01lS/Piisw=";
+        rev = "6042004464e98974e9c47ca1bba5cebf412a1f22";
+        hash = "sha256-7Qd3I8OFIPUqErBjw1ZnLtkQNZ8uaw0ZTXYuS/2d/GE=";
       };
     in
     pkgs.buildGoModule {
