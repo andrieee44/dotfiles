@@ -1,17 +1,25 @@
 { config, pkgs, ... }:
 {
   custom.programs.tview = {
-    package = pkgs.buildGoModule {
-      name = "tview";
-      vendorHash = "sha256-g4w2RmA7VTL+ittKdV0867MbfAHKkYpgpJXeHppTbfM=";
+    package =
+      let
+        src = pkgs.fetchFromGitHub {
+          owner = "andrieee44";
+          repo = "tview";
+          rev = "f42d1f7583db2212d3d503541f433f98b1079058";
+          hash = "sha256-LZQxztxBFfiuCr3bQepyLZ6wkMKDzh0s6OckRyJ7UFM=";
+        };
+      in
+      pkgs.buildGoModule {
+        name = "tview";
+        vendorHash = "sha256-g4w2RmA7VTL+ittKdV0867MbfAHKkYpgpJXeHppTbfM=";
+        src = src;
 
-      src = pkgs.fetchFromGitHub {
-        owner = "andrieee44";
-        repo = "tview";
-        rev = "f42d1f7583db2212d3d503541f433f98b1079058";
-        hash = "sha256-LZQxztxBFfiuCr3bQepyLZ6wkMKDzh0s6OckRyJ7UFM=";
+        postInstall = ''
+          mkdir -p $out/share/man/man1
+          gzip -c ${src}/tview.1 > $out/share/man/man1/tview.1.gz
+        '';
       };
-    };
 
     settings =
       let
