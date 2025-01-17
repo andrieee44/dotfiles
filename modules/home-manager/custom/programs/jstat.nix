@@ -6,7 +6,7 @@
         owner = "andrieee44";
         repo = "jstat";
         rev = "7a98603d4b204bdb2a75851db06d7b994fbe6ac5";
-        hash = "";
+        hash = "sha256-YJxZUUPS1f16atjRbOd+GCUwZchHXdAZK7ZSHvcJYCM=";
       };
     in
     pkgs.buildGoModule {
