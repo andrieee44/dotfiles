@@ -110,16 +110,25 @@
           config = ''lua require('trim').setup({ patterns = { [=[%s/\(\n\n\)\n\+/\1/]=] } })'';
         }
 
-        (pkgs.vimUtils.buildVimPlugin {
-          name = "oishiline";
+        (
+          let
+            src = pkgs.fetchFromGitHub {
+              owner = "andrieee44";
+              repo = "oishiline";
+              rev = "25f5fd6352beeb2b7b003ac18be403073a8c0253";
+              hash = "sha256-kMgj2VPU527yMMPP9GICFBeSkK4ULYi3+fzk/SbFnJs=";
+            };
+          in
+          pkgs.vimUtils.buildVimPlugin {
+            name = "oishiline";
+            src = src;
 
-          src = pkgs.fetchFromGitHub {
-            owner = "andrieee44";
-            repo = "oishiline";
-            rev = "d97bd0dacedc2fa9bda5a7c9ef0e45740bd3156d";
-            hash = "sha256-KO8C5lcilPvDLW1gF95UVf376/kkdFX3h9iUQ4BaVAE=";
-          };
-        })
+            postInstall = ''
+              mkdir -p $out/share/man/man3
+              gzip -c ${src}/oishiline.3 > $out/share/man/man3/oishiline.3.gz
+            '';
+          }
+        )
       ];
 
       extraConfigLua = ''
