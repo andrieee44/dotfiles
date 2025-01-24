@@ -25,6 +25,7 @@
 
     packages = with pkgs; [
       bc
+      diffutils
       ffmpeg
       findutils
       gnused
