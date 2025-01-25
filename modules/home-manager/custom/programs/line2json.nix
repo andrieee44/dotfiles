@@ -15,8 +15,8 @@
       src = src;
 
       postInstall = ''
-        mkdir -p $out/share/man/man1
-        gzip -c ${src}/line2json.1 > $out/share/man/man1/line2json.1.gz
+        mkdir -p "${"\${out}"}/share/man/man1"
+        gzip -c "${src}/line2json.1" > "${"\${out}"}/share/man/man1/line2json.1.gz"
       '';
     };
 }

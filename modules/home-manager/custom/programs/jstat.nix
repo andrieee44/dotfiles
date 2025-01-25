@@ -16,8 +16,8 @@
       src = src;
 
       postInstall = ''
-        mkdir -p $out/share/man/man1
-        gzip -c ${src}/jstat.1 > $out/share/man/man1/jstat.1.gz
+        mkdir -p "${"\${out}"}/share/man/man1"
+        gzip -c "${src}/jstat.1" > "${"\${out}"}/share/man/man1/jstat.1.gz"
       '';
     };
 }

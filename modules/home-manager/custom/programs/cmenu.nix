@@ -20,8 +20,8 @@
       src = src;
 
       postInstall = ''
-        mkdir -p $out/share/man/man1
-        gzip -c ${src}/cmenu.1 > $out/share/man/man1/cmenu.1.gz
+        mkdir -p "${"\${out}"}/share/man/man1"
+        gzip -c "${src}/cmenu.1" > "${"\${out}"}/share/man/man1/cmenu.1.gz"
       '';
     };
 
