@@ -24,7 +24,7 @@
       "modules/home-manager/xdg/bc/bcrc"
       "modules/stylix/wallpaper"
       "*.opus"
-      "*.pub"
+      "*.key"
     ];
   };
 }

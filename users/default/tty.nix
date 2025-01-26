@@ -14,7 +14,6 @@
   custom.programs = {
     cmenu.enable = true;
     line2json.enable = true;
-    pass-data.enable = true;
     spotdl.enable = true;
     tview.enable = true;
   };

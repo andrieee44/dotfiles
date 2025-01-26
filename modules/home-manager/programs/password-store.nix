@@ -1,7 +1,15 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs.password-store = {
-    package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
+    package = pkgs.pass.withExtensions (exts: [
+      exts.pass-otp
+      config.custom.programs.pass-data.package
+    ]);
 
     settings =
       let
