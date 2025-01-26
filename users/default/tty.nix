@@ -37,6 +37,7 @@
       mpc-cli
       neofetch
       powertop
+      unixtools.util-linux
       xdg-user-dirs
     ];
 

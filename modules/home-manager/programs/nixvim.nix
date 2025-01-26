@@ -115,8 +115,8 @@
             src = pkgs.fetchFromGitHub {
               owner = "andrieee44";
               repo = "oishiline";
-              rev = "25f5fd6352beeb2b7b003ac18be403073a8c0253";
-              hash = "sha256-kMgj2VPU527yMMPP9GICFBeSkK4ULYi3+fzk/SbFnJs=";
+              rev = "0482fcefbdf571da43d7d11ea605cd484e4cd347";
+              hash = "sha256-7H8hba4r4cgYpL5icRh1jesOkaI0V/hczl1svzovAbE=";
             };
           in
           pkgs.vimUtils.buildVimPlugin {
@@ -124,8 +124,8 @@
             src = src;
 
             postInstall = ''
-              mkdir -p $out/share/man/man3
-              gzip -c ${src}/oishiline.3 > $out/share/man/man3/oishiline.3.gz
+              mkdir -p "${"\${out}"}/share/man/man3"
+              gzip -c "${src}/oishiline.3" > "${"\${out}"}/share/man/man3/oishiline.3.gz"
             '';
           }
         )
