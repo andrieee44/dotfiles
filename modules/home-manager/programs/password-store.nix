@@ -6,10 +6,17 @@
 }:
 {
   programs.password-store = {
-    package = pkgs.pass.withExtensions (exts: [
-      exts.pass-otp
-      config.custom.programs.pass-data.package
-    ]);
+    package = pkgs.pass.withExtensions (
+      exts:
+      let
+        pass-data = config.custom.programs.pass-data;
+      in
+      [
+        exts.pass-otp
+
+      ]
+      ++ (if pass-data.enable then [ pass-data.package ] else [ ])
+    );
 
     settings =
       let
