@@ -11,11 +11,7 @@
       let
         pass-data = config.custom.programs.pass-data;
       in
-      [
-        exts.pass-otp
-
-      ]
-      ++ (if pass-data.enable then [ pass-data.package ] else [ ])
+      [ exts.pass-otp ] ++ (if pass-data.enable then [ pass-data.package ] else [ ])
     );
 
     settings =
