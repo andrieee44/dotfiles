@@ -5,11 +5,9 @@
   pkgs,
   ...
 }:
-with lib;
 let
-  cfg = config.programs.calcurse;
   iniFormat = pkgs.formats.ini { };
-  caldavConfigFile = iniFormat.generate "config" cfg.caldav.settings;
+
   formatLine =
     o: n: v:
     let
@@ -22,77 +20,77 @@ let
         else if builtins.isString v then
           "${v}"
         else if builtins.isList v then
-          "${concatStringsSep " " (map formatValue v)}"
+          "${lib.concatStringsSep " " (map formatValue v)}"
         else
           builtins.toString v;
     in
     if o == "" then "${n}  ${formatValue v}" else "${o}${n}=${formatValue v}";
 in
 {
-  meta.maintainers = [ hm.maintainers.omernaveedxyz ];
+  meta.maintainers = [ lib.hm.maintainers.omernaveedxyz ];
 
-  options.programs.calcurse = {
-    enable = mkEnableOption "calcurse - a text-based calendar and scheduling application";
+  options.custom.programs.calcurse = {
+    enable = lib.mkEnableOption "calcurse - a text-based calendar and scheduling application";
 
-    package = mkOption {
-      type = types.package;
+    package = lib.mkOption {
+      type = lib.types.package;
       default = pkgs.calcurse;
       defaultText = "pkgs.calcurse";
       description = "Package containing the <command>calcurse</command> executable.";
     };
 
     hooks = {
-      preLoad = mkOption {
-        type = types.lines;
+      preLoad = lib.mkOption {
+        type = lib.types.lines;
         default = "";
         description = "Script ran before loading Calcurse calendar.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           #!/bin/sh
           notify-send "Loaded calendar"
         '';
       };
 
-      postLoad = mkOption {
-        type = types.lines;
+      postLoad = lib.mkOption {
+        type = lib.types.lines;
         default = "";
         description = "Script ran after loading Calcurse calendar.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           #!/bin/sh
           notify-send "Loaded calendar"
         '';
       };
 
-      preSave = mkOption {
-        type = types.lines;
+      preSave = lib.mkOption {
+        type = lib.types.lines;
         default = "";
         description = "Script ran before saving Calcurse calendar.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           #!/bin/sh
           notify-send "Saved calendar"
         '';
       };
 
-      postSave = mkOption {
-        type = types.lines;
+      postSave = lib.mkOption {
+        type = lib.types.lines;
         default = "";
         description = "Script ran after saving Calcurse calendar.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           #!/bin/sh
           notify-send "Saved calendar"
         '';
       };
     };
 
-    caldav.settings = mkOption {
+    caldav.settings = lib.mkOption {
       type = iniFormat.type;
       default = { };
       description = "calcurse-caldav plugin settings.";
 
-      example = literalExpression ''
+      example = lib.literalExpression ''
         {
           settings = {
             General = {
@@ -115,12 +113,12 @@ in
     };
 
     settings = {
-      general = mkOption {
-        type = types.attrsOf types.anything;
+      general = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
         default = { };
         description = "Calcurse 'general' settings.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           {
             autogc = false;
             autosave = true;
@@ -128,12 +126,12 @@ in
         '';
       };
 
-      appearance = mkOption {
-        type = types.attrsOf types.anything;
+      appearance = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
         default = { };
         description = "Calcurse 'appearance' settings.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           {
             calendarview = "monthly";
             compactpanels = false;
@@ -141,76 +139,77 @@ in
         '';
       };
 
-      format = mkOption {
-        type = types.attrsOf types.anything;
+      format = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
         default = { };
         description = "Calcurse 'format' settings.";
 
-        example = literalExpression ''
+        example = lib.literalExpression ''
           {
             notifydate = "%a %F";
             notifytime = "%T";
           };
         '';
       };
+
+      keys = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
+        default = { };
+        description = "Calcurse keybinds.";
+
+        example = lib.literalExpression ''
+          {
+            generic-cancel = "ESC";
+            generic-select = "SPC";
+          };
+        '';
+      };
     };
+  };
 
-    keys = mkOption {
-      type = types.attrsOf types.anything;
-      default = { };
-      description = "Calcurse keybinds.";
+  config =
+    let
+      cfg = config.custom.programs.calcurse;
+      caldavConfigFile = iniFormat.generate "config" cfg.caldav.settings;
+    in
+    lib.mkIf cfg.enable {
+      home.packages = [ cfg.package ];
+      assertions = [ (lib.hm.assertions.assertPlatform "programs.calcurse" pkgs lib.platforms.linux) ];
 
-      example = literalExpression ''
-        {
-          generic-cancel = "ESC";
-          generic-select = "SPC";
+      xdg.configFile = {
+        "calcurse/caldav/config" = lib.mkIf (cfg.caldav.settings != { }) { source = caldavConfigFile; };
+
+        "calcurse/conf" = {
+          text = lib.concatStringsSep "\n" (
+            lib.mapAttrsToList (formatLine "appearance.") cfg.settings.appearance
+            ++ lib.mapAttrsToList (formatLine "general.") cfg.settings.general
+            ++ lib.mapAttrsToList (formatLine "format.") cfg.settings.format
+          );
         };
-      '';
-    };
-  };
 
-  config = mkIf cfg.enable {
-  	home.packages = [ cfg.package ];
-    assertions = [ (lib.hm.assertions.assertPlatform "programs.calcurse" pkgs lib.platforms.linux) ];
+        "calcurse/keys" = lib.mkIf (cfg.settings.keys != { }) {
+          text = lib.concatStringsSep "\n" (lib.mapAttrsToList (formatLine "") cfg.settings.keys);
+        };
 
-    xdg.configFile = {
-      "calcurse/conf" = {
-        text = concatStringsSep "\n" (
-          mapAttrsToList (formatLine "appearance.") cfg.settings.appearance
-          ++ mapAttrsToList (formatLine "general.") cfg.settings.general
-          ++ mapAttrsToList (formatLine "format.") cfg.settings.format
-        );
-      };
+        "calcurse/hooks/pre-load" = lib.mkIf (cfg.hooks.preLoad != "") {
+          text = cfg.hooks.preLoad;
+          executable = true;
+        };
 
-      "calcurse/keys" = mkIf (cfg.keys != { }) {
-        text = concatStringsSep "\n" (mapAttrsToList (formatLine "") cfg.keys);
-      };
-    };
+        "calcurse/hooks/post-load" = lib.mkIf (cfg.hooks.postLoad != "") {
+          text = cfg.hooks.postLoad;
+          executable = true;
+        };
 
-    xdg.configFile."calcurse/caldav/config" = mkIf (cfg.caldav.settings != { }) {
-      source = caldavConfigFile;
-    };
+        "calcurse/hooks/pre-save" = lib.mkIf (cfg.hooks.preSave != "") {
+          text = cfg.hooks.preSave;
+          executable = true;
+        };
 
-    xdg.configFile = {
-      "calcurse/hooks/pre-load" = mkIf (cfg.hooks.preLoad != "") {
-        text = cfg.hooks.preLoad;
-        executable = true;
-      };
-
-      "calcurse/hooks/post-load" = mkIf (cfg.hooks.postLoad != "") {
-        text = cfg.hooks.postLoad;
-        executable = true;
-      };
-
-      "calcurse/hooks/pre-save" = mkIf (cfg.hooks.preSave != "") {
-        text = cfg.hooks.preSave;
-        executable = true;
-      };
-
-      "calcurse/hooks/post-save" = mkIf (cfg.hooks.postSave != "") {
-        text = cfg.hooks.postSave;
-        executable = true;
+        "calcurse/hooks/post-save" = lib.mkIf (cfg.hooks.postSave != "") {
+          text = cfg.hooks.postSave;
+          executable = true;
+        };
       };
     };
-  };
 }

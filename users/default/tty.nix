@@ -12,6 +12,7 @@
   nixpkgs.config.allowUnfree = true;
 
   custom.programs = {
+    calcurse.enable = true;
     cmenu.enable = true;
     line2json.enable = true;
     pass-data.enable = true;
@@ -26,7 +27,6 @@
 
     packages = with pkgs; [
       bc
-      calcurse
       diffutils
       ffmpeg
       findutils
