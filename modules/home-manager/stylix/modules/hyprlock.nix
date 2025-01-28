@@ -16,7 +16,7 @@
       fonts = config.stylix.fonts;
       colors = config.lib.stylix.colors;
     in
-    lib.mkIf cfg.enable {
+    lib.mkIf (config.programs.hyprlock.enable && cfg.enable) {
       input-field = {
         font_family = fonts.monospace.name;
         size = "650, 90";

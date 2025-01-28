@@ -9,7 +9,7 @@
       cfg = config.stylix.targets.custom.aerc;
     in
     {
-      gui = lib.mkIf cfg.enable ''
+      gui = lib.mkIf (config.programs.aerc.enable && cfg.enable) ''
         *.selected.bold=true
         statusline_default.bold=true
         border.reverse=false

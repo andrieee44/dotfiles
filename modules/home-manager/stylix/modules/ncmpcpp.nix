@@ -13,6 +13,8 @@
       cfg = config.programs.ncmpcpp;
     in
     lib.mkIf (cfg.enable && config.stylix.targets.custom.ncmpcpp.enable) {
+      xdg.configFile."ncmpcpp/config".target = "${config.xdg.configHome}/ncmpcpp/baseConfig";
+
       programs.ncmpcpp.settings =
         let
           fmt = "{%A - %n - %b - %t}|{%f}";
@@ -80,8 +82,6 @@
         	format "${if cfg.settings.visualizer_in_stereo then "44100:16:2" else "44100:16:1"}"
         }
       '';
-
-      xdg.configFile."ncmpcpp/config".target = "${config.xdg.configHome}/ncmpcpp/baseConfig";
 
       home.shellAliases.ncmpcpp = builtins.toString (
         pkgs.writers.writeDash "ncmpcppConf" ''

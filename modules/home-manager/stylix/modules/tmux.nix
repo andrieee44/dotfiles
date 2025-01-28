@@ -10,7 +10,7 @@
       gui = t: f: "#{?${guiBool},${t},${f}}";
       bell = t: f: "#{?window_bell_flag,${t},${f}}";
     in
-    lib.mkIf config.stylix.targets.custom.tmux.enable ''
+    lib.mkIf (config.programs.tmux.enable && config.stylix.targets.custom.tmux.enable) ''
       set -g status-style "fg=${gui "#${colors.base05}" "white"},bg=${gui "#${colors.base00}" "black"}"
       set -g window-status-bell-style "fg=${gui "#${colors.base00}" "black"},bg=${gui "#${colors.base08}" "red"}"
       set -g pane-border-style "fg=${gui "#${colors.base03}" "brightblack"}"

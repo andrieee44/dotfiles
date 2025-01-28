@@ -29,7 +29,7 @@
       cfg = config.stylix.targets.custom.eww;
       colors = config.lib.stylix.colors.withHashtag;
     in
-    lib.mkIf config.stylix.targets.custom.eww.enable ''
+    lib.mkIf cfg.enable ''
       label { color: ${colors.base05}; }
       .sep { color: ${colors.base0D}; }
       .icon { color: ${colors.base0C}; }

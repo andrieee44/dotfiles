@@ -14,8 +14,8 @@
     let
       cfg = config.stylix.targets.custom.mangohud;
     in
-    {
-      background_alpha = lib.mkIf cfg.enable (lib.mkForce cfg.background_alpha);
+    lib.mkIf (config.programs.mangohud.enable && cfg.enable) {
+      background_alpha = lib.mkForce cfg.background_alpha;
       font_file_text = config.stylix.fonts.monospace.name;
     };
 }
