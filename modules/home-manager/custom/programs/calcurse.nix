@@ -1,5 +1,11 @@
 {
-  config.custom.programs.calcurse.settings.keys = {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  custom.programs.calcurse.settings.keys = {
     generic-cancel = "ESC";
     generic-select = "SPC";
     generic-credits = "@";
@@ -49,4 +55,21 @@
     raise-priority = "+";
     lower-priority = "-";
   };
+
+  home.shellAliases.calcurse =
+    let
+      customPrograms = config.custom.programs;
+      pass = config.programs.password-store;
+      pass-data = customPrograms.pass-data;
+      calcurse = customPrograms.calcurse;
+    in
+    lib.mkIf (calcurse.enable && pass.enable && pass-data.enable) (
+      builtins.toString (
+        pkgs.writers.writeDash "calcurseDataDir" ''
+          set -eu
+
+          ${pass.package}/bin/pass data calendar '${calcurse.package}/bin/calcurse -C "${config.xdg.configHome}/calcurse" -D "$PASS_DATA" '"$@"
+        ''
+      )
+    );
 }

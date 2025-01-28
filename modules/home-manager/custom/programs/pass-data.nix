@@ -5,8 +5,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "pass-data";
-        rev = "f822ac764cbdee4ba0645673de09f8644c3410e4";
-        hash = "sha256-XhxknQ+sNItddy0rsPzG7+mEfV2QdRndDPl0bC8oJCc=";
+        rev = "11e00a48a802d95d913fde80836e1210b69c272c";
+        hash = "sha256-UFVJdBVCH+9oUVn0Mzptq/Xi3HOJ8DWjXnVmNUVyp9c=";
       };
     in
     pkgs.stdenv.mkDerivation {
