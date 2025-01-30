@@ -31,13 +31,16 @@
       ffmpeg
       findutils
       gnused
+      gnutar
       go-mtpfs
       gotools
       groff
+      gzip
       hugo
       mpc-cli
       neofetch
       powertop
+      tarsum
       unixtools.util-linux
       xdg-user-dirs
     ];

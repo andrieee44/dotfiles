@@ -68,7 +68,7 @@
         pkgs.writers.writeDash "calcurseDataDir" ''
           set -eu
 
-          ${pass.package}/bin/pass data calendar '${calcurse.package}/bin/calcurse -C "${config.xdg.configHome}/calcurse" -D "$PASS_DATA" '"$@"
+          ${pass.package}/bin/pass data "calendar/calcurse" "${calcurse.package}/bin/calcurse" -C "${config.xdg.configHome}/calcurse" -D '"$PASS_DATA"' "$@"
         ''
       )
     );
