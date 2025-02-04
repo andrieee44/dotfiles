@@ -5,25 +5,33 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "pass-data";
-        rev = "616e90dc710a3312419468176d3b2506bbafc816";
-        hash = "sha256-XSKA7/XCAxjGdX12p+3hTBgXVcIPM6eW3VaMwEt3gC4=";
+        rev = "1b569c7575f82933559685be9700863e90c3d347";
+        hash = "sha256-pNmOo/lr0SWqhCGicVuoIj5ohQpU7PE5tJqTTDBwOcQ=";
       };
     in
     pkgs.stdenv.mkDerivation {
       name = "pass-data";
-      dontBuild = true;
       src = src;
 
-      buildInputs = with pkgs; [
-        diffutils
-        gnutar
-        gzip
-      ];
+      installPhase =
+        let
+          toybox = "${pkgs.toybox}/bin";
+          progPath = "${"\${out}"}/lib/password-store/extensions/data.bash";
+        in
+        ''
+          runHook preInstall
+          mkdir -p "${"\${out}"}/share/man/man1" "${"\${out}"}/lib/password-store/extensions"
+          gzip -c "${src}/pass-data.1" > "${"\${out}"}/share/man/man1/pass-data.1.gz"
+          cp "${src}/data.bash" "${progPath}"
 
-      postInstall = ''
-        mkdir -p "${"\${out}"}/share/man/man1" "${"\${out}"}/lib/password-store/extensions"
-        gzip -c "${src}/pass-data.1" > "${"\${out}"}/share/man/man1/pass-data.1.gz"
-        cp "${src}/data.bash" "${"\${out}"}/lib/password-store/extensions"
-      '';
+          substituteInPlace "${progPath}" \
+          	--replace-fail "echo" "${toybox}/echo" \
+          	--replace-fail "mkdir" "${toybox}/mkdir" \
+          	--replace-fail "cp" "${toybox}/cp" \
+          	--replace-fail "tar " "${pkgs.gnutar}/bin/tar " \
+          	--replace-fail "gzip" "${pkgs.gzip}/bin/gzip"
+
+          runHook postInstall
+        '';
     };
 }
