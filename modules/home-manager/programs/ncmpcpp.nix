@@ -40,8 +40,8 @@
         mkBinding =
           key: commands:
           builtins.map (command: {
-            key = key;
-            command = command;
+            inherit key;
+            inherit command;
           }) commands;
       in
       builtins.concatLists [

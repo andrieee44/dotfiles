@@ -120,8 +120,8 @@
             };
           in
           pkgs.vimUtils.buildVimPlugin {
+            inherit src;
             name = "oishiline";
-            src = src;
 
             postInstall = ''
               mkdir -p "${"\${out}"}/share/man/man3"
@@ -225,7 +225,7 @@
                 plugins = config.programs.nixvim.plugins;
                 source =
                   plugin: name: opts:
-                  lib.mkIf plugin.enable (lib.recursiveUpdate { name = name; } opts);
+                  lib.mkIf plugin.enable (lib.recursiveUpdate { inherit name; } opts);
               in
               {
                 enable = true;
@@ -423,16 +423,16 @@
     {
       desktopEntries = lib.mkIf config.programs.nixvim.enable {
         nvim = {
+          inherit mimeType;
           name = "Neovim";
           exec = "${config.programs.nixvim.build.package}/bin/nvim %U";
           terminal = true;
-          mimeType = mimeType;
         };
 
         nvimGUI = {
+          inherit mimeType;
           name = "Neovim GUI";
           exec = "${pkgs.uwsm}/bin/uwsm app -- ${config.home.sessionVariables.TERMINAL} -e ${config.programs.nixvim.build.package}/bin/nvim %U";
-          mimeType = mimeType;
         };
       };
     };

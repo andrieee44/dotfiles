@@ -10,8 +10,8 @@
       };
     in
     pkgs.stdenv.mkDerivation {
+      inherit src;
       name = "pass-data";
-      src = src;
 
       installPhase =
         let

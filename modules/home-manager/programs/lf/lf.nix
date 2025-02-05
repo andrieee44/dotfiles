@@ -68,7 +68,7 @@ lib.mkIf config.programs.lf.enable {
         );
       in
       {
-        lf = lf;
+        inherit lf;
         lfcd = ''lfcd() { cd "$(${lf} -print-last-dir "$@")" }; lfcd'';
       };
   };

@@ -10,10 +10,10 @@
       };
     in
     pkgs.buildGoModule {
+      inherit src;
       name = "jstat";
       vendorHash = "sha256-5Vg7zM6E12G6mvf9uc3PXZsUbxCjH1z9mt37CD5ALak=";
       sourcePath = "${src.name}/cmd/jstat";
-      src = src;
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"

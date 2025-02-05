@@ -10,9 +10,9 @@
       };
     in
     pkgs.buildGoModule {
+      inherit src;
       name = "line2json";
       vendorHash = null;
-      src = src;
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"

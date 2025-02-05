@@ -15,9 +15,9 @@
       };
     in
     pkgs.buildGoModule {
+      inherit src;
       name = "cmenu";
       vendorHash = null;
-      src = src;
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"

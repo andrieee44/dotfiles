@@ -21,7 +21,7 @@
   };
 
   home = {
-    stateVersion = stateVersion;
+    inherit stateVersion;
     sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
     file.".pulse/client.conf".text = "cookie-file = ${config.xdg.cacheHome}/pulse-cookie";
 

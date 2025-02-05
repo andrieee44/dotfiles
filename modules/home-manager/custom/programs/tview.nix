@@ -11,9 +11,9 @@
         };
       in
       pkgs.buildGoModule {
+        inherit src;
         name = "tview";
         vendorHash = "sha256-g4w2RmA7VTL+ittKdV0867MbfAHKkYpgpJXeHppTbfM=";
-        src = src;
 
         postInstall = ''
           mkdir -p "${"\${out}"}/share/man/man1"
