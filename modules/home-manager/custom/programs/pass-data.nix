@@ -1,12 +1,12 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   custom.programs.pass-data.package =
     let
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "pass-data";
-        rev = "28107d254657fb2da766425d80638a03b2a5c34d";
-        hash = "sha256-wm1cnVesy4faTiCLDtPVuSBQH1RsRBZYTc0bxRn4Cos=";
+        rev = "772f9927bc4fb09d9a43fd635903f5a925c95210";
+        hash = "sha256-MCJl6Njf5QddRmCjs4OUejzAE8dKKuPkKmt1kiy0My4=";
       };
     in
     pkgs.stdenv.mkDerivation {
@@ -29,7 +29,10 @@
           	--replace-fail "mkdir" "${toybox}/mkdir" \
           	--replace-fail "cp" "${toybox}/cp" \
           	--replace-fail "tar " "${pkgs.gnutar}/bin/tar " \
-          	--replace-fail "gzip" "${pkgs.gzip}/bin/gzip"
+          	--replace-fail "gzip" "${pkgs.gzip}/bin/gzip" \
+          	--replace-fail "diff" "${pkgs.diffutils}/bin/diff" \
+          	--replace-fail "which" "${pkgs.which}/bin/which" \
+          	--replace-fail "/usr/bin/env bash" "${config.programs.bash.package}/bin/bash"
 
           runHook postInstall
         '';
