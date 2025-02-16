@@ -35,6 +35,11 @@
           TSComment.link = "Comment";
           PmenuThumb.link = "Pmenu";
 
+          Comment = {
+            fg = colors.base0C;
+            ctermfg = mkRaw "6";
+          };
+
           Visual = {
             bg = colors.base03;
             ctermfg = mkRaw "0";
