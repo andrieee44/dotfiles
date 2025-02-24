@@ -223,11 +223,15 @@
       id = 0;
       isDefault = true;
 
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        darkreader
-        ublock-origin
-        vimium
-      ];
+      extensions = {
+        force = true;
+
+        packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          darkreader
+          ublock-origin
+          vimium
+        ];
+      };
 
       settings = {
         "app.normandy.api_url" = "";
