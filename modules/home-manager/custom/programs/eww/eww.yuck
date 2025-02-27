@@ -96,7 +96,7 @@
         (for device in `${jq(adapter.Devices, "to_entries | map(select(.value.Connected).value)")}`
           (box :space-evenly false
             (label :class `icon` :unindent false :text `󰂯${device.Icon} `)
-            (label :unindent false :text `${device.Battery}% ${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
+            (label :unindent false :text `${device.Battery != 0 ? "${device.Battery}% " : ""}${substring(device.Name, device.Scroll, status.Bluetooth.Limit)}`)
             (sep :unindent false :cond true)))))))
 
 (defwindow bar [screen]
