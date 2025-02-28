@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs = {
     gpg.publicKeys = [
@@ -28,7 +33,7 @@
         chatnets = {
         	liberachat = {
         		sasl_username = "andrieee44";
-        		sasl_password = "PASSWORD";
+        		sasl_password = "SASL_PASSWORD";
         		sasl_mechanism = "PLAIN";
         	};
         };
@@ -39,31 +44,74 @@
   home = {
     file.".irssi/config".target = "${config.xdg.configHome}/irssi/base.config";
 
-    shellAliases.irssi = builtins.toString (
-      pkgs.writers.writeDash "irssiPass" ''
-        set -eu
+    shellAliases =
+      let
+        customPrograms = config.custom.programs;
+        passBin = "${config.programs.password-store.package}/bin/pass";
+        pass = config.programs.password-store;
+        pass-data = customPrograms.pass-data;
+      in
+      {
+        irssi = lib.mkIf (config.programs.irssi.enable && pass.enable) (
+          builtins.toString (
+            pkgs.writers.writeDash "irssiPass" ''
+              set -eu
 
-        ${pkgs.gawk}/bin/awk -v pass="$(${config.programs.password-store.package}/bin/pass liberachat/andrieee44)" '{
-        		sub("sasl_password = .*", "sasl_password = \"" pass "\";")
-        		print($0)
-        	}' "${config.home.homeDirectory}/${
-           config.home.file.".irssi/config".target
-         }" > "${config.xdg.configHome}/irssi/config"
+              ${pkgs.gawk}/bin/awk -v pass="$(${passBin} liberachat/andrieee44)" '{
+              		sub("SASL_PASSWORD", pass)
+              		print($0)
+              	}' "${config.home.homeDirectory}/${
+                 config.home.file.".irssi/config".target
+               }" > "${config.xdg.configHome}/irssi/config"
 
-        ${pkgs.irssi}/bin/irssi --home "${config.xdg.configHome}/irssi" "$@"
+              ${pkgs.irssi}/bin/irssi --home "${config.xdg.configHome}/irssi" "$@"
 
-        ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/irssi/config"
-      ''
-    );
+              ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/irssi/config"
+            ''
+          )
+        );
+
+        calcurse-caldav =
+          let
+            calcurse = customPrograms.calcurse;
+          in
+          lib.mkIf (calcurse.enable && pass.enable && pass-data.enable) (
+            builtins.toString (
+              pkgs.writers.writeDash "calcurse-caldavPass" ''
+                  set -eu
+
+                  ${pkgs.gawk}/bin/awk \
+                	-v id="$(${passBin} google/andrieee44/calendar/clientID)" \
+                	-v secret="$(${passBin} google/andrieee44/calendar/clientSecret)" \
+                	'{
+                  		sub("CLIENT_ID", id)
+                  		sub("CLIENT_SECRET", secret)
+                  		sub("CALENDAR_ID", "andrieee44@gmail.com")
+                  		print($0)
+                  	}' "${config.home.homeDirectory}/${
+                     config.xdg.configFile."calcurse/caldav/config".target
+                   }" > "${config.xdg.configHome}/calcurse/caldav/config"
+
+                  ${passBin} data "calendar/calcurse" "${calcurse.package}/bin/calcurse-caldav" --config "${config.xdg.configHome}/calcurse/caldav/config" --datadir '"$PASS_DATA"' "$@"
+
+                  ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/calcurse/caldav/config"
+              ''
+            )
+          );
+      };
   };
 
-  xdg.configFile.pam-gnupg = {
-    enable = config.services.gpg-agent.enable;
+  xdg.configFile = {
+    "calcurse/caldav/config".target = "${config.xdg.configHome}/calcurse/caldav/base.config";
 
-    text = ''
-      ${config.programs.gpg.homedir}
-      4761373E4C1DF3223D5D82B64B2B4D7665A3138B
-    '';
+    pam-gnupg = {
+      enable = config.services.gpg-agent.enable;
+
+      text = ''
+        ${config.programs.gpg.homedir}
+        4761373E4C1DF3223D5D82B64B2B4D7665A3138B
+      '';
+    };
   };
 
   accounts.email.accounts."andrieee44@gmail.com" =

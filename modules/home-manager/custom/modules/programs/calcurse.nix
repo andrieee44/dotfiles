@@ -92,21 +92,20 @@ in
 
       example = lib.literalExpression ''
         {
-          settings = {
-            General = {
-              Binary = "calcurse";
-              Hostname = "example.com";
-              Path = "/";
-              InsecureSSL = "No";
-              HTTPS = "Yes";
-              SyncFilter = "cal,todo";
-              DryRun = "No";
-              Verbose = "Yes";
-            };
-            Auth = {
-              Username = "username";
-              Password = "password";
-            };
+          General = {
+            Binary = "calcurse";
+            Hostname = "example.com";
+            Path = "/";
+            InsecureSSL = "No";
+            HTTPS = "Yes";
+            SyncFilter = "cal,todo";
+            DryRun = "No";
+            Verbose = "Yes";
+          };
+
+          Auth = {
+            Username = "username";
+            Password = "password";
           };
         };
       '';
@@ -151,19 +150,19 @@ in
           };
         '';
       };
+    };
 
-      keys = lib.mkOption {
-        type = lib.types.attrsOf lib.types.anything;
-        default = { };
-        description = "Calcurse keybinds.";
+    keys = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = { };
+      description = "Calcurse keybinds.";
 
-        example = lib.literalExpression ''
-          {
-            generic-cancel = "ESC";
-            generic-select = "SPC";
-          };
-        '';
-      };
+      example = lib.literalExpression ''
+        {
+          generic-cancel = "ESC";
+          generic-select = "SPC";
+        };
+      '';
     };
   };
 
@@ -187,8 +186,8 @@ in
           );
         };
 
-        "calcurse/keys" = lib.mkIf (cfg.settings.keys != { }) {
-          text = lib.concatStringsSep "\n" (lib.mapAttrsToList (formatLine "") cfg.settings.keys);
+        "calcurse/keys" = lib.mkIf (cfg.keys != { }) {
+          text = lib.concatStringsSep "\n" (lib.mapAttrsToList (formatLine "") cfg.keys);
         };
 
         "calcurse/hooks/pre-load" = lib.mkIf (cfg.hooks.preLoad != "") {
