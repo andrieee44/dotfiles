@@ -28,11 +28,6 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
           "size 50% 50%, fzfMenu"
           "move 25% 25%, fzfMenu"
           "tile, steam"
-          "tile, steam_app_346900"
-          "tile, steam_app_2763740"
-          "tile, steam_app_1399720"
-          "tile, steam_app_1011510"
-          "tile, steam_app_1535560"
         ];
 
         animation = [
@@ -54,7 +49,7 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
             (shMenu "M" "man")
             "$mod, Return, execr, ${pkgs.uwsm}/bin/uwsm app -T"
             "$mod, W, execr, ${uwsmRun} $browser"
-            "$mod, S, execr, ${uwsmRun} steam"
+            "$mod, S, execr, ${uwsmRun} ${pkgs.flatpak}/bin/flatpak run com.valvesoftware.Steam"
             "$mod, R, execr, ${uwsmRun} ${pkgs.flatpak}/bin/flatpak run org.vinegarhq.Sober"
             "$mod, Q, killactive,"
             "$mod SHIFT, Q, execr, ${pkgs.systemd}/bin/loginctl terminate-user \"\""

@@ -20,7 +20,6 @@
     gamemode.enable = true;
     hyprland.enable = true;
     light.enable = true;
-    steam.enable = true;
     uwsm.enable = true;
     zsh.enable = true;
   };
