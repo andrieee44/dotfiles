@@ -37,7 +37,7 @@
     sessionVariables.SSH_ASKPASS = pkgs.writers.writeDash "ssh_askpass" ''
       set -eu
 
-      ${config.programs.password-store.package}/bin/pass ssh/oppoReno8Z
+      ${config.programs.password-store.package}/bin/pass ssh/oppoReno8Z/nix-on-droid/pass
     '';
   };
 }
