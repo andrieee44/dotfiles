@@ -92,7 +92,7 @@
                      config.xdg.configFile."calcurse/caldav/config".target
                    }" > "${config.xdg.configHome}/calcurse/caldav/config"
 
-                  ${passBin} data "calendar/calcurse" "${calcurse.package}/bin/calcurse-caldav" --config "${config.xdg.configHome}/calcurse/caldav/config" --datadir '"$PASS_DATA"' "$@"
+                  ${passBin} data "data/calcurse" "${calcurse.package}/bin/calcurse-caldav" --config "${config.xdg.configHome}/calcurse/caldav/config" --datadir '"$PASS_DATA"' "$@"
 
                   ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/calcurse/caldav/config"
               ''
