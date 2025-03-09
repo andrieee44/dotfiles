@@ -9,6 +9,7 @@
 
   programs = {
     bash.enable = lib.mkForce false;
+    direnv.enable = lib.mkForce false;
     ncmpcpp.enable = lib.mkForce false;
     notmuch.enable = lib.mkForce false;
     texlive.enable = lib.mkForce false;

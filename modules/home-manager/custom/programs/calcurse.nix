@@ -95,7 +95,7 @@
         pkgs.writers.writeDash "calcurseData" ''
           set -eu
 
-          ${pass.package}/bin/pass data "calendar/calcurse" "${calcurse.package}/bin/calcurse" -C "${config.xdg.configHome}/calcurse" -D '"$PASS_DATA"' "$@"
+          ${pass.package}/bin/pass data "data/calcurse" "${calcurse.package}/bin/calcurse" -C "${config.xdg.configHome}/calcurse" -D '"$PASS_DATA"' "$@"
         ''
       )
     );

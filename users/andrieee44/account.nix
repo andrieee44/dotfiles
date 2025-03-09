@@ -57,7 +57,7 @@
             pkgs.writers.writeDash "irssiPass" ''
               set -eu
 
-              ${pkgs.gawk}/bin/awk -v pass="$(${passBin} liberachat/andrieee44)" '{
+              ${pkgs.gawk}/bin/awk -v pass="$(${passBin} LiberaChat/andrieee44/pass)" '{
               		sub("SASL_PASSWORD", pass)
               		print($0)
               	}' "${config.home.homeDirectory}/${
@@ -81,8 +81,8 @@
                   set -eu
 
                   ${pkgs.gawk}/bin/awk \
-                	-v id="$(${passBin} google/andrieee44/calendar/clientID)" \
-                	-v secret="$(${passBin} google/andrieee44/calendar/clientSecret)" \
+                	-v id="$(${passBin} Google/andrieee44@gmail.com/app/calcurse/clientID)" \
+                	-v secret="$(${passBin} Google/andrieee44@gmail.com/app/calcurse/clientSecret)" \
                 	'{
                   		sub("CLIENT_ID", id)
                   		sub("CLIENT_SECRET", secret)
@@ -121,7 +121,7 @@
     {
       address = "andrieee44@gmail.com";
       flavor = "gmail.com";
-      passwordCommand = "${config.programs.password-store.package}/bin/pass google/andrieee44/app";
+      passwordCommand = "${config.programs.password-store.package}/bin/pass Google/andrieee44@gmail.com/app/aerc/pass";
       primary = true;
       realName = "andrieee44";
       userName = "andrieee44";
