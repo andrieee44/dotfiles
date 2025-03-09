@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -44,6 +45,7 @@
       nur,
       home-manager,
       nix-on-droid,
+      nix-flatpak,
       self,
       ...
     }:
@@ -90,6 +92,9 @@
               nixvim.homeManagerModules.nixvim
               nur.modules.homeManager.default
               stylix.homeManagerModules.stylix
+              nix-flatpak.homeManagerModules.nix-flatpak
+              ./users/andrieee44/account.nix
+              ./users/default/tty.nix
             ]
             ++ importDir ./modules/home-manager
             ++ importDir ./modules/stylix;
@@ -101,24 +106,17 @@
 
             modules = [
               ./users/andrieee44/home.nix
-              ./users/andrieee44/account.nix
               ./users/default/gui.nix
-              ./users/default/tty.nix
             ] ++ modules;
           };
 
           nix-on-droid = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages."aarch64-linux";
+            modules = [ ./users/nix-on-droid/home.nix ] ++ modules;
 
             extraSpecialArgs = specialArgs // {
               user = "nix-on-droid";
             };
-
-            modules = [
-              ./users/nix-on-droid/home.nix
-              ./users/andrieee44/account.nix
-              ./users/default/tty.nix
-            ] ++ modules;
           };
         };
 

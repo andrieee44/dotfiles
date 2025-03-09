@@ -372,6 +372,22 @@
         "type": "github"
       }
     },
+    "nix-flatpak": {
+      "locked": {
+        "lastModified": 1739444422,
+        "narHash": "sha256-iAVVHi7X3kWORftY+LVbRiStRnQEob2TULWyjMS6dWg=",
+        "owner": "gmodena",
+        "repo": "nix-flatpak",
+        "rev": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gmodena",
+        "ref": "latest",
+        "repo": "nix-flatpak",
+        "type": "github"
+      }
+    },
     "nix-formatter-pack": {
       "inputs": {
         "nixpkgs": [
@@ -540,11 +556,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1741478087,
-        "narHash": "sha256-SS5U8xPhOAqP8HMqzH95B9Knrx1V5CuV5t5cf0ebgTw=",
+        "lastModified": 1741493391,
+        "narHash": "sha256-utOyLmwe6hNxC0lk8+pAuWxFeU3Uw8GKEQ0hLhcxvQQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1d6c8d84756af4333a42bd743a56d87d2f83e784",
+        "rev": "309e2ee7ded1bc21cb3641cfd693fbc5899622e7",
         "type": "github"
       },
       "original": {
@@ -602,6 +618,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "nix-flatpak": "nix-flatpak",
         "nix-on-droid": "nix-on-droid",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",

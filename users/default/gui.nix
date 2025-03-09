@@ -41,6 +41,7 @@
   };
 
   services = {
+    flatpak.enable = true;
     hypridle.enable = true;
     hyprpaper.enable = true;
     mako.enable = true;
