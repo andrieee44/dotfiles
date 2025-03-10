@@ -49,7 +49,7 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
             (shMenu "M" "man")
             "$mod, Return, execr, ${pkgs.uwsm}/bin/uwsm app -T"
             "$mod, W, execr, ${uwsmRun} $browser"
-            "$mod, S, execr, ${uwsmRun} ${pkgs.flatpak}/bin/flatpak run com.valvesoftware.Steam"
+            "$mod, S, execr, ${uwsmRun} ${pkgs.steam}/bin/steam"
             "$mod, R, execr, ${uwsmRun} ${pkgs.flatpak}/bin/flatpak run org.vinegarhq.Sober"
             "$mod, Q, killactive,"
             "$mod SHIFT, Q, execr, ${pkgs.systemd}/bin/loginctl terminate-user \"\""

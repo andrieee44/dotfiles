@@ -18,7 +18,8 @@
       noto-fonts-emoji-blob-bin
       noto-fonts-lgc-plus
       noto-fonts-monochrome-emoji
-      vistafonts
+      steam
+      pcsx2
       vistafonts
       wl-clipboard
     ];
