@@ -64,9 +64,9 @@
                  config.home.file.".irssi/config".target
                }" > "${config.xdg.configHome}/irssi/config"
 
-              ${pkgs.irssi}/bin/irssi --home "${config.xdg.configHome}/irssi" "$@"
+               trap '${pkgs.toybox}/bin/rm -f "${config.xdg.configHome}/irssi/config"'  HUP INT QUIT TERM PWR EXIT
 
-              ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/irssi/config"
+              ${pkgs.irssi}/bin/irssi --home "${config.xdg.configHome}/irssi" "$@"
             ''
           )
         );
@@ -92,9 +92,9 @@
                      config.xdg.configFile."calcurse/caldav/config".target
                    }" > "${config.xdg.configHome}/calcurse/caldav/config"
 
-                  ${passBin} data "data/calcurse" "${calcurse.package}/bin/calcurse-caldav" --config "${config.xdg.configHome}/calcurse/caldav/config" --datadir '"$PASS_DATA"' "$@"
+                   trap '${pkgs.toybox}/bin/rm -f "${config.xdg.configHome}/calcurse/caldav/config"' HUP INT QUIT TERM PWR EXIT
 
-                  ${pkgs.toybox}/bin/rm "${config.xdg.configHome}/calcurse/caldav/config"
+                  ${passBin} data "data/calcurse" "${calcurse.package}/bin/calcurse-caldav" --config "${config.xdg.configHome}/calcurse/caldav/config" --datadir '"$PASS_DATA"' "$@"
               ''
             )
           );
