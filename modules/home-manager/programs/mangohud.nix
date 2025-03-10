@@ -30,7 +30,7 @@
       hud_no_margin = false;
       no_small_font = true;
       permit_upload = false;
-      position = "top";
+      position = "middle-top";
       present_mode = true;
       ram = true;
       resolution = true;
