@@ -4,22 +4,24 @@
 
     settings = {
       arch = true;
+      battery = true;
       battery_icon = "󰁹";
       battery_time = true;
-      battery = true;
       cellpadding_y = 0;
       cpu_load_change = true;
       cpu_stats = true;
       cpu_temp = true;
       device_battery = "gamepad,mouse";
       device_battery_icon = "󰂯";
+      display_server = true;
+      engine_version = true;
       exec_name = true;
+      fps = true;
       fps_color_change = true;
       fps_limit = 60;
       fps_sampling_period = 1000;
-      fps = true;
-      frametime = true;
       frame_timing = false;
+      frametime = true;
       gamemode = true;
       gpu_load_change = true;
       gpu_name = true;
@@ -39,11 +41,11 @@
       table_columns = 3;
       text_outline = true;
       throttling_status = true;
-      time_format = "%b %e %Y (%a) %l:%M %p";
       time = true;
+      time_format = "%b %e %Y (%a) %l:%M %p";
       width = 0;
-      winesync = true;
       wine = true;
+      winesync = true;
     };
   };
 }
