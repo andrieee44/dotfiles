@@ -2,7 +2,6 @@
   services.flatpak = {
     uninstallUnmanaged = true;
     update.onActivation = true;
-    overrides."com.valvesoftware.Steam".Context.filesystems = [ "xdg-config/MangoHud:ro" ];
 
     packages = [
       {
