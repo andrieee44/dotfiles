@@ -34,6 +34,7 @@
 
   hardware = {
     enableAllFirmware = true;
+    steam-hardware.enable = true;
 
     bluetooth = {
       enable = true;
