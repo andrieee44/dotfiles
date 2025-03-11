@@ -9,6 +9,7 @@
     custom =
       let
         hyprlandSettings = config.wayland.windowManager.hyprland.settings;
+        radius = hyprlandSettings.decoration.rounding;
       in
       {
         aerc.enable = true;
@@ -25,15 +26,15 @@
           enable = true;
 
           border = {
-            radius = hyprlandSettings.decoration.rounding;
-            width = hyprlandSettings.general.border_size;
             color = config.lib.stylix.colors.withHashtag.base0D;
+            radius = radius;
+            width = hyprlandSettings.general.border_size;
           };
         };
 
         hyprlock = {
           enable = true;
-          radius = hyprlandSettings.decoration.rounding;
+          radius = radius;
         };
 
         nixvim = {
@@ -47,7 +48,7 @@
 
         mangohud = {
           enable = true;
-          background_alpha = 0.5;
+          radius = radius;
         };
       };
 
