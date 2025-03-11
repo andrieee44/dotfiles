@@ -28,6 +28,7 @@
     let
       cfg = config.stylix.targets.custom.eww;
       colors = config.lib.stylix.colors.withHashtag;
+      noHashColors = config.lib.stylix.colors;
     in
     lib.mkIf cfg.enable ''
       label { color: ${colors.base05}; }
@@ -37,7 +38,7 @@
       .bar {
       	border-radius: ${builtins.toString (cfg.border.radius + cfg.border.width)}px;
       	border: ${builtins.toString cfg.border.width}px solid ${cfg.border.color};
-      	background-color: ${colors.base00};
+      	background-color: rgba(${noHashColors.base00-rgb-r}, ${noHashColors.base00-rgb-g}, ${noHashColors.base00-rgb-b}, ${builtins.toString config.stylix.opacity.popups});
       }
 
       .activeWorkspace {
