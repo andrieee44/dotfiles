@@ -44,12 +44,12 @@
 
     opacity =
       let
-        opacity = 0.9;
+        opacity = 0.8;
       in
       {
         applications = opacity;
         desktop = opacity;
-        popups = 1.0;
+        popups = opacity;
         terminal = opacity;
       };
   };
