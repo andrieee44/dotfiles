@@ -26,6 +26,7 @@
 
   services = {
     flatpak.enable = true;
+    fstrim.enable = true;
     openssh.enable = true;
     pipewire.enable = true;
     thermald.enable = true;

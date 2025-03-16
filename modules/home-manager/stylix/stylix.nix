@@ -16,7 +16,6 @@
         fzf.enable = true;
         imv.enable = true;
         lf.enable = true;
-        mpv.enable = true;
         ncmpcpp.enable = true;
         tmux.enable = true;
         zathura.enable = true;

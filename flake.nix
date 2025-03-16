@@ -1,8 +1,9 @@
 {
   inputs = {
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -37,16 +38,17 @@
 
   outputs =
     inputs@{
+      home-manager,
+      nix-flatpak,
+      nix-on-droid,
+      nixos-hardware,
       nixpkgs,
-      systems,
-      treefmt-nix,
-      stylix,
       nixvim,
       nur,
-      home-manager,
-      nix-on-droid,
-      nix-flatpak,
       self,
+      stylix,
+      systems,
+      treefmt-nix,
       ...
     }:
     let
@@ -80,6 +82,9 @@
             ./hosts/default/configuration.nix
             ./hosts/lenovoIdeapadSlim3/configuration.nix
             stylix.nixosModules.stylix
+            nixos-hardware.nixosModules.common-cpu-intel
+            nixos-hardware.nixosModules.common-pc-laptop
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
           ]
           ++ importDir ./modules/nixos
           ++ importDir ./modules/stylix;
