@@ -13,7 +13,7 @@
       display_server = true;
       exec_name = true;
       fps = true;
-      fps_limit = 60;
+      fps_limit = 30;
       fps_sampling_period = 1000;
       frame_timing = false;
       frametime = true;
