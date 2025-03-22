@@ -1,6 +1,11 @@
+{ config, ... }:
 {
   programs.mangohud = {
     enableSessionWide = true;
+
+    settingsPerApplication.wine-umvc3 = config.programs.mangohud.settings // {
+      fps_limit = 60;
+    };
 
     settings = {
       arch = true;

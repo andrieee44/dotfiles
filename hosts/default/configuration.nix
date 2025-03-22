@@ -31,11 +31,19 @@
     pipewire.enable = true;
     thermald.enable = true;
     tlp.enable = true;
+    udev.enable = true;
   };
 
   hardware = {
     enableAllFirmware = true;
     steam-hardware.enable = true;
+    intel-gpu-tools.enable = true;
+    new-lg4ff.enable = true;
+
+    cpu = {
+      amd.updateMicrocode = true;
+      intel.updateMicrocode = true;
+    };
 
     bluetooth = {
       enable = true;
@@ -107,19 +115,13 @@
     polkit.enable = true;
     rtkit.enable = true;
 
-    wrappers.intel_gpu_top = {
-      owner = "root";
-      group = "wheel";
-      capabilities = "cap_perfmon+ep";
-      source = "${pkgs.intel-gpu-tools}/bin/intel_gpu_top";
-    };
-
     pam = {
       services = {
         hyprlock = { };
 
         login.gnupg = {
           enable = true;
+          noAutostart = true;
           storeOnly = true;
         };
       };
