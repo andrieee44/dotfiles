@@ -5,31 +5,16 @@
   ...
 }:
 {
+  custom.programs.tview.enable = lib.mkForce false;
   dconf.enable = false;
 
-  programs = {
-    bash.enable = lib.mkForce false;
-    direnv.enable = lib.mkForce false;
-    ncmpcpp.enable = lib.mkForce false;
-    notmuch.enable = lib.mkForce false;
-    texlive.enable = lib.mkForce false;
-
-    nixvim.plugins = {
-      cmp.enable = lib.mkForce false;
-      colorizer.enable = lib.mkForce false;
-      lsp.enable = lib.mkForce false;
-      luasnip.enable = lib.mkForce false;
-      treesitter.enable = lib.mkForce false;
-    };
-
-    zsh.initExtra =
-      let
-        ssh = "${config.programs.ssh.package}/bin";
-      in
-      ''
-        eval "$(${ssh}/ssh-agent -s)" > /dev/null && ${ssh}/ssh-add > /dev/null 2>& 1
-      '';
-  };
+  programs.zsh.initExtra =
+    let
+      ssh = "${config.programs.ssh.package}/bin";
+    in
+    ''
+      eval "$(${ssh}/ssh-agent -s)" > /dev/null && ${ssh}/ssh-add > /dev/null 2>& 1
+    '';
 
   home = {
     username = "nix-on-droid";
