@@ -291,14 +291,14 @@
         force = true;
 
         engines = {
-          Google.metaData.hidden = true;
-          Bing.metaData.hidden = true;
-          DuckDuckGo.metaData.hidden = true;
-          "Wikipedia (en)".metaData.hidden = true;
+          google.metaData.hidden = true;
+          bing.metaData.hidden = true;
+          ddg.metaData.hidden = true;
+          wikipedia.metaData.hidden = true;
 
           Brave = {
             urls = [ { template = "https://search.brave.com/search?q={searchTerms}"; } ];
-            iconUpdateURL = "https://brave.com/favicon.ico";
+            icon = "https://brave.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
           };
         };
