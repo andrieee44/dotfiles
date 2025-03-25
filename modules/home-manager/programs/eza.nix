@@ -8,6 +8,9 @@
     extraOptions = [
       "-a"
       "-l"
+      "-g"
+      "-h"
+      "--time-style=+%b %e %Y (%a) %l:%M %p"
       "--time=created"
       "--group-directories-first"
     ];
