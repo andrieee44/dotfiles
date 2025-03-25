@@ -6,7 +6,29 @@
   user,
   ...
 }:
+let
+  oishiline =
+    let
+      src = pkgs.fetchFromGitHub {
+        owner = "andrieee44";
+        repo = "oishiline";
+        rev = "0482fcefbdf571da43d7d11ea605cd484e4cd347";
+        hash = "sha256-7H8hba4r4cgYpL5icRh1jesOkaI0V/hczl1svzovAbE=";
+      };
+    in
+    pkgs.vimUtils.buildVimPlugin {
+      inherit src;
+      name = "oishiline";
+
+      postInstall = ''
+        mkdir -p "${"\${out}"}/share/man/man3"
+        gzip -c "${src}/oishiline.3" > "${"\${out}"}/share/man/man3/oishiline.3.gz"
+      '';
+    };
+in
 {
+  home.packages = [ oishiline ];
+
   programs.nixvim =
     let
       mkRaw = config.lib.nixvim.mkRaw;
@@ -92,6 +114,7 @@
       };
 
       extraPlugins = with pkgs.vimPlugins; [
+        oishiline
         vim-be-good
         yuck-vim
 
@@ -109,26 +132,6 @@
           plugin = trim-nvim;
           config = ''lua require('trim').setup({ patterns = { [=[%s/\(\n\n\)\n\+/\1/]=] } })'';
         }
-
-        (
-          let
-            src = pkgs.fetchFromGitHub {
-              owner = "andrieee44";
-              repo = "oishiline";
-              rev = "0482fcefbdf571da43d7d11ea605cd484e4cd347";
-              hash = "sha256-7H8hba4r4cgYpL5icRh1jesOkaI0V/hczl1svzovAbE=";
-            };
-          in
-          pkgs.vimUtils.buildVimPlugin {
-            inherit src;
-            name = "oishiline";
-
-            postInstall = ''
-              mkdir -p "${"\${out}"}/share/man/man3"
-              gzip -c "${src}/oishiline.3" > "${"\${out}"}/share/man/man3/oishiline.3.gz"
-            '';
-          }
-        )
       ];
 
       extraConfigLua = ''

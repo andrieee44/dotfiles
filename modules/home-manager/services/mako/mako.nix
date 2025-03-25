@@ -16,6 +16,10 @@
       text-alignment=center
 
       [urgency=high]
-      default-timeout=0'';
+      default-timeout=0
+
+      [urgency=low]
+      on-notify=none
+    '';
   };
 }
