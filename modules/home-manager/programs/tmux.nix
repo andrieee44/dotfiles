@@ -30,7 +30,7 @@
               let
                 windowStr = builtins.toString window;
               in
-              "${tmux} breakp -t :${windowStr} || ${tmux} joinp -bt :${windowStr}.${baseIndex} && ${tmux} selectl main-vertical || true";
+              "${tmux} breakp -t :${windowStr} || ${tmux} joinp -bt :${windowStr}.${baseIndex} && ${tmux} selectl main-vertical && ${tmux} selectl -t ':!' main-vertical || true";
 
             cdwindow =
               window:
