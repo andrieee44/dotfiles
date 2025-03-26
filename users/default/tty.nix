@@ -34,9 +34,11 @@
       findutils
       gnused
       go-mtpfs
+      go-tools
       gotools
       groff
       hugo
+      jaq
       mpc-cli
       neofetch
       powertop
