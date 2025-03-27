@@ -24,10 +24,10 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
         debug.disable_logs = false;
 
         windowrule = [
-          "float, fzfMenu"
-          "size 50% 50%, fzfMenu"
-          "move 25% 25%, fzfMenu"
-          "tile, steam"
+          "float, class:fzfMenu"
+          "size 50% 50%, class:fzfMenu"
+          "move 25% 25%, class:fzfMenu"
+          "tile, class:steam"
         ];
 
         animation = [

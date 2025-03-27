@@ -6,14 +6,14 @@
         src = pkgs.fetchFromGitHub {
           owner = "andrieee44";
           repo = "tview";
-          rev = "8f3a6b24fe4249a1f526142315852f9ad41af32f";
-          hash = "sha256-qR7rQbYN5/hmGCaU7Ex37iFhwMxZ//WV8F4jVAu9SQo=";
+          rev = "66afd0ca5e10a473d17b370541cdda4c0c0e43c5";
+          hash = "sha256-kb0IupDxHlqm9b3zs2alih4ZOSC2UNUXAZDS0CuYPwk=";
         };
       in
       pkgs.buildGoModule {
         inherit src;
         name = "tview";
-        vendorHash = "sha256-g4w2RmA7VTL+ittKdV0867MbfAHKkYpgpJXeHppTbfM=";
+        vendorHash = "sha256-MOLbW/caPAsQ8PdcoIX/75pUMcO85/ItJnxdBNH2l6E=";
 
         postInstall = ''
           mkdir -p "${"\${out}"}/share/man/man1"
