@@ -5,14 +5,14 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "notifydbus";
-        rev = "6d83ade3e36398b0f554f7b4e0f0afc68badce04";
-        hash = "sha256-hJaETeUpwIh0TctQK0Z+jJTcM0ZmzJFrTvPc/DISbpc=";
+        rev = "f9498e150296141f59e42051f7d4c53eb83ff092";
+        hash = "sha256-s+1YOZ3UnXFL86/gh2dpoYNzs8OXUqiD8kjp/muxjC4=";
       };
     in
     pkgs.buildGoModule {
       inherit src;
       name = "notifydbus";
-      vendorHash = "sha256-dSEMeQ26lrPp65OuIKZep2IJcCb/ScCkWfkdIODx7bc=";
+      vendorHash = "sha256-EyEVlO3ZZpkK+Xic6hQeS9UvjGBCUQ4VUzrvIqwtNdM=";
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"

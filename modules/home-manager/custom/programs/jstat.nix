@@ -5,14 +5,14 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "jstat";
-        rev = "39bf9ffd8a6c738b5d649d725ea2ca26070b81f2";
-        hash = "sha256-VQG+SMvjN8VDn4r/CdHD2DhpwGZg6aFz2wTG3LNtUt8=";
+        rev = "5ec8ca5713b03868f6a0459c110c4ca31e2c1691";
+        hash = "sha256-s+1YOZ3UnXFL86/gh2dpoYNzs8OXUqiD8kjp/muxjC4=";
       };
     in
     pkgs.buildGoModule {
       inherit src;
       name = "jstat";
-      vendorHash = "sha256-qjtTXHW4PIWUGWF1a8qZm8Uiwhw2Q577CsBe8p63L8k=";
+      vendorHash = "sha256-EyEVlO3ZZpkK+Xic6hQeS9UvjGBCUQ4VUzrvIqwtNdM=";
       sourcePath = "${src.name}/cmd/jstat";
 
       postInstall = ''
