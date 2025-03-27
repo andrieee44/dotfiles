@@ -41,7 +41,10 @@
       jaq
       mpc-cli
       neofetch
+      pandoc
       powertop
+      shellcheck
+      shfmt
       unixtools.util-linux
       xdg-user-dirs
     ];
