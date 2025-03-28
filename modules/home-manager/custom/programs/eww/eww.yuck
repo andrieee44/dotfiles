@@ -33,7 +33,7 @@
     (label :class `icon` :unindent false :text `󰶡 `)
     (label :unindent false :text `${round(status.NetSpeed.Down / 1000000, 1)} MB`)))
 
-(defwidget pipewire []
+(defwidget pipeWire []
   (box :space-evenly false
     (label :class `icon` :unindent false :text `${status.PipeWire.Mute ? "󰝟" : "${status.PipeWire.Icon}"} `)
     (label :unindent false :text `${status.PipeWire.Mute ? "muted" : "${round(status.PipeWire.Perc, 0)}%"}`)))
@@ -111,7 +111,7 @@
       (mpd)
       (sep :unindent false :cond true) (internet)
       (ethernet)
-      (pipewire)
+      (pipeWire)
       (sep :unindent false :cond true) (brightness)
       (sep :unindent false :cond true) (battery)
       (sep :unindent false :cond true) (cpu)
