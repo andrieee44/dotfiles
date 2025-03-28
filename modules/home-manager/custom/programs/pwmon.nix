@@ -14,6 +14,11 @@
       name = "pwmon";
       vendorHash = null;
 
+      buildInputs = with pkgs; [
+        pipewire
+        wireplumber
+      ];
+
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"
         gzip -c "${src}/pwmon.1" > "${"\${out}"}/share/man/man1/pwmon.1.gz"

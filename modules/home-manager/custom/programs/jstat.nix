@@ -15,6 +15,11 @@
       vendorHash = "sha256-EyEVlO3ZZpkK+Xic6hQeS9UvjGBCUQ4VUzrvIqwtNdM=";
       sourcePath = "${src.name}/cmd/jstat";
 
+      buildInputs = with pkgs; [
+        pipewire
+        wireplumber
+      ];
+
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"
         gzip -c "${src}/jstat.1" > "${"\${out}"}/share/man/man1/jstat.1.gz"
