@@ -5,9 +5,30 @@
     package = lib.mkOption { type = lib.types.package; };
   };
 
-  config.home.packages =
+  config =
     let
       cfg = config.custom.programs.notifydbus;
     in
-    lib.mkIf cfg.enable [ cfg.package ];
+    {
+      home.packages = lib.mkIf cfg.enable [ cfg.package ];
+
+      systemd.user.services.notifydbus = {
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service.ExecStart = "${cfg.package}/bin/notifydbus";
+
+        Unit = {
+          Description = "notifydbus - message bus notification sender daemon";
+          Documentation = "github.com/andrieee44/notifydbus";
+          PartOf = [ "graphical-session.target" ];
+
+          After = [
+            "graphical-session.target"
+            "pipewire.service"
+            "pipewire-pulse.service"
+            "pulseaudio.service"
+            "mpd.service"
+          ];
+        };
+      };
+    };
 }

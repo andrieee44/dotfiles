@@ -13,6 +13,7 @@
       inherit src;
       name = "pwmon";
       vendorHash = null;
+      sourcePath = "${src.name}/cmd/notifydbus";
 
       buildInputs = with pkgs; [
         pipewire
