@@ -3,8 +3,9 @@
   wayland.windowManager.hyprland.enable = true;
 
   custom.programs = {
-    jstat.enable = true;
     eww.enable = true;
+    jstat.enable = true;
+    notifydbus.enable = true;
   };
 
   home = {

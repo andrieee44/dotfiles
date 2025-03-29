@@ -10,14 +10,14 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "cmenu";
-        rev = "ff7d802c34cdba3267be016aa05c7bc0e0a51f84";
-        hash = "sha256-fLKSukGWzEQzMG95CwFOnu5rtUWniVvGoxjS1Cfn95w=";
+        rev = "7a811eba36ede8ec128fb3e7836e879e4fac321e";
+        hash = "sha256-rz0z93OMYglPEMdyTlJna5RYWXIDcSbOd81vEcirUWs=";
       };
     in
     pkgs.buildGoModule {
       inherit src;
       name = "cmenu";
-      vendorHash = null;
+      vendorHash = "sha256-p/WFrGNF7UTiRKxhSaZaI5HJTOAKv8MGDi47k3fBOK0=";
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"

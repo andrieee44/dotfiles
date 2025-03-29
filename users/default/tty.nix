@@ -16,7 +16,6 @@
     cmenu.enable = true;
     line2json.enable = true;
     lsbin.enable = true;
-    notifydbus.enable = true;
     pass-data.enable = true;
     pwmon.enable = true;
     spotdl.enable = true;
