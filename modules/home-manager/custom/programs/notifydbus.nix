@@ -1,28 +1,37 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   custom.programs.notifydbus.package =
     let
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "notifydbus";
-        rev = "7ffd6f4e4e4b96edcfcd097e0b72213cfb89ce77";
-        hash = "sha256-cIyKm71x3en3B3gm4c9bAFZKMS1mcv02VBSISc+R+rw=";
+        rev = "12362664a6f7cbf0805867f66def93df4dde4c7c";
+        hash = "sha256-evKz7+w6HtwYFLzZkwr8AcyAvz7s9Wk9O6RLWZ6JOJ0=";
       };
     in
     pkgs.buildGoModule {
       inherit src;
       name = "notifydbus";
-      vendorHash = "sha256-tcC3GYxxCSJ/3SZ6LbEqaKlu6Q/0ikbE+UjY6dXB+j4=";
+      vendorHash = "sha256-ZRqAIDn/+aQGr69qTWUTIXNonM0tOZE2NK6a9ocQpkM=";
       sourcePath = "${src.name}/cmd/notifydbus";
-
-      buildInputs = with pkgs; [
-        pipewire
-        wireplumber
-      ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"
         gzip -c "${src}/notifydbus.1" > "${"\${out}"}/share/man/man1/notifydbus.1.gz"
+      '';
+
+      postFixup = ''
+        wrapProgram "${"\${out}"}/bin/notifydbus" \
+        	--set PATH ${
+           lib.makeBinPath (
+             with pkgs;
+             [
+               wireplumber
+               pulseaudio
+             ]
+           )
+         }
       '';
     };
 }

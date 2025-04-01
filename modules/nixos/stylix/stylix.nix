@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+# { pkgs, ... }:
 {
-  boot.loader.grub.theme = pkgs.catppuccin-grub;
+  # boot.loader.grub.theme = pkgs.catppuccin-grub;
 
   stylix.targets = {
     custom.console.enable = true;

@@ -5,8 +5,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "pwmon";
-        rev = "16e1071fb8d68d90c260994db3fb6a63d7c9fb01";
-        hash = "sha256-YFo4nFS+iDqPPB1sa4JOBsZMxmOqni5pCShkW5Vd3oY=";
+        rev = "aeccd11966352ccf5857eb3b206fc1147546e4bc";
+        hash = "sha256-Nf+WLzDazCWeSvNJuIeW6mvjsIG9SgdebEb1Q+OekVM=";
       };
     in
     pkgs.buildGoModule {
@@ -15,10 +15,11 @@
       vendorHash = null;
       sourcePath = "${src.name}/cmd/notifydbus";
 
-      buildInputs = with pkgs; [
-        pipewire
-        wireplumber
-      ];
+      postPatch = ''
+        substituteInPlace "./pkg/pwmon.go" \
+        	--replace-fail "wpctl" "${pkgs.wireplumber}/bin/wpctl" \
+          	--replace-fail "pactl" "${pkgs.pulseaudio}/bin/pactl"
+      '';
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"

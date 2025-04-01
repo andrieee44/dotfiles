@@ -39,8 +39,7 @@
               in
               "${tmux} selectw -t :${windowStr} || ${tmux} neww -t :${windowStr}";
 
-			  customSh = script:
-			  	"${config.custom.sh.${script}}/bin/${script}";
+            customSh = script: "${config.custom.sh.${script}}/bin/${script}";
           in
           ''
             %if "${guiBool}"
