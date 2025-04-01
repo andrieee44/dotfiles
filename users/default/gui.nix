@@ -19,8 +19,9 @@
       noto-fonts-emoji-blob-bin
       noto-fonts-lgc-plus
       noto-fonts-monochrome-emoji
-      steam
+      oversteer
       pcsx2
+      steam
       vistafonts
       wl-clipboard
     ];

@@ -43,7 +43,8 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
               "$mod, ${key}, execr, ${uwsmRun} $terminal -a fzfMenu -e ${pkgs.dash}/bin/dash -c '${config.custom.sh.${script}}/bin/${script}'";
           in
           [
-            (shMenu "D" "bookmarks")
+            (shMenu "D" "lsbin")
+            (shMenu "L" "bookmarks")
             (shMenu "Backspace" "system")
             (shMenu "P" "pass")
             (shMenu "M" "man")

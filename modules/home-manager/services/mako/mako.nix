@@ -5,10 +5,11 @@
     borderSize = 5;
     defaultTimeout = 10000;
     format = "<b>%a - %s</b>\\n\\n%b";
-    height = 150;
+    height = 256;
     layer = "overlay";
     margin = "20";
     maxVisible = -1;
+    maxIconSize = 64;
 
     extraConfig = ''
       []

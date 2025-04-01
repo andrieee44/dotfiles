@@ -38,6 +38,9 @@
                 windowStr = builtins.toString window;
               in
               "${tmux} selectw -t :${windowStr} || ${tmux} neww -t :${windowStr}";
+
+			  customSh = script:
+			  	"${config.custom.sh.${script}}/bin/${script}";
           in
           ''
             %if "${guiBool}"
@@ -102,10 +105,11 @@
             bind -n M-] pasteb
             bind -n M-t clock-mode
 
-            bind -n M-d run '${config.custom.sh.bookmarks}/bin/bookmarks || true'
-            bind -n M-BSpace run '${config.custom.sh.system}/bin/system > /dev/null || true'
-            bind -n M-p run '${config.custom.sh.pass}/bin/pass > /dev/null || true'
-            bind -n M-m run '${config.custom.sh.man}/bin/man | ${pkgs.colorized-logs}/bin/ansi2txt || true'
+            bind -n M-d run '${customSh "lsbin"} || true'
+            bind -n M-l run '${customSh "bookmarks"} || true'
+            bind -n M-BSpace run '${customSh "system"} > /dev/null || true'
+            bind -n M-p run '${customSh "pass"} > /dev/null || true'
+            bind -n M-m run '${customSh "man"} | ${pkgs.colorized-logs}/bin/ansi2txt || true'
           '';
       };
 
