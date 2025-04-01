@@ -29,6 +29,7 @@
              [
                wireplumber
                pulseaudio
+               ffmpeg
              ]
            )
          }
