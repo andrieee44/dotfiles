@@ -80,7 +80,20 @@ in
         [
           (Zkey "W")
           (Zkey "E")
-        ];
+        ]
+        ++ builtins.genList (
+          num:
+          let
+            numStr = builtins.toString (num + 1);
+            lastDigit = builtins.substring (builtins.stringLength numStr - 1) 1 numStr;
+          in
+          {
+            mode = [ "n" ];
+            key = "<leader>${lastDigit}";
+            action = "${numStr}gt";
+            options.noremap = true;
+          }
+        ) 10;
 
       opts = {
         background = "dark";
@@ -112,12 +125,12 @@ in
 
         {
           plugin = nvim-terminal-lua;
-          config = ''lua require('terminal').setup()'';
+          config = "lua require(\"terminal\").setup()";
         }
 
         {
           plugin = nvim-web-devicons;
-          config = ''lua require('nvim-web-devicons').setup()'';
+          config = "lua require(\"nvim-web-devicons\").setup()";
         }
 
         {
@@ -127,27 +140,27 @@ in
       ];
 
       extraConfigLua = ''
-        vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= 'tty'
+        vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= "tty"
 
         local signs = vim.opt.termguicolors._value and {
-        	Error = ' ',
-        	Warn = ' ',
-        	Hint = ' ',
-        	Info = ' ',
+        	Error = " ",
+        	Warn = " ",
+        	Hint = " ",
+        	Info = " ",
         } or {
-        	Error = '! ',
-        	Warn = '? ',
-        	Hint = '* ',
-        	Info = 'i ',
+        	Error = "! ",
+        	Warn = "? ",
+        	Hint = "* ",
+        	Info = "i ",
         }
 
         for k, v in pairs(signs) do
-        	local name = string.format('DiagnosticSign%s', k)
+        	local name = string.format("DiagnosticSign%s", k)
 
         	vim.fn.sign_define(name, {
         		text = v,
         		texthl = name,
-        		numhl = string.format('DiagnosticVirtualText%s', k),
+        		numhl = string.format("DiagnosticVirtualText%s", k),
         	})
         end
 
@@ -155,21 +168,21 @@ in
         	severity_sort = true,
 
         	virtual_text = {
-        		prefix = ${"''"},
+        		prefix = "",
 
         		format = function(diagnostic)
         			local severity = vim.diagnostic.severity
 
         			local severityStr = {
-        				[severity.ERROR] = 'Error',
-        				[severity.WARN] = 'Warn',
-        				[severity.HINT] = 'Hint',
-        				[severity.INFO] = 'Info',
+        				[severity.ERROR] = "Error",
+        				[severity.WARN] = "Warn",
+        				[severity.HINT] = "Hint",
+        				[severity.INFO] = "Info",
         			}
 
-        			local sign = vim.fn.sign_getdefined(string.format('DiagnosticSign%s', severityStr[diagnostic.severity]))
+        			local sign = vim.fn.sign_getdefined(string.format("DiagnosticSign%s", severityStr[diagnostic.severity]))
 
-        			return string.format('%s%s', sign[1].text, diagnostic.message)
+        			return string.format("%s%s", sign[1].text, diagnostic.message)
         		end,
         	},
         })
@@ -212,12 +225,13 @@ in
 
           {
             fzf-lua.enable = true;
-            parinfer-rust.enable = true;
             luasnip.enable = true;
+            parinfer-rust.enable = true;
 
             cmp =
               let
                 plugins = config.programs.nixvim.plugins;
+
                 source =
                   plugin: name: opts:
                   lib.mkIf plugin.enable (lib.recursiveUpdate { inherit name; } opts);
@@ -280,7 +294,7 @@ in
 
                   snippet.expand = lib.mkIf plugins.luasnip.enable ''
                     function(args)
-                    	require('luasnip').lsp_expand(args.body)
+                    	require("luasnip").lsp_expand(args.body)
                     end
                   '';
 
@@ -314,14 +328,14 @@ in
                 };
 
                 lspBuf = {
-                  "<Leader>d" = "definition";
-                  "<Leader>D" = "type_definition";
-                  "<Leader>i" = "implementation";
-                  "<Leader>h" = "hover";
-                  "<Leader>R" = "references";
-                  "<Leader>r" = "rename";
-                  "<Leader>a" = "code_action";
-                  "<Leader>f" = "format";
+                  "<leader>d" = "definition";
+                  "<leader>D" = "type_definition";
+                  "<leader>i" = "implementation";
+                  "<leader>h" = "hover";
+                  "<leader>R" = "references";
+                  "<leader>r" = "rename";
+                  "<leader>a" = "code_action";
+                  "<leader>f" = "format";
                 };
               };
 
@@ -331,9 +345,9 @@ in
 
                   settings = {
                     options = {
-                      nixos.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixosConfigurations.${host}.options'';
-                      home_manager.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").homeConfigurations.${user}.options'';
-                      nix_on_droid.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").nixOnDroidConfigurations.nix-on-droid.options'';
+                      nixos.expr = "import (builtins.getFlake \"github:andrieee44/dotfiles\").nixosConfigurations.${host}.options";
+                      home_manager.expr = "import (builtins.getFlake \"github:andrieee44/dotfiles\").homeConfigurations.${user}.options";
+                      nix_on_droid.expr = "import (builtins.getFlake \"github:andrieee44/dotfiles\").nixOnDroidConfigurations.nix-on-droid.options";
                     };
 
                     formatting.command = [
@@ -341,7 +355,7 @@ in
                       "-s"
                     ];
 
-                    nixpkgs.expr = ''import (builtins.getFlake "github:andrieee44/dotfiles").inputs.nixpkgs {}'';
+                    nixpkgs.expr = "import (builtins.getFlake \"github:andrieee44/dotfiles\").inputs.nixpkgs {}";
                   };
                 };
 
@@ -350,7 +364,7 @@ in
 
                   settings = {
                     runtime.version = "LuaJIT";
-                    workspace.library = [ (mkRaw ''vim.env.VIMRUNTIME'') ];
+                    workspace.library = [ (mkRaw "vim.env.VIMRUNTIME") ];
                   };
                 };
 

@@ -24,6 +24,7 @@
             guiBool = "#{!=:${"\${XDG_SESSION_TYPE}"},tty}";
             baseIndex = builtins.toString config.programs.tmux.baseIndex;
             nextIndex = builtins.toString (config.programs.tmux.baseIndex + 1);
+            customSh = script: "${config.custom.sh.${script}}/bin/${script}";
 
             mvpane =
               window:
@@ -31,15 +32,6 @@
                 windowStr = builtins.toString window;
               in
               "${tmux} breakp -t :${windowStr} || ${tmux} joinp -bt :${windowStr}.${baseIndex} && ${tmux} selectl main-vertical && ${tmux} selectl -t ':!' main-vertical || true";
-
-            cdwindow =
-              window:
-              let
-                windowStr = builtins.toString window;
-              in
-              "${tmux} selectw -t :${windowStr} || ${tmux} neww -t :${windowStr}";
-
-            customSh = script: "${config.custom.sh.${script}}/bin/${script}";
           in
           ''
             %if "${guiBool}"
@@ -53,7 +45,7 @@
             set -g focus-events on
             set -g set-clipboard on
             set -g main-pane-width 50%
-            set -g window-status-separator ${"''"}
+            set -g window-status-separator ""
             set -g status on
             set -g status-left-length 80
             set -g status-right-length 80
@@ -74,17 +66,6 @@
             	killp
             	selectl main-vertical
             }
-
-            bind -n M-1 run '${cdwindow 1}'
-            bind -n M-2 run '${cdwindow 2}'
-            bind -n M-3 run '${cdwindow 3}'
-            bind -n M-4 run '${cdwindow 4}'
-            bind -n M-5 run '${cdwindow 5}'
-            bind -n M-6 run '${cdwindow 6}'
-            bind -n M-7 run '${cdwindow 7}'
-            bind -n M-8 run '${cdwindow 8}'
-            bind -n M-9 run '${cdwindow 9}'
-            bind -n M-0 run '${cdwindow 10}'
 
             bind -n M-! run '${mvpane 1}'
             bind -n M-@ run '${mvpane 2}'
@@ -109,7 +90,17 @@
             bind -n M-BSpace run '${customSh "system"} > /dev/null || true'
             bind -n M-p run '${customSh "pass"} > /dev/null || true'
             bind -n M-m run '${customSh "man"} | ${pkgs.colorized-logs}/bin/ansi2txt || true'
-          '';
+          ''
+          + builtins.concatStringsSep "\n" (
+            builtins.genList (
+              num:
+              let
+                numStr = builtins.toString (num + 1);
+                lastDigit = builtins.substring (builtins.stringLength numStr - 1) 1 numStr;
+              in
+              "bind -n M-${lastDigit} run '${tmux} selectw -t :${numStr} || ${tmux} neww -t :${numStr}'"
+            ) 10
+          );
       };
 
       zsh.initExtra = lib.mkIf config.programs.tmux.enable ''
