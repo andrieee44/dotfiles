@@ -5,14 +5,14 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "notifydbus";
-        rev = "12362664a6f7cbf0805867f66def93df4dde4c7c";
-        hash = "sha256-evKz7+w6HtwYFLzZkwr8AcyAvz7s9Wk9O6RLWZ6JOJ0=";
+        rev = "ddc024bf5f74ed1848c94c36b7063d17327e611e";
+        hash = "sha256-Jfm1v4OFmtdATZPJnEvRhjSgYAt25HcxTQSXE43a7ks=";
       };
     in
     pkgs.buildGoModule {
       inherit src;
       name = "notifydbus";
-      vendorHash = "sha256-ZRqAIDn/+aQGr69qTWUTIXNonM0tOZE2NK6a9ocQpkM=";
+      vendorHash = "sha256-uZ/tvMk5ZFFUg4OzgW8Eo890SkhZsoao53P8o0Umcq8=";
       sourcePath = "${src.name}/cmd/notifydbus";
       nativeBuildInputs = [ pkgs.makeWrapper ];
 

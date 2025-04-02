@@ -43,7 +43,7 @@ in
 
           callback = mkRaw ''
             function()
-            	vim.bo.formatoptions = vim.bo.formatoptions:gsub('[cro]', ${"''"})
+            	vim.bo.formatoptions = vim.bo.formatoptions:gsub("[cro]", "")
             end
           '';
         }
@@ -54,10 +54,10 @@ in
 
           callback = mkRaw ''
             function()
-            	vim.opt.colorcolumn = '72'
+            	vim.opt.colorcolumn = "72"
             	vim.opt.textwidth = 72
             	vim.opt.spell = true
-            	vim.opt.spelllang = 'en'
+            	vim.opt.spelllang = "en"
             end
           '';
         }
@@ -68,27 +68,19 @@ in
         register = "unnamedplus";
       };
 
-      keymaps = [
-        {
-          mode = [ "n" ];
-          key = "ZW";
-          action = "<cmd>w<CR>";
-
-          options = {
-            noremap = true;
+      keymaps =
+        let
+          Zkey = cmd: {
+            mode = [ "n" ];
+            key = "Z${cmd}";
+            action = "<cmd>${lib.toLower cmd}<CR>";
+            options.noremap = true;
           };
-        }
-
-        {
-          mode = [ "n" ];
-          key = "ZE";
-          action = "<cmd>e<CR>";
-
-          options = {
-            noremap = true;
-          };
-        }
-      ];
+        in
+        [
+          (Zkey "W")
+          (Zkey "E")
+        ];
 
       opts = {
         background = "dark";
