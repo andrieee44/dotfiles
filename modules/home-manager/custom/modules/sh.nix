@@ -27,7 +27,7 @@
 
         bin="$(${custom.lsbin.package}/bin/lsbin | ${cmenu} \
         	'${fzf} --header " Execute Binary "')"
-        exec "$bin" &
+        eval "$bin"
       '';
 
       bookmarks = pkgs.writers.writeDashBin "bookmarks" ''
