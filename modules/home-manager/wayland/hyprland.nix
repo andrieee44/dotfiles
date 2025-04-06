@@ -93,6 +93,8 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
           ", XF86AudioMute, execr, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ", XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc prev"
           ", XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc next"
+          "SHIFT, XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc volume -5"
+          "SHIFT, XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc volume +5"
           ", XF86AudioStop, execr, ${pkgs.mpc-cli}/bin/mpc stop"
           ", XF86AudioPlay, execr, ${pkgs.mpc-cli}/bin/mpc toggle"
         ];
