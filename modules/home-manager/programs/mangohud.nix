@@ -10,13 +10,13 @@
       settingsPerApplication = {
         wine-umvc3 = mkConf { fps_limit = 60; };
         supertux2 = mkConf { fps_limit = 60; };
+        amtrucks = mkConf { no_display = true; };
       };
 
       settings = {
         arch = true;
         battery = true;
         battery_time = true;
-        blacklist = "amtrucks";
         cpu_load_change = true;
         cpu_stats = true;
         cpu_temp = true;
