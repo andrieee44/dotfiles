@@ -86,7 +86,7 @@
             bind -n M-t clock-mode
 
             bind -n M-d run '${customSh "lsbin"} || true'
-            bind -n M-l run '${customSh "bookmarks"} || true'
+            bind -n M-b run '${customSh "bookmarks"} || true'
             bind -n M-BSpace run '${customSh "system"} > /dev/null || true'
             bind -n M-p run '${customSh "pass"} > /dev/null || true'
             bind -n M-m run '${customSh "man"} | ${pkgs.colorized-logs}/bin/ansi2txt || true'

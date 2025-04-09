@@ -54,7 +54,7 @@ in
 
           callback = mkRaw ''
             function()
-            	vim.opt.colorcolumn = "72"
+            	vim.opt.colorcolumn = 72
             	vim.opt.textwidth = 72
             	vim.opt.spell = true
             	vim.opt.spelllang = "en"
@@ -142,7 +142,7 @@ in
       extraConfigLua = ''
         vim.opt.termguicolors = vim.env.XDG_SESSION_TYPE ~= "tty"
 
-        local signs = vim.opt.termguicolors._value and {
+        local signs = vim.opt.termguicolors:get() and {
         	Error = " ",
         	Warn = " ",
         	Hint = " ",

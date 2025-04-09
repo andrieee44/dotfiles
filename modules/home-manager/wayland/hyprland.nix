@@ -44,7 +44,7 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
           in
           [
             (shMenu "D" "lsbin")
-            (shMenu "L" "bookmarks")
+            (shMenu "B" "bookmarks")
             (shMenu "Backspace" "system")
             (shMenu "P" "pass")
             (shMenu "M" "man")

@@ -5,14 +5,14 @@
       src = pkgs.fetchFromGitHub {
         owner = "andrieee44";
         repo = "lsbin";
-        rev = "69a3bd55a5592f8ba84d5ab56a61271f7b63b8e7";
-        hash = "sha256-5LMS4wftTI8xvtO+MS54d63qXvSy6sTwcwSkgEzxcws=";
+        rev = "f7fd610ddd701230234857869185515505c29149";
+        hash = "sha256-k5Fv7NYPs1P1hZ+81z5dPU1OGWCSddcw4+2q3m+IcKQ=";
       };
     in
     pkgs.buildGoModule {
       inherit src;
       name = "lsbin";
-      vendorHash = "sha256-qy4wFPjUb3nxiujHUQ6LiKkmJ+EdLVngm9y+tnaJefU=";
+      vendorHash = "sha256-s8Hg8pTAFYtolY6rjJP7WylrXmXova834gPmQq7aBBE=";
 
       postInstall = ''
         mkdir -p "${"\${out}"}/share/man/man1"
