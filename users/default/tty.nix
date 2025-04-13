@@ -42,6 +42,7 @@
       neofetch
       pandoc
       powertop
+      sd
       shellcheck
       shfmt
       unixtools.util-linux
