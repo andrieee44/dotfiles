@@ -21,6 +21,7 @@
     hyprland.enable = true;
     light.enable = true;
     uwsm.enable = true;
+    steam.enable = true;
     zsh.enable = true;
   };
 
@@ -39,6 +40,7 @@
     steam-hardware.enable = true;
     intel-gpu-tools.enable = true;
     new-lg4ff.enable = true;
+    xone.enable = true;
 
     cpu = {
       amd.updateMicrocode = true;

@@ -21,7 +21,6 @@
       noto-fonts-monochrome-emoji
       oversteer
       pcsx2
-      steam
       vistafonts
       wl-clipboard
     ];
