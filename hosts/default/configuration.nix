@@ -40,7 +40,6 @@
     steam-hardware.enable = true;
     intel-gpu-tools.enable = true;
     new-lg4ff.enable = true;
-    xone.enable = true;
 
     cpu = {
       amd.updateMicrocode = true;
