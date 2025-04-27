@@ -8,9 +8,11 @@
       enableSessionWide = true;
 
       settingsPerApplication = {
-        wine-umvc3 = mkConf { fps_limit = 60; };
-        supertux2 = mkConf { fps_limit = 60; };
         amtrucks = mkConf { no_display = true; };
+        dirtrally2 = mkConf { no_display = true; };
+        mpv = mkConf { fps_limit = 0; };
+        supertux2 = mkConf { fps_limit = 60; };
+        wine-umvc3 = mkConf { fps_limit = 60; };
       };
 
       settings = {
