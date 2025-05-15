@@ -1,10 +1,10 @@
 { pkgs, ... }:
 {
   services.gpg-agent = {
-    enableSshSupport = false;
     defaultCacheTtl = 34560000;
-    maxCacheTtl = 34560000;
-    pinentryPackage = pkgs.pinentry-tty;
+    enableSshSupport = false;
     extraConfig = "allow-preset-passphrase";
+    maxCacheTtl = 34560000;
+    pinentry.package = pkgs.pinentry-tty;
   };
 }

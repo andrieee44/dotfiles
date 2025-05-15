@@ -4,6 +4,7 @@
     firefox.profileNames = [ "default" ];
     fzf.enable = false;
     hyprlock.enable = false;
+    mako.enable = false;
     tmux.enable = false;
 
     custom =
@@ -16,6 +17,7 @@
         fzf.enable = true;
         imv.enable = true;
         lf.enable = true;
+        mako.enable = true;
         ncmpcpp.enable = true;
         tmux.enable = true;
         zathura.enable = true;

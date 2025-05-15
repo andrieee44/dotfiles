@@ -18,7 +18,7 @@
       share = true;
     };
 
-    initExtra =
+    initContent =
       ''
         setopt INC_APPEND_HISTORY
 

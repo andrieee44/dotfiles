@@ -103,7 +103,7 @@
           );
       };
 
-      zsh.initExtra = lib.mkIf config.programs.tmux.enable ''
+      zsh.initContent = lib.mkIf config.programs.tmux.enable ''
         case $- in
         	*i*)
         		[ -z "$TMUX" ] && { ${tmux} attach || ${tmux} new }

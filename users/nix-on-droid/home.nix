@@ -11,7 +11,7 @@
   programs = {
     bash.enable = lib.mkForce false;
 
-    zsh.initExtra =
+    zsh.initContent =
       let
         ssh = "${config.programs.ssh.package}/bin";
       in

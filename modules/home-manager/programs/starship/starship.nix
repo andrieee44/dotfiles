@@ -5,7 +5,7 @@ lib.mkIf config.programs.starship.enable {
     "starship/tty.toml".text = builtins.readFile ./base.toml + builtins.readFile ./tty.toml;
   };
 
-  programs.zsh.initExtra = lib.mkIf config.programs.starship.enableZshIntegration ''
+  programs.zsh.initContent = lib.mkIf config.programs.starship.enableZshIntegration ''
     [ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] && \
     	export STARSHIP_CONFIG="${config.home.homeDirectory}/${
        config.xdg.configFile."starship/tty.toml".target
