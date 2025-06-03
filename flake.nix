@@ -96,7 +96,7 @@
             [
               nixvim.homeManagerModules.nixvim
               nur.modules.homeManager.default
-              stylix.homeManagerModules.stylix
+              stylix.homeModules.stylix
               nix-flatpak.homeManagerModules.nix-flatpak
               ./users/andrieee44/account.nix
               ./users/default/tty.nix
