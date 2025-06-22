@@ -78,7 +78,7 @@
 
   boot = {
     plymouth.enable = true;
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = pkgs.linuxPackages;
 
     tmp = {
       cleanOnBoot = true;

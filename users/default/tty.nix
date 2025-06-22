@@ -34,6 +34,7 @@
       gnused
       go-mtpfs
       go-tools
+      golangci-lint
       gotools
       groff
       hugo
@@ -131,7 +132,7 @@
     gpg-agent.enable = true;
     ssh-agent.enable = true;
     mbsync.enable = true;
-    mpd.enable = true;
+    mpd.enable = false;
   };
 
   xdg =
