@@ -79,7 +79,8 @@
 
         modules =
           [
-            ./hosts/default/configuration.nix
+            ./hosts/default/tty.nix
+            ./hosts/default/gui.nix
             ./hosts/lenovoIdeapadSlim3/configuration.nix
             stylix.nixosModules.stylix
             nixos-hardware.nixosModules.common-cpu-intel

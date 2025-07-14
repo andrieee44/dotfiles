@@ -20,7 +20,6 @@
       noto-fonts-lgc-plus
       noto-fonts-monochrome-emoji
       oversteer
-      pcsx2
       vistafonts
       wl-clipboard
     ];

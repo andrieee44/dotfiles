@@ -17,11 +17,7 @@
 
   programs = {
     dconf.enable = true;
-    gamemode.enable = true;
-    hyprland.enable = true;
     light.enable = true;
-    uwsm.enable = true;
-    steam.enable = true;
     zsh.enable = true;
   };
 
@@ -37,9 +33,7 @@
 
   hardware = {
     enableAllFirmware = true;
-    steam-hardware.enable = true;
     intel-gpu-tools.enable = true;
-    new-lg4ff.enable = true;
 
     cpu = {
       amd.updateMicrocode = true;
@@ -78,7 +72,7 @@
 
   boot = {
     plymouth.enable = true;
-    kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
     tmp = {
       cleanOnBoot = true;
