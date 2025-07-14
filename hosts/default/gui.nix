@@ -1,7 +1,6 @@
 {
   programs = {
     gamemode.enable = true;
-    gamescope.enable = true;
     hyprland.enable = true;
     steam.enable = true;
     uwsm.enable = true;
