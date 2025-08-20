@@ -77,33 +77,31 @@
         system = "x86_64-linux";
         inherit specialArgs;
 
-        modules =
-          [
-            ./hosts/default/tty.nix
-            ./hosts/default/gui.nix
-            ./hosts/lenovoIdeapadSlim3/configuration.nix
-            stylix.nixosModules.stylix
-            nixos-hardware.nixosModules.common-cpu-intel
-            nixos-hardware.nixosModules.common-pc-laptop
-            nixos-hardware.nixosModules.common-pc-laptop-ssd
-          ]
-          ++ importDir ./modules/nixos
-          ++ importDir ./modules/stylix;
+        modules = [
+          ./hosts/default/tty.nix
+          ./hosts/default/gui.nix
+          ./hosts/lenovoIdeapadSlim3/configuration.nix
+          stylix.nixosModules.stylix
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-pc-laptop
+          nixos-hardware.nixosModules.common-pc-laptop-ssd
+        ]
+        ++ importDir ./modules/nixos
+        ++ importDir ./modules/stylix;
       };
 
       homeConfigurations =
         let
-          modules =
-            [
-              nixvim.homeManagerModules.nixvim
-              nur.modules.homeManager.default
-              stylix.homeModules.stylix
-              nix-flatpak.homeManagerModules.nix-flatpak
-              ./users/andrieee44/account.nix
-              ./users/default/tty.nix
-            ]
-            ++ importDir ./modules/home-manager
-            ++ importDir ./modules/stylix;
+          modules = [
+            nixvim.homeManagerModules.nixvim
+            nur.modules.homeManager.default
+            stylix.homeModules.stylix
+            nix-flatpak.homeManagerModules.nix-flatpak
+            ./users/andrieee44/account.nix
+            ./users/default/tty.nix
+          ]
+          ++ importDir ./modules/home-manager
+          ++ importDir ./modules/stylix;
         in
         {
           andrieee44 = home-manager.lib.homeManagerConfiguration {
@@ -113,7 +111,8 @@
             modules = [
               ./users/andrieee44/home.nix
               ./users/default/gui.nix
-            ] ++ modules;
+            ]
+            ++ modules;
           };
 
           nix-on-droid = home-manager.lib.homeManagerConfiguration {
@@ -133,7 +132,8 @@
         modules = [
           ./hosts/nix-on-droid/nix-on-droid.nix
           ./modules/nix-on-droid/stylix.nix
-        ] ++ importDir ./modules/stylix;
+        ]
+        ++ importDir ./modules/stylix;
       };
 
       checks = eachSystem (pkgs: {
