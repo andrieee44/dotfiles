@@ -93,7 +93,7 @@
       homeConfigurations =
         let
           modules = [
-            nixvim.homeManagerModules.nixvim
+            nixvim.homeModules.nixvim
             nur.modules.homeManager.default
             stylix.homeModules.stylix
             nix-flatpak.homeManagerModules.nix-flatpak
