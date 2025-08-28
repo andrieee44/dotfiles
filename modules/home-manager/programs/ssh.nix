@@ -2,7 +2,11 @@
 {
   programs.ssh = {
     package = pkgs.openssh;
-    addKeysToAgent = "yes";
-    compression = true;
+    enableDefaultConfig = false;
+
+    matchBlocks."*" = {
+      compression = true;
+      addKeysToAgent = "yes";
+    };
   };
 }

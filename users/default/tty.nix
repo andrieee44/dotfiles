@@ -31,6 +31,7 @@
       bc
       ffmpeg
       findutils
+      gcc
       gnused
       go-mtpfs
       go-tools
