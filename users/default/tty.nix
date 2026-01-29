@@ -29,9 +29,11 @@
 
     packages = with pkgs; [
       bc
+      delve
       ffmpeg
       findutils
-      gcc
+      gcc_multi
+      glibc_multi
       gnused
       go-mtpfs
       go-tools
@@ -40,7 +42,9 @@
       groff
       hugo
       jaq
-      mpc-cli
+      libreoffice
+      mdcat
+      mpc
       neofetch
       pandoc
       powertop
@@ -53,7 +57,7 @@
 
     shellAliases =
       let
-        toybox = "${pkgs.toybox}/bin/";
+        toybox = "${pkgs.toybox}/bin";
       in
       {
         bc = "${pkgs.bc}/bin/bc ${config.home.homeDirectory}/${config.xdg.configFile."bc/bcrc".target} -ql";

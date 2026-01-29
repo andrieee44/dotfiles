@@ -10,8 +10,9 @@
 
   home = {
     packages = with pkgs; [
-      glxinfo
+      corefonts
       grim
+      mesa-demos
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
@@ -20,7 +21,7 @@
       noto-fonts-lgc-plus
       noto-fonts-monochrome-emoji
       oversteer
-      vistafonts
+      vista-fonts
       wl-clipboard
     ];
 

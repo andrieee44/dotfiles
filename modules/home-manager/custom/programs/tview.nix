@@ -136,7 +136,7 @@
         ];
 
         "application/pdf" = [
-          ''${pkgs.poppler_utils}/bin/pdftoppm -jpeg -f 1 -singlefile -- "$TVIEW_FILE" | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_COLUMNS}"}x${"\${TVIEW_ROWS}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
+          ''${pkgs.poppler-utils}/bin/pdftoppm -jpeg -f 1 -singlefile -- "$TVIEW_FILE" | ${pkgs.chafa}/bin/chafa -s "${"\${TVIEW_COLUMNS}"}x${"\${TVIEW_ROWS}"}" $([ "${"\${XDG_SESSION_TYPE:-}"}" = "tty" ] || ${pkgs.toybox}/bin/printf -- "-f sixels")''
         ];
 
         "inode/directory" = [

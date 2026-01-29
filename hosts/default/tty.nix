@@ -9,10 +9,12 @@
   system.stateVersion = stateVersion;
   environment.pathsToLink = [ "/share/zsh" ];
   users.defaultUserShell = pkgs.zsh;
+  documentation.dev.enable = true;
 
   security.sudo = {
     execWheelOnly = true;
-    wheelNeedsPassword = false;
+    wheelNeedsPassword = true;
+    configFile = "Defaults timestamp_timeout=0";
   };
 
   programs = {
@@ -52,7 +54,8 @@
   };
 
   console = {
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-122b.psf.gz";
+    earlySetup = true;
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-v24n.psf.gz";
     useXkbConfig = true;
   };
 

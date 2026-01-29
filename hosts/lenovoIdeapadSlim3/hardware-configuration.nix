@@ -10,6 +10,7 @@
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  services.xserver.videoDrivers = [ "intel" ];
 
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -21,14 +22,16 @@
   };
 
   boot = {
+    kernelParams = [ "i915.fastboot=1" ];
     kernelModules = [ "kvm-intel" ];
     loader.efi.efiSysMountPoint = "/boot/efi";
 
     initrd.availableKernelModules = [
-      "xhci_pci"
-      "vmd"
       "ahci"
+      "i915"
       "nvme"
+      "vmd"
+      "xhci_pci"
     ];
   };
 

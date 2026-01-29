@@ -1,1 +1,6 @@
-{ programs.foot.server.enable = true; }
+{
+  programs.foot = {
+    settings.cursor.blink = "yes";
+    server.enable = true;
+  };
+}

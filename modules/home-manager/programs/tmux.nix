@@ -75,8 +75,6 @@
             bind -n M-^ run '${mvpane 6}'
             bind -n M-& run '${mvpane 7}'
             bind -n M-* run '${mvpane 8}'
-            bind -n M-( run '${mvpane 9}'
-            bind -n M-) run '${mvpane 10}'
 
             bind -n M-Q killw
             bind -n M-D detach

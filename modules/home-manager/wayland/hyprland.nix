@@ -24,10 +24,10 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
         debug.disable_logs = false;
 
         windowrule = [
-          "float, class:fzfMenu"
-          "size 50% 50%, class:fzfMenu"
-          "move 25% 25%, class:fzfMenu"
-          "tile, class:steam"
+          "float true, match:class fzfMenu"
+          "size 50% 50%, match:class fzfMenu"
+          "move 25% 25%, match:class fzfMenu"
+          "tile true, match:class steam"
         ];
 
         animation = [
@@ -91,12 +91,12 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
 
         bindl = [
           ", XF86AudioMute, execr, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc prev"
-          ", XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc next"
-          "SHIFT, XF86AudioPrev, execr, ${pkgs.mpc-cli}/bin/mpc volume -5"
-          "SHIFT, XF86AudioNext, execr, ${pkgs.mpc-cli}/bin/mpc volume +5"
-          ", XF86AudioStop, execr, ${pkgs.mpc-cli}/bin/mpc stop"
-          ", XF86AudioPlay, execr, ${pkgs.mpc-cli}/bin/mpc toggle"
+          ", XF86AudioPrev, execr, ${pkgs.mpc}/bin/mpc prev"
+          ", XF86AudioNext, execr, ${pkgs.mpc}/bin/mpc next"
+          "SHIFT, XF86AudioPrev, execr, ${pkgs.mpc}/bin/mpc volume -5"
+          "SHIFT, XF86AudioNext, execr, ${pkgs.mpc}/bin/mpc volume +5"
+          ", XF86AudioStop, execr, ${pkgs.mpc}/bin/mpc stop"
+          ", XF86AudioPlay, execr, ${pkgs.mpc}/bin/mpc toggle"
         ];
 
         bindel = [
@@ -133,6 +133,6 @@ lib.mkIf config.wayland.windowManager.hyprland.enable {
 
   programs.zsh.profileExtra = ''
     ${pkgs.uwsm}/bin/uwsm check may-start > /dev/null \
-    	&& exec ${pkgs.uwsm}/bin/uwsm start -S -- hyprland-uwsm.desktop
+    	&& ${pkgs.uwsm}/bin/uwsm start -- hyprland-uwsm.desktop
   '';
 }

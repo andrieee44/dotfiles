@@ -11,7 +11,7 @@
     extraOptions = ''
       builders-use-substitutes = true
       experimental-features = nix-command flakes
-      builders = ssh-ng://builder@192.168.100.7
+      builders = ssh-ng://builder@192.168.1.101
     '';
   };
 
